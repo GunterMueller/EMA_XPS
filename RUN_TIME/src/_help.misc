@@ -1,0 +1,74 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _help.misc    Hans Groschwitz        19.07.95   !!
+!!                 Stephan Peters                    !!
+!!                 Frans Ceelen           18.04.96   !!
+!!                                                   !!
+!!   Functions to build the misc-editor.             !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#ifdef __english
+>MISCELANEOUS-EDITOR
+.The Miscelaneous-Editor
+.=======================
+.
+.This tool enables editing of all constructs, which
+.are not covered by the other specialized editors.
+.Macro and LISP function definitions, as well as global 
+.variable definitions should be placed here, if they
+.cannot be avoided.
+.To select the respective knowledge base you have to
+.click on the field with the label "Knowledge Base".
+.
+.The Edit menu:
+.
+.- Apply these Constructs...
+.       The modified constructs will be transfered into
+.       the knowledge base.
+.- Undo Changes 
+.       The old constructs` definitions are reloaded
+.       from the knowledge base.
+.
+.Such modifications of these remaining constructs, which
+.aren`t yet updated in the KB, are displayed by an 
+.exclamation mark in the top right corner.
+.
+.Help on the syntax of babylon- and lisp-expressions 
+.can be requested by placing the text cursor into a
+.word in the text fields of the editors, followed by
+.a keypress on the [Help]-Button [F1].
+. 
+#else
+>SONSTIGES-EDITOR
+.Der Sonstiges-Editor
+.====================
+.
+.Mit diesem Editor k\366nnen alle Konstrukte bearbeitet
+.werden, die von keinem anderen spezialisierten Editor 
+.bereits abgedeckt werden, wie z.B. die Definition von
+.Makros, Funktionen und globalen Variablen.
+.Zur Auswahl der betreffenden Wissensbasis ist das Feld
+.neben dem Label "Wissensbasis" anzuklicken.
+.
+.Das Bearbeiten-Men\374:
+.
+.- Diese Konstrukte \374bernehmen...  
+.       Die ge\344nderten Konstrukte werden an die Wissens-
+.       basis \374bergeben.
+.- \304nderungen zur\374cknehmen...      
+.       Es werden wieder die unbearbeiteten Konstrukte
+.       geladen.
+.
+.Wenn die Konstrukte ver\344ndert wurden und diese \304nder-
+.ung noch nicht in die Wissensbasis \374bernommen wurde, so 
+.wird dies durch ein Ausrufzeichen in der rechten oberen
+.Ecke angezeigt. 
+.
+.Durch Anw\344hlen eines Wortes in den Textfeldern der
+.Editoren mit dem Textcursor und anschlie\337endes Dr\374cken
+.des [Hilfe]-Knopfes [F1] kann Hilfe zur Syntax der
+.Babylon- und LISP-Ausdr\374cke abgerufen werden.
+.
+#endif
+
+!!! EOF

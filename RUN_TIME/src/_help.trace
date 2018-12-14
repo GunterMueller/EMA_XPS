@@ -1,0 +1,45 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _help.trace   Hans Groschwitz        19.07.95   !!
+!!                 Karsten Vossberg                  !!
+!!                                                   !!
+!!   Functions to build the tracer.                  !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+>TRACER
+#ifdef __english
+.The Tracer
+.==========
+.
+.The tracer enables monitoring the activities of the
+.task, system, rule, prolog, and consat(constraint)
+.activities of the Babylon2 inference engine. 
+.
+.The verbosity of those outputs may be toggled.
+.
+.The [Tracer]-submenu entry [Clear] erases the contents of
+.the output window of the tracer.
+.
+.The name of the current knowledge base is displayed in
+.the menu pane.
+.
+#else
+.Der Tracer
+.==========
+.
+.Mit dem Tracer k\366nnen Task-, System-, Rule-, Prolog-
+.und Consat(Constraint)-Aktivit\344ten der Babylon2-Infe-
+.renzmaschine angezeigt werden.
+.
+.Die Menge an Ausgaben kann \374ber Schalter bestimmt
+.werden.
+.
+.Der [Tracer] Men\374unterpunkt [L\366schen] l\366scht den
+.Inhalt des Trace-Fensters.
+.
+.Der Name der aktuellen Wissensbasis wird in der Men\374-
+.kopfzeile angezeigt.
+.
+#endif
+
+!!! EOF

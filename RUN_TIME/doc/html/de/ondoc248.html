@@ -1,0 +1,49 @@
+<html><head><title>SET-GRAPHIC-BUTTON-SENSITIVITY</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc249.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc247.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>SET-GRAPHIC-BUTTON-SENSITIVITY</strong></font></center><p>
+
+<PRE>SET-GRAPHIC-BUTTON-SENSITIVITY
+==============================
+
+Syntax: (set-graphic-button-sensitivity 
+           &lt;babylon-push-button&gt; &lt;T | NIL&gt;)
+
+Diese Funktion macht den Push-Button empfindlich oder 
+unempfindlich. Der Standard-Wert ist T (empfindlich).
+
+Beispiel: &gt;(define-task SENSITIVE-DEMO-TASK
+              (interface)
+              :documentation &quot;Dies ist eine Demo&quot;
+              actions
+              (set-graphic-button-sensitivity
+              (get-window-element interface
+              &quot;GRAPHPB1&quot;) nil)
+              (kb-notify &quot;Der Graphic-Button ist 
+              unempfindlich ?~%&quot;)
+              (set-graphic-button-sensitivity
+              (get-window-element interface
+              &quot;GRAPHPB1&quot;) t)
+              (kb-notify &quot;Der Graphic-Button ist
+              wieder empfindlich ?~%&quot;))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc249.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc247.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- SET-GRAPHIC-BUTTON-SENSITIVITY done --!>

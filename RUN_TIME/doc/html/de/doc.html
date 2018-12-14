@@ -1,0 +1,3430 @@
+<HEAD><TITLE>EMA-XPS Softwarebeschreibung</TITLE></HEAD>
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<IMG align=left  SRC="EmaXpsIcon.gif">
+<IMG align=right SRC="EmaXpsIcon.gif">
+<CENTER><strong>
+<font size="6">
+Die grafische Expertensystemschale
+</font>
+<br>
+<font size="8">EMA-XPS
+</font></strong></CENTER>
+<br clear=all>
+
+<HR SIZE=6>
+
+
+
+
+<!--------------------------------------------------------->
+<p>
+<A HREF="../startseite.html"><IMG SRC="GoToTop.gif"></A>
+<strong><font size="8">
+<A NAME="inhalt">Softwarebeschreibung</A>
+</strong></font>
+<p>
+<!--------------------------------------------------------->
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+Inhaltsverzeichnis
+</H2>
+<!--------------------------------------------------------->
+
+
+<MENU>   <A HREF=#hdl_1_0>1.    Anla&szlig; dieser Arbeit und Entwicklungsgeschichte der Expertensystemschale Babylon</A>
+</MENU>
+
+<MENU>   <A HREF=#hdl_2_0>2.    Konzept einer Zwei-Proze&szlig;-L&ouml;sung</A>
+ <DD>    <A HREF=#hdl_2_1>2.1   Vorgaben und Zw&auml;nge im Vorfeld der Konzeptbildung</A>
+ <DD>    <A HREF=#hdl_2_2>2.2   UNIX und seine M&ouml;glichkeiten der Interproze&szlig;kommunikation</A>
+ <DD>    <A HREF=#hdl_2_3>2.3   Interaktive Grafik</A>
+ <DD>    <A HREF=#hdl_2_4>2.4   Das X Window System</A>
+ <DD>    <A HREF=#hdl_2_5>2.5   Aufl&ouml;sung des Konflikts sequentieller mit ereignisorientierter Programmierung am Beispiel der laboreigenen Liniengrafik xgrf3</A>
+ <DD>    <A HREF=#hdl_2_6>2.6   Das Terminalemulationsprogramm xterm</A>
+ <DD>    <A HREF=#hdl_2_7>2.7   Notwendigkeit preemptiven Multitaskings zur Vermeidung der Reimplementierung der Inferenzmaschine von Babylon-2</A>
+</MENU>
+
+<MENU>   <A HREF=#hdl_3_0>3.    Die Schale EMA-XPS v1</A>
+ <DD>    <A HREF=#hdl_3_1>3.1   Modularer Aufbau der Schale Babylon-2</A>
+ <DD>    <A HREF=#hdl_3_2>3.2   Mensch-Maschine-Schnittstelle von Babylon-2</A>
+ <DD>    <A HREF=#hdl_3_3>3.3   Interproze&szlig;-Kommunikation</A>
+ <DD>    <A HREF=#hdl_3_4>3.4   Wechselnde Master/Slave Beziehung</A>
+ <DD>    <A HREF=#hdl_3_5>3.5   Grafisches Erscheinungsbild</A>
+</MENU>
+
+<MENU>   <A HREF=#hdl_4_0>4.    Implementierung von EMA-XPS v2</A>
+ <DD>    <A HREF=#hdl_4_1>4.1   Toplevelloop von CLtL1 LISP-Implementierungen</A>
+ <DD>    <A HREF=#hdl_4_2>4.2   Virtuelle Kan&auml;le</A>
+ <DD>    <A HREF=#hdl_4_3>4.3   Zustandsmaschine als Beobachter des LISP-Prozesses</A>
+ <DD>    <A HREF=#hdl_4_4>4.4   <i>babylon</i>-3 Emulation</A>
+</MENU>
+
+<MENU>   <A HREF=#hdl_5_0>5.    Zusammenfassung</A>
+</MENU>
+
+<MENU>   <A HREF=#hdl_6_0>6.    Ausblick</A>
+</MENU>
+
+<P>
+
+<HR SIZE=6>
+
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_1_0">1. Anla&szlig; dieser Arbeit und Entwicklungsgeschichte
+   der Expertensystemschale Babylon</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Im   Jahr   1988  wurde  von  der  Forschungsvereinigung
+Antriebstechnik  (FVA),  einem  Teilbereich   des   Vereins
+Deutscher   Maschinen-   und   Anlagenbauer   (VDMA),   ein
+Forschungsvorhaben  ausgeschrieben,  mit  dem  Ziel,  einem
+projektierenden Ingenieur der Fachrichtung Maschinenbau bei
+der  Auslegung frequenzumrichterbetriebener Drehfeldmotoren
+Assistenz   anzubieten.   Zu  diesem   Zweck   sollte   ein
+Expertensystem  erstellt werden, mit dem der  Ingenieur  in
+einen   Dialog   tritt.   Mittels  zeitgem&auml;&szlig;er   grafischer
+Darstellungsm&ouml;glichkeiten    wird    Wissen    an    diesen
+weitergegeben  und  ihm  bei der Auslegung  assistiert.  Im
+Rahmen  der  FVA betreiben in erster Linie mittelst&auml;ndische
+Industrieunternehmen      Gemeinschaftsforschung.       Die
+Forschungsergebnisse stehen bevorzugt  den  Mitgliedsfirmen
+zur Verf&uuml;gung.
+
+<DD>
+   Auf  dem Software-Markt haben sich in den letzten Jahren
+Expertensystemschalen  etabliert, die  in  der  Lage  sind,
+gro&szlig;e  Wissensmengen  zu verarbeiten (Tabelle  P1).  Diese
+waren  bisher  bevorzugt  im Workstation-Bereich  angeboten
+worden, weil dort die Hardwarevoraussetzungen am ehesten zu
+erf&uuml;llen waren. Mittlerweile ist die Leistungsf&auml;higkeit der
+Personal Computer derart angestiegen, da&szlig; auch Portierungen
+auf diese Plattformen sinnvoll werden.
+
+<DD>
+   Mit  dem  Beginn des FVA-Vorhabens Ende 1989  waren  auf
+dem  PC-Sektor noch keine geeigneten Schalen verf&uuml;gbar, die
+die  zu  erwartenden Wissensmengen h&auml;tten handhaben k&ouml;nnen.
+Andererseits  waren  die vorhandenen Hardware-Resourcen  in
+den  einzelnen  Firmen zu bedienen, um Neuinvestitionen  zu
+vermeiden.  Daraus  ergab  sich die  Forderung  nach  einer
+leistungsf&auml;higen  Expertensystemschale,  die  im  Quelltext
+frei   verf&uuml;gbar   sein  sollte,  um  n&ouml;tigenfalls   selbst
+Portierungen  vornehmen  zu  k&ouml;nnen.  Weiterhin  mu&szlig;te  sie
+m&auml;chtig   genug   sein,   um  die  Wissensmengen   geeignet
+bearbeiten  zu  k&ouml;nnen. Schlie&szlig;lich sollte sie  grafikf&auml;hig
+sein,  um den Dialog mit dem Benutzer zeitgem&auml;&szlig; aufbereitet
+f&uuml;hren zu k&ouml;nnen.
+
+<DD>
+   Mit   der   Einschr&auml;nkung,  da&szlig;  die   Quelltexte   frei
+verf&uuml;gbar  sein sollten, war die Auswahlmenge bereits  sehr
+klein   geworden.   Die   Wahl   fiel   auf   die   hybride
+Expertensystemschale Babylon (Version 2.x) der Gesellschaft
+f&uuml;r  Mathematik und Datenverarbeitung (GMD). Sie ist in der
+Programmiersprache    CommonLISP   programmiert,    modular
+aufgebaut   und   bereits  an  viele  LISP-Implementationen
+angepa&szlig;t  worden.  Allerdings verzichtet Babylon  zugunsten
+der    leichten    Portierbarkeit   auf   eine    grafische
+Benutzerkommunikation.     Stattdessen     verwendet     es
+ausschlie&szlig;lich      den     Standardein-      und       den
+Standardausgabekanal [S2,S3].
+
+<DD>
+   Um  m&ouml;glichst  wenig  Projektzeit  f&uuml;r  die  eigentliche
+Wissenseingabe zu verlieren, galt es daher, ein Konzept  zu
+entwickeln,   mit   dem   unter   Umgehung   einer   gro&szlig;en
+&Uuml;berarbeitung    der   Quelltexte    der    Schale    diese
+Grafikf&auml;higkeit erg&auml;nzt werden k&ouml;nnte. Dieses Konzept  wird
+in den n&auml;chsten beiden Kapiteln dieser Arbeit vorgestellt.
+
+<DD>
+   Ende   1990  stellte  das  Softwarehaus  VW-GEDAS,   ein
+Unternehmen  der  Volkswagen-Gruppe,  das  Produkt  <em>babylon</em>
+(Version  3.x)  vor [S4]. Dieses Programm  wird  in  dieser
+Arbeit    durch   Kursivstellung   von   der    GMD-Version
+unterschieden.  Ausgehend von den  Quelltexten  der  Schale
+Babylon-2  ist dort eine komplette Neuprogrammierung  unter
+der   LISP-Implementierung  Allegro  CL  [P8]  sowie  deren
+Erweiterungen des Sprachstandards vorgenommen worden.  Dies
+verhindert   die  Nutzung  von  LISP-Interpretern   anderer
+Anbieter.  Es wurde entschieden, da&szlig; f&uuml;r das laufende  FVA-
+Vorhaben  sowie  f&uuml;r  zwei weitere bei der  FVA  anstehende
+Projekte   <em>babylon</em>  zum  Einsatz  kommen   soll,   da   ein
+Synergieeffekt f&uuml;r die einzelnen Mitgliedsfirmen  abzusehen
+war  und  ihnen die M&ouml;glichkeit des Langzeitsupports  durch
+GEDAS zur Verf&uuml;gung stand. Auch der Umstand, da&szlig; Volkswagen
+Mitglied der FVA ist, spielte hierbei eine Rolle.
+
+<DD>
+   Damit  wurde das Konzept der Grafikerweiterung  f&uuml;r  das
+laufende FVA-Vorhaben nicht mehr ben&ouml;tigt. Am Lehrstuhl f&uuml;r
+elektrische  Maschinen und Antriebe ist  das  Konzept  aber
+weiterentwickelt  worden. Diese  Arbeiten  f&uuml;hrten  zu  der
+grafischen dialogorientierten hybriden Expertensystemschale
+EMA-XPS [T1]. Sie stellt in der aktuellen Version 2.1 neben
+den  grafischen  M&ouml;glichkeiten  zur  Sitzungslaufzeit  auch
+grafische Editoren zur Wissenseingabe zur Verf&uuml;gung.
+
+<DD>
+   Angesichts der Rezession der letzten Jahre hat  man  bei
+VW    1994    entschieden,   kostenintensive   und    wenig
+gewinnversprechende  Projekte nicht l&auml;nger  weiterzuf&uuml;hren.
+Dazu geh&ouml;rt auch <EM>babylon</EM>-3. Nun bestand Bedarf f&uuml;r die FVA,
+zur  Sicherung  der Ergebnisse aus drei laufenden  Vorhaben
+eine  Ersatzschale zu beschaffen. EMA-XPS bot hierf&uuml;r  gute
+Voraussetzungen. Es mu&szlig;te dahin erweitert  werden,  da&szlig;  es
+die   von   der   GEDAS  eingebrachten  Erweiterungen   des
+Leistungsumfangs  der Schale nachbilden konnte.  Daher  ist
+die  Endbenutzerschnittstelle so umgearbeitet  worden,  da&szlig;
+sie  <EM>babylon</EM>-3 Sitzungen identisch darstellen  konnte.  Die
+Babylon-Query-Language  (BQL)  -  ein  Datenbankanwendungen
+&auml;hnlicher  Zugriff auf das Faktenwissen  -  ist  realisiert
+worden.  Um  im  Sinne der Sprachdefinition  von  <EM>babylon</EM>-3
+Tasks    abarbeiten   zu   k&ouml;nnen,   ist   die   Babylon-2-
+Inferenzmaschine  um einen Taskprozessor erweitert  worden.
+Da  viele  Konstrukte  nun zwar in  EMA-XPS  und  <EM>babylon</EM>-3
+verf&uuml;gbar  waren, aber unterschiedliche Syntax hatten,  war
+eine   Wissensbasis&uuml;bersetzung  notwendig  geworden.  Diese
+&Uuml;bersetzung  ist  mittlerweile in Form eines  automatischen
+Importfilters realisiert, das hei&szlig;t, EMA-XPS liest <EM>babylon</EM>-3
+Wissensbasen  direkt ein und wandelt  ihre  Bestandteile
+bereits  beim Laden in Babylon-2 Konstrukte um,  soda&szlig;  sie
+zur Sitzungszeit geeignet zur Verf&uuml;gung stehen.
+
+<DD>
+   EMA-XPS   ist   seit   kurzem   auch   erfolgreich   auf
+leistungsf&auml;hige  PC-Plattformen unter dem frei  verf&uuml;gbaren
+UNIX-Derivat  Linux 1.2 portiert worden  [U2].  Die  Schale
+steht im World Wide Web unter 
+
+<P>
+<ADDRESS><STRONG><CENTER>
+
+<a href="http://wmwap1.math.uni-wuppertal.de/EMA-XPS/"
+>http://wmwap1.math.uni-wuppertal.de/EMA-XPS/</a>
+
+</CENTER></STRONG></ADDRESS>
+<P>
+
+als  Quelltext-Distribution frei zur  Verf&uuml;gung.  Weiterhin
+liegen dort statisch gebundene Bin&auml;rversionen f&uuml;r Linux und
+SunOS   bereit.   Auf   diese   Weise   lassen   sich   die
+Lizenzgeb&uuml;hren f&uuml;r OSF/Motif vermeiden. Damit  ist  EMA-XPS
+bei   Verwendung  des  ebenfalls  frei  verf&uuml;gbaren   LISP-
+Interpreters CLISP komplett befreit von Lizenzgeb&uuml;hren.
+
+<DD>
+   Momentan    ist   ein   Entwicklerteam    dabei,    eine
+freiverf&uuml;gbare  Nachbildung  der  Motif-Oberfl&auml;chenelemente
+(Widgets) unter dem Namen Lesstif zu erstellen [U6].  Damit
+w&uuml;rden ebenfalls die Lizenzgeb&uuml;hren f&uuml;r Motif entfallen.
+
+<DD>
+   Bei    Verzicht    auf    Motif   wird    EMA-XPS    ein
+lizenzkostenfreies   Produkt.   Die   Nutzungsrechte   sind
+entsprechend  der X-Windows Copyright-Notiz  (f&uuml;r  X11  und
+Babylon-2.3),  der General Public License  (GPL)  der  Free
+Software  Foundation (EMA-XPS, gcc, clisp und Lesstif)  und
+des Linux-Betriebssystems (gr&ouml;&szlig;tenteils GPL) geregelt.
+
+
+<P>
+<CENTER>
+<TABLE WIDTH=550 BORDER CELLPADDING=5 CELLSPACING=2>
+<TR>
+ <TD>Pr&auml;sentation</TD>
+ <TD>vollfarbig</TD>
+ <TD>schwarz/wei&szlig;</TD>
+</TR><TR>
+ <TD>Sprache</TD>
+ <TD>deutsch</TD>
+ <TD>englisch</TD>
+</TR><TR>
+ <TD>Leistungsumfang</TD>
+ <TD>Vollversion</TD>
+ <TD>resourcenschonendere Laufzeitversion ohne
+     Wissenseingabem&ouml;glichkeiten</TD>
+</TR>
+</TABLE>
+</CENTER>
+<P>
+Tabelle S1: Auspr&auml;gungen von EMA-XPS
+<P>
+
+
+<DD>
+   Tabelle S1 schl&uuml;sselt die 8 Auspr&auml;gungen auf, in  denen
+EMA-XPS derzeit zur Verf&uuml;gung steht. Diese reichen von  der
+vollfarbigen,  deutschsprachigen Vollversion  bis  hin  zur
+englischsprachigen  Laufzeitversion,  optimiert   f&uuml;r   die
+Ausgabe   auf   monochromen  Bildschirmen.   Speziell   die
+grafische  Pr&auml;sentation  sowie  die  Wahl  der  Texte  wird
+ausschlie&szlig;lich    &uuml;ber    die    sogenannten     Xresourcen
+kontrolliert. Dabei handelt es sich um eine Eigenschaft des
+X-Window-Systems,  das Aussehen einer grafischen  Anwendung
+nach  ihrer Fertigstellung noch zu ver&auml;ndern (Kapitel 2.4).
+Daher   ist   es   sogar   bei   Vorliegen   einer   reinen
+Bin&auml;rdistribution  der Schale m&ouml;glich, beispielsweise  eine
+franz&ouml;sischsprachige  Version  nachtr&auml;glich  zu  erstellen,
+ohne C- oder LISP-seitig &Auml;nderungen vornehmen zu m&uuml;ssen.
+   
+<P>
+<DD>
+   Im  n&auml;chsten  Kapitel  wird ausgehend  von  den  bereits
+angesprochenen Vorgaben an die zu entwickelnde  Schale  die
+Konzeptbildung f&uuml;r eine Zwei-Proze&szlig;-L&ouml;sung beschrieben. Das
+daran  anschlie&szlig;ende Kapitel 3 stellt die Umsetzung  dieses
+Konzepts  in Form der ersten Version (v1) von EMA-XPS  vor.
+In  Kapitel 4 werden die Erfahrungen im Umgang mit  EMA-XPS
+v1    als    Ausgangsbasis   f&uuml;r   eine    stabilere    und
+resourcenschonendere  Version der  Interproze&szlig;kommunikation
+genommen. Es hat die eigentliche Implementierung  von  EMA-
+XPS  v2.1  zum  Thema.  Ausgehend  von  dem  &uuml;berarbeiteten
+Kernbereich   der   Interproze&szlig;kommunikation   werden   die
+M&ouml;glichkeiten        zur        Ausgestaltung         einer
+Endbenutzerschnittstelle          vorgestellt.          Die
+Wissenseingabem&ouml;glichkeiten   und   die   Einbindung    der
+zugeh&ouml;rigen Editoren in die Konzeption werden beleuchtet.
+
+<DD>
+   Schlie&szlig;lich wird auf die Erweiterungen zum Einlesen  von
+<EM>babylon</EM>-3  Wissensbasen  eingegangen.  
+   
+
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_2_0">2. Konzept einer Zwei-Proze&szlig;-L&ouml;sung</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_2_1">2.1 Vorgaben und Zw&auml;nge im Vorfeld der Konzeptbildung</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+   
+
+<DD>
+   Wie  in  Kapitel 1 einleitend erl&auml;utert, war  die  erste
+und  vordringliche  Vorgabe,  gro&szlig;e  Mengen  an  Wissen  zu
+verarbeiten.   Damit  war  eine  Vorentscheidung   hin   zu
+leistungsst&auml;rkerer Hardware gefallen, die  eine  Festlegung
+auf  Multitasking-Betriebssysteme wie das  propriet&auml;re  VMS
+[U7] oder UNIX [U1] bedeutete. VMS wird ausschlie&szlig;lich  auf
+den  VAX-Rechnern  der  Firma DEC  angeboten,  die  meisten
+anderen   Plattformen  werden  dagegen  mit  UNIX-Derivaten
+betrieben.   Die  Gesamtzahl  der  VMS-Installationen   ist
+demgem&auml;&szlig;  im  Verh&auml;ltnis zu den UNIX-Installationen  klein.
+Dieser  Prozentsatz sinkt derzeit weiter, da die Gesamtzahl
+der  Plattformen dieser Leistungsklasse stark ansteigt  und
+Neuinstallationen zumeist UNIX verwenden.  Daher  galt  die
+erste  Beschr&auml;nkung, im weiteren nur die  unterschiedlichen
+UNIX-Varianten zu ber&uuml;cksichtigen.
+
+<DD>
+   Weiterhin  sollte eine Schale zum Einsatz kommen,  deren
+Quelltexte  vorhanden sind. Dies ist die Voraussetzung,  um
+auf  eine  Vielzahl unterschiedlicher Plattformen portieren
+zu  k&ouml;nnen. Die Wahl fiel auf Babylon-2, weil diese  Schale
+bereits   portabel  programmiert  worden   war.   Babylon-2
+verzichtet   zugunsten  leichter  Portabilit&auml;t   auf   eine
+grafische Oberfl&auml;che. Im Bem&uuml;hen, eine grafische Oberfl&auml;che
+zu  realisieren, ist man unter UNIX auf das X-Window-System
+festgelegt.   Unter  X-Windows  gibt  es   unterschiedliche
+Fensterbibliotheken,  die in typischer  Weise  die  Gestalt
+einer  Anwendung pr&auml;gen. Neben den frei verf&uuml;gbaren Athena-
+Widgets, die Bestand der X-Windows sind, gibt es auch OPEN-
+LOOK  (seit  X11R5  ebenfalls  Bestandteil  der  X-Windows-
+Distribution) und OSF/Motif, f&uuml;r das Lizenzgeb&uuml;hren erhoben
+werden  [U3-U5].  Aufgrund der hohen Akzeptanz  der  Apple-
+Macintosh  Oberfl&auml;che und der MS-Windows f&uuml;r PCs  fiel  die
+Entscheidung  zugunsten des den MS-Windows  nachempfundenen
+Motif-Widget-Sets.
+
+<DD>
+   Die    meisten   CommonLISP-Interpreter    unter    UNIX
+unterst&uuml;tzen  die  LISP-Schnittstelle  zum  X-Window-System
+(CLX), die ebenfalls Bestandteil der X-Windows-Distribution
+ist.   Damit   ist   man  in  der  Lage,   auch   in   LISP
+Grafikanwendungen  zu  erstellen.  Leider  existiert  keine
+entsprechende     Schnittstelle    zur    Motif-Bibliothek.
+Andererseits stehen f&uuml;r die Programmiersprache  ANSI-C  die
+entsprechenden  genormten Funktionsaufrufe  zur  Verf&uuml;gung,
+was f&uuml;r eine leichte Portabilit&auml;t Voraussetzung ist.
+
+<DD>
+   Viele      LISP-Interpreter     bieten      individuelle
+Erweiterungen des Sprachumfangs an, wie beispielsweise  ein
+Socket-Interface, um direkt das Rechner-Netzwerk ansprechen
+zu k&ouml;nnen. Auch sind sogenannte Foreign-Function-Interfaces
+weit   verbreitet,   mit   deren   Hilfe   von   LISP   aus
+Bibliotheksfunktionen   aktiviert   werden   k&ouml;nnen,    die
+beispielsweise in ANSI-C erstellt sein m&ouml;gen. Weil  dadurch
+bei der Programmierung eine Festlegung auf einen bestimmten
+LISP-Anbieter   notwendig  geworden  w&auml;re   -   und   nicht
+garantiert werden kann, da&szlig; dieser alle in Frage  kommenden
+Plattformen  unterst&uuml;tzt - war von derartigen Erweiterungen
+Abstand genommen worden.
+
+<DD>
+   Zu  der  Zeit, in der Babylon-2 entwickelt  worden  ist,
+gab es den CLOS-Standard noch nicht. Bei der GMD wurde auch
+im  Bereich objektorientierter Sprachen geforscht. Man  hat
+dort  das  Meta Class System (MCS) definiert,  eine  eigene
+objektorientierte  LISP-Erweiterung  [P15].  Das  MCS   ist
+Bestandteil  der  Babylon-Quelltexte.  Babylon  selbst  ist
+durchgehend  objektorientiert programmiert worden.  Bedingt
+durch  den  Umstand,  da&szlig; die Quelltexte  in  einer  CLtL1-
+Umgebung entwickelt worden sind, und weil CLtL1 vereinfacht
+als  eine  Untermenge von CLtL2 angesehen werden kann,  ist
+mit  der  Beschr&auml;nkung auf die Sprachfestlegung CLtL1  eine
+gr&ouml;&szlig;ere    Zahl   von   LISP-Interpretern   unter   EMA-XPS
+verwendbar.  Dies kommt beispielsweise &auml;lteren  Plattformen
+zugute,  bei  denen  eine  Software-Aufr&uuml;stung  nicht  mehr
+sinnvoll ist.
+
+<DD>
+   Damit   sind   die   Hard-  und  Softwarevoraussetzungen
+festgelegt, unter denen das Konzept f&uuml;r EMA-XPS  entwickelt
+worden ist:
+
+
+<P>
+<CENTER>
+<TABLE WIDTH=550 BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<LI>eine Graphic-Workstation
+</TD></TR>
+<TR><TD>
+<LI>ein Derivat des UNIX Betriebssystems (mit den unter UNIX
+    vorhandenen M&ouml;glichkeiten der Interproze&szlig;kommunikation)
+</TD></TR>
+<TR><TD>
+<LI>das X-Window System
+</TD></TR>
+<TR><TD>
+<LI>die OSF/Motif Fensterbibliothek
+</TD></TR>
+<TR><TD>
+<LI>ein ANSI-C Compiler
+</TD></TR>
+<TR><TD>
+<LI>ein CLtL1 kompatibler CommonLISP Interpreter
+</TD></TR>
+<TR><TD>
+<LI>die CommonLISP Quelltexte von Babylon-2.3
+</TD></TR>
+</TABLE>
+</CENTER>
+<P>
+Tabelle S2: Hard- und Softwarevorraussetzungen von EMA-XPS
+<P>
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_2_2">2.2 UNIX und seine M&ouml;glichkeiten der
+   Interproze&szlig;kommunikation</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Ende   der   sechziger  Jahre  wurde  in  Zusammenarbeit
+zwischen  dem Massachusetts Institute of Technology  (MIT),
+den    Bell   Laboratories   und   General   Electric   ein
+Betriebssystem f&uuml;r den Multi-User-Einsatz (MULTICS) geplant
+und  entwickelt.  Es  sollten mehrere  Aufgaben  quasi  zur
+gleichen Zeit abgearbeitet werden k&ouml;nnen. Dies sollte durch
+Aufteilung  der  gesamten  Rechenleistung  in  Zeitscheiben
+erfolgen,  in  denen der Rechner abwechselnd die  einzelnen
+Aufgaben  bearbeitet.  Da sich schnell  herausstellte,  da&szlig;
+MULTICS  zu  langsam war, wurden die Aktivit&auml;ten  bei  Bell
+eingestellt. Um ein laufendes Forschungsvorhaben  von  Bell
+nicht   zu  gef&auml;hrden,  mu&szlig;te  K.  Thompson  einen   Ausweg
+schaffen,  indem  er die von MULTICS ben&ouml;tigten  Teile  auf
+einer   DEC  PDP-7  implementierte.  Der  Name  f&uuml;r   diese
+Implementierung ergab sich aus UNI (f&uuml;r unified conception)
+und der Endung CS, die in X verk&uuml;rzt wurde. Er soll von  B.
+W.  Kernighan  erdacht  worden sein.  In  1971  wurde  eine
+Anpassung auf die leistungsst&auml;rkere PDP-11 vorgenommen, die
+in den siebziger Jahren sehr popul&auml;r war.
+
+<DD>
+   Eine   zweite   Version  des  UNIX-Betriebssystems   mit
+Interproze&szlig;kommunikationskan&auml;len   erschien   1972.    Eine
+vollst&auml;ndig   neu   in   der  eigens   daf&uuml;r   entwickelten
+Hochsprache  C geschreibene Version wurde 1973  von  D.  M.
+Ritchie  und  K.  Thompson fertiggestellt.  Die  Prinzipien
+wurden  1974  ver&ouml;ffentlicht  und  weckten  gerade  an  den
+Universit&auml;ten gro&szlig;es Interesse an diesem neuen System. Bell
+entschied  sich  daher,  die  n&auml;chste  Release  (gem&auml;&szlig;  der
+Versionsnummer   der  Manuals  Version   6   genannt)   den
+Universit&auml;ten f&uuml;r ausschlie&szlig;lich wissenschaftliche  Nutzung
+kostenlos   zur  Verf&uuml;gung  zu  stellen.   V7   stand   den
+Universit&auml;ten ab 1979 zur Verf&uuml;gung.
+
+<DD>
+   Bereits  1976 begann an der University of California  at
+Berkeley  (UCB)  ein gr&ouml;&szlig;eres Entwicklungsvorhaben  in  der
+Gruppe um B. Joy, C. Haley und K. Thompson, das eine eigene
+erweiterte  Linie von UNIX Systemen zur Folge  hatte.  1978
+wurde    eine    32-Bit    Version   des    Betriebssystems
+herausgebracht. 1979 wurden die Ergebnisse dieser  Arbeiten
+unter   dem   Namen   Release  3  BSD  (Berkeley   Software
+Distribution)  der &Ouml;ffentlichkeit vorgestellt.  3BSD  besa&szlig;
+erstmalig eine virtuelle Speicherverwaltung. Es folgten die
+Versionen  4BSD, 4.1BSD, 4.2BSD und 4.3BSD. Diese Versionen
+standen  ebenfalls den Universit&auml;ten zur  Verf&uuml;gung,  waren
+aber  nicht f&uuml;r die kommerzielle Verwendung vorgesehen.  Ab
+Version 4.1 standen ein schnelles Dateisystem, Disk  Quotas
+und  das  TCP/IP  Socket  Interface zur  Verf&uuml;gung,  4.3BSD
+unterst&uuml;tzt  auch  TCP/IP-Subnetze und  Routing  [U9,  U10,
+U17].
+
+<DD>
+   AT&T  Bell  erkannte  das  kommerzielle  Potential   und
+brachte  mit System III das erste System heraus, das  nicht
+den  Universit&auml;ten zur Verf&uuml;gung gestellt wurde. Dem folgte
+1983  das  System V. Dieses ist weiterentwickeltworden  und
+steht  heute in den Versionen SVR2, SVR3, SVR4, SVR4.1  und
+SVR4.2 zur Verf&uuml;gung.
+
+<DD>
+   Auch   andere   kommerzielle  Anbieter  brachten   UNIX-
+&auml;hnliche   Betriebssysteme  heraus,  bei  denen  hauseigene
+Systembesonderheiten     teilweise     deutliche     Spuren
+hinterlassen haben. Einige der heute verf&uuml;gbaren,  g&auml;ngigen
+Systeme  sind:  SunOS, Solaris, ULTRIX, AIX,  IRIX,  HP-UX,
+NeXTStep,  Coherent,  XENIX und OSF/1.  Diese  Vielzahl  an
+plattformoptimierten Systemvarianten hat  UNIX  seit  Mitte
+der   80er  Jahre  zum  verbreitetsten  Betriebssystem  f&uuml;r
+Workstations gemacht.
+
+<DD>
+   Bild  S1  verdeutlicht  die  Entstehungsgeschichte  der
+UNIX-Betriebssystemvarianten [U1, U8, U10, U19].
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S1.gif">
+</CENTER>
+<P>
+Bild S1: Stammbaum der UNIX-Betriebssystemvarianten
+<P>
+
+
+
+<DD>
+   UNIX  war  von Anfang an als ein Multiuserbetriebssystem
+konzipiert  worden, das preemptives Multitasking verwendet,
+um   unterschiedliche  Prozesse  der  CPU  zuzuteilen.  Die
+Proze&szlig;zuteilung   regelt   der   Scheduler    nach    einer
+priorit&auml;tenorientierten Vergabestrategie. H&ouml;herpriorisierte
+Prozesse  werden bevorzugt bedient, gleichwertige  Prozesse
+werden  der Reihe nach jeweils maximal f&uuml;r die Dauer  einer
+Zeitscheibe aktiviert und danach wieder unterbrochen,  ohne
+da&szlig; die anderen Prozesse davon ber&uuml;hrt werden. Dies bewirkt
+eine   pseudoparallele  Abarbeitung  der  unterschiedlichen
+Aufgaben  und  unterscheidet sich somit beispielsweise  vom
+kooperativen Multitasking der MS-Windows, bei  denen  jeder
+Proze&szlig;  selbst  entscheidet, wann er  die  CPU  wieder  zum
+Vorteil anderer Prozesse freigibt (siehe auch Kapitel 2.7).
+
+<DD>
+   UNIX   hat   bereits   sehr   fr&uuml;h   M&ouml;glichkeiten   der
+Interproze&szlig;kommunikation     zum      Informationsaustausch
+bereitgestellt.  Dies schlie&szlig;t die Kommunikation  &uuml;ber  ein
+Rechnernetzwerk  hinweg mit Prozessen auf anderen  Rechnern
+ein.  UNIX beruht auf einem Mehrschichtenmodell, in  dessen
+Kern   der   Kernel   sitzt,  der   den   Zugang   zu   den
+Hardwareresourcen kontrolliert. Die Prozesse k&ouml;nnen  Ger&auml;te
+also immer nur indirekt ansprechen, die sich ihnen abstrakt
+pr&auml;sentieren.    Mit   der   Einf&uuml;hrung   des    virtuellen
+Speichermanagements  ist die vollst&auml;ndige  Entkopplung  der
+Prozesse  erreicht worden. Jeder Proze&szlig; existiert in  einem
+eigenen  in sich geschlossenen Datenraum. Ihm stehen  keine
+Informationen zur Verf&uuml;gung, die ihm Informationen &uuml;ber den
+Zustand  eines  anderen  gerade  aktiven  Prozesses   geben
+k&ouml;nnten.  Die Abarbeitung geschieht asynchron. Da  Prozesse
+mitunter Daten miteinander austauschen und sich aufeinander
+synchronisieren m&uuml;ssen, ist eine teilweise Aufhebung dieser
+Entkoppelung vorgesehen worden. Diese M&ouml;glichkeiten  sollen
+im weiteren vorgestellt werden.
+
+<DD>
+   Der  Scheduler  ist  als &uuml;bergeordnete  Instanz  in  der
+Lage, <strong>Signale</strong> an die einzelnen Prozesse zu versenden.  Dies
+l&auml;&szlig;t  sich am ehesten mit einem Hardware-Interrupt in einer
+Einproze&szlig;umgebung vergleichen. Der Proze&szlig; sieht  f&uuml;r  jedes
+m&ouml;gliche  Signal  ein Antwortverhalten vor.  Beispielsweise
+teilt  der  Scheduler einem Elternproze&szlig;  das  Enden  eines
+seiner  Kindprozesse mit, also von Prozessen, die  von  ihm
+gestartet  worden  sind.  So  kann  ein  Proze&szlig;  ein   Kind
+aktivieren,  das eine Teilaufgabe erf&uuml;llt  und  auf  dessen
+Ergebnis  gewartet  wird.  Der  aufrufende  Proze&szlig;  erf&auml;hrt
+dadurch,  wann  diese  Ergebnisse  beispielsweise  in  Form
+beschriebener Dateien bereitstehen. Ein Proze&szlig; A kann  aber
+auch  einem  Proze&szlig; B ein Signal zukommen  lassen.  Da  die
+Anzahl der unterschiedlichen Signalarten sehr begrenzt ist,
+ist  damit zwar eine schnelle Synchronisierung m&ouml;glich, der
+Datenaustausch  mu&szlig; aber mit anderen Mitteln bewerkstelligt
+werden.
+
+<DD>
+   Das   UNIX-Dateisystem  ist  so  organisiert,  da&szlig;  eine
+Datei, die ein Proze&szlig; zum Schreiben ge&ouml;ffnet hat, nicht von
+einem  anderen Proze&szlig; zum Schreiben ge&ouml;ffnet  werden  kann.
+Dieses <strong>Filelocking</strong> kann ebenfalls f&uuml;r eine Synchronisierung
+genutzt  werden.  Da es das langsame Dateisystem  ben&ouml;tigt,
+sollte  es  nicht  f&uuml;r  h&auml;ufiges Synchronisieren  verwendet
+werden.  Der Proze&szlig; wird beim Versuch, auf eine verriegelte
+Datei zuzugreifen, unterbrochen. Erst wenn die Verriegelung
+aufgehoben ist, wird der Proze&szlig; fortgesetzt.
+
+<DD>
+   Der  schnellste Datenaustausch wird dadurch  erm&ouml;glicht,
+da&szlig;   ein  Bereich  des  physikalischen  RAM-Speichers  der
+virtuellen  Speicherverwaltung entzogen wird  und  mehreren
+Prozessen  als  gemeinsamer Datenbereich (<strong>shared  memory</strong>)
+zugeordnet  wird.  Hierin lassen sich beispielsweise  FIFOs
+(First In First Out) in Form von Ringpuffern aufbauen.  Zur
+Synchronisierung   mu&szlig;   der   Proze&szlig;   st&auml;ndig   relevante
+&Auml;nderungen  des Speicherinhalts &uuml;berwachen (polling).  Dies
+erfordert  Rechenleistung. Gemeinsam genutzte Datenbereiche
+sollten  nur in kleinen Mengen angefordert werden, weil  es
+den  Wirkungsgrad  der Speicherverwaltung mindert.  Hierbei
+handelt   es  sich  um  Speicher,  der  explizit   an   das
+Betriebssystem  zur&uuml;ckgegeben werden mu&szlig; im  Gegensatz  zum
+virtuellen  Adressraum  jedes  Prozesses  [U11].  Gemeinsam
+genutzte  Datenbereiche entsprechen am ehesten einem  Dual-
+Port-RAM   in   reinen   Hardwarel&ouml;sungen.   Die   neuesten
+Auspr&auml;gungen von UNIX unterscheiden zwischen Prozessen  und
+Threads.  Threads entstehen durch Gabelung eines  Prozesses
+in   mehrere  identische  Abbilder,  die  dann   aber   den
+urspr&uuml;nglich   zugewiesenen   Adressraum   des    Prozesses
+gemeinsam nutzen.
+
+<DD>
+   Eine  klassische  Form  der Proze&szlig;synchronisierung  sind
+<strong>Semaphorvariablen</strong>. Sie wurde Mitte der 60er Jahre  von  E.
+W.  Dijkstra  entwickelt [P11]. Dabei handelt  es  sich  um
+Integer-Variablen  in  einem  Sharable-Memory  Bereich  des
+Kernels,  die  jeweils eine ganzzahlige Zahl enthalten.  Es
+existieren  nur  3  erlaubte Operationen:  Initialisierung,
+Signal  und  Wait. Ist der Wert der Semaphore gr&ouml;&szlig;er  Null,
+wird er durch ein Wait dekrementiert. Wird der Wert dadurch
+kleiner  oder  gleich  Null, wird  der  Proze&szlig;  angehalten.
+Signal  degegen &uuml;berpr&uuml;ft, ob andere Prozesse  warten.  Ist
+dies   der   Fall,  darf  einer  der  Prozesse  fortfahren,
+andernfalls  wird der Wert inkrementiert. Damit  l&auml;&szlig;t  sich
+die   korrekte  Abarbeitung  kritischer  Abschnitte   einer
+komplexen  Aufgabe  sicherstellen. Andererseits  kann  eine
+ungeschickte  Verwendung  dieses Mechanismus  leicht  einen
+Deadlock  hervorrufen. Dann warten die betroffenen Prozesse
+unendlich  lange  darauf, da&szlig; der andere die  Freischaltung
+bewirkt.  Ein weiteres Verst&auml;ndnis von Semaphoren wird  f&uuml;r
+diese  Arbeit  nicht  ben&ouml;tigt, daher  wird  hier  auf  ein
+detailiertes Eingehen verzichtet.
+
+<DD>
+   <strong>Pipelines</strong>  sind  spezielle Dateien. Sie  werden  zweimal
+ge&ouml;ffnet.  Einmal  nur  zum  Lesen  und  einmal   nur   zum
+Schreiben.  Damit steht auf dem Umweg &uuml;ber das  Dateisystem
+ebenfalls   ein   FIFO-Mechanismus  zur   Verf&uuml;gung.   UNIX
+unterscheidet zwischen named und unnamed Pipes. Named pipes
+erhalten  zus&auml;tzlich einen Eintrag in den  Verzeichnisbaum.
+Dies  ist  vorteilhaft, wenn ein anderer  Proze&szlig;  ein  Ende
+dieser  FIFO  &ouml;ffnen will, der nicht aus dem  ersten  durch
+Gabelung  (fork)  hervorgegangen  ist.  Pipes  werden   als
+Sockets  der  Adressfamilie  AF_UNIX  realisiert,  die  das
+loopback-Interface nutzen.
+
+<DD>
+   <strong>Sockets</strong>  bieten  auf  der Basis des  Internet-Protokolls
+(IP) Zugang zum Rechnernetzwerk Internet. UNIX-Rechner, die
+nicht  als  Router  oder  Gateways  eingesetzt  werden,  um
+Teilnetze  miteinander  zu  verbinden,  haben  genau   eine
+Rechneradresse   der   Adressfamilie   AF_INET   f&uuml;r    die
+Kommunikation  mit  anderen Rechnern im  Netzwerk  und  die
+spezielle  Adresse  127.0.0.1  f&uuml;r  das  loopback-Interface
+(AF_UNIX). Damit k&ouml;nnen Netzanfragen, die an Ports auf  dem
+eigenen   Rechner  gerichtet  sind,  schneller   bearbeitet
+werden.  Pro  Rechneradresse existieren 216 = 65536  Ports.
+Die  ersten  1024  Ports sind privilegiert  und  speziellen
+Aufgaben      vorbehalten.     Die      anderen      stehen
+Anwendungsprogrammieren zur Verf&uuml;gung. Trotzdem sollten die
+Portnummern  nicht beliebig gew&auml;hlt werden.  Beispielsweise
+h&ouml;rt  der  Xserver  am  Port 6000, ob sich  X-Windows-Applikationen
+  anmelden  wollen. Detailiertere  Informationen  -
+auch  zum  Transport Control Protocol  (TCP),  das  auf  IP
+aufsetzt - sind in [U9, U10, U17] zu finden.
+
+<DD>
+   Unter  System  V  steht heute auch ein <strong>Streams</strong>-Interface
+zur  Verf&uuml;gung,  das als ein abstrakterer  und  eleganterer
+Zugang zu IPC-Kan&auml;len angesehen werden kann.
+
+<DD>
+   <strong>Pseudo-Teletypes</strong>    stellen    eine    leistungsf&auml;higere
+Variante   von  FIFOs  dar.  Pseudo-Teletypes  bilden   das
+Verhalten  von Teletypes nach. Ein Teletype (TTY)  ist  ein
+Ger&auml;t,  hinter dem ein Text-Terminal vermutet wird, wie  in
+Bild S2 dargestellt.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S2.gif">
+</CENTER>
+<P>
+Bild S2: Mensch-Maschine-Kommunikation &uuml;ber eine Teletype
+<P>
+
+
+
+<DD>
+   UNIX   ist  als  Mehrbenutzersystem  konzipiert  worden.
+Demgem&auml;&szlig;  sollen  mehrere  Menschen  gleichzeitig  mit  dem
+System  kommunizieren k&ouml;nnen. Jeder Benutzer ben&ouml;tigt  dazu
+einen  eigenen Arbeitsplatz. Dies kann durch Text-Terminals
+geschehen.  Diese  werden beispielsweise mittels  serieller
+RS232-Schnittstellen  mit dem UNIX-Rechner  verbunden.  Die
+SIO-Hardware  (<strong>S</strong>erial  <strong>I</strong>nput and
+<strong>O</strong>utput  Device)  wird  von
+einem Treiber bedient, der Bestandteil des Kernels ist. Der
+Proze&szlig;  wird durch &Ouml;ffnen einer Ger&auml;tedatei zum  Lesen  und
+Schreiben  (im  Bild  /dev/tty1)  mit  dem  Ger&auml;t  (Device)
+verbunden. Dies erledigt pro Teletype-Verbindung der <em>getty</em>-
+Proze&szlig;,  ein  Kind des Urstart-Prozesses <em>init</em>.  Er  startet
+einen    <em>login</em>-Proze&szlig;,    der    wiederum    durch    einen
+Kommandozeileninterpreter  (hier  /bin/sh)  ersetzt   wird,
+sobald der Benutzer sich geeignet ausgewiesen hat. Mit  dem
+Beenden   dieses  Interpreters  (Shell)  ist  eine  Sitzung
+beendet und <em>getty</em> aktiviert erneut <em>login</em>.
+
+<DD>
+   Dr&uuml;ckt  der  Benutzer die Taste "d", wird der  Code  des
+Zeichens vom Terminal &uuml;ber die Schnittstelle an den Treiber
+gesandt. Dieser sendet, sofern er in ECHO-Betriebsart  ist,
+dieses Zeichen an das Terminal zur&uuml;ck, das ein "d" auf  dem
+Display  darstellt.  In  der  RAW-Betriebsart  wird  dieses
+Zeichen  dann auch sofort an den Proze&szlig; weitergeleitet.  In
+COOKED-Einstellung dagegen wird das Zeichen gepuffert,  bis
+eine Zeile komplettiert worden ist, also die Wagenr&uuml;cklauf-
+Taste   (CR)   gedr&uuml;ckt   ist.  Dann   erst   werden   alle
+aufgelaufenen Zeichen gesandt und der Puffer geleert.  Dies
+ist die &uuml;bliche Betriebsart. Wahlweise kann CR als CR, Neue-
+Zeile  (NL)  oder  CR  und NL an den Proze&szlig;  weitergeleitet
+werden. Die Umwandlung von CR in CR-NL ist voreingestellt.
+
+<DD>
+   Bild  S2  zeigt  die  Eingabe des  Kommandos  <em>dir</em>.  Der
+Interpreter  liest das Kommando von seiner  Standardeingabe
+ein  und  erkennt, da&szlig; es sich um die Aufforderung handelt,
+ein  Shell-Skript  auszuf&uuml;hren. Er  &ouml;ffnet  die  Datei  und
+interpretiert,  da&szlig;  er  das  Programm  /bin/ls   mit   dem
+Kommandozeilenargument  "-al" ausf&uuml;hren  soll.  Er  spaltet
+einen  Proze&szlig;  ab, dessen Standardein- und  Standardausgabe
+auf  das  Teletype gelenkt sind. Dieser schreibt  daraufhin
+den Inhalt des aktuellen Verzeichnisses formatiert in seine
+Standardausgabe,  also  zum Ger&auml;tetreiber  des  betroffenen
+Terminals.  Der  Treiber sendet die  Zeichenfolgen  an  das
+Terminal,  das  diese  auf  dem  Bildschirm  darstellt.  Im
+Anschlu&szlig;  daran  sendet die Shell, die auf das  Terminieren
+von /bin/ls gewartet hat, eine Prompt-Zeichenfolge (Eingabe
+aufforderung)  und  wartet auf weitere Eingaben  durch  den
+Benutzer.
+
+<DD>
+   Ein  Pseudo-Teletype  besteht  aus  zwei  Ger&auml;tetreibern
+(beispielsweise /dev/ttyp0 und /dev/ptyp0). Das  ttyXY  ist
+konfigurierbar  wie  ein  Teletypetreiber  (RAW/COOKED  und
+dergleichen) und handhabt beispielsweise auch das  ECHOing.
+Anstelle  des  Zugangs  zur  Hardware  steht  dagegen  eine
+bidirektionale  FIFO bereit, die die Daten  an  das  ptyXY-
+Ger&auml;t weiterreicht. Ein anderer Proze&szlig; &ouml;ffnet das Ger&auml;t zum
+Lesen  und  Schreiben  und  kann  nun  beispielsweise   das
+Verhalten des Text-Terminals emulieren. Das Programm  <em>xterm</em>
+ist  ein  solcher  Emulationsproze&szlig;. Durch  Verwendung  von
+Pseudo-Teletypes  k&ouml;nnen Programme, die  die  Kommunikation
+mit  einer  Teletype vorraussetzen, auch betrieben  werden,
+wenn keine Teletype zur Verf&uuml;gung steht [U11, U18].
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_2_3">2.3 Interaktive Grafik</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+   
+<DD>
+   Grafische Computerarbeitspl&auml;tze unterscheiden  sich  von
+Text-Terminals dadurch, da&szlig; andere M&ouml;glichkeiten  der  Ein-
+und    Ausgabe    f&uuml;r   die   Mensch-Maschine-Kommunikation
+bereitstehen.
+
+<DD>
+   Text-Terminals        bestehen         aus         einer
+Schreibmaschinentastatur (Keyboard) f&uuml;r  die  Eingaben  und
+einem  Bildschirm  (Display), auf dem im allgemeinen  25x80
+oder  25x132 Zeichen dargestellt werden k&ouml;nnen.  VT100  ist
+eine m&ouml;gliche Festlegung des Leistungsumfangs f&uuml;r derartige
+visuelle   Terminals.   Visuell   steht   dabei   f&uuml;r   die
+M&ouml;glichkeit, nicht mehr nur einen reinen Ausgabestrom - wie
+beispielsweise  mit einem Drucker - darstellen  zu  k&ouml;nnen,
+sondern  die  Positionierung  von  Zeichen  frei  auf   der
+Bildschirmmatrix w&auml;hlen zu k&ouml;nnen.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S3.gif">
+</CENTER>
+<P>
+Bild S3: Ein grafischer Arbeitsplatz mit 2 Bildschirmen,
+Tastatur und Maus
+<P>
+
+
+
+<DD>
+   Grafikf&auml;hige   Terminals  bieten  neben   dem   Keyboard
+zus&auml;tzlich  ein Zeigerger&auml;t. Im allgemeinen ist  dies  eine
+mit  1 - 3 Kn&ouml;pfen (Buttons) versehene Maus (Pointer)  oder
+ein  Trackball. F&uuml;r 3D-CAD-Anwendungen stehen oft auch  ein
+Graphic-Tablett,  ein  Joy-Stick  oder  ein  Light-Pen  zur
+Verf&uuml;gung  [U12].  Bei allen Ger&auml;ten  handelt  es  sich  um
+grafische Eingabeger&auml;te, die eine geometrische Position  an
+den   Rechner  weitermelden.  Diese  Information  kann   im
+Zusammenhang  mit  dem  Status  der  Kn&ouml;pfe  f&uuml;r  grafische
+Eingaben genutzt werden.
+
+<DD>
+   Als  Ausgabemedium  dienen  auch  hier  Bildschirme  mit
+jeweils  einer Matrix von Bildpunkten (Pixels), wobei  hier
+jedes  Pixel  einzeln  ansteuerbar  ist.  Durch  geeignetes
+Setzen   einer  bestimmten  Menge  von  Pixels  kann   dann
+ebenfalls  der  Eindruck entstehen, es w&uuml;rde ein  Buchstabe
+dargestellt.  Diese  Buchstaben sind dabei  aber  in  ihrer
+Gr&ouml;&szlig;e  ver&auml;nderbar und innerhalb des darstellbaren Bereichs
+frei positionierbar. Au&szlig;erdem k&ouml;nnen hiermit beispielsweise
+diagonale Linien und Ellipsen dargestellt werden. Bild  S3
+zeigt    eine   m&ouml;gliche   Ausstattung   eines   grafischen
+Rechnerarbeitsplatzes.
+
+<DD>
+   Programme,   die  f&uuml;r  die  Ausf&uuml;hrung  auf   grafischen
+Terminals konzipiert sind, unterscheiden sich grunds&auml;tzlich
+von  solchen, die Text-Terminals voraussetzen. Die typische
+Arbeitsweise  an  Textarbeitspl&auml;tzen ist  die  <strong>sequentielle
+Programmabarbeitung</strong>.  Dabei wartet  der  Rechner  auf  eine
+Benutzereingabe, die er auswertet und ausf&uuml;hrt, um dann auf
+die  n&auml;chste Kommandoeingabe zu warten. M&ouml;gliche Ereignisse
+sind Keyboard-Aktionen des Benutzers, die das Programm aber
+nur  auswertet,  wenn es der Programmablauf  vorsieht.  Das
+Teminal puffert diese bis dahin. Das Programm kennt nur die
+Funktionen  "Zeichen lesen" und "Zeichen  schreiben".  Beim
+Einlesen  wird  ein  Zeichen  aus  dem  Puffer  geholt  und
+zur&uuml;ckgeliefert. Ist der Puffer leer, wartet das  Programm,
+bis ein Zeichen kommt. Die Zeichenausgabe geschieht dagegen
+im allgemeinen unmittelbar (Bild S4).
+
+<DD>
+   Grafikf&auml;hige   Anwendungen   stellen   deutlich   h&ouml;here
+Anforderungen  an  die Leistungsf&auml;higkeit  der  vorhandenen
+Hardware.  Es mu&szlig; hier auch ein sehr viel gr&ouml;&szlig;erer  Aufwand
+betrieben   werden,  um  die  Ein-  und  Ausgabeger&auml;te   zu
+bedienen.  Die gr&ouml;&szlig;ere Zahl von Eingabeger&auml;ten  macht  eine
+aufwendigere   Auswertung  unterschiedlicher   Eregnistypen
+n&ouml;tig.  Je nach der Beschaffenheit des Eingabeger&auml;tes  kann
+es  reichen,  den Zustand wiederholt abzufragen  (polling).
+Ger&auml;te,    die    eine   gro&szlig;e   Menge   an   Informationen
+bereitstellen, werden diese nicht puffern k&ouml;nnen.  Dann ist
+der  Programmflu&szlig; zu unterbrechen (interrupt), um  zun&auml;chst
+diese   Daten   zu   retten.  Zur   Vereinheitlichung   der
+Ger&auml;tebedienung  empfiehlt  es  sich  daher,  einen   FIFO-
+Speicher  (Eventqueue) einzurichten, der die  Informationen
+der   unterschiedlichen  Ger&auml;te  in   einem   einheitlichen
+Datenformat  zwischenspeichert. Jedesmal,  wenn  bei  einem
+Ger&auml;t   neue   Daten  eintreffen,  wird  der   Programmflu&szlig;
+unterbrochen und die Art des Ereignisses zusammen  mit  der
+aktuellen    Uhrzeit    vermerkt.    Danach    wird     die
+Programmabarbeitung wieder aufgenommen [U12, U14].
+
+
+<P>
+<CENTER>
+<TABLE CELLPADDING=5 CELLSPACING=2><TR>
+
+<TD align=center>
+<IMG SRC="bild_S4.gif">
+<P>
+Bild S4: Ablauf eines sequentiell arbeitenden Programms
+</TD>
+
+<TD align=center>
+<IMG SRC="bild_S5.gif">
+<P>
+Bild S5: Ablauf einer ereignisorientiert arbeitenden Anwendung
+</TD>
+
+</TR></TABLE>
+</CENTER>
+<P>
+
+
+
+<DD>
+   Die      Flu&szlig;struktur     des     Hauptprogramms     bei
+<strong>ereignisorientiert ablaufenden Anwendungen</strong> zeigt Bild  S5.
+Die   Anwendung  initialisiert  zun&auml;chst   die   Ein-   und
+Ausgabeger&auml;te, legt die gew&uuml;nschten Verhaltensweisen  fest,
+die  auf  bestimmte Ereignisse erfolgen  sollen,  und  geht
+danach in eine Endlosschleife. Sie wartet auf das Eintreten
+eines   Ereignisses  und  behandelt  es   nach   geeigneter
+Zuordnung in der vorab festgelegten Weise.
+
+<DD>
+   Da   sich   dieses  Grundprinzip  f&uuml;r  alle   grafischen
+Anwendungen     wiederholt,     empfiehlt     es      sich,
+Funktionenbibliotheken    bereitzustellen,    die     einen
+standardisierten  Zugang zu diesen  Resourcen  erm&ouml;glichen.
+Solche Bibliotheken enthalten auf unterster Ebene Routinen,
+die  die Ger&auml;te individuell ansprechen und darauf aufbauend
+abstraktere  Funktionen, die gem&auml;&szlig; der  linken  H&auml;lfte  von
+Bild S6 die Ereignisabarbeitung verwalten.
+
+<DD>
+   In  modernen Fenstersystemen wie dem des Apple Macintosh
+Betriebssystems, den Microsoft Windows oder  dem  X-Window-
+System  stellt  sich  weiterhin das  Problem,  da&szlig;  mehrere
+Anwendungen   gleichzeitig  auf  das  selbe  Grafikterminal
+zugreifen. Die Fenster einer Anwendung, also der  Teil  des
+Bildschirms, der einer Anwendung zugeordnet ist, kann Teile
+der  Fenster anderer Anwendungen &uuml;berdecken. Daraus ergeben
+sich   zus&auml;tzliche  Ereignisse,  auf  die  eine   Anwendung
+geeignet  reagieren  k&ouml;nnen  mu&szlig;.  Beispielsweise  mu&szlig;  ein
+Fenster,   das   bislang  teilweise  &uuml;berdeckt   war,   neu
+gezeichnet werden, wenn ein bislang verdeckendes Fenster in
+den  Hintergrund  tritt (Expose-Event).  Dadurch  entstehen
+zus&auml;tzliche, ger&auml;teunabh&auml;ngige Ereignistypen.
+
+<DD>
+   Unter  dem Fenstersystem X, das weiter unten vorgestellt
+wird,  ist  eine Aufgabenverteilung nach dem Client-Server-
+Prinzip  umgesetzt  worden.  Die  Hardware  kann  nur  noch
+indirekt &uuml;ber einen Grafikserver, den Xserver, angesprochen
+werden.  Die Anwendungen (Clients) beschreiben  dem  Server
+mittel        eines       Protokolls,       das        &uuml;ber
+Interproze&szlig;kommunikationskan&auml;le gesandt  wird,  in  welcher
+Weise er die Ger&auml;te zu beeinflussen hat. Andererseits  kann
+aufgrund der Fenstertechnik die Vielzahl der Ereignisse den
+unterschiedlichen     Anwendungen    zugeordnet     werden.
+Beispielsweise  kann die Geometrie-information  (Lage)  des
+Mauszeigers  beim Dr&uuml;cken eines Mausknopfes  mit  der  Lage
+eines  Fensters  verglichen werden. Die rechte  H&auml;lfte  von
+Bild S6 verdeutlicht die Entwicklung dieses Prinzips.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S6.gif">
+</CENTER>
+<P>
+Bild S6:  Entwicklung der Aufgabenverteilung in grafischen
+Client-Server-Anwendungen
+<P>
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_2_4">2.4 Das X Window System</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Die  Geschichte  des  X Window Systems  begann  im  Jahr
+1984,  als  die Verantwortlichen am Massachusetts Institute
+of  Technoloy  (MIT) mit einem Problem konfrontiert  waren,
+das an den Universit&auml;ten und in der Industrie gleicherma&szlig;en
+vorhanden  war.  &Uuml;ber Jahre hatte sich eine gewisse  Anzahl
+unterschiedlichster Rechnersysteme angesammelt,  die  nicht
+zueinander kompatibel waren. Die Entwicklungsgeschichte des
+Betriebssystems   UNIX  zeigte,   da&szlig;   es   m&ouml;glich   ist,
+unterschiedlichste Rechnerhardware mit einem  einheitlichen
+Betriebssystem zu versehen. Analog war hier das  Ziel,  zum
+Zweck  der  Ausbildung  aus diesem Pool  ein  Netzwerk  von
+grafikf&auml;higf&auml;higen Workstations zu schaffen (Bild S7).  In
+Zusammenarbeit mit IBM und DEC entstand das Projekt Athena.
+Lokale   Applikationen  sollten  ebenso  wie  auf   anderen
+Rechnern  laufende  Applikationen  auf  ein  und  demselben
+Display darstellen k&ouml;nnen.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S7.gif">
+</CENTER>
+<P>
+Bild S7: Vernetzte grafische Arbeitspl&auml;tze unter dem X
+Window System
+<P>
+
+
+
+<DD>
+   Als   Ausgangsbasis   diente  die   an   der   Standford
+University entwickelte Softwareumgebung W. Die erfolgreiche
+Umsetzung  dieser Ziele erhielt den Namen X in der  Version
+1.0,   sp&auml;ter   kurz   als   X10   bezeichnet.   Mit    der
+Nachfolgeversion  X11  brachte  das  MIT  Ende   1987   das
+Fenstersystem   heraus,  das  zu  einer  der  bedeutendsten
+Softwaretechnologien der 90er Jahre geworden  ist.  Ab  der
+Release    X11R2   ist   die   Verantwortung    &uuml;ber    die
+Weiterentwicklung   dieses   netzwerkbasierten   grafischen
+Fenstersystems  f&uuml;r Workstations an das 1988  gegr&uuml;ndete  X
+Consortium &uuml;bertragen worden. Diesem geh&ouml;ren eine  Vielzahl
+von  Computerherstellern, Softwareh&auml;usern und Universit&auml;ten
+an.  Im  Januar  1990 ist die Release X11R4 herausgekommen.
+Die  in dieser Arbeit vorgestellten Konzepte ben&ouml;tigen  den
+Leistungsumfang von X11R4. Mit X11R5 und X11R6 sind weitere
+Erweiterungen  wie  Fontserver und  3D-Grafik-Unterst&uuml;tzung
+hinzugekommen.    Die   Grundkonzepte   der    Interclient-
+Kommunikation inklusive Window-Management aber,  mit  denen
+X11R4 das X-Protokoll nochmal grundlegend gekl&auml;rt hat, sind
+seitdem  nicht mehr &uuml;berarbeitet worden. Mit dem Erscheinen
+von X11R7 ist in K&uuml;rze zu rechnen [U15, U16].
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S8.gif">
+</CENTER>
+<P>
+Bild S8: Kommunikation zwischen Clients und Xserver
+<P>
+
+
+<DD>
+   Basierend  auf  dem  weiter oben  bereits  beschreibenen
+Client-Server-Konzept ist eine Trennung  zwischen  den  der
+Display-Hardware   nahen  Routinen  und  den   abstrakteren
+Bibliotheksfunktionen  vorgenommen worden.  Dazwischen  ist
+eine Art Displaybeschreibungssprache festgelegt worden, das
+X-Protokoll  [U13]. Auf diese Weise kann der  Xserver,  der
+als    einziger    die   Eigenschaften   der    dedizierten
+Grafikhardware   kennt,  den  Bildaufbau   handhaben.   Die
+Applikation  erh&auml;lt nur die notwendigen Informationen  &uuml;ber
+das   Display   bereitgestellt,  wie   beispielsweise   die
+Aufl&ouml;sung   in   Pixel   und  die  Farbtiefe.   Die   Xlib-
+Bibliotheksfunktionen  wandeln  die  Anforderungen  an  den
+Xserver  in  Protokollsequenzen  um,  die  dann  &uuml;ber   das
+Socketinterface  des  X-Window-Systems  unter  TCP/IP  oder
+DECnet &uuml;ber das Rechnernetzwerk an den Zielrechner versandt
+werden. Der Xserver dort h&ouml;rt ebenfalls an einem Socket, um
+die   Nachricht   zu   empfangen,  zu  interpretieren   und
+auszuf&uuml;hren.  Da  es sich bei dem X-Window-System  um  eine
+interaktive  Grafik  handelt, kann der Xserver  dem  Client
+ebenfalls  Nachrichten  schicken. Wenn  beispielsweise  ein
+Mausklick  im  Fenster  des  Clients  erfolgt,   wird   die
+Anwendung   in  der  Lage  versetzt,  darauf  geeignet   zu
+reagieren (Bild S8).
+
+<DD>
+   Um  die zeitliche Abfolge derartiger Ereignisse (Events)
+auch  dann noch aufrecht erhalten zu k&ouml;nnen, wenn  entweder
+der  Server oder ein Client stark ausgelastet sind,  werden
+diese  gem&auml;&szlig;  Bild  S9  zun&auml;chst immer  in  Warteschlangen
+(Eventqueues) eingereiht [U14].
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S9.gif">
+</CENTER>
+<P>
+Bild S9: Eventqueues
+<P>
+
+
+<DD>
+   Zur  Erleichterung der Handhabung solcher Grafikaufgaben
+sind  basierend  auf dem Leistungsumfang der  Xlib  die  X-
+Toolkit  Intrinsics (Xt) errichtet worden. Diese Bibliothek
+stellt  Funktionen  bereit, mit  denen  h&auml;ufig  vorkommende
+Verwaltungsaufgaben  komfortabler erledigt  werden  k&ouml;nnen.
+Das  Toolkit ist intern objektorientiert realisiert worden,
+auch  wenn  die  Intrinsics-aufrufe nicht  objektorientiert
+erscheinen.  Es existieren Objekte, Methoden,  Nachrichten,
+Klassen  und  Instanzen,  sowie  Codekapselung  [U15].  Die
+sogenannten     Widgets    sind    Objekte,     die     dem
+Applikationsprogrammierer den gr&ouml;&szlig;ten Teil der X-Protokoll-
+Behandlung abnehmen. Die Applikation sendet Nachrichten  an
+das   Widget,  das  wiederum  -  vom  Programmierer   nicht
+beeinflu&szlig;bar - die Kommunikation mit dem Xserver &uuml;bernimmt.
+Will die Applikation - wie oben als Beispiel gew&auml;hlt -  auf
+ein  Mausereignis reagieren k&ouml;nnen, mu&szlig; sie einen  Callback
+registrieren, also eine Prozedur der Applikation, die  dann
+vom  Widget  aktiviert wird, wenn das betreffende  Ereignis
+eingetroffen ist.
+
+<DD>
+   Bild     S10    verdeutlicht,    wie    die    typische
+Hauptwarteschleife      ereignisorientiert      arbeitender
+Applikationen unter dem X-Toolkit realisiert ist. Die  Xlib
+stellt  dabei  in  erster  Linie  die  Funktion  <em>XNextEvent</em>
+bereit,  mit  deren  Hilfe in der  Eventqueue  des  Clients
+nachgesehen wird, ob Ereignisse aufgelaufen sind. Ist  dies
+der  Fall,  liefert  sie das &auml;lteste  Ereignis  zur&uuml;ck  und
+entfernt  es  aus der Queue, ansonsten wartet sie  auf  das
+Eintreffen  eines Events. Durch das Socket-Interfacing  des
+Betriebssystems  bedingt  wird  der  Applikationsproze&szlig;  in
+dieser  Zeit schlafengelegt (sleep), damit die CPU  anderen
+Prozessen zur Verf&uuml;gung stehen kann.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S10.gif">
+</CENTER>
+<P>
+Bild S10: Ereignisabarbeitung bei den Xt-Intrinsics
+mittels Callbacks
+<P>
+
+
+
+<DD>
+   Diese  Widgets  sind also nicht mit Fenstern  und  deren
+Verwaltungsdaten gleichzusetzen. Im Gegenteil, sie bestehen
+programmiertechnisch betrachtet gr&ouml;&szlig;tenteils aus  Methoden,
+also  Funktionen.  Diese sind wiederum zu einer  Bibliothek
+zusammengebunden.  Das urspr&uuml;ngliche Projekt  Athena  wurde
+mit  dem  Athena-Widget-Set vervollst&auml;ndigt. Mit ihnen  ist
+beispielsweise  das <em>xterm</em>-Programm realisiert  worden,  auf
+das  weiter  unten  noch  n&auml;her  eingegangen  werden  wird.
+Andererseits  hat die Open Software Foundation  (OSF)  eine
+eigene  Widget-Bibliothek  (Xm) realisiert,  das  OSF/Motif
+Widget-Set.  Ziel war hier, ein Look&Feel zu erzielen,  das
+die  in  ihrer  grafischen Pr&auml;sentation wenig ansprechenden
+Athena-Widgets ersetzt und eine Bedienung &auml;hnlich  den  von
+Microsoft  f&uuml;r  Personal-Computer  entwickelten  MS-Windows
+erm&ouml;glicht. Dabei sollte erreicht werden, da&szlig; ein  Benutzer
+unabh&auml;ngig von seinem jeweiligen Rechnerarbeitsplatz,  eine
+zumindestens intuitiv einheitliche Bedienbarkeit  vorfindet
+[U4].  Bild S11 verdeutlicht die Softwarearchitektur einer
+X-Windows-Applikation.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S11.gif">
+</CENTER>
+<P>
+Bild S11:     Softwarearchitektur Xt-Intrinsics basierter
+Anwendungen
+<P>
+
+
+
+<DD>
+   Grafische  Anwendungen  werden &uuml;ber  eine  Vielzahl  von
+Gr&ouml;&szlig;en  beschrieben. Ein Druckknopf (PushButton)  hat  eine
+Ausdehnung, eine Lage relativ zum Elternfenster, auf dem er
+angeordnet  ist, eine Hintergrundfarbe und eine Aufschrift,
+um  nur einige wesentliche Merkmale zu nennen. Unter dem X-
+Window-System   steht   nicht  nur  die   M&ouml;glichkeit   zur
+Verf&uuml;gung,  im Quelltext der Applikation zu verankern,  mit
+welchen  Werten  diese  Merkmale  zu  belegen  sind.  Diese
+Vorgehensweise  hei&szlig;t Festschreiben (hardcoding).  Zun&auml;chst
+bietet  der  objektorientierte  Ansatz  des  Toolkits   die
+M&ouml;glichkeit, Vorgabewerte f&uuml;r Widgets zu vergeben, die auch
+an Kindwidgets weitervererbt werden k&ouml;nnen. Danach wird bei
+jeder  Erzeugung eines Widgets der X-Resource-Manager (Xrm)
+bem&uuml;ht.  Er sucht an unterschiedlichen Orten mit steigender
+Priorit&auml;t  nach  sogenannten Xresourcen.  Diese  k&ouml;nnen  in
+speziellen      Dateien      (teilweise       nur       mit
+Supervisorberechtigung       beschreibbar,        teilweise
+benutzerindividuell)  bereitgestellt  sein,   vom   Xserver
+erfragt   oder   &uuml;ber  die  Kommandozeile   des   Prozesses
+eingegeben werden.
+
+<DD>
+   Die  h&ouml;chste  Priorit&auml;t hat nat&uuml;rlich das Festschreiben,
+weil  es  jede  Vorbelegung  &uuml;berschreibt.  Vorteil  dieses
+zus&auml;tzlichen  Managers  ist, da&szlig;  beispielsweise  in  einer
+Applikation,   die  &uuml;blicherweise  nur  die   notwendigsten
+Merkmalswerte festschreibt, wie beispielsweise  die  Zeiger
+auf Callbackfunktionen, auch bei ausschlie&szlig;lichem Vorliegen
+des    ausf&uuml;hrbaren   Programms   Eigenschaften   wie   die
+Hintergrundfarbe nachtr&auml;glich ge&auml;ndert werden  k&ouml;nnen.  Das
+mit  den Athena-Widgets realisierte xterm pr&auml;sentiert  sich
+beispielsweise  typischerweise wei&szlig; mit schwarzer  Schrift,
+kann  aber  leicht auf gr&uuml;nblau mit gelber Schrift  gesetzt
+werden.  Dazu  sind  nur  an geeigneter  Stelle  Xresource-
+Dateien zu ver&auml;ndern. Damit lie&szlig;en sich beispielsweise  die
+Texte eines Pulldownmen&uuml;s benutzerabh&auml;ngig in englisch  und
+einmal  in  franz&ouml;sisch erstellen. Die  Applikation  selbst
+wird davon nicht beeintr&auml;chtigt [U4, U14, U15].
+
+<DD>
+   Schlie&szlig;lich  ist  unter  X im InterClient-Communication-
+Conventions-Manual  (ICCCM) genau  geregelt,  wie  Clienten
+miteinander kommunizieren k&ouml;nnen. Beispielsweise  geschieht
+das  Drag&Drop dadurch, da&szlig; eine Anwendung A eine Selektion
+erstellt,  die  in einen Puffer des Xservers  gelangt.  Von
+dort  kann  die  Applikation  B  diese  Information  wieder
+abholen,  sobald gekl&auml;rt ist, da&szlig; sie diese  auch  bekommen
+soll [U4, U14, U15].
+
+<DD>
+   Der  wohl wichtigste Client einer X-Windows Sitzung  ist
+der  Window-Manager.  Dieser  nutzt  die  Festlegungen  des
+ICCCM,   um  die  Platzierung  der  Fenster  der  einzelnen
+Anwendungen zu beeinflussen. Ohne ihn w&uuml;rden diese  Fenster
+einmal  bei der Kreierung plaziert und k&ouml;nnten dann bis  zu
+ihrem    Ende   beispielsweise   nicht   mehr   vergr&ouml;&szlig;ert,
+verschoben, im Fensterstack ganz nach oben verlegt oder  zu
+einem  kleinen  Icon-Fensterchen verwandelt  werden.  Unter
+OSF/Motif  ist  der Motif-Window-Manager  (<em>mwm</em>)  realisiert
+worden. Dieser arbeitet nach dem Reparenting-Prinzip,  denn
+er  zeichnet um die Fenster der von ihm verwalteten Clients
+einen Rahmen [U15].
+
+<DD>
+   Der  Vollst&auml;ndigkeit halber sei erw&auml;hnt, da&szlig; es  weitere
+spezielle Kommunikationsformen gibt, wie beispielsweise das
+X-Display-Manager Control Protocol (XDMCP). Hiermit steuert
+ein  spezieller  Client, der X-Display-Manager  (<em>xdm</em>),  die
+Entriegelung eines grafischen Arbeitsplatzes, nachdem  sich
+der  Benutzer  ordnungsgem&auml;&szlig;  angemeldet  (authentifiziert)
+hat.   Dies   geschieht  &uuml;blicherweise  mit  Hilfe   seines
+Benutzernamens  und  Passworts.  Um  anderen  Clienten  die
+&Uuml;berwachung  dieses  Login-Vorgangs zu verwehren,  wird  in
+dieser  Zeit  die  Kommunikation anderer Clienten  mit  dem
+Xserver verweigert.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_2_5">2.5 Aufl&ouml;sung des Konflikts sequentieller mit
+   ereignisorientierter Programmierung am Beispiel der
+   laboreigenen Liniengrafik xgrf3</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+   
+
+<DD>
+   Bereits   seit  1981  steht  am  Labor  f&uuml;r  elektrische
+Maschinen    und    Antriebe    ein    Programmpaket    zur
+Schaltungssimulation zur Verf&uuml;gung, das  damals  auf  einem
+MODCOMP  II  Proze&szlig;rechner  lauff&auml;hig  war.  F&uuml;r  grafische
+Ausgaben  wurde  ein HP 7221-Plotter verwendet.  Eigene  in
+FORTRAN  geschriebene  Funktionenbibliotheken  standen  zur
+Verf&uuml;gung,  um  den  Plotter ansprechen  zu  k&ouml;nnen.  Diese
+erm&ouml;glichten   es   dem  Simulationsprogramm,   zweiachsige
+Diagramme   mit   beschrifteten   Koordinatensystemen   und
+wahlweise  gestrichelten Kurvenverl&auml;ufen zu  erstellen.  Im
+Rahmen einer am Lehrstuhl durchgef&uuml;hrten Untersuchung  &uuml;ber
+St&ouml;rstr&ouml;me      im      Bahnnetz,      ausgel&ouml;st      durch
+pulsstromrichterbetriebene Bahnfahrzeuge  [G1],  wurde  die
+Grafik  um die M&ouml;glichkeit erweitert, dreiachsige Diagramme
+mit  einer gekr&uuml;mmten Fl&auml;che zu erstellen. Dies wurde unter
+Ber&uuml;cksichtigung    von    Teilverdeckungen     bei     der
+zweidimensionalen   Darstellung  r&auml;umlich   tiefer   Szenen
+erreicht.   1988   ist   diese   Grafik   im   Rahmen   der
+Anschlu&szlig;arbeit  [G2]  zun&auml;chst in die Programmiersprache  C
+&uuml;berf&uuml;hrt  worden  und  war  auf  PCs  mit  Hercules-Grafik
+lauff&auml;hig.  Diese Version erhielt den internen Namen  grf2.
+Mittlerweile   steht  sie  als  grf3  zur  Verf&uuml;gung.   Sie
+unterst&uuml;tzt    nunmehr   unterschiedliche    Ausgabeger&auml;te,
+zwischen  denen  gew&auml;hlt werden kann.  Neben  dem  HP  7221
+k&ouml;nnen  beliebige  HPGL-f&auml;hige Plotter angesteuert  werden.
+Die  Bildschirmausgabe erfolgt farbig  auf  SVGA-Monitoren.
+Schlie&szlig;lich   k&ouml;nnen   Ausgabedateien   f&uuml;r    HPGL,    EPS
+(encapsulated  PostScript) und  TEX  erstellt  werden.  Ein
+Zusatzprogramm  kann  HPGL-Dateien einlesen  und  in  eines
+dieser Ausgabeger&auml;te umlenken. Damit ist auch der HP  7221-
+Plotter  HPGL-f&auml;hig geworden. Parallel war in  der  Version
+f&uuml;r  Hercules-Grafik unter Zuhilfenahme einer  Maustreiber-
+Bibliothek Interaktivit&auml;t erreicht worden. Damit lie&szlig;  sich
+beispielsweise in HPGL-Plots hineinzoomen.
+
+<DD>
+   Mit  der Beschaffung erster Apollo-Workstations ist eine
+&auml;hnlich  leistungsf&auml;hige  Liniengrafik  unter  Nutzung  der
+Apollo-eigenen  Grafikroutinen (GPR) erstellt  worden.  Mit
+dem  Wechsel  zum X Window System im Zusammenhang  mit  der
+Beschaffung der ersten Sparc-Workstation ist erstmalig  bei
+dem Bildschirmausgabeger&auml;t das Verdeckungsproblem durch die
+Mehrfenstertechnik   hinzugekommen.   Bislang   wurde   bei
+grafischen   Ausgaben  das  Display  immer   ausschlie&szlig;lich
+genutzt. Die X-Windows Version dieser Grafik (xgrf3) stellt
+ebenfalls die Maus-Bibliothek zur Verf&uuml;gung, die derzeit in
+der SVGA-Version noch fehlt.
+
+<DD>
+   Die  Simulationssoftware ist in den  vergangenen  Jahren
+ebenfalls nach C umgeschrieben und weiterentwickelt  worden
+und  steht  heute  als  SISABI  auf  PCs  und  Workstations
+gleicherma&szlig;en  zur  Verf&uuml;gung.  SISABI  nutzt   f&uuml;r   seine
+Ausgaben  die  grf3-Grafik. Derartige  Simulationsprogramme
+sind  typische  Beispiele f&uuml;r sequentielle  Programmierung.
+Das Programm startet und liest zun&auml;chst eine Datei ein,  in
+der  die zu simulierende Schaltung beschrieben wird.  Diese
+Informationen   werden   in  die  internen   Systemmatrizen
+&uuml;berf&uuml;hrt.    Schlie&szlig;lich   wird   f&uuml;r   ein   vorgegebenes
+Zeitintervall durch L&ouml;sen des Differentialgleichungssystems
+der  neue  Zustandsvektor berechnet. Die Ergebnisse  werden
+dann   Gr&ouml;&szlig;e   f&uuml;r  Gr&ouml;&szlig;e  in  jeweils  eigenen  Diagrammen
+ausgegeben,  indem  vom  letzten Wert  zum  aktuellen  eine
+gerade    Linie   gezeichnet   wird.   Danach   wird    das
+Gleichungssystem  erneut gel&ouml;st und wieder  die  Ergebnisse
+dargestellt,  bis die Simulation beendet ist. Das  Programm
+rechnet  also  die meiste Zeit, wartet zu keinem  Zeitpunkt
+auf eine Benutzerinteraktion und zeichnet nur zu bestimmten
+Zeitpunkten. Regelm&auml;&szlig;ige Unterbrechungen und das  Verharren
+in  einer Ereigniswarteschleife sind hier nicht vorgesehen.
+Au&szlig;er  unter  X  ist bei dieser grafischen  Anwendung  kein
+ereignisorientierter Programmierstil notwendig.
+
+<DD>
+   Das  Fenstersystem X l&auml;&szlig;t beispielsweise  zu,  da&szlig;  sich
+die  Fenster auf einem Display wechselseitig verdecken oder
+da&szlig;  das Ausgabefenster der Liniengrafik iconifiziert wird.
+Wenn  verdeckte  Fensterbereiche  wieder  sichtbar  werden,
+sendet der Xserver dem Programm ein Expose-Event, in dem er
+die  Region  mitteilt, die der Client zu restaurieren  hat.
+Dies  ist  ohne eine Ver&auml;nderung der Quelltexte von  SISABI
+nicht  m&ouml;glich.  Andere verf&uuml;gbare Programme,  wie  <em>gnuplot</em>
+[G3], lassen beispielsweise ein Vergr&ouml;&szlig;ern oder Verkleinern
+des   Grafikfensters   zu.  Bei  jeder   Ver&auml;nderung   wird
+allerdings der Bildschirm gel&ouml;scht. Die alten Informationen
+gehen verloren.
+
+<DD>
+   F&uuml;r  xgrf3 (Bild S12) ist ein anderer Weg eingeschlagen
+worden.  Das  Verdeckungsproblem wird dadurch  gel&ouml;st,  da&szlig;
+zun&auml;chst  die  Gr&ouml;&szlig;e der bezeichenbaren  Fl&auml;che  (Drawable)
+festgelegt  worden  ist.  Soll  beispielsweise  eine  Linie
+gezeichnet  werden,  geschieht  dies  zun&auml;chst   in   einer
+identischen,  unsichtbaren  Struktur  (Pixmap).  Dann  wird
+k&uuml;nstlich  ein  Expose-Event ausgel&ouml;st, das den  ge&auml;nderten
+Bereich   umfa&szlig;t.   Bei  jedem  Expose-Event   werden   die
+entsprechenden   Inhalte  der  Hintergrundpixmap   in   die
+Drawable     kopiert.    Das    Vorgehen     setzt     eine
+Ereignisorientierung voraus.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S12.gif">
+</CENTER>
+<P>
+Bild S12: Erscheinungsbild der laboreigenen xgrf3-Liniengrafik
+<P>
+
+
+
+<DD>
+   Dieser   Konflikt   der   notwendigen   Koexistenz   der
+sequentiellen  und der ereignisorientierten  Programmierung
+wird  dadurch gel&ouml;st, da&szlig; diese unterschiedlichen  Aufgaben
+zwei  Prozessen  anvertraut  werden.  Einer  ist  f&uuml;r   die
+Simulationsaufgaben zust&auml;ndig, der andere f&uuml;r die grafische
+Pr&auml;sentation.        Beide        kommunizieren         aus
+Geschwindigkeitsgr&uuml;nden miteinander mittels sharable Memory
+(SHM) und bestimmter Signale.
+
+<DD>
+   Die     grf3-Grafik     besteht     aus     abstrakteren
+Bibliothekseinsprungfunktionen    und    den    f&uuml;r     den
+Anwendungsprogrammierer     unsichtbaren      hardwarenahen
+Grafikprimitiven. Die xgrf3-&Auml;nderungen sind  ausschlie&szlig;lich
+bei den Primitiven vorgenommen worden. Im Falle der Display-
+Vffnung wird zun&auml;chst ein SHM-Bereich angefordert und darin
+zwei  Ringpuffer (FIFOs) zum bidirektionalen Datenaustausch
+eingerichtet. Danach wird der xgrf3d-Server  als  ein  Kind
+der    Anwendung   abgespaltet   (<em>fork/exec</em>).   &Uuml;ber    die
+Kommandozeile   wird   ihm  die  SHM-Identifizierungsnummer
+mitgegeben.  Mittels dieser kann auch  er  den  SHM-Bereich
+&ouml;ffnen. In die server-client-seitige FIFO schreibt er  eine
+Bereitschaftsmeldung und wartet dann an der  client-server-
+seitigen  FIFO auf Kommandos. W&auml;hrenddessen  kann  er  auch
+Expose-Events  und dergleichen behandeln.  Im  wesentlichen
+ist  nur die Er&ouml;ffnungssequenz synchronisiert. Alle anderen
+Teile   des  Protokolls  sind  -  wie  das  X-Protokoll   -
+asynchron, um zeitg&uuml;nstiger zu werden. Es werden also keine
+Ausf&uuml;hrungsbest&auml;tigungen  vom  xgrf3d  zur&uuml;ckgesandt  
+(Bild S13).  Wichtig ist das korrekte Abmelden des SHM-Bereichs.
+Wenn  beispielsweise die Applikation unerwartet terminiert,
+mu&szlig;  auch  der  xgrf3d  dies  mitbekommen.  Hierf&uuml;r  werden
+Signale eingesetzt.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S13.gif">
+</CENTER>
+<P>
+Bild S13: Interproze&szlig;kommunikation bei der xgrf3-Liniengrafik
+<P>
+
+
+
+<DD>
+   Weiterhin ist in xgrf3 die F&auml;higkeit realisiert  worden,
+Mausereignisse in der Grafik zuzulassen. Die Anwendung kann
+die   Maus   ein-   und   ausschalten   und   zwischen    5
+Mauszeigerformen  w&auml;hlen. Sie kann  den  Zustand  der  Maus
+durch   periodisches   Abfragen  (polling)   oder   mittels
+Interrupts  ermitteln. Dazu steht ein Bereich des  SHM  zur
+Verf&uuml;gung,  der aktuelle Informationen &uuml;ber  die  Lage  der
+Maus  enth&auml;lt  und  dar&uuml;ber, welche Kn&ouml;pfe  gedr&uuml;ckt  sind.
+Zus&auml;tzlich     k&ouml;nnen     die     Einsprungadressen     von
+"Interruptservice"-Routinen durch die Anwendung  angemeldet
+werden.  Ein  bestimmtes Signal wird  dann  vom  xgrf3d  an
+seinen  Elternproze&szlig;  gesandt.  Dort  wird  ein  spezieller
+Signalhandler  angesprungen, der wiederum die entsprechende
+Anwendungsroutine aufruft.
+
+<DD>
+   Schlie&szlig;lich    ist    zu    bemerken,    da&szlig;    es    zu
+Performanceproblemen  kommen  kann,  wenn  grafikintensive,
+rechenzeitarme  Aufgaben durchzuf&uuml;hren sind.  Dann  treffen
+mehr  Zeichenkommandos von der Anwendung beim  xgrf3d  ein,
+als  er  in  X-Protokoll-Sequenzen  umwandeln  und  an  den
+Xserver   weiterleiten  kann.  Die  Grafikprimitive   legen
+mittels  <em>usleep()</em> die Applikation kurzzeitig  schlafen  und
+pr&uuml;fen in Abst&auml;nden, wann die FIFO wieder Befehle aufnehmen
+kann.  Der  xgrf3d  seinerseits pr&uuml;ft den F&uuml;llstand  seiner
+ausgangsseitigen   Eventqueue   zum   Xserver    hin,    um
+festzustellen, wann er mit dem weiteren Interpretieren  der
+anwendungsseitigen Kommandos aufh&ouml;ren mu&szlig;.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_2_6">2.6 Das Terminalemulationsprogramm xterm</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Mit  dem Erscheinen des X Window Systems stand zwar  ein
+grafisches   Fenstersystem   f&uuml;r   UNIX-Workstations    zur
+Verf&uuml;gung. Au&szlig;er den wenigen Dienstprogrammen der X-Windows
+Distribution   existierten  aber  noch   keine   grafischen
+Anwendungen. Unter UNIX stehen viele kleine Dienstprogramme
+bereit,  die  sehr spezialisiert sind und gr&ouml;&szlig;tenteils  nur
+ein-/ausgabestrom-orientiert arbeiten, wie  <em>grep</em>,  <em>awk</em>  und
+<em>sort</em>  [U19].  Es  existieren  aber  auch  maskenorientierte
+Programme,  die unter Nutzung der wahlfreien Positionierung
+von  Zeichen auf dem Display von Text-Terminals bereits ein
+ansprechendes  Ma&szlig;  an Interaktivit&auml;t  und  Benutzerf&uuml;hrung
+bereitstellen,  wie das Electronic-Mail Frontend  <em>elm</em>.  Zur
+Gew&auml;hrleistung  der  Akzeptanz des  Fenstersystems  war  es
+daher    die   vordringlichste   Aufgabe,   ein    Programm
+bereitzustellen, das die zu diesem Zeitpunkt &uuml;blichen Text-
+Terminals   emuliert.  Nur  so  konnten   die   vorhandenen
+Programme  weitergenutzt werden, bis grafische Alternativen
+verf&uuml;gbar waren.
+
+<DD>
+   Das  Terminalemulationsprogramm <em>xterm</em> war  demgem&auml;&szlig;  das
+erste  wichtige  Programm der X-Windows  Distribution.  Mit
+diesem   wurde   sogar   bis   einschlie&szlig;lich   X11R3   die
+Sitzungser&ouml;ffnung  abgewickelt, bis  es  vom  <em>xdm</em>  abgel&ouml;st
+wurde. Das xterm kann ein DEC VT 102 und ein Tektronix-4014-
+Terminal emulieren. Dies geschieht unter Nutzung von Pseudo-
+Teletypes. Im allgemeinen wird eine Sitzung an einem  xterm
+&auml;hnlich ablaufen wie an einem Text-Terminal. Zun&auml;chst  wird
+das  xterm  gestartet. Dieses initialisiert zun&auml;chst  seine
+Grafik,  &ouml;ffnet danach ein <em>pty/tty</em>-Paar und spaltet  danach
+einen  Nutzproze&szlig; ab. Im allgemeinen handelt es sich  dabei
+um einen Kommandozeileninterpreter.
+
+<DD>
+   Der   nutzende   Proze&szlig;  arbeitet  auf  dem   UNIX-Ger&auml;t
+/dev/ttyXY  in  einer Weise, da&szlig; er keinerlei  Unterschiede
+feststellen  kann.  Die  Funktion  <em>isatty()</em>  beispielsweise
+pr&uuml;ft, ob die Ausgabe in eine Datei umgelenkt ist, oder  ob
+eine  interaktive Sitzung am Text-Terminal l&auml;uft.  Auf  der
+anderen    Seite   der   FIFO   (/dev/ptyXY)   sitzt    der
+Emulationsproze&szlig;.  Dieser plaziert  ankommende  Zeichen  im
+Bereich    seines    Grafikfensters    und    interpretiert
+Steuersequenzen  im  Sinne  der  Leistungsfestlegungen  der
+emulierten  Standards. Beispielsweise bedeutet  im  VT  102
+Modus  die  Steuersequenz "ESC [  2  J",  da&szlig;  das  gesamte
+Textausgabefenster gel&ouml;scht werden soll [U3].
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S14.gif">
+</CENTER>
+<P>
+Bild S14: Mensch-Maschine-Kommunikation bei einem xterm
+<P>
+
+
+
+<DD>
+   Tastatureingaben  des  Benutzers  werden   vom   Xserver
+registriert    und    Keyboard-Events    an    das    xterm
+weitergereicht. Dieses interpretiert die Tastaturcodes  und
+sendet  sie als geeignete ASCII-Zeichen (<strong>A</strong>merican
+<strong>S</strong>tandard
+<strong>C</strong>ode  for  <strong>I</strong>nformation <strong>I</strong>nterchange)
+ &uuml;ber die bidirektionale
+FIFO   an  den  nutzenden  Proze&szlig;.  Auch  hier  kann   eine
+Uminterpretierung  erfolgen. Beispielsweise  wird  mit  der
+Benutzereingabe Ctrl-Z erreicht, da&szlig; das xterm  das  Signal
+SIGSTOP  an  den  nutzenden  Proze&szlig;  sendet.  Mittels   des
+Mauszeigers   k&ouml;nnen   Selektionen  markiert   werden,   um
+m&ouml;glicherweise Ausgabetexte aus einem xterm in ein  anderes
+zu  kopieren.  Es k&ouml;nnen aber auch Popup-Men&uuml;s  erscheinen,
+mit  denen die Einstellungen des xterm-Prozesses interaktiv
+ver&auml;ndert   werden  k&ouml;nnen.  Bild  S14  verdeutlicht   die
+gegen&uuml;ber Bild S2 abgewandelte Textein- und -ausgabe  beim
+xterm.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_2_7">2.7 Notwendigkeit preemptiven Multitaskings
+   zur Vermeidung der Reimplementierung der Inferenzmaschine von Babylon-2</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+   
+
+<DD>
+   Neben  dem  xterm  nutzen  auch  andere  Programme   die
+M&ouml;glichkeiten   der   Pseudo-Teletypes.   Das   interaktive
+Debugging-Werkzeug <em>dbx</em> erleichtert die Programmentwicklung.
+Unter  X  steht zus&auml;tzlich das grafische Frontend <em>xdbx</em>  zur
+Verf&uuml;gung  [U11].  Das Programm dbx arbeitet  normalerweise
+auf  einem  Text-Terminal oder kann  in  einem  Batch-Modus
+Befehle von einer Eingabedatei lesen und Ergebnisse in eine
+Ausgabedatei  schreiben.  Mittels  der  Funktion   <em>isatty()</em>
+stellt  es fest, ob seine Eingaben von einem Teletype  oder
+aus  einer  Datei kommen. Bei Dateien ist das  Programm  zu
+beenden,  sobald  das  Dateiende erreicht  ist.  Bei  einem
+Teletype   ist   beim  Ausbleiben  weiterer  Zeichen   eine
+Eingabeaufforderung   (Prompt)   zu   schreiben   und   auf
+Benutzereingaben zu warten.
+
+<DD>
+   Unter X wird dbx an einem Pseudo-Teletype betrieben,  an
+dessen   anderem  Ende  xdbx  die  Ausgaben  von   dbx   in
+unterschiedliche  Fenster  leitet.  Mausklicks  in   diesen
+Fenstern bewirken das Absetzen von Kommandos &uuml;ber die  FIFO
+an den dbx-Proze&szlig;, die sonst mit der Hand h&auml;tten eingegeben
+werden  m&uuml;ssen. Zus&auml;tzlich steht in einem Fenster des  xdbx
+die  Klartextinformation  f&uuml;r den Benutzer  nachvollziehbar
+bereit. &Uuml;ber ein Texteingabefeld kann er auch weiterhin dbx-
+Kommandos mit der Tastatur eingeben.
+
+
+<P>
+<TABLE BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<ADDRESS><STRONG>
+Es   kann   festgehalten  werden,  da&szlig;   die   Nachr&uuml;stung
+grafischer  Frontends  f&uuml;r bereits  existierende  Prozesse
+mittels  Pseudo-Teletypes  erm&ouml;glicht  werden  kann.   Der
+Aufwand  bei  der  Erstellung einer  grafischen  Anwendung
+reduziert  sich  hierbei  auf  die  Oberfl&auml;chengestaltung.
+Eine   komplette  Reimplementierung  des  Leistungsumfangs
+kann   unterbleiben.  Die  Funktion  </em></strong>isatty()<em><strong>,   die   von
+derartigen existierenden Programmen oft genutzt  wird,  um
+die      Notwendigkeit      interaktiver      Arbeitsweise
+festzustellen,  kann "&uuml;berlistet" werden.  Bei  derartigen
+L&ouml;sungen handelt es sich - wie bei der Liniengrafik  xgrf3
+- um Zwei-Proze&szlig;-L&ouml;sungen.
+</STRONG></ADDRESS>
+</TD></TR></TABLE>
+<P>
+
+
+<DD>
+   Zur  L&ouml;sung der hier vorliegenden Aufgabe, eine  in  der
+Programmiersprache  LISP  realisierte  Expertensystemschale
+unter  Vermeidung  einer  kompletten  Reimplementierung  um
+Grafikf&auml;higkeit   zu   erweitern,   sind    zun&auml;chst    die
+M&ouml;glichkeiten der beteiligten LISP-Welt zu betrachten.
+
+<DD>
+   LISP  ist  eine  interpretative Sprache.  Die  Sitzungen
+verlaufen  im  allgemeinen interaktiv. Der LISP-Interpreter
+wird   gestartet,  initialisiert  sich  und  meldet   seine
+Eingabebereitschaft       durch       Schreiben       einer
+Eingabeaufforderung  (Prompt) in den  Standardausgabekanal.
+Danach  wartet er auf Eingaben von LISP-Konstrukten seitens
+des  Benutzers &uuml;ber den Standardeingabekanal. Diese  werden
+eingelesen (read), ausgef&uuml;hrt (evaluiert). Schlie&szlig;lich wird
+das   Ergebnis   der   Operation  in  die   Standardausgabe
+geschrieben  (print). Abschlie&szlig;end schreibt er  wieder  den
+Prompt   und   wartet   erneut.  Diese  Hauptschleife   des
+Interpreters (toplevel loop) wird auch als read-eval-print-
+loop bezeichnet. Ihr Leistungsumfang ist in CLtL1 und CLtL2
+unterschiedlich definiert worden.
+
+<DD>
+   Es  ist  auch  m&ouml;glich, LISP-Sitzungen im  Batch-Betrieb
+durchzuf&uuml;hren. Dazu werden im allgemeinen der  Standardein-
+und  Standardausgabestrom in Dateien umgelenkt. Analog  dem
+oben  beschriebenen  Verhalten des dbx mu&szlig;  ein  Ausbleiben
+weiterer  Zeichen am Eingabekanal den LISP-Proze&szlig;  beenden.
+Andererseits   sollten   die   Ergebnisse,   die   in   die
+Ausgabedatei  geschrieben werden, nicht die Promptsequenzen
+enthalten.  Die  meisten LISP-Interpreter f&uuml;r  UNIX-Systeme
+pr&uuml;fen   daher,  ob  ihr  Standardeingabekanal  ein   Ger&auml;t
+(Teletype)   oder   eine  Datei  ist.   Es   reicht   daher
+beispielsweise    nicht,    eine    unnamed    pipe     als
+Interproze&szlig;kommunikationskanal zu verwenden, weil diese als
+eine  Datei  erkannt  w&uuml;rde.  Die  Verwendung  von  Pseudo-
+Teletypes  ist notwendig, weil diese als Ger&auml;te gelten.  Da
+das zu erarbeitende Konzept herstellerunabh&auml;ngig sein soll,
+reicht  es  auch nicht, beispielsweise nur einen bestimmten
+LISP-Anbieter zu bevorzugen, der eventuell keine  derartige
+Ger&auml;te-Pr&uuml;fung vornimmt.
+
+<DD>
+   Die  LISP-Quelltexte von Babylon 2.3 sind so  entwickelt
+worden, da&szlig; sie nur die Pr&auml;sentationsm&ouml;glichkeiten der Ein-
+/Ausgabestr&ouml;me  nutzen.  Es liegt  also  eine  sequentielle
+Programmabarbeitung gem&auml;&szlig; Bild S4 vor. Die gr&ouml;&szlig;ere  Anzahl
+von  Ereignistypen  bei  der Mehrfenstertechnik  w&uuml;rde  die
+Bearbeitung  asynchron  auftretender  Ereignisse  notwendig
+machen.  Solange  die  Schale auf Benutzereingaben  wartet,
+w&auml;re    dies    sicherlich   kein   Problem.   Bei    einem
+Probleml&ouml;sungsvorgang  von  mehreren  Minuten   kann   eine
+Reaktion    erst    im   Anschlu&szlig;   erfolgen,    was    die
+Benutzerfreundlichkeit und damit den Sinn einer  grafischen
+Oberfl&auml;che ad absurdum f&uuml;hren w&uuml;rde. Die Abarbeitung  einer
+ereignisorientierten  Applikation  geschieht  in   polling-
+Betriebsart  gem&auml;&szlig;  Bild S5. Das hei&szlig;t,  es  werden  keine
+Signale  oder Interrupts ausgel&ouml;st, auf die die Applikation
+reagieren   k&ouml;nnte.  F&uuml;r  diese  Arbeitsweise   m&uuml;&szlig;te   die
+Inferenzmaschine umgestaltet werden. Beispielsweise  k&ouml;nnte
+nach  jeder  Regelpr&uuml;fung einmal die  Eventqueue  &uuml;berpr&uuml;ft
+werden.  Dies  setzt aber eine detailierte Einarbeitung  in
+die   internen   Funktionsprinzipien  der  Schale   voraus.
+Weiterhin w&auml;re bei jedem Releasewechsel, beispielsweise von
+Babylon  2.2  nach Babylon 2.3, damit zu rechnen,  da&szlig;  ein
+gro&szlig;er Teil der investierten Arbeit &uuml;berholt w&auml;re.
+
+<DD>
+   Der  andere  Weg ist, eine Zwei-Proze&szlig;-L&ouml;sung  im  Sinne
+des  xterm  zu erstellen. Dadurch kann die Inferenzmaschine
+unver&auml;ndert    bleiben.   Es   werden   nur   Erweiterungen
+hinsichtlich  der  grafischen Ein- und Ausgaben  notwendig.
+Eine  Meldung  im Zuge des Inferenzprozesses  kann  dadurch
+geschehen, da&szlig; &uuml;ber den Standardausgabekanal von LISP  eine
+Nachricht  an  den Grafikproze&szlig; ergeht, eine  entsprechende
+Meldung   zu  produzieren.  LISP  wartet  dann,   bis   der
+Grafikproze&szlig;  in  seine  Standardeingabe  die  Antwort  des
+Benutzers  zur&uuml;ckgibt.  Von  zwischenzeitlich  auftretenden
+Events bleibt LISP verschont. Der Grafikproze&szlig; handhabt sie
+geeignet.
+
+
+<P>
+<TABLE BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<ADDRESS><STRONG>
+Durch   die   Zwei-Proze&szlig;-L&ouml;sung  kann  die   sequentielle
+Programmabarbeitung        der        Expertensystemschale
+aufrechterhalten werden.
+</STRONG></ADDRESS>
+</TD></TR></TABLE>
+<P>
+
+
+<DD>
+   In  einer MS-Windows Umgebung k&ouml;nnen im Rechner  mehrere
+Prozesse parallel existieren. Aufgrund des dort verwendeten
+kooperativen Multitaskings ist es aber notwendig, da&szlig; jeder
+Proze&szlig;  nach  einer gewissen Zeit selbst  bereit  ist,  die
+Kontrolle  &uuml;ber die CPU abzugeben und den anderen Prozessen
+zur Verf&uuml;gung zu stellen. Wenn der LISP-Proze&szlig; ein gr&ouml;&szlig;eres
+Problem  l&ouml;st, sind - wie bereits beschrieben  -  derartige
+Unterbrechungen   nicht   vorgesehen.   Dies   setzt    ein
+preemptives  Multitasking  voraus,  bei  dem  der  einzelne
+Proze&szlig;  die Zuteilung zur CPU weder merkt noch beeinflussen
+kann.  Eine &uuml;bergeordnete Instanz - der Scheduler  -  sorgt
+f&uuml;r  die  pseudo-parallele Abarbeitung  mehrerer  Prozesse.
+Betriebssysteme  wie  OS/2  von  IBM  oder  Windows95   von
+Microsoft   unterst&uuml;tzen  preemptives   Multitasking.   Sie
+verf&uuml;gen aber nicht &uuml;ber Pseudo-Teletypes.
+
+
+<P>
+<TABLE BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<ADDRESS><STRONG>
+Die    angestrebte   Zwei-Proze&szlig;-L&ouml;sung    ben&ouml;tigt    ein
+preemptives   Multitasking-Betriebssystem,   das   Pseudo-Teletypes
+ zur Verf&uuml;gung stellt.
+</STRONG></ADDRESS>
+</TD></TR></TABLE>
+<P>
+
+
+<BR>
+Das    Betriebssystem    UNIX   stellt    alle    genannten
+Voraussetzungen  bereit.  Es  ist  f&uuml;r  eine   gro&szlig;e   Zahl
+unterschiedlicher  Hardwareplattformen  einschlie&szlig;lich  PCs
+verf&uuml;gbar.   Die   Vorgabe,  eine  auf   m&ouml;glichst   vielen
+Rechnerumgebungen  verf&uuml;gbare Software  zu  erstellen,  ist
+also ausreichend erf&uuml;llt.
+
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_3_0">3. Die Schale EMA-XPS v1</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+   
+<DD>
+   Nach   den   Vorgaben  des  einleitend  erw&auml;hnten   FVA-
+Forschungsvorhabens sollte mit vertretbarem Aufwand eine im
+Quelltext  verf&uuml;gbare, leicht portierbare  Schale  erstellt
+werden.   Um   die  Neuentwicklung  einer  leistungsf&auml;higen
+gro&szlig;en, hybriden Expertensystemschale zu vermeiden, sollten
+bestehende Quelltexte nur in geringem Ma&szlig;e erweitert werden
+m&uuml;ssen. Die Wahl fiel auf die Schale Babylon-2.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_3_1">3.1 Modularer Aufbau der Schale Babylon-2</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Die   hybride  Expertensystemschale  Babylon-2  zeichnet
+sich  -  bedingt  durch eine durchgehend  objektorientierte
+Programmierung   -   darin   aus,   da&szlig;   Interpretermodule
+unterschiedlicher      Leistungsf&auml;higkeit       miteinander
+verschaltet  werden  k&ouml;nnen. Die  Leistungsf&auml;higkeit  jedes
+einzelnen  Expertensystems kann an den Leistungsbedarf  der
+zugeh&ouml;rigen   Wissensbasis  angepa&szlig;t  werden.   F&uuml;r   jeden
+Wissensrepr&auml;sentationsformalismus   steht    ein    eigener
+spezialisierter  Wissensinterpreter  zur  Verf&uuml;gung.  Dabei
+handelt   es  sich  um  Frame-,  Regel-,  Constraint-   und
+Prologinterpreter. Jeder dieser Interpreter steht  in  drei
+Ausbaustufen  zur  Verf&uuml;gung. Die  "Basic"-Variante  stellt
+alle    Grundfunktionalit&auml;t   zur   Verf&uuml;gung,   die    zum
+uneingeschr&auml;nkten  Betrieb notwendig sind.  In  den  darauf
+aufbauenden  Varianten  "Mini"  und  schlie&szlig;lich   "Normal"
+kommen Tracer- und Erkl&auml;rungsm&ouml;glichkeiten hinzu. &Uuml;ber  den
+von  EMA-XPS genutzten Leitungsumfang von Babylon-2  hinaus
+steht  noch  ein  Freitextinterpreter  zur  Verf&uuml;gung.  Ein
+definierter   Zugang  zum  sequentiell  arbeitenden   LISP-
+Bereich,  der den Aufruf von LISP-Funktionen beispielsweise
+aus  Regeln  heraus  erm&ouml;glicht, kann zugeschaltet  werden.
+Schlie&szlig;lich existieren Module f&uuml;r die Mensch-Maschine-Kommu
+nikation.
+
+<DD>
+   Diesen   spezialisierten  Einzelinterpretern   ist   als
+&uuml;berlagerte   Kontroll-   und   Koordinationsinstanz    der
+sogenannte Metainterpreter vorgesehen. Er kontrolliert  den
+globalen   Sitzungsablauf  und   verweist   die   einzelnen
+Anweisungen    zur    Behandlung    an    die    jeweiligen
+Wissensinterpreter.  Diese k&ouml;nnen - aufgrund  des  hybriden
+Ansatzes  -  bei  der Bearbeitung wiederum auf  Anweisungen
+sto&szlig;en,  die  ihnen fremd sind. Sie geben die  betreffenden
+Teilanweisungen  an  den  Metainterpreter  zur   geeigneten
+anderweitigen  Zuweisung zur&uuml;ck und erhalten das  ben&ouml;tigte
+Ergebnis der Interpretation sp&auml;ter vom Metainterpreter,  um
+die  begonnene  Teilaufgabe  fortf&uuml;hren  zu  k&ouml;nnen.  Daher
+gen&uuml;gt  es, wenn jeder spezialisierte Interpreter  mit  dem
+Metainterpreter  kommunizieren kann. Von der  Existenz  der
+anderen   Spezialisten  erf&auml;hrt   er   nichts.   Bild   S15
+verdeutlicht die Architektur von Babylon-2 [S2, S3].
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S15.gif">
+</CENTER>
+<P>
+Bild S15: Die hybride Architektur von Babylon-2
+<P>
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_3_2">3.2 Mensch-Maschine-Schnittstelle von Babylon-2</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Babylon-2 bietet neben den Wissensinterpretern auch  ein
+Modul  f&uuml;r  die  Mensch-Maschine-Kommunikation  an.  Dieses
+existiert  ebenfalls  in  drei  Auspr&auml;gungen.  Das   Basic-
+Interface-Mixin   stellt   die   elementaren    Ein-    und
+Ausgabeoperationen  zur Verf&uuml;gung. S&auml;mtliche  Kommunikation
+wird   hier&uuml;ber   abgewickelt.  Weiterhin   wird   zwischen
+unterschiedlichen  logischen Ausgabestr&ouml;men  unterschieden,
+die  aber  standardm&auml;&szlig;ig auf den <em>*terminal-io*</em>  Strom,  den
+Standardausgabekanal umgelenkt und zusammengefa&szlig;t sind.
+
+<DD>
+   Dementsprechend   existieren   neben    den    weiterhin
+verf&uuml;gbaren LISP Standardein- und Standardausgabekanal  der
+ebenfalls bidirektionale Sitzungs-Dialog-Strom von Babylon-
+2  sowie  die jeweils reinen Ausgabekan&auml;le f&uuml;r Erkl&auml;rungen,
+die  Trace-Informationen des Regel-,  Prolog-,  Constraint-
+und Metainterpreters.
+
+<DD>
+   Das  Mini-Interface-Mixin stellt  -  basierend  auf  dem
+Modell  der  Ein-und  Ausgabestr&ouml;me - die  M&ouml;glichkeit  zur
+Verf&uuml;gung, Operationen &uuml;ber ein Men&uuml; auszuw&auml;hlen.
+
+<DD>
+   Das  Normal-Interface-Mixin ist derzeit nur in der Apple
+Macintosh  Version unter Allegro CommonLISP  verf&uuml;gbar.  Es
+verwendet  mehrere  Textfenster, um die  Informationen  der
+Ausgabestr&ouml;me   geeignet   darstellen   zu   k&ouml;nnen,    und
+Auswahldialoge    f&uuml;r    die    Systemeinstellungen     und
+Benutzereingaben.   Diese  L&ouml;sung   ist   nicht   portabel.
+Weiterhin  entsprechen  die  grafischen  M&ouml;glichkeiten  der
+Macintosh   Version   nicht   der   Forderung,   f&uuml;r   jede
+Wissensbasis       eine       individuelle        grafische
+Endbenutzerschnittstelle zu generieren [S2, S3].
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_3_3">3.3 Interproze&szlig;-Kommunikation</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Die  erste  Version  der grafischen Expertensystemschale
+EMA-XPS wurde auf ApolloDomain Workstations unter dem  dort
+erh&auml;ltlichen   CLtL1  kompatiblen  LISP-Interpreter   Lucid
+CommonLISP   entwickelt.  Diese  Version  des  Interpreters
+unterscheidet nicht zwischen interaktiver Sitzung und Batch-
+Betrieb.  Der Prompt erscheint immer. Daher war  zu  diesem
+Zeitpunkt die allgemeine Notwendigkeit des Einsatzes  eines
+Pseudo-Teletype-Ger&auml;ts noch nicht erkannt worden.  Vielmehr
+stand die grunds&auml;tzliche Konzeptfindung im Vordergrund  der
+Arbeiten. Bild S16 verdeutlicht den Initialisierungsvorgang
+der beiden Prozesse von EMA-XPS.
+
+<DD>
+   &Auml;hnlich der Bootphase bei der Liniengrafik xgrf3  werden
+zun&auml;chst  von  dem  in C geschriebenen Grafik-Server-Proze&szlig;
+die   Interproze&szlig;kommunikationskan&auml;le  gem&auml;&szlig;  
+Tabelle S3
+eingerichtet.  So  kann  gew&auml;hrleistet  werden,  da&szlig;   alle
+Informationen inhaltlich getrennt auf der C-Seite verf&uuml;gbar
+sind.  Dies  entspricht  den M&ouml;glichkeiten  von  Babylon-2,
+kontextbezogen   Ausgaben  auf  unterschiedlichen   Str&ouml;men
+auszugeben.   Im   Anschlu&szlig;  baut  der   Grafikserver   die
+Verbindung zum Xserver auf und etabliert unter Zuhilfenahme
+der  Xt  Intrinsics  Funktion  <em>XtAddInputHandler</em>  f&uuml;r  alle
+lesenden Enden der Pipelines C-seitig Funktionen, die diese
+Pipes  leeren,  die  Inhalte interpretieren  und  umsetzen.
+XtAddInputHandler      sorgt      daf&uuml;r,      da&szlig;       die
+Ereignishauptschleife  auch das Vorhandensein  von  Zeichen
+pr&uuml;ft  und gegebenenfalls - &auml;hnlich den Callbacks  -  diese
+Handler startet.
+
+<DD>
+   Schlie&szlig;lich  wird  mittels <em>fork</em> ein Kindproze&szlig;  erzeugt,
+der  zun&auml;chst  seine Standardeingabe und  -ausgabe  in  die
+jeweils anderen Enden der Toplevel-Pipe umlenkt. Der Proze&szlig;
+wird mit <em>exec</em> durch den LISP-Interpreter ersetzt.
+
+
+<!----------------------------------------------------->
+<P>
+<CENTER>
+<TABLE WIDTH=550 BORDER CELLPADDING=5 CELLSPACING=2>
+<TR>
+<TH align=left>C-Seite<br>Name der Pipe</th>
+<th align=left>Richtung<br>Handler</th>
+<th align=left>LISP-Seite<br>Name des Stroms</th>
+<th align=left>Verwendung</th>
+
+</TR><TR>
+<td>Toplevel-Pipe</td>
+<td><==><br>(1)</td>
+<td>*terminal-io*</td>
+<td>Standardein-/ausgabe &uuml;ber den Debugger PAD</td>
+
+</TR><TR>
+<td>Graphic-Pipe</td>
+<td><==><br>(2)</td>
+<td>*graphic-stream*</td>
+<td>Anweisungen zur Erstellung von Popupdialogen</td>
+
+</TR><TR>
+<td>Dialog-Pipe</td>
+<td><==><br>(3)</td>
+<td>*dialog-stream*</td>
+<td>Sitzungs PAD</td>
+
+</TR><TR>
+<td>Explain-Pipe</td>
+<td><==<br>(3)</td>
+<td>*explain-stream*</td>
+<td>PAD f&uuml;r Erkl&auml;rungen</td>
+
+</TR><TR>
+<td>RuleT-Pipe</td>
+<td><==<br>(3)</td>
+<td>*rule-stream*</td>
+<td>PAD f&uuml;r die Ausgabe des Regel-Trace</td>
+
+</TR><TR>
+<td>PrologT-Pipe</td>
+<td><==<br>(3)</td>
+<td>*prolog-stream*</td>
+<td>PAD f&uuml;r die Ausgabe des Prolog-Trace</td>
+
+</TR><TR>
+<td>ConsatT-Pipe</td>
+<td><==<br>(3)</td>
+<td>*consat-stream*</td>
+<td>PAD f&uuml;r die Ausgabe des Consat-Trace</td>
+
+</TR><TR>
+<td>SystemT-Pipe</td>
+<td><==<br>(3)</td>
+<td>*system-stream*</td>
+<td>PAD f&uuml;r die Ausgabe des System-Trace</td>
+</TR>
+</TABLE>
+</CENTER>
+
+<MENU>
+ wobei
+<DD>(1)  toplevelPipeInputHandler()
+<DD>(2)  graphicPipeInputHandler()
+<DD>(3)  readPipe()
+</MENU>
+
+<P>
+Tabelle S3: Interproze&szlig;kommunikationskan&auml;le von EMA-XPS v1
+<P>
+
+
+
+<DD>
+   Der  LISP-Proze&szlig;  kann  nicht feststellen,  da&szlig;  er  aus
+einer  Pipeline liest und in sie schreibt und damit  keinen
+Zugang  zu  dem  Terminal  hat, von  dem  der  Grafikserver
+gestartet worden ist. LISP kann nur noch &uuml;ber diesen Proze&szlig;
+mit dem Benutzer in Verbindung treten. Die LISP-Welt ist so
+angelegt,  da&szlig;  sie  beim Start bereits  den  vollst&auml;ndigen
+Leistungsumfang   der   Schale   Babylon-2   enth&auml;lt.   Der
+Grafikserver  schreibt  danach in die  Toplevel-Pipe  Lisp-
+Kommandos, wie es im interaktiven Modus der Benutzer  getan
+h&auml;tte.  Dadurch  werden die Dateien  nachgeladen,  die  die
+grafischen  Erg&auml;nzungen der Babylon-2-Welt beinhalten.  Auf
+diesem Wege wird die Interproze&szlig;kommunikation auch auf  der
+LISP-Seite      etabliert.      Den      Abschlu&szlig;       der
+Initialisierungsphase und die zeitliche Synchronisation mit
+dem  LISP-Proze&szlig; kontrolliert der C-Proze&szlig; dadurch, da&szlig;  er
+den  String "endOfLispInit" in die Standardeingabe von LISP
+schreibt. Der read-eval-print-loop von LISP schreibt  diese
+Konstante  unver&auml;ndert in die Standardausgabe  zur&uuml;ck.  Der
+<em>toplevelPipeInputHandler</em>  des Grafikservers  erkennt  diese
+Textausgabe. Die Synchonisation ist damit erfolgt, denn der
+LISP-Proze&szlig; bearbeitet diese Eingabe erst, nachdem er  alle
+vorangegangen Eingaben abgearbeitet hat.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S16.gif">
+</CENTER>
+<P>
+Bild S16:  Die Zwei-Proze&szlig;-L&ouml;sung von EMA-XPS mit ihren
+unterschiedlichen Programmiermodellen
+<P>
+
+
+
+<DD>
+   In  der ersten Testversion der Schale wurden alle  diese
+Ausgaben zun&auml;chst in PAD-Fenster geleitet. Dabei handelt es
+sich  um mehrzeilige rollbare Textausgabefenster, die -  im
+Falle  eines  bidirektionalen Stroms - um  ein  einzeiliges
+Texteingabefenster erweitert sind.
+
+<DD>
+   Bild  S19 zeigt den Debugger PAD, der die Toplevel-Pipe,
+also  die  Standardein- und -ausgabe  von  LISP  &uuml;berwacht.
+Dargestellt  ist die Bootphase. Interessant  ist,  da&szlig;  die
+Kommandos,   die  der  Server  nach  LISP  schickt,   nicht
+dargestellt  sind.  Nur die Antworten der  LISP-Seite  sind
+sichtbar.  Da hier keine Pseudo-Teletypes verwendet  worden
+sind,  m&uuml;&szlig;ten  Texteingaben  vom  Server  selbst  als  Echo
+zus&auml;tzlich in das Textausgabefenster geschrieben werden.
+
+<DD>
+   Auf  unterster  Ebene der Interproze&szlig;kommunikation  sind
+drei austauschbare Mechanismen getestet worden:
+
+<LI>shared memory,
+<LI>unnamed pipes und
+<LI>named pipes.
+
+<BR>
+CommonLISP stellt keine Mechanismen zur Verf&uuml;gung,  bereits
+vor  dem Start des Interpreters ge&ouml;ffnete Dateien zu  lesen
+oder  zu  beschreiben,  ohne sie  erneut  zu  &ouml;ffnen.  LISP
+verwendet  eine eigene Dateiverwaltung. Daher  m&uuml;ssen  alle
+Dateien,  die  unter  LISP bearbeitet werden  sollen,  auch
+innerhalb dieser Interpretersitzung ge&ouml;ffnet werden.  Daher
+mu&szlig;te  bei den Mechanismen shared memory und unnamed  pipes
+auf  das  Lucid  Foreign-Function-Interface zur&uuml;ckgegriffen
+werden,   das   eine   Erweiterung   des   CLtL1-Standards
+darstellt.
+
+<DD>
+   Dies  ist  nicht  notwendig, wenn named pipes  verwendet
+werden.  Beim  Erstellen  derartiger  Pipelines  wird   ein
+Eintrag   in  das  Dateisystem  vorgenommen.  Der  C-Proze&szlig;
+&uuml;bergibt  diese Namen &uuml;ber die Toplevel-Pipe, die in  allen
+drei F&auml;llen als eine unnamed pipe ausgef&uuml;hrt war. LISP kann
+dann diese "Dateien" zum Lesen oder Erweitern &ouml;ffnen.
+
+<DD>
+   Bild   S17   verdeutlicht   die   Implementierung    der
+Interproze&szlig;kommunikation an einer bidirektionalen Pipeline.
+
+<DD>
+   Die  regul&auml;re Befehlseingabe geschieht dadurch, da&szlig;  die
+Anweisungen der Reihe nach in die Standardeingabe von  LISP
+geschrieben werden. Ein Sonderfall ergibt sich, wenn  unter
+LISP  ein  Fehler auftritt. Dann soll n&auml;mlich der  Debugger
+PAD  in  jedem  Fall sichtbar werden, also im Fenster-Stack
+ganz nach vorne geholt und deikonifiziert werden. Dazu  mu&szlig;
+erkannt  werden,  wann  der LISP-Interpreter  den  Debugger
+startet.  Das offensichtlichste Kriterium ist der ge&auml;nderte
+Prompttext.   Er   wechselt  bei  dem   vorhandenen   Lucid
+Interpreter   von   <strong><em>">   "</em></strong>   nach   <strong><em>"1.   Break>
+"</em></strong>.   Der
+toplevelPipeInputHandler  pr&uuml;ft   daher   den   ankommenden
+Zeichenstrom nicht nur hinsichtlich der Sequenz  "endOfLisp
+Init",  wie  bereits  beschrieben. Er leitet  bei  Erkennen
+einer  Sequenz  wie <strong><em>"\n%d. Break> "</em></strong> diese  Sonderbehandlung
+ein.  Alle  anderen  Texte werden in das Textausgabefenster
+des  PADs  kopiert.  Dieses  Vorgehen  entspricht  dem  von
+<em>readPipe</em>.  Dieser Handler ist auf die Mehrzahl  der  Kan&auml;le
+registriert.    Die    zugeh&ouml;rigen    PADs    sind    reine
+Ausgabefenster.  Sie  werden immer dann  sichtbar  gemacht,
+wenn eine Ausgabe &uuml;ber diesen Kanal erfolgt.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S17.gif">
+</CENTER>
+<P>
+Bild S17: Lesen und Beschreiben der Pipes
+<P>
+
+
+
+<DD>
+   In    der   Folgeversion   von   EMA-XPS   wurden    die
+Erweiterungen   des  Mini-Interface-Mixin   ber&uuml;cksichtigt.
+Hierf&uuml;r sind Popup-Dialoge bereitzustellen. Zus&auml;tzlich  ist
+der  *graphic-stream*  eingef&uuml;hrt  worden.  Wenn  Babylon-2
+einen  Auswahldialog erstellt, schreibt es eine  Liste  von
+M&ouml;glichkeiten   auf  den  *dialog-stream*.   Das   modulare
+Programmiermodell  von Babylon-2 erm&ouml;glicht  die  Ersetzung
+dieser  Funktionalit&auml;t.  Anstelle  der  Ausgabe  wird  eine
+Protokollsequenz der Form
+
+
+<P>
+<ADDRESS><STRONG><CENTER>
+       Schl&uuml;sselwort%%Nachrichttext%%endeNachricht%%
+</CENTER></STRONG></ADDRESS>
+<P>
+
+
+&uuml;ber  den  *graphic-stream* gesandt. Der  C-Proze&szlig;  erzeugt
+einen   geeigneten   Popup-dialog   mit   den   notwendigen
+Texteintr&auml;gen,  die er der Protokollsequenz entnommen  hat.
+LISP  wartet  mittels  <em>read</em>  auf  eine  geeignete  Antwort.
+Nachdem  der  Benutzer  seine Eingaben  abgeschlossen  hat,
+schlie&szlig;t  der  Grafikserver  den  Dialog  und  sendet  eine
+Antwortsequenz in die Graphic-Pipe.
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_3_4">3.4 Wechselnde Master/Slave Beziehung</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Der  Begriff Client-Server-L&ouml;sung beschreibt  die  Zwei-
+Proze&szlig;-L&ouml;sung  nicht korrekt. Auch wenn aus der  Sicht  des
+LISP-Prozesses der C-Proze&szlig; ihm die Grafikaufgaben  abnimmt
+und  damit als Server zur Verf&uuml;gung steht, besteht zwischen
+den  beiden Prozessen eher ein Master-Slave-Beziehung, weil
+einer auf die Anweisungen des anderen reagiert.
+
+<DD>
+   Dieses   Verh&auml;ltnis  kehrt  sich  aber  wiederholt   um.
+W&auml;hrend  der Bootphase kontrolliert der C-Proze&szlig; die  LISP-
+Welt. Auch im Anschlu&szlig; daran unterliegt der LISP-Proze&szlig; der
+Kontrolle  des  Grafikservers. Er teilt LISP  mit,  ob  der
+Benutzer  eine Wissensbasis laden m&ouml;chte oder  ob  er  eine
+Sitzung starten will.
+
+<DD>
+   Sobald  aber die Sitzung l&auml;uft, geht die Gesamtkontrolle
+auf den LISP-Proze&szlig; &uuml;ber. Dann entscheidet dieser, wann der
+C-Proze&szlig;  einen  Popupdialog  produziert  und  was  in  die
+unterschiedlichen PAD-Fenster zu schreiben  ist.  Erst  mit
+dem  Ende der Sitzung geht die Kontrolle zur&uuml;ck an  den  C-
+Proze&szlig;. Um Fehlfunktionen zu vermeiden, ist daher darauf zu
+achten, da&szlig; der C-Proze&szlig;, wenn er im Slave-Modus ist, keine
+Kommandos  in die Toplevel-Pipe schreibt. LISP  ist  gerade
+besch&auml;ftigt  und  kann  eher eine  Benutzereingabe  mittels
+eines <em>read</em> abfragen wollen, als da&szlig; es die Eingabe als  ein
+LISP-Kommando  auffa&szlig;t.  Eine  wechselseitige  Verriegelung
+beider Prozesse empfiehlt sich.
+
+<DD>
+   EMA-XPS    stellt    auch   grafische    Editoren    zur
+Wissenseingabe    zur   Verf&uuml;gung   und   erm&ouml;glicht    ein
+abschlie&szlig;endes  Speichern dieses Wissens  in  Wissensbasis-
+Dateien. Auch hierbei beh&auml;lt der C-Proze&szlig; die Kontrolle. Er
+fordert beispielsweise alte Regeldefinitionen an, die  LISP
+mit  einer  geeigneten Protokollsequenz &uuml;ber den  *graphic-
+stream*  beantwortet.  Eine Quittierung  des  Empfangs  der
+ge&auml;nderten   Regel   durch   die   LISP-Welt   ist    nicht
+erforderlich. Im Unterschied dazu sendet LISP w&auml;hrend einer
+Sitzung  als Master eine Grafikanforderung, die die C-Seite
+mit der Benutzerreaktion quittiert (Bild S16).
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_3_5">3.5 Grafisches Erscheinungsbild</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Aufbauend     auf    die    beschreibene    Interproze&szlig;-
+Kommunikation ist eine rudiment&auml;re Endbenutzerschnittstelle
+&auml;hnlich   einem   PAD   vorgesehen.   Damit   lassen   sich
+textorientierte   Sitzungen   realisieren.    &Uuml;ber    einen
+zus&auml;tzlichen  PushButton kann der Benutzer das Sitzungsende
+signalisieren.  Dazu wird ein entsprechendes  LISP-Kommando
+in  die  Toplevel-Pipe geschrieben,  das  das  Abbauen  des
+Sitzungsfensters  bewirkt. LISP wertet es  aber  erst  aus,
+wenn  es  wieder  Eingaben annimmt,  also  nachdem  es  die
+Kontrolle  an die C-Seite zur&uuml;ckgegeben hat.  Dies  ist  im
+allgemeinen  erst nach dem in der Wissensbasis vorgesehenen
+Sitzungsende der Fall.
+
+<DD>
+   Weiterhin  stehen spezialisierte grafische Editoren  zur
+Wissenseingabe  zur  Verf&uuml;gung. Pro  Konstrukttyp  ist  ein
+eigenes  Editorfenster  realisiert.  Bild  S18  zeigt   das
+Hauptfenster  von EMA-XPS. &Uuml;ber das heruntergeklappte  Men&uuml;
+k&ouml;nnen die einzelnen Editoren sichtbar gemacht werden,  der
+LISP-Debugger beispielsweise f&uuml;r die manuelle  Eingabe  von
+LISP-Kommandos   oder zur Kontrolle des Abarbeitungserfolgs
+hervorgeholt   werden.   Schlie&szlig;lich   l&auml;&szlig;t    sich    eine
+Wissensbasis laden, speichern und starten.
+
+<DD>
+   Zus&auml;tzlich   kann  &uuml;ber  einen  speziellen   Knopf   des
+Debugger  PADs  das UNIX-Signal SIGINT an  den  LISP-Proze&szlig;
+gesandt   werden.   Dies   entspricht   dem   Dr&uuml;cken   der
+Tastenkombination  Ctrl-C  bei  einem  Text-Terminal   oder
+xterm.  Jeder  LISP-Interpreter erkennt dieses  Signal  als
+einen  Keyboard-Interrupt oder User-Break,  also  eine  vom
+Benutzer gew&uuml;nschte Unterbrechung der Evaluation. LISP ruft
+dann  den  Debugger  auf,  bietet  aber  im  Gegensatz  zum
+Fehlerfall die Wiederaufnahme der Evaluation an.
+
+
+<P>
+<CENTER>
+<TABLE><! CELLPADDING=5 CELLSPACING=2><TR>
+
+<TD align=center>
+<IMG SRC="bild_S18.gif">
+<P>
+Bild S18: Hauptmen&uuml; von EMA-XPS v1
+</TD>
+
+<TD align=center>
+<IMG SRC="bild_S19.gif">
+<P>
+Bild S19: LISP-Debugger PAD am Ende der Bootphase
+</TD>
+
+</TR></TABLE>
+</CENTER>
+<P>
+
+
+
+<DD>
+   Wird  der  C-Proze&szlig; kontrolliert beendet, beispielsweise
+dadurch,  da&szlig;  der Window-Manager dies mittels  des  ICCCM-
+Protokolls mitteilt, sendet er vorher ein SIGKILL-Signal an
+die  LISP-Welt, die daraufhin umgehend terminiert.  Die  C-
+Seite  schlie&szlig;t  danach die Interproze&szlig;kommunikationskan&auml;le
+und terminiert ebenfalls.
+
+
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_4_0">4. Implementierung von EMA-XPS v2</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+   
+
+<DD>
+   Mit  der  Entscheidung,  das  einleitend  erw&auml;hnte  FVA-
+Forschungsvorhaben   unter   Verwendung    der    verf&uuml;gbar
+gewordenen  kommerziellen  Schale  <EM>babylon</EM>-3  fortzuf&uuml;hren,
+sind  die Arbeiten an EMA-XPS eingestellt worden. Eine SUN-
+kompatible  Sparc-Workstation mu&szlig;te  beschafft  werden,  um
+<EM>babylon</EM>-3  betreiben  zu k&ouml;nnen. <EM>babylon</EM>-3  ist  unter  dem
+CLtL2 kompatiblen Allegro CommonLISP 4.0 entwickelt worden.
+
+<DD>
+   Mit  dem  unerwarteten  Ende  der  Verf&uuml;gbarkeit  dieser
+Schale  wurde EMA-XPS wieder interessant. Die Rekompilation
+der   C-Quelltexte   auf   der  Sparc-Workstation   verlief
+problemlos, die LISP-Erweiterungen dagegen bereiteten M&uuml;he.
+Da  kein  Lucid CommonLISP f&uuml;r SunOS verf&uuml;gbar  war,  mu&szlig;te
+Ersatz   gesucht   werden.  Das  lizenzkostenfreie   CLtL1-
+kompatible  CLISP, das bereits Teile der CLtL2  Erg&auml;nzungen
+beinhaltet, stellt eine geeignete Alternative dar.
+
+<DD>
+   CLISP  bietet eine andere Foreign-Function Unterst&uuml;tzung
+als  Lucid  und wieder eine andere als Allegro. Daher  sind
+bei der Portierung die L&ouml;sungen sharable memory und unnamed
+pipes  weggefallen.  Nur  die  named  pipes  gen&uuml;gten   der
+Portabilit&auml;tsforderung,  weil  sie  nur   den   von   CLtL1
+garantierten  Sprachumfang  verwendeten.  Trotzdem  stellte
+sich  heraus,  da&szlig;  f&uuml;r  das &Ouml;ffnen  einer  Pipe-Datei  zum
+Schreiben   jeder  LISP-Interpreter  andere   Einstellungen
+ben&ouml;tigte.  Pipelines unterscheiden sich  von  gew&ouml;hnlichen
+Dateien dadurch, da&szlig; das Repositionieren der Dateilese- und
+-schreibzeiger nicht m&ouml;glich ist.
+
+<DD>
+   Weiterhin ergaben sich Probleme, weil CLISP und  Allegro
+mittels  isatty  feststellen,  ob  sie  an  einer  Teletype
+arbeiten.  Dementsprechend  fehlt  der  Prompt,   der   vom
+toplevelPipeInputHandler &uuml;berwacht wird.  Die  Interproze&szlig;-
+Kommunikation kommt gelegentlich sogar au&szlig;er  Tritt.  Daher
+mu&szlig;  ein  stabileres und portableres Grundkonzept  f&uuml;r  die
+Interproze&szlig;kommunikation gefunden werden.
+
+<DD>
+   Es  kommt  hinzu,  da&szlig; die unter <EM>babylon</EM>-3  entwickelten
+Wissensbasen  in  ihrem  Bestand  gef&auml;hrdet   waren.   Eine
+Emulation setzt neben der Nachbildung der unterschiedlichen
+Wissensbeschreibungssprachen  in  den   Wissenbasis-Dateien
+auch    eine   leistungsf&auml;higere   Endbenutzerschnittstelle
+voraus. Diese Probleme sind in der Version 2 der Schale EMA-
+XPS gel&ouml;st worden.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_4_1">4.1 Toplevelloop von CLtL1 LISP-Implementierungen</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Die  Quelltexte der modular konzipierten Schale Babylon-
+2   sind   in  dem  damals  g&uuml;ltigen  LISP-Standard   CLtL1
+realisiert     worden.    Babylon    ist     ausschlie&szlig;lich
+objektorientiert realisiert. Dazu ist das  in  Kapitel  2.1
+erw&auml;hnte Meta Class System (MCS) verwendet worden.
+
+<DD>
+   Derzeit  unterst&uuml;tzen noch nicht alle LISP-Anbieter  den
+vollen  Umfang des CLtL2-Standards. Diese zweite Festlegung
+des    Sprachstandards   definiert   sehr   leistungsf&auml;hige
+M&ouml;glichkeiten,  den  Prompt-Text zu  beeinflussen  und  den
+Einsprung  in das LISP-eigene Fehlerwerkzeug, den Debugger,
+zu    kontrollieren.   Aus   Gr&uuml;nden   der   gr&ouml;&szlig;tm&ouml;glichen
+Kompatibilit&auml;t  soll  hier  aber  weitestgehend   mit   den
+M&ouml;glichkeiten   der  CLtL1  Implementierungen   ausgekommen
+werden.
+
+<DD>
+   Ein  Debugger  ist  in  den meisten Interpreter-Sprachen
+vorgesehen,  wenn auch mehr oder weniger rudiment&auml;r.  Unter
+LISP  stellt  er einen definierten Wiedereintrittspunkt  in
+die  interaktive  Betriebsart nach  einem  Fehler  dar.  Er
+stellt  die  M&ouml;glichkeit zur Verf&uuml;gung,  das  Ausl&ouml;sen  der
+Fehlerbedingung zur&uuml;ckzuverfolgen. Beispielsweise kann  der
+Funktionsstack mit Aufrufparametern sowie eine  gro&szlig;e  Zahl
+von  Variableninhalten erfragt werden, was die  Fehlersuche
+bei der Programmentwicklung unterst&uuml;tzt.
+
+<DD>
+   Neben  dem  bereits beschriebenen Unterschieds  bei  der
+interaktiven Betriebsart eines LISP-Interpreters,  bei  der
+eine  Eingabeaufforderung geschrieben wird und  dem  Batch-
+Betrieb,  bei  dem  dieser  Prompt  unterbleibt,  ist  eine
+weitergehende  Betrachtung  des  read-eval-print-loops  von
+Interesse.
+
+<DD>
+   Die  LISP-Funktion  <em>read</em> wertet einen  kompletten  LISP-
+Ausdruck    aus    und   gibt   ihn   in   der    typischen
+Listenschreibweise zur&uuml;ck. Eine Liste wird durch eine  `(',
+eine  von  Leerzeichen getrennte Reihe von LISP-Ausdr&uuml;cken,
+und  eine  `)'  beschrieben. Dabei darf sich  der  Ausdruck
+durchaus &uuml;ber mehrere Zeilen erstrecken. Demgem&auml;&szlig; mu&szlig;  read
+bereits   ein   Grundverst&auml;ndnis  der   Sprache   besitzen.
+Beispielsweise wertet diese Funktion bereits Kommentare und
+Zeichenketten  (Strings) aus. Klammern  in  Strings  d&uuml;rfen
+dabei  die  einzulesende Listenhierarchie nicht  verletzen.
+Zus&auml;tzlich k&ouml;nnen Makrozeichen definiert werden.
+
+<DD>
+   Im   Rahmen   der   <EM>babylon</EM>-3   Emulation   ist   darauf
+zur&uuml;ckgegriffen worden. Eine Liste der Form "[a b c]"  wird
+unter  Nutzung dieser Makrozeichen-Expansion von  read  als
+eine Liste der Form ($PRED A B C) zur&uuml;ckgegeben.
+
+<DD>
+   Der   R&uuml;ckgabewert  von  read  dient  als  Eingabe   der
+Funktion  <em>eval</em>.  Diese pr&uuml;ft zun&auml;chst, ob der  &Uuml;bergabewert
+eine  Liste  oder  ein einfacher Ausdruck  ist.  Konstanten
+(eine  Zahl,  ein  String  oder ein  Schl&uuml;sselwort)  werden
+direkt   zur&uuml;ckgegeben,   Symbole   werden   als   Variable
+interpretiert  und  es wird mittels <em>symbol-value</em>  versucht,
+ihren  Wert zu bestimmen und zur&uuml;ckzugeben. Im Falle  einer
+Liste wird zun&auml;chst gepr&uuml;ft, ob das erste Element der Liste
+ein  Symbol  ist.  Ist das erste Element eine  Liste,  wird
+sofort  ein  Syntax-Fehler ausgel&ouml;st, weil  dies  laut  dem
+Lambda-Kalk&uuml;l nicht zul&auml;ssig ist. Danach wird festgestellt,
+ob  das Symbol auf eine Makrodefinition verweist. In diesem
+Fall wird das Makro zun&auml;chst expandiert und eval erneut auf
+das  Resultat  angewandt. Zuletzt verbleibt  nur  noch  die
+M&ouml;glichkeit,  da&szlig;  das Symbol auf eine  Funktionsdefinition
+verweist.  Dieser  wird  mittels  der  Funktion  <em>apply</em>  die
+Argumentliste, also die verbleibenden Elemente der von read
+&uuml;bergebenen Liste, &uuml;bergeben.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S20.gif">
+</CENTER>
+<P>
+Bild S20: Flu&szlig;laufplan des LISP-Toplevelloops
+<P>
+
+
+
+<DD>
+   Diese Standardvorgehensweise kann beeinflu&szlig;t werden.  Zu
+diesem Zweck stehen verschiedene Hook-Funktionalit&auml;ten  zur
+Verf&uuml;gung.   In  globalen  Variablen  werden   Zeiger   auf
+benutzerdefinierte  Funktionen  eingetragen,  die  einzelne
+Operationen ersetzen oder erg&auml;nzen sollen. Enthalten  diese
+Variablen den Wert NIL oder existieren sie erst gar  nicht,
+wird  das Standardverhalten durchgef&uuml;hrt. Tabelle S4 zeigt
+die Variablennamen und deren Bedeutung auf.
+
+
+<!----------------------------------------------------->
+<P>
+<CENTER>
+<TABLE WIDTH=550 BORDER CELLPADDING=5 CELLSPACING=2>
+
+<TR>
+<td>*evalhook*</td>
+<td>alternative Evaluations-Funktion</td>
+
+</TR><TR>
+<td>*applyhook*</td>
+<td>beeinflu&szlig;t die Anbindung der Argumentliste an eine Funktion</td>
+
+</TR><TR>
+<td>*macroexpand-hook*</td>
+<td>anderes Vorgehen bei der Makro-Expansion</td>
+
+</TR><TR>
+<td>*debugger-hook*</td>
+<td>eine Alternative zum Einsprung in den Debugger (erst in CLtL2
+    festgeschrieben, von etlichen CLtL1-Interpretern aber bereits als
+    Erweiterung angeboten)</td>
+
+</TR>
+</TABLE>
+</CENTER>
+<P>
+Tabelle S4: M&ouml;glichkeiten der Beeinflussung des Toplevelloops
+<P>
+
+
+
+<DD>
+   Eval   gibt   das  Evaluationsergebnis  des  &uuml;bergebenen
+Ausdrucks    zur&uuml;ck,    das   mittels    <em>print</em>    in    den
+Standardausgabekanal geschrieben wird.  Das  LISP-Konstrukt
+f&uuml;r  die  Endlosschleife, <em>loop</em>, sorgt f&uuml;r die  Wiederholung
+des  Vorgangs.  Der Toplevelloop l&auml;&szlig;t sich vereinfacht  wie
+folgt beschreiben:
+
+<P>                             
+<ADDRESS>
+<STRONG>
+<CENTER>
+               (loop (print (eval (read))))
+</CENTER>
+</STRONG>
+</ADDRESS>
+<P>
+                             
+
+<DD>
+   Bild  S20  zeigt prinzipiell den Flu&szlig;laufplan des  LISP-
+Toplevelloops auf. Die M&ouml;glichkeiten der Einflu&szlig;nahme  sind
+f&uuml;r  die Emulation der Wissensrepr&auml;sentationsmechanimen von
+<EM>babylon</EM>-3, sowie zur Implementierung der virtuellen  Kan&auml;le
+von EMA-XPS v2 genutzt worden.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_4_2">4.2 Virtuelle Kan&auml;le</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Das            Konzept           der           logischen
+Interproze&szlig;kommunikationskan&auml;le von  EMA-XPS  v1  ist  eine
+Weiterentwicklung  der Mechanismen der  xgrf3  Grafik.  Das
+un&uuml;biche Verhalten des Lucid LISP-Interpreters, den  Prompt
+immer  zu schreiben, hatte dazu gef&uuml;hrt, da&szlig; pro Kanal  und
+pro  Richtung eine named pipe ge&ouml;ffnet wurde. Pipes  werden
+als  spezielle  Ger&auml;te &uuml;ber den Kernel  realisiert.  Dieser
+stellt nur eine begrenzte Anzahl solcher Ger&auml;tetreiber  zur
+Verf&uuml;gung.  Unter  SunOS ist diese Zahl  auf  32  begrenzt.
+Daher konnte EMA-XPS nie mehr als zweimal gleichzeitig  auf
+einem   Rechner   betrieben  werden.   Dies   stellt   eine
+unerw&uuml;nschte Verschwendung knapper Resourcen dar.
+
+<DD>
+   Bei  Verwendung  von Pseudo-Teletypes als bidirektionale
+Pipelines, die das Erscheinen des LISP-Prompts garantieren,
+sind  pro EMA-XPS Sitzung 8 Ger&auml;te zu belegen. Da aber auch
+andere   Applikationen,  wie  das   xterm,   diese   Ger&auml;te
+ben&ouml;tigen,  ist  hier  ebenfalls die Zahl  der  verf&uuml;gbaren
+Ger&auml;te  (48 unter SunOS) schnell ausgesch&ouml;pft. Daher m&uuml;ssen
+hier Einsparungen vorgenommen werden.
+
+<DD>
+   Dazu   mu&szlig;   zun&auml;chst   die   Kanalauslastung   in   den
+unterschiedlichen    Betriebssituationen    von     EMA-XPS
+untersucht werden. Tabelle S3 ist zu entnehmen, da&szlig; -  aus
+der  Sicht  des  LISP-Prozesses -  3  Eingabekan&auml;le  und  8
+Ausgabekan&auml;le existieren. &Uuml;ber die Str&ouml;me *explain-stream*,
+*rule-stream*, *prolog-stream*, *consat-stream* und *system-
+stream*   schreibt  die  Inferenzmaschine   von   Babylon-2
+Klartextinformationen in einzelne PADs.
+
+<LI>
+F&uuml;r  die  <strong>Explain</strong>-Pipe  empfiehlt  sich  sicherlich,  alle
+ erkl&auml;renden Ausgaben der Inferenzmaschine in einem eigenen
+ Ausgabefenster zusammengefa&szlig;t zu haben.
+
+<LI>
+Die  anderen  vier  Str&ouml;me enthalten  alle  ausschlie&szlig;lich
+ Trace-Informationen.  <strong>Tracer</strong> sind Entwicklungshilfen,  mit
+ deren  Hilfe  der Ablauf der Wissensverarbeitung  sichtbar
+ gemacht  werden kann. Der Wissensingenieur  wird  bei  der
+ Erstellung  eines Expertensystems Tracer nutzen,  wenn  er
+ beispielsweise  auf der Suche nach Fehlern  ist  oder  die
+ Probleml&ouml;sung   beschleunigen   will.   Dazu   ist    eine
+ chronologische  Listung der Trace-Ausgaben geeigneter  als
+ eine thematische Trennung. Dementsprechend lassen sich die
+ vier Trace-Str&ouml;me in einen einzigen unidirektionalen Kanal
+ zusammenfassen.
+
+<LI>
+Mit  der  Entscheidung,  die nicht mehr  zeitgem&auml;&szlig;en  rein
+ textstromorientierten  Sitzungsabl&auml;ufe  nicht  l&auml;nger   zu
+ unterst&uuml;tzen,  konnte  auf  den  *dialog-stream*  und  den
+ <strong>Sitzungs PAD</strong> komplett verzichtet werden. Stattdessen steht
+ mittlerweile    eine   Minimalversion    der    grafischen
+ Endbenutzerschnittstelle zur Verf&uuml;gung, mit der  derartige
+ Sitzungen dennoch noch nachempfunden werden k&ouml;nnen.
+
+<LI>
+Die  <strong>Toplevel</strong>-Pipe ist unverzichtbar, weil  die  komplette
+ Bootsequenz  und die Debuggerbedienung im  Fehlerfall  nur
+ hier&uuml;ber abgewickelt werden k&ouml;nnen.
+
+<LI>
+Die  <strong>Graphic</strong>-Pipe  ist  zur  Erstellung  der  Popupdialoge
+ eingef&uuml;hrt worden und kontrolliert mittlerweile  auch  die
+ Kommunikation     bei     den     Editoren     und     dem
+ Endbenutzerbildschirm. Die Vielfalt der Aufgaben hat  hier
+ von Anfang an eine Protokollfestlegung erfordert.
+
+<DD>
+   Es  verbleiben  somit LISP-seitig die  Standardein-  und
+Standardausgabe,        ein        Ausgabestrom         f&uuml;r
+Grafikprotokollsequenzen,  die  Trace-Ausgabe  und  die  Er
+kl&auml;rungsausgabe.    Weiterhin   werden    die    C-seitigen
+R&uuml;ckmeldungen &uuml;ber den *graphic-stream* gesandt.  Wenn  man
+andererseits  ber&uuml;cksichtigt, da&szlig; die Graphic-Pipe  bereits
+unterschiedliche  Fenstertypen bedient,  in  dem  sie  eine
+Protokoller&ouml;ffnungssequenz   mit    Nachrichtentyperkennung
+sendet,   danach   eine  Nachricht  und   schlie&szlig;lich   die
+Protokollendesequenz,   k&ouml;nnen  auch   Trace-Ausgaben   und
+Erkl&auml;rungen &uuml;ber die Graphic-Pipe abgewickelt werden.
+
+
+<P>
+<TABLE BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<ADDRESS><STRONG>
+Die  Graphic-Pipe kann </em></strong>dann<em><strong> auf die Standardausgabe gelegt
+werden,  wenn  das  Grafik-Protokoll  als  ununterbrechbar
+definiert  wird. W&auml;hrend der Initialisierungsphase  sendet
+LISP  nur  Standardausgaben. Sobald eine  Grafik-Nachricht
+zu  &uuml;bertragen  ist,  wird  die Protokoller&ouml;ffnungssequenz
+geschrieben.   Der  modifizierte  toplevelPipeInputHandler
+erkennt,  da&szlig;  eine  Nachricht  folgt  und  schreibt   die
+empfangenen  Zeichen  nicht  mehr  in  den  Debugger  PAD,
+sondern  leitet bis zur Protokollendesequenz alle  Zeichen
+der grafischen Auswertung zu.
+<BR>
+Das Protokoll kommt au&szlig;er Tritt, wenn zwischen Er&ouml;ffnungs-
+und    Endesequenz   protokollfremde   (Standard-)Ausgaben
+geschrieben werden.
+</STRONG></ADDRESS>
+</TD></TR></TABLE> 
+<P>
+
+
+<DD>
+   Der  Vorteil der zwei Kan&auml;le, an denen LISP  h&ouml;rt,  ist,
+da&szlig;  ein neues LISP-Kommando bereits vom C-Proze&szlig; abgesetzt
+werden   kann   (beispielsweise  "hole   Regeldefinition"),
+w&auml;hrend  eine  Sitzung noch l&auml;uft und ein Popupdialog  noch
+ge&ouml;ffnet  ist.  Die korrekte Abarbeitung der  Eingaben  ist
+gew&auml;hrleistet. Werden beide Kan&auml;le zusammengelegt, mu&szlig;  der
+C-Proze&szlig; erkennen, da&szlig; die Quittierung des Popups  vor  das
+bereits abgesetzte LISP-Kommando gereiht werden mu&szlig;.
+
+
+<P>
+<TABLE BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<ADDRESS><STRONG>
+Durch Einbringen der C-seitigen Leistungserweiterung,  die
+Eingabewarteschlange  f&uuml;r  LISP-Befehle   umsortieren   zu
+k&ouml;nnen,  kann trotz einer Beschr&auml;nkung auf einen  einzigen
+LISP-seitigen  Lesekanal  die Funktionsf&auml;higkeit  aufrecht
+erhalten werden.
+</STRONG></ADDRESS>
+</TD></TR></TABLE> 
+<P>
+
+
+<DD>
+   Diese  Schl&uuml;sse  lassen unter Beachtung der  geforderten
+Disziplin   eine  Reduzierung  auf  den  immer  vorhandenen
+Standardein-  und -ausgabekanal zu. Damit  kann  die  Zwei-
+Proze&szlig;-L&ouml;sung EMA-XPS v2 - &auml;hnlich dem xterm  -  mit  einer
+einzigen  Pseudo-Teletype  auskommen.  Die  Quelltexte  des
+xterm   sind  frei  verf&uuml;gbar.  Daher  lag  es   nah,   die
+Ger&auml;te&ouml;ffnung der Pseudo-Teletypes &auml;hnlich den Kernroutinen
+des  xterm  durchzuf&uuml;hren. Dieses Vorgehen ist vorteilhaft,
+weil  sich erfahrungsgem&auml;&szlig; Probleme bei der Portierung  auf
+andere  Plattformen - wenn &uuml;berhaupt - nur im  Bereich  der
+untersten  Ebene  der Interproze&szlig;kommunikation  einstellen.
+Und da in jedem Fall das xterm auf diesen neuen Plattformen
+existieren  wird,  kann ein Blick in die Datei  <em>main.c</em>  des
+xterm helfen, das Problem zu l&ouml;sen.
+
+<DD>
+   Das  xterm unterst&uuml;tzt die VT100 Steuersequenzen.  Diese
+beginnen mit dem ASCII-Code <strong>ESC</strong> (Escape, Fluchtsymbol)  und
+einer  definierten  Folge  von weiteren  Zeichen.  Bei  der
+Festlegung   des  Protokolls  von  EMA-XPS  v2   ist   dies
+aufgegriffen  worden. ESC wird bei zeichenstromorientierten
+Programmen   wie  Babylon-2  nicht  verwendet,   um   nicht
+versehentlich  eine VT 100 Steuersequenz zu initiieren.  Es
+eignet  sich  daher besonders f&uuml;r die Kanalumschaltung.  Da
+die  PADs  keine VT100 Escapesequenzen kennen und erwarten,
+ist das Zeichen auch frei f&uuml;r eine derartige Nutzung.
+
+<DD>
+   Das  <strong>Protokoll</strong> der Version 1 begann mit einer 10 bis  20
+Zeichen  langen  Kanalkennung und einem abschlie&szlig;enden  %%,
+wie      in      Kapitel      3.3     vorgestellt.      Die
+Interproze&szlig;kommunikation  kann  schnell  zum   Flaschenhals
+werden,   wenn  viele  Informationen  ausgetauscht   werden
+m&uuml;ssen.  Daher sollte der Protokoll-Overhead klein gehalten
+werden.  Aus diesem Grund folgen dem ESC immer drei Ziffern
+(0-9).  Das vierte Zeichen nach dem ESC ist also immer  das
+erste  Zeichen der Nachricht. Es stehen damit maximal  <strong>1000</strong>
+unterschiedliche    Nachrichtentypen     oder     <strong>virtuelle</strong>
+Interproze&szlig;kommunikations<strong>kan&auml;le</strong>    zur    Verf&uuml;gung.    Per
+Konvention  sind  die Kanalnummern 000 bis  009  besonderen
+Aufgaben  vorbehalten.  Darauf wird  im  folgenden  Kapitel
+n&auml;her   eingegangen.  Als  Protokollendesequenz   ist   das
+Umschalten   auf   einen   dieser   privilegierten   Kan&auml;le
+festgelegt worden.
+
+<BR>
+Eine  Nachricht  k&ouml;nnte damit beispielsweise  die  folgende
+Form haben:
+
+<P>
+<ADDRESS><CENTER><STRONG>
+ ESC 0 1 0 Z u g r i f f _ v e r w e i g e r t ! ESC 0 0 1
+</STRONG></CENTER></ADDRESS>
+<P>
+
+In  der  derzeitigen  Implementierung  ist  der  Kanal  010
+gleichbedeutend  ist mit der Aufforderung an  die  C-Seite,
+einen Informationsdialog mit dem Text "Zugriff verweigert!"
+und  einem Best&auml;tigungs-Knopf zu erstellen (Bild  S21)  und
+LISP  bis  zur  Quittierung durch den  Benutzer  warten  zu
+lassen.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S21.gif">
+</CENTER>
+<P>
+Bild S21: Ein Informationsdialog von EMA-XPS v2
+<P>
+
+
+<P>
+<TABLE BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<ADDRESS><STRONG>
+Jede   Grafikprotokollsequenz  beginnt  also   mit   einer
+Kanalnummer  gr&ouml;&szlig;er  oder gleich 10 und  endet  mit  einer
+Nummer  kleiner 10. Die Protokolldisziplin  verlangt,  da&szlig;
+dazwischen   keine  protokollfremden  Zeichen   &uuml;bertragen
+werden  d&uuml;rfen. F&uuml;r jede verwendete Kanalnummer  ist  eine
+Handlerroutine   zu  registrieren,  die  die   notwendigen
+Aktionen durchf&uuml;hrt.
+</STRONG></ADDRESS>
+</TD></TR></TABLE> 
+<P>
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_4_3">4.3 Zustandsmaschine als Beobachter des LISP-Prozesses</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Der  Forderung  nach einer F&auml;higkeit  der  C-Seite,  die
+Reihenfolge der Eingaben f&uuml;r die LISP-Seite vertauschen  zu
+k&ouml;nnen,  wird dadurch Rechnung getragen, da&szlig; zun&auml;chst  eine
+Funktion  zur  Verf&uuml;gung  steht, die  ein  Kommando  direkt
+absetzt.  <em>LISP_sndReply()</em> erwartet  als  einziges  Argument
+einen  kompletten,  eventuell  mehrzeiligen  LISP-Ausdruck.
+Dieser  wird  -  inklusive eines abschlie&szlig;enden  NEWLINE  -
+direkt  in  die  Standardeingabe von LISP  kopiert.  Dieser
+Funktion  &uuml;berlagert existiert <em>LISP_sndCmd()</em>, die ebenfalls
+einen  kompletten LISP-Ausdruck erwartet. LISP_sndCmd reiht
+diesen  Ausdruck  aber  nur  in  eine  Befehlswarteschlange
+(Queue) ein. Der C-Proze&szlig; pr&uuml;ft wiederholt, ob LISP sich in
+einem  Zustand  befindet, in dem neue Kommandos  eingegeben
+werden  k&ouml;nnen.  Das  sind  die  Eingabebereitschaft   beim
+Verharren im Toplevelloop beziehungsweise im Debugger. Wenn
+LISP   eingabebereit  ist,  wird  gepr&uuml;ft,  ob  in   dieser
+Befehlsqueue  wenigstens eine Anweisung anliegt.  Nach  dem
+FIFO-Prinzip   wird   die   &auml;lteste   Eintragung    mittels
+LISP_sndReply in die LISP-Standardeingabe kopiert  und  der
+Eintrag in der FIFO gel&ouml;scht.
+
+<DD>
+   Das  im  letzten Kapitel beschriebene Problem,  da&szlig;  bei
+einem  Popupdialog gem&auml;&szlig; Bild S21 eine Quittierung vor  den
+eventuell   bereits   aufgelaufenen   Kommandos   in    die
+Standardeingabe geschrieben werden mu&szlig;, ist  damit  gel&ouml;st.
+W&auml;hrend  LISP  auf  die Quittierung wartet,  ist  es  nicht
+eingabebereit im oben beschriebenen Sinne. Damit werden die
+Kommandos  zur&uuml;ckgehalten.  Die  Quittierung  dagegen  wird
+mittels LISP_sndReply direkt abgesetzt (daher auch der Name
+dieser Funktion).
+
+
+<P>
+<TABLE BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<ADDRESS><STRONG>
+Das  Funktionieren  dieses Konzepts setzt  eine  C-seitige
+Kenntnis  des  aktuellen  Zustands  des  LISP-Interpreters
+voraus.  Eine  geeignete Beobachtung ist  zu  erm&ouml;glichen.
+Zustandswechsel sind daher C zu signalisieren.
+</STRONG></ADDRESS>
+</TD></TR></TABLE> 
+<P>
+
+
+<DD>
+   Der  h&auml;ufigste  Fall ist, da&szlig; LISP sich im  <strong>Toplevelloop</strong>
+befindet  und  Eingaben erwartet. Das hei&szlig;t, LISP  hat  das
+letzte  Kommando erfolgreich evaluiert und das Ergebnis  in
+die  Standardausgabe geschrieben. Danach  wird  der  Prompt
+ausgegeben. Dieser Zustand soll als eingabebereit oder  <strong>RDY</strong>
+(ready)  definiert  werden. Sobald ein Kommando  eingegeben
+und  die  Eingabe mit einem NEWLINE-Zeichen (Zeilenumbruch)
+abgeschlossen ist, wertet read die Eingabe aus  und  leitet
+sie  eval zu. Bis zur erfolgreichen Ausgabe des Ergebnisses
+sei LISP besch&auml;ftigt oder <strong>BSY</strong> (busy).
+
+<DD>
+   Wie  bereits  erw&auml;hnt,  sind die virtuellen  Kan&auml;le  0-9
+besonderen Aufgaben vorbehalten. Ein erweiterter  Evalhook-
+Handler      kontrolliert      das      Versenden       der
+Synchronisierungsmitteilungen  an  die  C-Seite.  Bild  S22
+zeigt den LISP-Quelltext des verwendeten Handlers.
+
+
+<P>
+<CENTER>
+<TABLE WIDTH=500 BORDER CELLPADDING=5 CELLSPACING=2><TR><TD>
+<ADDRESS><STRONG>
+<MENU>    (defun emaxps-evalhook (form &optional env)
+<MENU>     (let (vals)
+<DD>       (emaxps-is-busy);; sendet ESC 0 0 1 f&uuml;r BSY
+<P>    
+<DD>       ;; rufe den original LISP evalhook-Handler
+<DD>       ;; selbst-rekursiv auf, soda&szlig; bei m&ouml;glichen
+<DD>       ;; Rekursionen w&auml;hrend der Evaluation keine
+<DD>       ;; irref&uuml;hrenden Escapesequenzen gesendet
+<DD>       ;; werden!
+<DD>       (setf vals (multiple-value-list
+<DD>         (evalhook form nil nil env)))
+<P>    
+<DD>       (emaxps-is-ready) ;; sendet ESC 0 0 0 f&uuml;r RDY
+<P>    
+<DD>       ;; gebe die Ergebnisse des original LISP-
+<DD>       ;; Handlers zur&uuml;ck
+<DD>       (values-list vals)
+<BR>     );let
+</MENU>    )
+</MENU>
+</STRONG></ADDRESS>
+</TD></TR></TABLE>
+</CENTER>
+<P>
+Bild S22: Toplevel Evalhook-Handler von EMA-XPS
+<P>
+
+
+
+<DD>
+   Sobald  read  eine <em>form</em> an eval weiterleitet,  erh&auml;lt  C
+durch  Umschalten  in  den Kanal 001  die  Information  BSY
+mitgeteilt.  Nachdem eval komplettiert  hat,  wird  in  den
+Kanal  000  (RDY)  zur&uuml;ckgeschaltet. Beide Kan&auml;le  erwarten
+keine   anschlie&szlig;enden   Nachrichten.   Die   Ausgabe   der
+Ergebnisse  von  eval  durch  print  kann  im  Falle  einer
+ausgedehnten Liste sehr lange dauern. Da C aber bereits den
+Zustand  RDY  detektiert hat, wird es eventuell  schon  ein
+neues  Kommando absetzen. Dies behindert nicht das korrekte
+Arbeiten  der LISP-Seite, kann aber zu vermischten Ausgaben
+im Debugger PAD f&uuml;hren.
+
+<DD>
+   Bei  Verwendung der kompletten M&ouml;glichkeiten  der  CLtL2
+Festlegung  k&ouml;nnte die RDY-Sequenz erst  zusammen  mit  der
+Eingabeaufforderung  geschrieben werden.  Der  Prompt  kann
+dort frei gew&auml;hlt werden. Damit lie&szlig;e sich auch leicht eine
+Unterscheidung   zwischen   der   Eingabebereitschaft   des
+Toplevelloops und der des Debuggers erreichen.
+
+<DD>
+   Hier  soll  den eingeschr&auml;nkten M&ouml;glichkeiten der  CLtL1
+Implementierungen Rechnung getragen werden. Der Prompt  ist
+als    implementierungsabh&auml;ngig   vorgegeben   und    nicht
+beeinflu&szlig;bar anzunehmen. Der C-seitige Beobachter pr&uuml;ft bei
+Erhalt der RDY-Nachricht in kurzen Abst&auml;nden, ob LISP  noch
+Zeichen  schreibt. Erst wenn print LISP-seitig beendet  und
+der  Prompt geschrieben worden ist, wird auch C-seitig  die
+Eingabebereitschaft (RDY) angenommen.
+
+<DD>
+   Die   n&auml;chste  Grundsituation  im  Betrieb   des   LISP-
+Interpreters  ist, da&szlig; beim Evaluieren einer Anweisung  ein
+Fehler erkannt wird und die Abarbeitung unterbrochen  wird.
+Dann   wird   implementationsabh&auml;ngig  eine   Fehlermeldung
+geschrieben  und  der <strong>Debugger</strong> angesprungen.  Der  Debugger
+besitzt  eine  &auml;hnliche  Hauptschleife  wie  der  Toplevel.
+&Auml;u&szlig;erlich unterscheiden sie sich in erster Linie durch  die
+unterschiedliche Eingabeaufforderung.
+
+<DD>
+   Um    hier    ein    portables    Vorgehen    bei    der
+Zustandserkennung zu schaffen, ist eine  Ausnahme  von  der
+Regel gemacht worden, nur CLtL1 Festlegungen zu nutzen.  Da
+es   keine   Vorschriften  &uuml;ber  das   Aussehen   und   den
+Leistungsumfang eines Debuggers gibt, m&uuml;&szlig;te hier pro  LISP-
+Implementierung eine geeignete Erkennung vorgesehen werden.
+Die Abfrage der Variablen *debugger-hook* ist erst in CLtL2
+definiert.    Sie   garantiert   die   M&ouml;glichkeit,    beim
+Debuggereinsprung eine Nachricht an die C-Seite abzusetzen.
+Diese  Vorgehensweise  ist nur deshalb  m&ouml;glich,  weil  der
+derzeit  favorisierte  LISP-Interpreter  CLISP  zwar  CLtL1
+konform   ist,  aber  einige  CLtL2  Erweiterungen  bereits
+enth&auml;lt. Dazu geh&ouml;rt auch diese Eigenschaft. CLISP ist  bei
+der Entwicklung in die engere Wahl genommen worden, weil es
+lizenzkostenfrei und im Quelltext verf&uuml;gbar ist und bereits
+auf  eine  Vielzahl  von Plattformen  erfolgreich  portiert
+wurde.
+
+<P>
+<TABLE BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<ADDRESS><STRONG>
+EMA-XPS  v2.1 setzt die Verwendung eines LISP-Interpreters
+voraus, der CLtL1-konform ist </strong></em>und<em><strong> dar&uuml;berhinaus die CLtL2-
+Erweiterung des </strong></em>debuggerhook<em><strong> bereitstellt.
+</STRONG></ADDRESS>
+</TD></TR></TABLE> 
+<P>
+
+
+<DD>
+   Der  debuggerhook-Handler ruft vor  jedem  Einsprung  in
+den  Debugger  die  Funktion <em>(emaxps-invoke-debugger)</em>  auf.
+Diese  setzt die Nachricht ESC 0 0 2 (<strong>DBG</strong>) ab. Der C-Proze&szlig;
+macht  -  falls  noch nicht geschehen -  den  Debugger  PAD
+sichtbar und l&ouml;scht die Befehlswarteschlange. Falls  dieses
+Ereignis  w&auml;hrend  der  &Uuml;bertragung einer  Grafik-Nachricht
+eingetreten ist, wird durch die Kanalnummer kleiner 10  die
+Nachrichten&uuml;bertragung  korrekt  beendet.  Die   Auswertung
+durch  den  registrierten Handler wird aber verhindert  und
+der  empfangene  Nachrichtentext  gel&ouml;scht.  Im  Fehlerfall
+l&ouml;scht  LISP s&auml;mtliche registrierten Hooks, also  auch  den
+evalhook.  Daher installiert der debuggerhook den  evalhook
+erneut, um auch w&auml;hrend der Sitzung im Debugger die C-Seite
+geeignet informieren zu k&ouml;nnen, und wechselt schlie&szlig;lich in
+den Zustand RDY, um Eingabebereitschaft zu signalisieren.
+
+
+<P>
+<TABLE BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<ADDRESS><STRONG>
+Als grafische R&uuml;ckmeldung des aktuellen Zustands der LISP-
+Welt  wird immer dann, wenn der Interpreter </strong></em>nicht<em><strong> RDY ist,
+die  Form des Mauszeigers von dem &uuml;blichen Pfeil  in  eine
+Uhr verwandelt.
+</STRONG></ADDRESS>
+</TD></TR></TABLE> 
+<P>
+
+
+<DD>
+   Die  n&auml;chste  Sonderbehandlung ist  beim  Verlassen  des
+Debuggers zu ber&uuml;cksichtigen. Im Fehlerfall wird  der  alte
+Zustand  der  LISP-Welt auf einem Stack gerettet  und  eine
+neue,   teilbereinigte  Umgebung  aus  dem  alten   Zustand
+erzeugt.  In  diesem  Zusammenhang ist das  R&uuml;cksetzen  der
+Hooks  zu  nennen. Wird nun das Kommando zum Verlassen  des
+Debuggers  eingegeben,  wird  <strong>kein</strong>  BSY  gesendet,  da  der
+Debuggerloop  gleichzeitig  aufh&ouml;rt,  zu  existieren.  Beim
+Verlassen   des   Debuggers   wird   die   alte    Umgebung
+wiederhergestellt,  also  beispielsweise  auch   der   alte
+evalhook.  Die  wiederhergestellte Toplevelschleife  wartet
+auf  Eingaben, bevor sie ein erneutes BSY senden wird.  Bei
+diesem R&uuml;cksprung wird demgem&auml;&szlig; weder ein BSY noch ein  RDY
+gesendet. C blockiert die Weiterleitung von Kommandos.
+
+<DD>
+   Ein   <strong>Deadlock</strong>  ist  entstanden.  Jedesmal,   wenn   ein
+Kommando  an  die  LISP-Seite  gesandt  wird,  wird   daher
+zus&auml;tzlich eine Flag-Variable gesetzt. Nach einer  gewissen
+Zeit,  in  der  diese Flag-Variable gesetzt  ist,  ist  mit
+mindestens  einem Kanalwechsel (n&auml;mlich dem  nach  BSY)  zu
+rechnen.  Jeder  Kanalwechsel  setzt  dieses  Flag  zur&uuml;ck.
+Unterbleibt   dieser,   ist  davon  auszugehen,   da&szlig;   der
+Sonderfall "R&uuml;ckkehr aus dem Debugger" vorliegt. Es gen&uuml;gt,
+die  Zustandsmaschine  explizit  in  den  Zustand  RDY   zu
+&uuml;berf&uuml;hren und das Flag zur&uuml;ckzusetzen.
+
+<DD>
+   <strong>Grafiknachrichten</strong>   werden  von   der   LISP-Seite   nur
+gesandt,  nachdem  der  Zustand BSY  erreicht  worden  ist.
+Aufgrund  der  vorausgesetzten Disziplin werden  sie  immer
+korrekt  mit  einem Zur&uuml;ckschalten nach  BSY  beendet.  Ein
+Sonderfall   ist   auch   hierzu  beachten.   Die   derzeit
+beschriebenen  Mechanismen  verhindern  eine   erfolgreiche
+Verwendung der LISP-Funktion read. Read erwartet einen LISP-
+Ausdruck  an der Standardeingabe. Das Umschalten  nach  BSY
+vor der Ausf&uuml;hrung von read verhindert, da&szlig; die Eingabe des
+Benutzers &uuml;ber das Texteingabefenster des Debugger PADs  an
+read  weitergeleitet wird. C geht davon aus,  da&szlig;  es  sich
+dabei um ein weiteres Kommando handelt, das zun&auml;chst in die
+Befehlsqueue    eingereiht   wird.   Daher    steht    eine
+Ersatzfunktion  <em>(emaxps-read)</em> zur Verf&uuml;gung,  die  vor  dem
+Aufrufen von read auf Kanal 003 umschaltet. Diese Nachricht
+veranla&szlig;t C, die n&auml;chste Eingabe statt mit LISP_sndCmd, mit
+LISP_sndReply  weiterzuleiten. Abschlie&szlig;end  wird  ein  BSY
+geschrieben.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S23.gif">
+</CENTER>
+<P>
+Bild S23: Zustandsmaschine als Beobachter des LISP-Prozesses
+<P>
+
+
+
+<DD>
+   Das  Anfordern  von <strong>Popupdialogen</strong> durch  die  LISP-Seite
+ist  bereits  beschrieben worden. Aufgrund der  verwendeten
+Pseudo-Teletypes  werden  auch  die  Echos  dieser  Replies
+ausgegeben.  Um  das Textausgabefenster des Debugger  PADs,
+das  alle  LISP-seitigen Ausgaben protokolliert,  nicht  zu
+&uuml;berfluten,  wird die Grafiknachricht, die den  Aufbau  des
+Popups  bewirkt, nicht mit BSY beendet, sondern  mit  einen
+Wechsel  in  den Kanal 004. Erst nach Erhalt  der  Quittung
+wird  nach  BSY zur&uuml;ckgeschaltet. In der Zwischenzeit  wird
+die Ausgabe in den PAD C-seitig unterdr&uuml;ckt.
+
+<DD>
+   Die  <strong>Bootphase</strong> ist gegen&uuml;ber der ersten Version von EMA-
+XPS  erweitert worden. Im Falle einer Weiterentwicklung der
+Schale wird nach der Abspaltung des LISP-Prozesses zun&auml;chst
+das  Laden  einer  LISP-Datei initiiert, die  wiederum  das
+Laden  der Erweiterungsmodule bewirkt. Im regul&auml;ren Betrieb
+sind   diese   Erweiterungen   bereits   Bestandteil    der
+aktivierten  LISP-Welt.  In  jedem  Fall  ist  das   letzte
+Kommando  dieses  Teils der Bootphase  <em>(emaxps-end-of-boot-phase)</em>.
+  Diese  Funktion sendet ESC 0  0  9  (<strong>EOI</strong>,  End  of
+Initialisation) als Synchronisierungsnachricht  an  die  C-
+Seite.
+
+<DD>
+   Bild  S23  zeigt  die  zur  Beobachtung  der  LISP-Seite
+realisierte    Zustandmaschine    mit    allen    m&ouml;glichen
+Zustands&uuml;berg&auml;ngen auf.
+
+<DD>
+   Schlie&szlig;lich  verbleibt  zu  erw&auml;hnen,  da&szlig;   Kanal   008
+reserviert   worden  ist,  um  s&auml;mtliche   &Auml;nderungen   der
+G&uuml;ltigkeit  von Wissensbasen in der LISP-Welt  der  C-Seite
+bekanntzugeben.  C  wei&szlig; zu jedem Zeitpunkt,  wieviele  und
+welche  Wissensbasen gerade bekannt sind und inwieweit  sie
+in    Wissenseditoren   ge&auml;ndert   worden    sind.    Diese
+Funktionalit&auml;t   k&ouml;nnte  &uuml;ber  eine   nicht   privilegierte
+Kanalnummer abgewickelt werden. Da sie aber eine sehr  enge
+Abstimmung  der  Prozesse  aufeinander  bewirkt,  ist   sie
+gegen&uuml;ber  anderen  Nachrichtentypen ausgezeichnet  worden.
+Eine  &auml;hnliche  Auszeichnung ist f&uuml;r die in  der  LISP-Welt
+bekannten Prologklauselmengen beabsichtigt, da diese andere
+G&uuml;ltigkeitsdauern         als          die          anderen
+Wissensrepr&auml;senationsmechanismen haben [S2, S3].
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_4_4">4.4 <i>babylon</i>-3 Emulation</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Die  Entwicklung  eines Mechanismus,  Wissensbasen,  die
+unter  der  Expertensystemschale <EM>babylon</EM>-3 erstellt  worden
+sind,   unter  EMA-XPS  nutzen  zu  k&ouml;nnen,  wird   dadurch
+erleichtert,  da&szlig;  <EM>babylon</EM>-3 und EMA-XPS gleicherma&szlig;en  aus
+Babylon-2  hervorgegangen  sind. <EM>babylon</EM>-3  ist  allerdings
+vollst&auml;ndig  reimplemetiert worden. Dabei  sind  &Auml;nderungen
+und Straffungen des gewachsenen Codes von Babylon-2 f&uuml;r die
+angestrebte    Industrietauglichkeit   als   empfehlenswert
+erachtet worden.
+<BR>
+<EM>babylon</EM>-3 weicht in den folgenden Punkten von Babylon-2 ab:
+
+<LI>
+Konfigurationsm&ouml;glichkeiten   des   Leistungsumfangs   der
+ Inferenzmaschine  beschr&auml;nken sich auf die  Wahl  zwischen
+ einer    textorientierten    und    einer    grafikf&auml;higen
+ Kommunikation  mit dem Endbenutzer, sowie  der  optionalen
+ Aufr&uuml;stm&ouml;glichkeit, mittels Embedded SQL  auf  Datenbanken
+ zugreifen zu k&ouml;nnen [P7, S4].
+
+<LI>
+Es gibt keinen Prolog- und keinen Freitextinterpreter.
+
+<LI>
+Der  Leistungsumfang  des  Metainterpreters  ist  f&uuml;r  den
+ Wissensingenieur unsichtbar und unerreichbar.
+
+<LI>
+Eine leistungsf&auml;hige Erkl&auml;rungskomponente ist realisiert.
+Das Ma&szlig; an Erkl&auml;rung kann in weiten Bereichen gew&auml;hlt
+werden.
+
+<LI>
+In  Anlehnung  an die SQL ist die <strong>B</strong>abylon
+<strong>Q</strong>uery  <strong>L</strong>anguage
+ (BQL)   f&uuml;r   einen  datanbankartigen  Zugriff   auf   das
+ Faktenwissen   realisiert  worden.  Frame-,   Regel-   und
+ Constraintmechanismen greifen auf die BQL zur&uuml;ck.
+
+<LI>
+Behaviors werden &auml;hnlich LISP-Funktionen aufgerufen.
+
+<LI>
+Regelkonflikte werden durch die Vergabe von Priorit&auml;ten
+gel&ouml;st.
+
+<LI>
+Es   existiert   pro  Expertensystem  nur   ein   einziges
+ Constraintnetz,  das nur w&auml;hrend des Sitzungsstarts  aktiv
+ ist. Nach Eintreten in den interaktiven Zustand bleibt  es
+ ausgeschaltet.
+
+<LI>
+Die Eingabe von LISP-Befehlen in Regeln und dergleichen
+erfolgt in BabylonLISP. Diese Sprache ist gegen&uuml;ber
+CommonLISP stark im Leistungsumfang reduziert und bietet
+teilweise andere Funktionali&auml;ten an.
+
+<LI>
+Es  existiert eine Programmierschnittstelle zur Definition
+ eigener  Wissenseditoren und damit zur  Erweiterung  einer
+ Wissensbasis zur Sitzungszeit.
+
+<DD>
+   Eine   vorangegangene  Untersuchung  der  f&uuml;r  die   FVA
+entwickelten   Wissensbasen   ergab,   da&szlig;    keines    der
+Expertensysteme    Datenbankzugriffe    verwendet.     Alle
+Expertensysteme       ben&ouml;tigen       eine        grafische
+Endbenutzerschnittstelle.     Die     M&ouml;glichkeiten     der
+Erkl&auml;rungskomponente  sind  nicht  in   Anspruch   genommen
+worden.  Da  die Wissensbasen im Zuge einer  Sitzung  nicht
+erweitert     werden    sollten,    sind     auch     keine
+sitzungsspezifischen Wissenseditoren erstellt worden.
+
+<DD>
+   Der  notwendige Umwandlungsaufwand ist zun&auml;chst  mittels
+eines  speziellen Cross-Compiler-Programms, ab Version  2.1
+mittels Emulation von Funktionalit&auml;t und Postprocessing  im
+Anschlu&szlig;  an  das  Laden  der zu  importierenden  <EM>babylon</EM>-3
+Dateien   realisiert   worden.  Der   Aufwand   l&auml;&szlig;t   sich
+folgenderma&szlig;en kategorisieren:
+
+<LI>
+im    Leistungsumfang   identische   Funktionalit&auml;t    bei
+ BabylonLISP und CommonLISP wird durchgereicht,
+
+<LI>
+f&uuml;r  im Leistungsumfang vergleichbare Funktionalit&auml;t  sind
+ Filterfunktionen geschrieben worden, die die entsprechenden
+ Babylon-2    Kommandos    mit    geeignet    modifizierten
+ &Uuml;bergabeparametern  aufrufen. Hier sind  vordringlich  die
+ Definitionsformen f&uuml;r Wissensgrundelemente und Objekte der
+ Endbenutzerschnittstelle zu nennen.
+
+<LI>
+Der Leistungsumfang der BQL wurde bis hin zur
+Namensgebung und Notationserweiterungen vollst&auml;ndig
+eingebracht. Hier sind die Umsetzung der Mengenschreibweise
+<strong><em>{1 2 3}</em></strong> und die Pr&auml;dikationen besonders zu erw&auml;hnen. 
+<strong><em>[A B C]</em></strong> wird bereits beim Einlesen in 
+<strong><em>($pred A B C)</em></strong> verwandelt.
+
+<LI>
+Regelsortierung nach <EM>babylon</EM>-3 Priorit&auml;ten  erfolgt  durch
+ einen nachgeschalteten Postprozessor, der die Hinweise der
+ Regeldefinitionsformen nutzt.
+
+<LI>
+Auch  die  Generierung des Constraintnetzes erfolgt  durch
+ einen Postprozessor.
+
+<LI>
+Die    unter   <EM>babylon</EM>-3   &uuml;bliche   Initialisierung   der
+ grafischen Endbenutzerschnittstelle mittels der speziellen
+ Funktion  <em>make-kb-interface</em> kann zu  einen  Namenskonflikt
+ f&uuml;hren, wenn mehrere <EM>babylon</EM>-3 Wissensbasen gleichzeitig in
+ der LISP-Welt existieren. Dann besteht die Gefahr, da&szlig; eine
+ Sitzung     mit     dem     Expertensystem      A      die
+ Endbenutzerschnittstelle von B generiert. Dieser  Konflikt
+ wird  durch Umwandlung in eine Task gel&ouml;st. Dazu  ist  ein
+ spezieller  Evalhook w&auml;hrend des Ladevorgangs eingerichtet
+ worden.
+
+<LI>
+Durch   Generierung  spezieller  Startermakros  kann   den
+ Besonderheiten bei der Aktivierung von Behaviors  Rechnung
+ getragen  werden. Babylon-2 Behaviors werden  &auml;hnlich  den
+ Tasks mittels eines Starters aktiviert:
+
+<P>
+<ADDRESS><STRONG><CENTER>
+           ($send instanz :nachricht argumente)
+</CENTER></STRONG></ADDRESS>
+<P>
+
+ unter <EM>babylon</EM>-3 dagegen eher wie Funktionen:
+
+<P>
+<ADDRESS><STRONG><CENTER>
+                   (nachricht argumente)
+</CENTER></STRONG></ADDRESS>
+<P>
+
+ Um  in den K&ouml;rpern von Regeln, Constraints und dergleichen
+ nicht  nach Behavioraufrufen suchen zu m&uuml;ssen, um sie  mit
+ Startern  zu  versehen, werden f&uuml;r jedes  Behavior  Makros
+ folgender Form definiert:
+
+<P>
+<CENTER>
+<TABLE><TR><TD>
+<ADDRESS><STRONG>
+   (defmacro </strong></em>nachricht<em><strong> (instanz &rest args)
+<DD>    `($send ,instanz :</strong></em>nachricht<em><strong> ,instanz ,@args))
+</STRONG></ADDRESS>
+</TD></TR></TABLE>
+</CENTER>
+<P>
+
+ <EM>babylon</EM>-3   verwendet   jeden   Namen   nur   einmal    je
+ Wissensbasis.      Doppeldeutigkeiten      sind      damit
+ ausgeschlossen.    Wenn   zwei   <EM>babylon</EM>-3    Wissensbasen
+ gleichnamige Behaviors haben, werden die erzeugten  Makros
+ gleiche  Namen  <strong>und</strong> gleiche K&ouml;rper besitzen.  Die  Wirkung
+ des   in   Kapitel   4.8.1   aufgef&uuml;hrten   Problems   des
+ &Uuml;berschreibens  beim  Laden  der  Wissensbasen  ist  damit
+ aufgehoben.
+
+<DD>
+   Bild  S24 zeigt die Ausgaben auf dem Debugger  PAD  von
+EMA-XPS  v2.1 beim Laden einer unter <EM>babylon</EM>-3 entwickelten
+Wissensbasis. Protokollausgaben des Ladezeit-Evalhook sowie
+der Postprozessoren sind erkennbar.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_S24.gif">
+</CENTER>
+<P>
+Bild S24: Protokollausgaben beim Importieren von <EM>babylon</EM>-3
+Wissensbasen
+<P>
+
+
+
+<DD>
+   Die  realisierte  Emulation dient in  erster  Linie  der
+Migration   von   <EM>babylon</EM>-3  Wissensbasen.  Nur   ben&ouml;tigte
+Leistungen sind nachgebildet worden.
+
+
+<P>
+
+
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_5_0">5. Zusammenfassung</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+   
+
+<DD>
+   Die  Schale EMA-XPS v2.1 ist eine Zwei-Proze&szlig;-L&ouml;sung mit
+einer  wechselnden Master-Slave-Beziehung. Sie  verf&uuml;gt  im
+Gegensatz zur ersten Version der Schale nur noch &uuml;ber einen
+einzigen bidirektionalen Interproze&szlig;kommunikationskanal. Um
+trotzdem  die  unterschiedlichen  Arten  von  Informationen
+schl&uuml;ssig  austauschen  zu k&ouml;nnen,  sind  virtuelle  Kan&auml;le
+realisiert  worden,  die  auf  einen  physikalischen  Kanal
+abgebildet  werden.  Zur  korrekten  Behandlung  von  LISP-
+Kommandos und Antworten der C-Seite stehen Mechanismen  zur
+Verf&uuml;gung, die Kenntnis &uuml;ber den aktuellen Zustand des LISP-
+Prozesses   ben&ouml;tigen.  Als  Proze&szlig;beobachter   wird   eine
+Zustandsmaschine verwendet. &Uuml;ber den Debugger PAD steht dem
+Benutzer  weiterhin  die M&ouml;glichkeit offen,  LISP-Kommandos
+direkt  einzugeben  und den Interpreter textstromorientiert
+zu bedienen.
+
+<DD>
+   Neben   einer  leistungsf&auml;higen,  frei  konfigurierbaren
+grafischen     Endbenutzerschnittstelle     stehen      dem
+Wissensingenieur  bei der Erstellung und &Uuml;berarbeitung  von
+Wissensbasen  grafische  Editoren  zur  Verf&uuml;gung.  Bedingt
+durch  die wechselhafte Geschichte des einleitend erw&auml;hnten
+FVA-Forschungsvorhabens  ist  eine  M&ouml;glichkeit  geschaffen
+worden,  Wissensbasen  der  Expertensystemschale  <EM>babylon</EM>-3
+einzulesen.   Die   Wissensrepr&auml;sentationsmechanismen   von
+<EM>babylon</EM>-3  werden &uuml;ber Emulationsfunktionen  in  Konstrukte
+von EMA-XPS v2.1 &uuml;berf&uuml;hrt. Weitere f&uuml;r die FVA entwickelte
+Wissensbasen  laufen  unter  <EM>babylon</EM>-3  und  EMA-XPS   v2.1
+gleichartig  ab.  Auch die Abarbeitungsgeschwindigkeit  der
+Inferenzmaschine ist hierin eingeschlossen.
+
+
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_6_0">6. Ausblick</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+   
+
+<DD>
+   Das   am   Beispiel  der  dialogorientierten  grafischen
+hybriden  Expertensystemschale  EMA-XPS  v2.1  vorgestellte
+Konzept   einer   Zwei-Proze&szlig;-L&ouml;sung   mit   gemultiplexter
+Informations&uuml;bertragung und einer wechselnden Master-Slave-
+Beziehung  kann  f&uuml;r eine Vielzahl anderer  Anwendungsf&auml;lle
+genutzt  werden.  Leicht  w&auml;re eine  Grafikerweiterung  f&uuml;r
+beliebige CommonLISP-Interpreter realisierbar, bei der  nur
+die  M&ouml;glichkeiten  der grafischen Endbenutzerschnittstelle
+und  der Popupdialoge genutzt werden. Der Partnerproze&szlig; mu&szlig;
+aber  nicht  notwendigerweise  eine  LISP-Welt  sein.  Jede
+umfangreichere  f&uuml;r  sequentielle  Abarbeitung   ausgelegte
+Anwendung,  die umzuschreiben ein hohes Ma&szlig; an  Zeitaufwand
+im Zuge der Einarbeitung und Programmierung bedeuten w&uuml;rde,
+kann  in  erster  Linie  durch inhaltliche  &Auml;nderungen  der
+bereits vorhandenen Textausgaben leicht grafikf&auml;hig gemacht
+werden.  Der  Grafikserverproze&szlig;  sollte  diese  ge&auml;nderten
+Ausgaben als ein Protokoll verstehen, das ihn zu geeigneten
+Aktionen veranla&szlig;t.
+
+<DD>
+   Die hier vorgestellte Schale stellt eine Alternative  zu
+gro&szlig;en  heute  am Markt verf&uuml;gbaren Systemen dar.  Aufgrund
+der erst vor wenigen Monaten erfolgten Ver&ouml;ffentlichung von
+EMA-XPS  v2.1 stehen noch keine Wissensbasen zur Verf&uuml;gung,
+die  unter der Schale entwickelt worden sind. Mittels eines
+in    LISP    realisierten   Importfilters   sowie    durch
+Emulationsroutinen k&ouml;nnen Wissensbasen der Schale <EM>babylon</EM>-3
+eingelesen  und  ausgef&uuml;hrt werden. Derartige  Wissensbasen
+befinden sich bereits im industriellen Einsatz. Sie  werden
+dort unter EMA-XPS auf PCs unter dem UNIX-Derivat Linux 1.2
+betrieben.
+   
+
+<P>
+<DD>
+   Mit   Erreichen   der   Versionsnummer   2.1   ist   die
+Entwicklung  der  Expertensystemschale  EMA-XPS  sicherlich
+noch   nicht   abgeschlossen.  Sie  ist   aber   in   einen
+ver&ouml;ffentlichungsf&auml;higen Zustand gekommen. Als eine freie -
+also  offene  -  Software sollte sie der Ausgangspunkt  f&uuml;r
+zeitgem&auml;&szlig;e Erweiterungen sein.
+
+<DD>
+   Vordringlichstes   Ziel   der   Weiterentwicklung    ist
+sicherlich die Verbesserung der Erkl&auml;rungskomponente. Durch
+eine  Trennung  der  Nutzinformation in  einem  erkl&auml;renden
+Babylon-2 Text von der Pr&auml;sentation sowie die Aufhebung der
+Beschr&auml;nkung,   nur   Ausgaben  in  das   Erkl&auml;rungsfenster
+zuzulassen,   k&ouml;nnen  leistungsf&auml;higere   Erkl&auml;rungen   vom
+Wissensingenieur  vorgesehen  werden.  Dies  k&ouml;nnte   durch
+&Uuml;bergabe  der  Nutzinformationen  als  Argumente  an   eine
+Handlerfunktion   erreicht   werden.   Ein   Defaulthandler
+produziert   daraus  die  gewohnten  Ausgaben.  Alternative
+Handler    k&ouml;nnten    registriert   werden,    die    diese
+Nutzinformationen   beispielsweise   uminterpretieren   und
+danach    grafische    aufbereiten,   beispielsweise    als
+Popupdialoge.
+
+<DD>
+   Der  modulare  Ansatz  von Babylon-2  und  EMA-XPS  v2.1
+unterst&uuml;tzt  bei  Leistungserweiterungen  im  Bereich   der
+Inferenzmaschine. Die Implementierung einer  Fuzzy-Inferenz
+w&auml;re   denkbar.   Dazu   sollten  C-seitig   Editoren   zur
+Bearbeitung  von Zugeh&ouml;rigkeitsfunktionen erstellt  werden.
+LISP-seitig  w&auml;re  eine  Erweiterung des  Regelinterpreters
+notwendig. Eine Regelabarbeitungsstrategie :FUZZY  w&auml;re  zu
+erarbeiten.
+
+
+
+
+
+
+
+
+<P>
+<HR SIZE=6>
+   
+
+<!--------------------------------------------------------->
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+Zur&uuml;ck zum Inhaltsverzeichnis
+<!--------------------------------------------------------->
+
+
+
+
+<!------- eof -------->

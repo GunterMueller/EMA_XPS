@@ -1,0 +1,1626 @@
+#0Y_ #0Y |CHARSET|::|UTF-8|
+(|COMMON-LISP|::|SETQ| |COMMON-LISP|::|*PACKAGE*|
+ (|SYSTEM|::|%FIND-PACKAGE| "CLOS"))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|SUBCLASSP|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS1| |CLOS|::|CLASS2|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|REPLACE-CLASS-VERSION|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|CLASS-VERSION|)))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|CLOS|::|DEFCLASS|)
+(|SYSTEM|::|%PUTD| '|CLOS|::|DEFCLASS|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |CLOS|::|DEFCLASS|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|<ENV-ARG>|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|IGNORE| |SYSTEM|::|<ENV-ARG>|))
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 4.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|CLOS|::|WHOLE-FORM| |SYSTEM|::|<MACRO-FORM>|)
+       (|CLOS|::|NAME| (|COMMON-LISP|::|CADR| . #1=(|SYSTEM|::|<MACRO-FORM>|)))
+       (|CLOS|::|SUPERCLASS-SPECS| (|COMMON-LISP|::|CADDR| . #1#))
+       (|CLOS|::|SLOT-SPECS| (|COMMON-LISP|::|CADDDR| . #1#))
+       (|CLOS|::|OPTIONS| (|COMMON-LISP|::|CDDDDR| . #1#)))
+      (|COMMON-LISP|::|BLOCK| |CLOS|::|DEFCLASS|
+       (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|SYMBOLP| |CLOS|::|NAME|)
+        (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+         |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|NAME|
+         (|SYSTEM|::|TEXT| "~S: class name ~S should be a symbol")
+         '|CLOS|::|DEFCLASS| |CLOS|::|NAME|))
+       (|COMMON-LISP|::|LET*|
+        ((|CLOS|::|SUPERCLASS-FORMS|
+          (|COMMON-LISP|::|PROGN|
+           (|COMMON-LISP|::|UNLESS|
+            (|COMMON-LISP|::|LISTP| |CLOS|::|SUPERCLASS-SPECS|)
+            (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+             |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|SUPERCLASS-SPECS|
+             (|SYSTEM|::|TEXT|
+              "~S ~S: expecting list of superclasses instead of ~S")
+             '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SUPERCLASS-SPECS|))
+           (|COMMON-LISP|::|MAPCAR|
+            #'(|COMMON-LISP|::|LAMBDA| (|CLOS|::|SUPERCLASS|)
+               (|COMMON-LISP|::|UNLESS|
+                (|COMMON-LISP|::|SYMBOLP| |CLOS|::|SUPERCLASS|)
+                (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                 :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|SUPERCLASS|
+                 (|SYSTEM|::|TEXT|
+                  "~S ~S: superclass name ~S should be a symbol")
+                 '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SUPERCLASS|))
+               `',|CLOS|::|SUPERCLASS|)
+            |CLOS|::|SUPERCLASS-SPECS|)))
+         (|CLOS|::|ACCESSOR-METHOD-DECL-FORMS| '|COMMON-LISP|::|NIL|)
+         (|CLOS|::|ACCESSOR-FUNCTION-DECL-FORMS| '|COMMON-LISP|::|NIL|)
+         (|CLOS|::|GENERIC-ACCESSORS| |COMMON-LISP|::|NIL|)
+         (|CLOS|::|GENERIC-ACCESSORS-ARG| '|COMMON-LISP|::|T|)
+         (|CLOS|::|SLOT-FORMS|
+          (|COMMON-LISP|::|LET| ((|CLOS|::|SLOT-NAMES| '|COMMON-LISP|::|NIL|))
+           (|COMMON-LISP|::|UNLESS|
+            (|COMMON-LISP|::|LISTP| |CLOS|::|SLOT-SPECS|)
+            (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+             |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|SLOT-SPECS|
+             (|SYSTEM|::|TEXT|
+              "~S ~S: expecting list of slot specifications instead of ~S")
+             '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-SPECS|))
+           (|COMMON-LISP|::|WHEN|
+            (|COMMON-LISP|::|AND|
+             (|COMMON-LISP|::|ODDP|
+              (|COMMON-LISP|::|LENGTH| |CLOS|::|SLOT-SPECS|))
+             (|COMMON-LISP|::|CDR| |CLOS|::|SLOT-SPECS|)
+             (|COMMON-LISP|::|DO|
+              ((|CLOS|::|L| (|COMMON-LISP|::|CDR| |CLOS|::|SLOT-SPECS|)
+                (|COMMON-LISP|::|CDDR| |CLOS|::|L|)))
+              ((|COMMON-LISP|::|ENDP| |CLOS|::|L|) |COMMON-LISP|::|T|)
+              (|COMMON-LISP|::|UNLESS|
+               (|COMMON-LISP|::|KEYWORDP| (|COMMON-LISP|::|CAR| |CLOS|::|L|))
+               (|COMMON-LISP|::|RETURN| |COMMON-LISP|::|NIL|))))
+            (|CLOS|::|CLOS-WARNING|
+             (|SYSTEM|::|TEXT|
+              "~S ~S: Every second slot name is a keyword, and these slots have no options. If you want to define a slot with options, you need to enclose all slot specifications in parentheses: ~S, not ~S.")
+             '|CLOS|::|DEFCLASS| |CLOS|::|NAME|
+             (|COMMON-LISP|::|LIST| |CLOS|::|SLOT-SPECS|)
+             |CLOS|::|SLOT-SPECS|))
+           (|COMMON-LISP|::|MAPCAR|
+            #'(|COMMON-LISP|::|LAMBDA| (|CLOS|::|SLOT-SPEC|)
+               (|COMMON-LISP|::|LET|
+                ((|CLOS|::|SLOT-NAME| |CLOS|::|SLOT-SPEC|)
+                 (|CLOS|::|SLOT-OPTIONS| '|COMMON-LISP|::|NIL|))
+                (|COMMON-LISP|::|WHEN|
+                 (|COMMON-LISP|::|CONSP| |CLOS|::|SLOT-SPEC|)
+                 (|COMMON-LISP|::|SETQ| |CLOS|::|SLOT-NAME|
+                  (|COMMON-LISP|::|CAR| |CLOS|::|SLOT-SPEC|)
+                  |CLOS|::|SLOT-OPTIONS|
+                  (|COMMON-LISP|::|CDR| |CLOS|::|SLOT-SPEC|)))
+                (|COMMON-LISP|::|UNLESS|
+                 (|COMMON-LISP|::|SYMBOLP| |CLOS|::|SLOT-NAME|)
+                 (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                  :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|SLOT-NAME|
+                  (|SYSTEM|::|TEXT| "~S ~S: slot name ~S should be a symbol")
+                  '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-NAME|))
+                (|COMMON-LISP|::|IF|
+                 (|SYSTEM|::|MEMQ| |CLOS|::|SLOT-NAME| |CLOS|::|SLOT-NAMES|)
+                 (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                  :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|SLOT-NAMES|
+                  (|SYSTEM|::|TEXT|
+                   "~S ~S: There may be only one direct slot with the name ~S.")
+                  '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-NAME|)
+                 (|COMMON-LISP|::|PUSH| |CLOS|::|SLOT-NAME|
+                  |CLOS|::|SLOT-NAMES|))
+                (|COMMON-LISP|::|LET|
+                 ((|CLOS|::|READERS| '|COMMON-LISP|::|NIL|)
+                  (|CLOS|::|WRITERS| '|COMMON-LISP|::|NIL|)
+                  (|CLOS|::|ALLOCATIONS| '|COMMON-LISP|::|NIL|)
+                  (|CLOS|::|INITARGS| '|COMMON-LISP|::|NIL|)
+                  (|CLOS|::|INITFORM| |COMMON-LISP|::|NIL|)
+                  (|CLOS|::|INITFUNCTION| |COMMON-LISP|::|NIL|)
+                  (|CLOS|::|TYPES| '|COMMON-LISP|::|NIL|)
+                  (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL|)
+                  (|CLOS|::|USER-DEFINED-ARGS| |COMMON-LISP|::|NIL|))
+                 (|COMMON-LISP|::|WHEN|
+                  (|COMMON-LISP|::|ODDP|
+                   (|COMMON-LISP|::|LENGTH| |CLOS|::|SLOT-OPTIONS|))
+                  (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                   :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                   |CLOS|::|SLOT-OPTIONS|
+                   (|SYSTEM|::|TEXT|
+                    "~S ~S: slot options for slot ~S must come in pairs")
+                   '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-NAME|))
+                 (|COMMON-LISP|::|DO|
+                  ((|CLOS|::|OPTIONSR| |CLOS|::|SLOT-OPTIONS|
+                    (|COMMON-LISP|::|CDDR| |CLOS|::|OPTIONSR|)))
+                  ((|COMMON-LISP|::|ATOM| |CLOS|::|OPTIONSR|))
+                  (|COMMON-LISP|::|LET|
+                   ((|CLOS|::|OPTIONKEY|
+                     (|COMMON-LISP|::|FIRST| |CLOS|::|OPTIONSR|))
+                    (|CLOS|::|ARGUMENT|
+                     (|COMMON-LISP|::|SECOND| |CLOS|::|OPTIONSR|)))
+                   (|COMMON-LISP|::|CASE| |CLOS|::|OPTIONKEY|
+                    (:|READER|
+                     (|COMMON-LISP|::|UNLESS|
+                      (|COMMON-LISP|::|AND|
+                       (|COMMON-LISP|::|SYMBOLP| |CLOS|::|ARGUMENT|)
+                       |CLOS|::|ARGUMENT|)
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|ARGUMENT|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option for slot ~S: ~S is not a non-NIL symbol")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-NAME|
+                       |CLOS|::|ARGUMENT|))
+                     (|COMMON-LISP|::|PUSH| |CLOS|::|ARGUMENT|
+                      |CLOS|::|READERS|))
+                    (:|WRITER|
+                     (|COMMON-LISP|::|UNLESS|
+                      (|SYSTEM|::|FUNCTION-NAME-P| |CLOS|::|ARGUMENT|)
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|ARGUMENT|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option for slot ~S: ~S is not a function name")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-NAME|
+                       |CLOS|::|ARGUMENT|))
+                     (|COMMON-LISP|::|PUSH| |CLOS|::|ARGUMENT|
+                      |CLOS|::|WRITERS|))
+                    (:|ACCESSOR|
+                     (|COMMON-LISP|::|UNLESS|
+                      (|COMMON-LISP|::|AND|
+                       (|COMMON-LISP|::|SYMBOLP| |CLOS|::|ARGUMENT|)
+                       |CLOS|::|ARGUMENT|)
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|ARGUMENT|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option for slot ~S: ~S is not a non-NIL symbol")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-NAME|
+                       |CLOS|::|ARGUMENT|))
+                     (|COMMON-LISP|::|PUSH| |CLOS|::|ARGUMENT|
+                      |CLOS|::|READERS|)
+                     (|COMMON-LISP|::|PUSH|
+                      `(|COMMON-LISP|::|SETF| ,|CLOS|::|ARGUMENT|)
+                      |CLOS|::|WRITERS|))
+                    (:|ALLOCATION|
+                     (|COMMON-LISP|::|UNLESS|
+                      (|COMMON-LISP|::|SYMBOLP| |CLOS|::|ARGUMENT|)
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|ARGUMENT|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option ~S for slot ~S: ~S is not a symbol")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| ':|ALLOCATION|
+                       |CLOS|::|SLOT-NAME| |CLOS|::|ARGUMENT|))
+                     (|COMMON-LISP|::|WHEN| |CLOS|::|ALLOCATIONS|
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|SLOT-OPTIONS|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option ~S for slot ~S may only be given once")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| ':|ALLOCATION|
+                       |CLOS|::|SLOT-NAME|))
+                     (|COMMON-LISP|::|SETQ| |CLOS|::|ALLOCATIONS|
+                      (|COMMON-LISP|::|LIST| |CLOS|::|ARGUMENT|)))
+                    (:|INITARG|
+                     (|COMMON-LISP|::|UNLESS|
+                      (|COMMON-LISP|::|SYMBOLP| |CLOS|::|ARGUMENT|)
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|ARGUMENT|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option for slot ~S: ~S is not a symbol")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-NAME|
+                       |CLOS|::|ARGUMENT|))
+                     (|COMMON-LISP|::|PUSH| |CLOS|::|ARGUMENT|
+                      |CLOS|::|INITARGS|))
+                    (:|INITFORM|
+                     (|COMMON-LISP|::|WHEN| |CLOS|::|INITFORM|
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|SLOT-OPTIONS|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option ~S for slot ~S may only be given once")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| ':|INITFORM|
+                       |CLOS|::|SLOT-NAME|))
+                     (|COMMON-LISP|::|SETQ| |CLOS|::|INITFORM|
+                      `',|CLOS|::|ARGUMENT| |CLOS|::|INITFUNCTION|
+                      (|CLOS|::|MAKE-INITFUNCTION-FORM| |CLOS|::|ARGUMENT|
+                       |CLOS|::|SLOT-NAME|)))
+                    (:|TYPE|
+                     (|COMMON-LISP|::|WHEN| |CLOS|::|TYPES|
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|SLOT-OPTIONS|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option ~S for slot ~S may only be given once")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| ':|TYPE|
+                       |CLOS|::|SLOT-NAME|))
+                     (|COMMON-LISP|::|SETQ| |CLOS|::|TYPES|
+                      (|COMMON-LISP|::|LIST| |CLOS|::|ARGUMENT|)))
+                    (:|DOCUMENTATION|
+                     (|COMMON-LISP|::|WHEN| |CLOS|::|DOCUMENTATION|
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|SLOT-OPTIONS|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option ~S for slot ~S may only be given once")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| ':|DOCUMENTATION|
+                       |CLOS|::|SLOT-NAME|))
+                     (|COMMON-LISP|::|UNLESS|
+                      (|COMMON-LISP|::|STRINGP| |CLOS|::|ARGUMENT|)
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|ARGUMENT|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option for slot ~S: ~S is not a string")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-NAME|
+                       |CLOS|::|ARGUMENT|))
+                     (|COMMON-LISP|::|SETQ| |CLOS|::|DOCUMENTATION|
+                      |CLOS|::|ARGUMENT|))
+                    ((:|NAME| :|READERS| :|WRITERS| :|INITARGS|
+                      :|INITFUNCTION|)
+                     (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                      :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                      |CLOS|::|OPTIONKEY|
+                      (|SYSTEM|::|TEXT|
+                       "~S ~S, slot option for slot ~S: ~S is not a valid slot option")
+                      '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-NAME|
+                      |CLOS|::|OPTIONKEY|))
+                    (|COMMON-LISP|::|T|
+                     (|COMMON-LISP|::|IF|
+                      (|COMMON-LISP|::|SYMBOLP| |CLOS|::|OPTIONKEY|)
+                      (|COMMON-LISP|::|LET|
+                       ((|COMMON-LISP|::|ACONS|
+                         (|COMMON-LISP|::|ASSOC| |CLOS|::|OPTIONKEY|
+                          |CLOS|::|USER-DEFINED-ARGS|)))
+                       (|COMMON-LISP|::|IF| |COMMON-LISP|::|ACONS|
+                        (|COMMON-LISP|::|PUSH| |CLOS|::|ARGUMENT|
+                         (|COMMON-LISP|::|CDR| |COMMON-LISP|::|ACONS|))
+                        (|COMMON-LISP|::|PUSH|
+                         (|COMMON-LISP|::|LIST| |CLOS|::|OPTIONKEY|
+                          |CLOS|::|ARGUMENT|)
+                         |CLOS|::|USER-DEFINED-ARGS|)))
+                      (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                       :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL|
+                       |CLOS|::|OPTIONKEY|
+                       (|SYSTEM|::|TEXT|
+                        "~S ~S, slot option for slot ~S: ~S is not a valid slot option")
+                       '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|SLOT-NAME|
+                       |CLOS|::|OPTIONKEY|))))))
+                 (|COMMON-LISP|::|SETQ| |CLOS|::|READERS|
+                  (|COMMON-LISP|::|NREVERSE| |CLOS|::|READERS|))
+                 (|COMMON-LISP|::|SETQ| |CLOS|::|WRITERS|
+                  (|COMMON-LISP|::|NREVERSE| |CLOS|::|WRITERS|))
+                 (|COMMON-LISP|::|SETQ| |CLOS|::|USER-DEFINED-ARGS|
+                  (|COMMON-LISP|::|NREVERSE| |CLOS|::|USER-DEFINED-ARGS|))
+                 (|COMMON-LISP|::|LET|
+                  ((|COMMON-LISP|::|TYPE|
+                    (|COMMON-LISP|::|IF| |CLOS|::|TYPES|
+                     (|COMMON-LISP|::|FIRST| |CLOS|::|TYPES|)
+                     '|COMMON-LISP|::|T|)))
+                  (|COMMON-LISP|::|DOLIST|
+                   (|CLOS|::|FUNNAME| |CLOS|::|READERS|)
+                   (|COMMON-LISP|::|PUSH|
+                    `(|CLOS|::|DECLAIM-METHOD| ,|CLOS|::|FUNNAME|
+                      ((|CLOS|::|OBJECT| ,|CLOS|::|NAME|)))
+                    |CLOS|::|ACCESSOR-METHOD-DECL-FORMS|)
+                   (|COMMON-LISP|::|PUSH|
+                    `(|COMMON-LISP|::|PROCLAIM|
+                      '(|COMMON-LISP|::|FUNCTION| ,|CLOS|::|FUNNAME|
+                        (,|CLOS|::|NAME|) ,|COMMON-LISP|::|TYPE|))
+                    |CLOS|::|ACCESSOR-FUNCTION-DECL-FORMS|)
+                   (|COMMON-LISP|::|PUSH|
+                    `(|SYSTEM|::|EVAL-WHEN-COMPILE|
+                      (|SYSTEM|::|C-DEFUN| ',|CLOS|::|FUNNAME|
+                       (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+                        '(|CLOS|::|OBJECT|))))
+                    |CLOS|::|ACCESSOR-FUNCTION-DECL-FORMS|))
+                  (|COMMON-LISP|::|DOLIST|
+                   (|CLOS|::|FUNNAME| |CLOS|::|WRITERS|)
+                   (|COMMON-LISP|::|PUSH|
+                    `(|CLOS|::|DECLAIM-METHOD| ,|CLOS|::|FUNNAME|
+                      (|CLOS|::|NEW-VALUE| (|CLOS|::|OBJECT| ,|CLOS|::|NAME|)))
+                    |CLOS|::|ACCESSOR-METHOD-DECL-FORMS|)
+                   (|COMMON-LISP|::|PUSH|
+                    `(|COMMON-LISP|::|PROCLAIM|
+                      '(|COMMON-LISP|::|FUNCTION| ,|CLOS|::|FUNNAME|
+                        (,|COMMON-LISP|::|TYPE| ,|CLOS|::|NAME|)
+                        ,|COMMON-LISP|::|TYPE|))
+                    |CLOS|::|ACCESSOR-FUNCTION-DECL-FORMS|)
+                   (|COMMON-LISP|::|PUSH|
+                    `(|SYSTEM|::|EVAL-WHEN-COMPILE|
+                      (|SYSTEM|::|C-DEFUN| ',|CLOS|::|FUNNAME|
+                       (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+                        '(|CLOS|::|NEW-VALUE| |CLOS|::|OBJECT|))))
+                    |CLOS|::|ACCESSOR-FUNCTION-DECL-FORMS|)))
+                 `(|COMMON-LISP|::|LIST| :|NAME| ',|CLOS|::|SLOT-NAME|
+                   ,@(|COMMON-LISP|::|WHEN| |CLOS|::|READERS|
+                      `(:|READERS| ',|CLOS|::|READERS|))
+                   ,@(|COMMON-LISP|::|WHEN| |CLOS|::|WRITERS|
+                      `(:|WRITERS| ',|CLOS|::|WRITERS|))
+                   ,@(|COMMON-LISP|::|WHEN| |CLOS|::|ALLOCATIONS|
+                      `(:|ALLOCATION|
+                        ',(|COMMON-LISP|::|FIRST| |CLOS|::|ALLOCATIONS|)))
+                   ,@(|COMMON-LISP|::|WHEN| |CLOS|::|INITARGS|
+                      `(:|INITARGS|
+                        ',(|COMMON-LISP|::|NREVERSE| |CLOS|::|INITARGS|)))
+                   ,@(|COMMON-LISP|::|WHEN| |CLOS|::|INITFORM|
+                      `(:|INITFORM| ,|CLOS|::|INITFORM| :|INITFUNCTION|
+                        ,|CLOS|::|INITFUNCTION|))
+                   ,@(|COMMON-LISP|::|WHEN| |CLOS|::|TYPES|
+                      `(:|TYPE| ',(|COMMON-LISP|::|FIRST| |CLOS|::|TYPES|)))
+                   ,@(|COMMON-LISP|::|WHEN| |CLOS|::|DOCUMENTATION|
+                      `(:|DOCUMENTATION| ',|CLOS|::|DOCUMENTATION|))
+                   ,@(|COMMON-LISP|::|WHEN| |CLOS|::|USER-DEFINED-ARGS|
+                      `('|CLOS|::|DEFCLASS-FORM| ',|CLOS|::|WHOLE-FORM|))
+                   ,@(|COMMON-LISP|::|MAPCAN|
+                      #'(|COMMON-LISP|::|LAMBDA| (|CLOS|::|OPTION|)
+                         (|COMMON-LISP|::|LIST|
+                          `',(|COMMON-LISP|::|CAR| |CLOS|::|OPTION|)
+                          `',(|COMMON-LISP|::|IF|
+                              (|COMMON-LISP|::|CDDR| |CLOS|::|OPTION|)
+                              (|COMMON-LISP|::|NREVERSE|
+                               (|COMMON-LISP|::|CDR| |CLOS|::|OPTION|))
+                              (|COMMON-LISP|::|CADR| |CLOS|::|OPTION|))))
+                      |CLOS|::|USER-DEFINED-ARGS|)))))
+            |CLOS|::|SLOT-SPECS|)))
+         (|CLOS|::|METACLASS| |COMMON-LISP|::|NIL|)
+         (|CLOS|::|METACLASS-ARG| |COMMON-LISP|::|NIL|)
+         (|CLOS|::|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|)
+         (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL|)
+         (|CLOS|::|USER-DEFINED-ARGS| |COMMON-LISP|::|NIL|))
+        (|COMMON-LISP|::|DOLIST| (|CLOS|::|OPTION| |CLOS|::|OPTIONS|)
+         (|COMMON-LISP|::|BLOCK| |COMMON-LISP|::|NIL|
+          (|COMMON-LISP|::|WHEN| (|COMMON-LISP|::|LISTP| |CLOS|::|OPTION|)
+           (|COMMON-LISP|::|LET|
+            ((|CLOS|::|OPTIONKEY| (|COMMON-LISP|::|FIRST| |CLOS|::|OPTION|)))
+            (|COMMON-LISP|::|WHEN|
+             (|COMMON-LISP|::|CASE| |CLOS|::|OPTIONKEY|
+              (:|METACLASS| |CLOS|::|METACLASS|)
+              (:|DEFAULT-INITARGS| |CLOS|::|DIRECT-DEFAULT-INITARGS|)
+              (:|DOCUMENTATION| |CLOS|::|DOCUMENTATION|))
+             (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+              |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|OPTIONS|
+              (|SYSTEM|::|TEXT| "~S ~S: option ~S may only be given once")
+              '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|OPTIONKEY|))
+            (|COMMON-LISP|::|CASE| |CLOS|::|OPTIONKEY|
+             (:|METACLASS|
+              (|COMMON-LISP|::|WHEN|
+               (|COMMON-LISP|::|EQL| (|COMMON-LISP|::|LENGTH| |CLOS|::|OPTION|)
+                2.)
+               (|COMMON-LISP|::|LET|
+                ((|CLOS|::|ARGUMENT|
+                  (|COMMON-LISP|::|SECOND| |CLOS|::|OPTION|)))
+                (|COMMON-LISP|::|UNLESS|
+                 (|COMMON-LISP|::|SYMBOLP| |CLOS|::|ARGUMENT|)
+                 (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                  :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|ARGUMENT|
+                  (|SYSTEM|::|TEXT| "~S ~S, option ~S: ~S is not a symbol")
+                  '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|OPTION|
+                  |CLOS|::|ARGUMENT|))
+                (|COMMON-LISP|::|SETQ| |CLOS|::|METACLASS-ARG|
+                 |CLOS|::|ARGUMENT|)
+                (|COMMON-LISP|::|SETQ| |CLOS|::|METACLASS|
+                 `(|CLOS|::|FIND-CLASS| ',|CLOS|::|ARGUMENT|)))
+               (|COMMON-LISP|::|RETURN|)))
+             (:|DEFAULT-INITARGS|
+              (|COMMON-LISP|::|LET|
+               ((|COMMON-LISP|::|LIST|
+                 (|COMMON-LISP|::|REST| |CLOS|::|OPTION|)))
+               (|COMMON-LISP|::|WHEN|
+                (|COMMON-LISP|::|AND|
+                 (|COMMON-LISP|::|CONSP| |COMMON-LISP|::|LIST|)
+                 (|COMMON-LISP|::|NULL|
+                  (|COMMON-LISP|::|CDR| |COMMON-LISP|::|LIST|))
+                 (|COMMON-LISP|::|LISTP|
+                  (|COMMON-LISP|::|CAR| |COMMON-LISP|::|LIST|)))
+                (|COMMON-LISP|::|SETQ| |COMMON-LISP|::|LIST|
+                 (|COMMON-LISP|::|CAR| |COMMON-LISP|::|LIST|))
+                (|CLOS|::|CLOS-WARNING|
+                 (|SYSTEM|::|TEXT| "~S ~S: option ~S should be written ~S")
+                 '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|OPTION|
+                 (|COMMON-LISP|::|CONS| ':|DEFAULT-INITARGS|
+                  |COMMON-LISP|::|LIST|)))
+               (|COMMON-LISP|::|WHEN|
+                (|COMMON-LISP|::|ODDP|
+                 (|COMMON-LISP|::|LENGTH| |COMMON-LISP|::|LIST|))
+                (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                 :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL| |COMMON-LISP|::|LIST|
+                 (|SYSTEM|::|TEXT|
+                  "~S ~S, option ~S: arguments must come in pairs")
+                 '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|OPTION|))
+               (|COMMON-LISP|::|SETQ| |CLOS|::|DIRECT-DEFAULT-INITARGS|
+                `(:|DIRECT-DEFAULT-INITARGS|
+                  (|COMMON-LISP|::|LIST|
+                   ,@(|COMMON-LISP|::|LET|
+                      ((|CLOS|::|ARGLIST| |COMMON-LISP|::|NIL|)
+                       (|CLOS|::|FORMLIST| |COMMON-LISP|::|NIL|))
+                      (|COMMON-LISP|::|DO|
+                       ((|CLOS|::|LISTR| |COMMON-LISP|::|LIST|
+                         (|COMMON-LISP|::|CDDR| |CLOS|::|LISTR|)))
+                       ((|COMMON-LISP|::|ATOM| |CLOS|::|LISTR|))
+                       (|COMMON-LISP|::|UNLESS|
+                        (|COMMON-LISP|::|SYMBOLP|
+                         (|COMMON-LISP|::|FIRST| |CLOS|::|LISTR|))
+                        (|SYSTEM|::|ERROR-OF-TYPE|
+                         '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+                         |CLOS|::|WHOLE-FORM| :|DETAIL|
+                         (|COMMON-LISP|::|FIRST| |CLOS|::|LISTR|)
+                         (|SYSTEM|::|TEXT|
+                          "~S ~S, option ~S: ~S is not a symbol")
+                         '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|OPTION|
+                         (|COMMON-LISP|::|FIRST| |CLOS|::|LISTR|)))
+                       (|COMMON-LISP|::|WHEN|
+                        (|COMMON-LISP|::|MEMBER|
+                         (|COMMON-LISP|::|FIRST| |CLOS|::|LISTR|)
+                         |CLOS|::|ARGLIST|)
+                        (|SYSTEM|::|ERROR-OF-TYPE|
+                         '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+                         |CLOS|::|WHOLE-FORM| :|DETAIL| |COMMON-LISP|::|LIST|
+                         (|SYSTEM|::|TEXT|
+                          "~S ~S, option ~S: ~S may only be given once")
+                         '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|OPTION|
+                         (|COMMON-LISP|::|FIRST| |CLOS|::|LISTR|)))
+                       (|COMMON-LISP|::|PUSH|
+                        (|COMMON-LISP|::|FIRST| |CLOS|::|LISTR|)
+                        |CLOS|::|ARGLIST|)
+                       (|COMMON-LISP|::|PUSH|
+                        (|COMMON-LISP|::|SECOND| |CLOS|::|LISTR|)
+                        |CLOS|::|FORMLIST|))
+                      (|COMMON-LISP|::|MAPCAN|
+                       #'(|COMMON-LISP|::|LAMBDA|
+                          (|CLOS|::|ARG| |CLOS|::|FORM|)
+                          `((|COMMON-LISP|::|LIST| ',|CLOS|::|ARG|
+                             ',|CLOS|::|FORM|
+                             ,(|CLOS|::|MAKE-INITFUNCTION-FORM| |CLOS|::|FORM|
+                               |CLOS|::|ARG|))))
+                       (|COMMON-LISP|::|NREVERSE| |CLOS|::|ARGLIST|)
+                       (|COMMON-LISP|::|NREVERSE| |CLOS|::|FORMLIST|)))))))
+              (|COMMON-LISP|::|RETURN|))
+             (:|DOCUMENTATION|
+              (|COMMON-LISP|::|WHEN|
+               (|COMMON-LISP|::|EQL| (|COMMON-LISP|::|LENGTH| |CLOS|::|OPTION|)
+                2.)
+               (|COMMON-LISP|::|LET|
+                ((|CLOS|::|ARGUMENT|
+                  (|COMMON-LISP|::|SECOND| |CLOS|::|OPTION|)))
+                (|COMMON-LISP|::|UNLESS|
+                 (|COMMON-LISP|::|STRINGP| |CLOS|::|ARGUMENT|)
+                 (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                  :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|ARGUMENT|
+                  (|SYSTEM|::|TEXT| "~S ~S, option ~S: ~S is not a string")
+                  '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|OPTION|
+                  |CLOS|::|ARGUMENT|))
+                (|COMMON-LISP|::|SETQ| |CLOS|::|DOCUMENTATION|
+                 `(:|DOCUMENTATION| ',|CLOS|::|ARGUMENT|)))
+               (|COMMON-LISP|::|RETURN|)))
+             ((:|NAME| :|DIRECT-SUPERCLASSES| :|DIRECT-SLOTS|
+               :|DIRECT-DEFAULT-INITARGS|)
+              (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+               |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|OPTION|
+               (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+               '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|OPTION|))
+             (:|GENERIC-ACCESSORS|
+              (|COMMON-LISP|::|WHEN|
+               (|COMMON-LISP|::|EQL| (|COMMON-LISP|::|LENGTH| |CLOS|::|OPTION|)
+                2.)
+               (|COMMON-LISP|::|LET|
+                ((|CLOS|::|ARGUMENT|
+                  (|COMMON-LISP|::|SECOND| |CLOS|::|OPTION|)))
+                (|COMMON-LISP|::|SETQ| |CLOS|::|GENERIC-ACCESSORS-ARG|
+                 |CLOS|::|ARGUMENT|)
+                (|COMMON-LISP|::|SETQ| |CLOS|::|GENERIC-ACCESSORS|
+                 `(:|GENERIC-ACCESSORS| ',|CLOS|::|ARGUMENT|))
+                (|COMMON-LISP|::|RETURN|))))
+             (|COMMON-LISP|::|T|
+              (|COMMON-LISP|::|WHEN|
+               (|COMMON-LISP|::|SYMBOLP| |CLOS|::|OPTIONKEY|)
+               (|COMMON-LISP|::|WHEN|
+                (|COMMON-LISP|::|ASSOC| |CLOS|::|OPTIONKEY|
+                 |CLOS|::|USER-DEFINED-ARGS|)
+                (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                 :|FORM| |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|OPTIONS|
+                 (|SYSTEM|::|TEXT| "~S ~S: option ~S may only be given once")
+                 '|CLOS|::|DEFCLASS| |CLOS|::|NAME| |CLOS|::|OPTIONKEY|))
+               (|COMMON-LISP|::|PUSH| |CLOS|::|OPTION|
+                |CLOS|::|USER-DEFINED-ARGS|)
+               (|COMMON-LISP|::|RETURN|))))))
+          (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+           |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|OPTION|
+           (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S") '|CLOS|::|DEFCLASS|
+           |CLOS|::|NAME| |CLOS|::|OPTION|)))
+        (|COMMON-LISP|::|SETQ| |CLOS|::|USER-DEFINED-ARGS|
+         (|COMMON-LISP|::|NREVERSE| |CLOS|::|USER-DEFINED-ARGS|))
+        (|COMMON-LISP|::|LET|
+         ((|CLOS|::|METACLASS-VAR| (|COMMON-LISP|::|GENSYM|))
+          (|CLOS|::|METACLASS-KEYWORDS-VAR| (|COMMON-LISP|::|GENSYM|)))
+         `(|COMMON-LISP|::|LET| |COMMON-LISP|::|NIL|
+           (|COMMON-LISP|::|EVAL-WHEN|
+            (|COMMON-LISP|::|COMPILE| |COMMON-LISP|::|LOAD|
+             |COMMON-LISP|::|EVAL|)
+            (|COMMON-LISP|::|LET*|
+             ((,|CLOS|::|METACLASS-VAR|
+               ,(|COMMON-LISP|::|OR| |CLOS|::|METACLASS|
+                 '|CLOS|::|<STANDARD-CLASS>|))
+              ,@(|COMMON-LISP|::|IF| |CLOS|::|USER-DEFINED-ARGS|
+                 `((,|CLOS|::|METACLASS-KEYWORDS-VAR|
+                    ,(|COMMON-LISP|::|COND|
+                      ((|COMMON-LISP|::|OR|
+                        (|COMMON-LISP|::|NULL| |CLOS|::|METACLASS|)
+                        (|COMMON-LISP|::|EQ| |CLOS|::|METACLASS-ARG|
+                         '|CLOS|::|STANDARD-CLASS|))
+                       '|CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|)
+                      ((|COMMON-LISP|::|EQ| |CLOS|::|METACLASS-ARG|
+                        '|CLOS|::|FUNCALLABLE-STANDARD-CLASS|)
+                       '|CLOS|::|*<FUNCALLABLE-STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|)
+                      (|COMMON-LISP|::|T|
+                       `(|CLOS|::|CLASS-VALID-INITIALIZATION-KEYWORDS|
+                         ,|CLOS|::|METACLASS-VAR|)))))))
+             ,@(|COMMON-LISP|::|IF| |CLOS|::|USER-DEFINED-ARGS|
+                `((|COMMON-LISP|::|UNLESS|
+                   (|COMMON-LISP|::|EQ| ,|CLOS|::|METACLASS-KEYWORDS-VAR|
+                    '|COMMON-LISP|::|T|)
+                   ,@(|COMMON-LISP|::|MAPCAR|
+                      #'(|COMMON-LISP|::|LAMBDA| (|CLOS|::|OPTION|)
+                         `(|COMMON-LISP|::|UNLESS|
+                           (|COMMON-LISP|::|MEMBER|
+                            ',(|COMMON-LISP|::|FIRST| |CLOS|::|OPTION|)
+                            ,|CLOS|::|METACLASS-KEYWORDS-VAR|)
+                           (|SYSTEM|::|ERROR-OF-TYPE|
+                            '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+                            ',|CLOS|::|WHOLE-FORM| :|DETAIL| ',|CLOS|::|OPTION|
+                            (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+                            '|CLOS|::|DEFCLASS| ',|CLOS|::|NAME|
+                            ',|CLOS|::|OPTION|)))
+                      |CLOS|::|USER-DEFINED-ARGS|))))
+             (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| ',|CLOS|::|NAME|
+              :|DIRECT-SUPERCLASSES|
+              (|COMMON-LISP|::|LIST| ,@|CLOS|::|SUPERCLASS-FORMS|)
+              :|DIRECT-SLOTS| (|COMMON-LISP|::|LIST| ,@|CLOS|::|SLOT-FORMS|)
+              :|METACLASS| ,|CLOS|::|METACLASS-VAR|
+              ,@|CLOS|::|DIRECT-DEFAULT-INITARGS| ,@|CLOS|::|DOCUMENTATION|
+              ,@|CLOS|::|GENERIC-ACCESSORS|
+              ,@(|COMMON-LISP|::|MAPCAN|
+                 #'(|COMMON-LISP|::|LAMBDA| (|CLOS|::|OPTION|)
+                    (|COMMON-LISP|::|LIST|
+                     `',(|COMMON-LISP|::|FIRST| |CLOS|::|OPTION|)
+                     `',(|COMMON-LISP|::|REST| |CLOS|::|OPTION|)))
+                 |CLOS|::|USER-DEFINED-ARGS|)
+              (|COMMON-LISP|::|APPEND|
+               ,(|COMMON-LISP|::|IF| |CLOS|::|METACLASS|
+                 `(|COMMON-LISP|::|MAPCAN|
+                   #'(|COMMON-LISP|::|LAMBDA| (|CLOS|::|X|)
+                      (|COMMON-LISP|::|LIST|
+                       (|COMMON-LISP|::|FIRST| |CLOS|::|X|)
+                       (|COMMON-LISP|::|FUNCALL|
+                        (|COMMON-LISP|::|THIRD| |CLOS|::|X|))))
+                   (|CLOS|::|CLASS-DEFAULT-INITARGS| ,|CLOS|::|METACLASS-VAR|))
+                 `',|CLOS|::|*<STANDARD-CLASS>-DEFAULT-INITARGS*|)
+               (|COMMON-LISP|::|LIST|
+                ,@(|COMMON-LISP|::|UNLESS| |CLOS|::|DIRECT-DEFAULT-INITARGS|
+                   '(:|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|))
+                ,@(|COMMON-LISP|::|UNLESS| |CLOS|::|DOCUMENTATION|
+                   '(:|DOCUMENTATION| |COMMON-LISP|::|NIL|))
+                ,@(|COMMON-LISP|::|UNLESS| |CLOS|::|GENERIC-ACCESSORS|
+                   '(:|GENERIC-ACCESSORS| '|COMMON-LISP|::|T|)))))))
+           ,@(|COMMON-LISP|::|IF| |CLOS|::|GENERIC-ACCESSORS-ARG|
+              (|COMMON-LISP|::|NREVERSE| |CLOS|::|ACCESSOR-METHOD-DECL-FORMS|)
+              (|COMMON-LISP|::|NREVERSE|
+               |CLOS|::|ACCESSOR-FUNCTION-DECL-FORMS|))
+           (|CLOS|::|FIND-CLASS| ',|CLOS|::|NAME|)))))))))
+  '(|COMMON-LISP|::|&WHOLE| |CLOS|::|WHOLE-FORM| |CLOS|::|NAME|
+    |CLOS|::|SUPERCLASS-SPECS| |CLOS|::|SLOT-SPECS| |COMMON-LISP|::|&REST|
+    |CLOS|::|OPTIONS|)))
+(|SYSTEM|::|C-PROCLAIM|
+ '(|COMMON-LISP|::|SPECIAL| |CLOS|::|*MAKE-INSTANCES-OBSOLETE-CALLER*|))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|ENSURE-CLASS-USING-CLASS-<T>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|NAME| |COMMON-LISP|::|&REST| |CLOS|::|ALL-KEYS|
+    |COMMON-LISP|::|&KEY| (|CLOS|::|METACLASS| |CLOS|::|<STANDARD-CLASS>|)
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DIRECT-SLOTS| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DIRECT-DEFAULT-INITARGS| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL|)
+    (|CLOS|::|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|ENSURE-CLASS-USING-CLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|NAME| |COMMON-LISP|::|&REST| |CLOS|::|ARGS|
+    |COMMON-LISP|::|&KEY| (|CLOS|::|METACLASS| |CLOS|::|<STANDARD-CLASS>|)
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DIRECT-SLOTS| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DIRECT-DEFAULT-INITARGS| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL|)
+    (|CLOS|::|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|ENSURE-CLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|NAME| |COMMON-LISP|::|&REST| |CLOS|::|ARGS| |COMMON-LISP|::|&KEY|
+    (|CLOS|::|METACLASS| |CLOS|::|<STANDARD-CLASS>|)
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DIRECT-SLOTS| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DIRECT-DEFAULT-INITARGS| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL|)
+    (|CLOS|::|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|READER-METHOD-CLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|DIRECT-SLOT| |COMMON-LISP|::|&REST|
+    |CLOS|::|INITARGS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|WRITER-METHOD-CLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|DIRECT-SLOT| |COMMON-LISP|::|&REST|
+    |CLOS|::|INITARGS|)))
+(|SYSTEM|::|C-PROCLAIM|
+ '(|COMMON-LISP|::|SPECIAL| |CLOS|::|*ALLOW-MIXING-METACLASSES*|))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|REINITIALIZE-INSTANCE-<DEFINED-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |COMMON-LISP|::|&REST| |CLOS|::|ALL-KEYS|
+    |COMMON-LISP|::|&KEY|
+    (|CLOS|::|NAME| |COMMON-LISP|::|NIL| |CLOS|::|NAME-P|)
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-SUPERCLASSES-P|)
+    (|CLOS|::|DIRECT-SLOTS| '|COMMON-LISP|::|NIL| |CLOS|::|DIRECT-SLOTS-P|)
+    (|CLOS|::|DIRECT-DEFAULT-INITARGS| '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-DEFAULT-INITARGS-P|)
+    (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL| |CLOS|::|DOCUMENTATION-P|)
+    (|CLOS|::|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|
+     |CLOS|::|FIXED-SLOT-LOCATIONS-P|)
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS| |COMMON-LISP|::|&AUX|
+    (|CLOS|::|METACLASS| (|CLOS|::|CLASS-OF| |CLOS|::|CLASS|)))))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|EQUAL-DIRECT-SLOTS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|SLOTS1| |CLOS|::|SLOTS2|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|EQUAL-DEFAULT-INITARGS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|INITARGS1| |CLOS|::|INITARGS2|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|MAP-DEPENDENTS-<DEFINED-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |COMMON-LISP|::|FUNCTION|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CLASS-NAME|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|DEFAULT-DIRECT-SUPERCLASSES|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CHECK-METACLASS-MIX|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|NAME| |CLOS|::|DIRECT-SUPERCLASSES| |CLOS|::|METACLASS-TEST|
+    |CLOS|::|METACLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|VALIDATE-SUPERCLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|SUPERCLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CHECK-ALLOWED-SUPERCLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|SUPERCLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|ADD-DIRECT-SUBCLASS-INTERNAL|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|HOLDER| |CLOS|::|ELEMENT|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|REMOVE-DIRECT-SUBCLASS-INTERNAL|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|HOLDER| |CLOS|::|ELEMENT|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|LIST-DIRECT-SUBCLASSES|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|HOLDER|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|ADD-DIRECT-SUBCLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS| |CLOS|::|SUBCLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|REMOVE-DIRECT-SUBCLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS| |CLOS|::|SUBCLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CLASS-DIRECT-SUBCLASSES|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CHECKED-CLASS-DIRECT-SUBCLASSES|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|UPDATE-SUBCLASSES-SETS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|OLD-DIRECT-SUPERCLASSES|
+    |CLOS|::|NEW-DIRECT-SUPERCLASSES|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|STD-COMPUTE-CPL|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|DIRECT-SUPERCLASSES|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-CLASS-PRECEDENCE-LIST-<DEFINED-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-CLASS-PRECEDENCE-LIST|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CHECKED-COMPUTE-CLASS-PRECEDENCE-LIST|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|STD-COMPUTE-SUPERCLASSES|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|PRECEDENCE-LIST|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|STD-COMPUTE-SUBCLASS-OF-STABLEHASH-P|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN|
+ '|CLOS|::|COMPUTE-EFFECTIVE-SLOT-DEFINITION-INITARGS-<DEFINED-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|DIRECTSLOTDEFS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-EFFECTIVE-SLOT-DEFINITION-INITARGS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|DIRECT-SLOT-DEFINITIONS|)))
+(|SYSTEM|::|C-DEFUN|
+ '|CLOS|::|COMPUTE-EFFECTIVE-SLOT-DEFINITION-<DEFINED-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|NAME| |CLOS|::|DIRECTSLOTDEFS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-EFFECTIVE-SLOT-DEFINITION|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|SLOTNAME| |CLOS|::|DIRECT-SLOT-DEFINITIONS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-SLOTS-<DEFINED-CLASS>-PRIMARY|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-SLOTS-<SLOTTED-CLASS>-AROUND|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|NEXT-METHOD|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-SLOTS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CHECKED-COMPUTE-SLOTS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-INSTANCE-SIZE|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-SHARED-SIZE|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CREATE-SHARED-SLOTS-VECTOR|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|SHARED-SIZE| |CLOS|::|OLD-SLOT-LOCATION-TABLE|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-SLOT-LOCATION-TABLE|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-SLOT-LOCATION-TABLE-ENTRY|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS| |CLOS|::|SLOT|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-DEFAULT-INITARGS-<DEFINED-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|COMPUTE-DEFAULT-INITARGS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CHECKED-COMPUTE-DEFAULT-INITARGS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-PROCLAIM|
+ '(|COMMON-LISP|::|SPECIAL| |CLOS|::|*COMPILE-ACCESSOR-FUNCTIONS*|))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CHECK-METHOD-REDEFINITION|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|FUNNAME| |CLOS|::|QUALIFIERS| |CLOS|::|SPEC-LIST|
+    |CLOS|::|CALLER|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|INSTALL-CLASS-DIRECT-ACCESSORS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|REMOVE-ACCESSOR-METHODS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|PLIST|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|ADD-ACCESSOR-METHODS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|PLIST|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|MAKE-INSTANCE-<BUILT-IN-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|METACLASS| |COMMON-LISP|::|&REST| |CLOS|::|ARGS|
+    |COMMON-LISP|::|&KEY| |CLOS|::|NAME|
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|INITIALIZE-INSTANCE-<BUILT-IN-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |COMMON-LISP|::|&REST| |CLOS|::|ARGS| |COMMON-LISP|::|&KEY|
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|SHARED-INITIALIZE-<BUILT-IN-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|SITUATION| |COMMON-LISP|::|&REST| |CLOS|::|ARGS|
+    |COMMON-LISP|::|&KEY|
+    (|CLOS|::|NAME| |COMMON-LISP|::|NIL| |CLOS|::|NAME-P|)
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-SUPERCLASSES-P|)
+    ((|CLOS|::|PROTOTYPE| |CLOS|::|PROTOTYPE|) |COMMON-LISP|::|NIL|
+     |CLOS|::|PROTOTYPE-P|)
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|MAKE-INSTANCE-<STRUCTURE-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|METACLASS| |COMMON-LISP|::|&REST| |CLOS|::|ARGS|
+    |COMMON-LISP|::|&KEY| |CLOS|::|NAME|
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|)
+    ((:|DIRECT-SLOTS| |CLOS|::|DIRECT-SLOTS-AS-LISTS|) '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DIRECT-DEFAULT-INITARGS| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL|)
+    ((|CLOS|::|NAMES| |CLOS|::|NAMES|) |COMMON-LISP|::|NIL|)
+    ((|CLOS|::|KCONSTRUCTOR| |CLOS|::|KCONSTRUCTOR|) |COMMON-LISP|::|NIL|)
+    ((|CLOS|::|BOA-CONSTRUCTORS| |CLOS|::|BOA-CONSTRUCTORS|)
+     '|COMMON-LISP|::|NIL|)
+    ((|CLOS|::|COPIER| |CLOS|::|COPIER|) |COMMON-LISP|::|NIL|)
+    ((|CLOS|::|PREDICATE| |CLOS|::|PREDICATE|) |COMMON-LISP|::|NIL|)
+    ((|CLOS|::|DIRECT-SLOTS| |CLOS|::|DIRECT-SLOTS-AS-METAOBJECTS|)
+     '|COMMON-LISP|::|NIL|)
+    ((|CLOS|::|SLOTS| |CLOS|::|SLOTS|) '|COMMON-LISP|::|NIL|)
+    ((|CLOS|::|SIZE| |CLOS|::|SIZE|) 1.) |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|INITIALIZE-INSTANCE-<STRUCTURE-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |COMMON-LISP|::|&REST| |CLOS|::|ARGS| |COMMON-LISP|::|&KEY|
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|SHARED-INITIALIZE-<STRUCTURE-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|SITUATION| |COMMON-LISP|::|&REST| |CLOS|::|ARGS|
+    |COMMON-LISP|::|&KEY|
+    (|CLOS|::|NAME| |COMMON-LISP|::|NIL| |CLOS|::|NAME-P|)
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-SUPERCLASSES-P|)
+    (|CLOS|::|GENERIC-ACCESSORS| |COMMON-LISP|::|T|
+     |CLOS|::|GENERIC-ACCESSORS-P|)
+    ((:|DIRECT-SLOTS| |CLOS|::|DIRECT-SLOTS-AS-LISTS|) '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-SLOTS-AS-LISTS-P|)
+    (|CLOS|::|DIRECT-DEFAULT-INITARGS| '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-DEFAULT-INITARGS-P|)
+    (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL| |CLOS|::|DOCUMENTATION-P|)
+    ((|CLOS|::|NAMES| |CLOS|::|NAMES|) |COMMON-LISP|::|NIL| |CLOS|::|NAMES-P|)
+    ((|CLOS|::|KCONSTRUCTOR| |CLOS|::|KCONSTRUCTOR|) |COMMON-LISP|::|NIL|
+     |CLOS|::|KCONSTRUCTOR-P|)
+    ((|CLOS|::|BOA-CONSTRUCTORS| |CLOS|::|BOA-CONSTRUCTORS|)
+     '|COMMON-LISP|::|NIL| |CLOS|::|BOA-CONSTRUCTORS-P|)
+    ((|CLOS|::|COPIER| |CLOS|::|COPIER|) |COMMON-LISP|::|NIL|
+     |CLOS|::|COPIER-P|)
+    ((|CLOS|::|PREDICATE| |CLOS|::|PREDICATE|) |COMMON-LISP|::|NIL|
+     |CLOS|::|PREDICATE-P|)
+    ((|CLOS|::|DIRECT-SLOTS| |CLOS|::|DIRECT-SLOTS-AS-METAOBJECTS|)
+     '|COMMON-LISP|::|NIL| |CLOS|::|DIRECT-SLOTS-AS-METAOBJECTS-P|)
+    ((|CLOS|::|SLOTS| |CLOS|::|SLOTS|) '|COMMON-LISP|::|NIL|)
+    ((|CLOS|::|SIZE| |CLOS|::|SIZE|) 1.) |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|DEFINE-STRUCTURE-CLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|NAME| |CLOS|::|NAMES| |CLOS|::|KEYWORD-CONSTRUCTOR|
+    |CLOS|::|BOA-CONSTRUCTORS| |CLOS|::|COPIER| |CLOS|::|PREDICATE|
+    |CLOS|::|ALL-SLOTS| |CLOS|::|DIRECT-SLOTS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|UNDEFINE-STRUCTURE-CLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|NAME|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|SHARED-INITIALIZE-<SEMI-STANDARD-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|SITUATION| |COMMON-LISP|::|&REST| |CLOS|::|ARGS|
+    |COMMON-LISP|::|&KEY|
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-SUPERCLASSES-P|)
+    ((:|DIRECT-SLOTS| |CLOS|::|DIRECT-SLOTS-AS-LISTS|) '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-SLOTS-AS-LISTS-P|)
+    ((|CLOS|::|DIRECT-SLOTS| |CLOS|::|DIRECT-SLOTS-AS-METAOBJECTS|)
+     '|COMMON-LISP|::|NIL| |CLOS|::|DIRECT-SLOTS-AS-METAOBJECTS-P|)
+    (|CLOS|::|DIRECT-DEFAULT-INITARGS| '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-DEFAULT-INITARGS-P|)
+    (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL| |CLOS|::|DOCUMENTATION-P|)
+    (|CLOS|::|GENERIC-ACCESSORS| |COMMON-LISP|::|T|
+     |CLOS|::|GENERIC-ACCESSORS-P|)
+    (|CLOS|::|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|
+     |CLOS|::|FIXED-SLOT-LOCATIONS-P|)
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|FINALIZABLE-P|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |COMMON-LISP|::|&OPTIONAL|
+    (|CLOS|::|STACK| |COMMON-LISP|::|NIL|))))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|FINALIZE-INHERITANCE|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|FINALIZE-INHERITANCE-<SEMI-STANDARD-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|FINALIZE-INSTANCE-SEMI-STANDARD-CLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |COMMON-LISP|::|&AUX|
+    (|CLOS|::|DIRECT-SUPERCLASSES|
+     (|CLOS|::|CLASS-DIRECT-SUPERCLASSES| |CLOS|::|CLASS|))
+    (|CLOS|::|NAME| (|CLOS|::|CLASS-NAME| |CLOS|::|CLASS|))
+    (|CLOS|::|OLD-SLOT-LOCATION-TABLE|
+     (|CLOS|::|CLASS-SLOT-LOCATION-TABLE| |CLOS|::|CLASS|)))))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|MAKE-INSTANCES-OBSOLETE|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|MAKE-INSTANCES-OBSOLETE-<SEMI-STANDARD-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN|
+ '|CLOS|::|MAKE-INSTANCES-OBSOLETE-<SEMI-STANDARD-CLASS>-NONRECURSIVE|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|UPDATE-SUBCLASSES-FOR-REDEFINED-CLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|WAS-FINALIZED| |CLOS|::|MUST-BE-FINALIZED|
+    |CLOS|::|OLD-DIRECT-SUPERCLASSES|)))
+(|SYSTEM|::|C-DEFUN|
+ '|CLOS|::|UPDATE-SUBCLASSES-FOR-REDEFINED-CLASS-NONRECURSIVE|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN|
+ '|CLOS|::|UPDATE-SUBCLASS-INSTANCE-SPECIALIZER-GENERIC-FUNCTIONS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN|
+ '|CLOS|::|UPDATE-SUBCLASS-CPL-SPECIALIZER-GENERIC-FUNCTIONS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|OLD-CPL| |CLOS|::|NEW-CPL|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|CLASS-VERSION-COMPUTE-SLOTLISTS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|OLD-VERSION|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|ADD-DIRECT-INSTANCE-SPECIALIZER|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|HOLDER| |CLOS|::|ELEMENT|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|REMOVE-DIRECT-INSTANCE-SPECIALIZER|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|HOLDER| |CLOS|::|ELEMENT|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|LIST-DIRECT-INSTANCE-SPECIALIZERS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|HOLDER|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|ADD-FINALIZED-DIRECT-SUBCLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|HOLDER| |CLOS|::|ELEMENT|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|REMOVE-FINALIZED-DIRECT-SUBCLASS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|HOLDER| |CLOS|::|ELEMENT|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|LIST-FINALIZED-DIRECT-SUBCLASSES|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|HOLDER|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|LIST-ALL-FINALIZED-SUBCLASSES|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|MAKE-INSTANCE-<STANDARD-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|METACLASS| |COMMON-LISP|::|&REST| |CLOS|::|ARGS|
+    |COMMON-LISP|::|&KEY| |CLOS|::|NAME|
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DIRECT-SLOTS| '|COMMON-LISP|::|NIL|)
+    (|CLOS|::|DIRECT-DEFAULT-INITARGS| '|COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|INITIALIZE-INSTANCE-<STANDARD-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |COMMON-LISP|::|&REST| |CLOS|::|ARGS| |COMMON-LISP|::|&KEY|
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|SHARED-INITIALIZE-<STANDARD-CLASS>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|CLOS|::|CLASS| |CLOS|::|SITUATION| |COMMON-LISP|::|&REST| |CLOS|::|ARGS|
+    |COMMON-LISP|::|&KEY|
+    (|CLOS|::|DIRECT-SUPERCLASSES| '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-SUPERCLASSES-P|)
+    ((:|DIRECT-SLOTS| |CLOS|::|DIRECT-SLOTS-AS-LISTS|) '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-SLOTS-AS-LISTS-P|)
+    ((|CLOS|::|DIRECT-SLOTS| |CLOS|::|DIRECT-SLOTS-AS-METAOBJECTS|)
+     '|COMMON-LISP|::|NIL| |CLOS|::|DIRECT-SLOTS-AS-METAOBJECTS-P|)
+    (|CLOS|::|DIRECT-DEFAULT-INITARGS| '|COMMON-LISP|::|NIL|
+     |CLOS|::|DIRECT-DEFAULT-INITARGS-P|)
+    (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL| |CLOS|::|DOCUMENTATION-P|)
+    (|CLOS|::|GENERIC-ACCESSORS| |COMMON-LISP|::|T|
+     |CLOS|::|GENERIC-ACCESSORS-P|)
+    (|CLOS|::|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|
+     |CLOS|::|FIXED-SLOT-LOCATIONS-P|)
+    |COMMON-LISP|::|&ALLOW-OTHER-KEYS|)))
+(|COMMON-LISP|::|LET*| ((#1=#:|G24636| |CLOS|::|<STANDARD-CLASS>|))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|METAOBJECT|
+  :|DIRECT-SUPERCLASSES| (|COMMON-LISP|::|LIST|) :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|) :|METACLASS| #1#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G24797| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G24798| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|STANDARD-STABLEHASH| |COMMON-LISP|::|NIL|
+      ((|CLOS|::|$HASHCODE| :|INITFORM| #3=(|SYSTEM|::|RANDOM-POSFIXNUM|)))
+      #4=(:|FIXED-SLOT-LOCATIONS| . #5=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#4# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|STANDARD-STABLEHASH| '#4#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|STANDARD-STABLEHASH| :|DIRECT-SUPERCLASSES| (|COMMON-LISP|::|LIST|)
+  :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$HASHCODE| :|INITFORM| '#3#
+    :|INITFUNCTION|
+    (|COMMON-LISP|::|FUNCTION| |CLOS|::|DEFAULT-$HASHCODE|
+     (|COMMON-LISP|::|LAMBDA| |COMMON-LISP|::|NIL| #3#))))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#5#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G24827| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G24828| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|SPECIALIZER|
+      (|CLOS|::|STANDARD-STABLEHASH| |CLOS|::|METAOBJECT|)
+      ((|CLOS|::|$DIRECT-METHODS| :|INITFORM| |COMMON-LISP|::|NIL|))
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|SPECIALIZER| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|SPECIALIZER|
+  :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|STANDARD-STABLEHASH| '|CLOS|::|METAOBJECT|)
+  :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$DIRECT-METHODS| :|INITFORM|
+    '|COMMON-LISP|::|NIL| :|INITFUNCTION|
+    (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| |COMMON-LISP|::|NIL|)))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G24864| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G24865| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|SUPER-CLASS|
+      (|CLOS|::|STANDARD-STABLEHASH| |CLOS|::|METAOBJECT|)
+      ((|CLOS|::|$CLASSNAME| :|TYPE| |COMMON-LISP|::|SYMBOL| :|INITARG|
+        :|NAME|)
+       (|CLOS|::|$DIRECT-SUBCLASSES| :|TYPE|
+        #3=(|COMMON-LISP|::|OR| |COMMON-LISP|::|HASH-TABLE| |CLOS|::|WEAK-LIST|
+            |COMMON-LISP|::|NULL|)
+        :|INITFORM| |COMMON-LISP|::|NIL|))
+      #4=(:|FIXED-SLOT-LOCATIONS| . #5=(|COMMON-LISP|::|NIL|)))
+    :|DETAIL| '#4# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|SUPER-CLASS| '#4#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|SUPER-CLASS|
+  :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|STANDARD-STABLEHASH| '|CLOS|::|METAOBJECT|)
+  :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$CLASSNAME| :|INITARGS| '(:|NAME|)
+    :|TYPE| '|COMMON-LISP|::|SYMBOL|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$DIRECT-SUBCLASSES| :|INITFORM|
+    '|COMMON-LISP|::|NIL| :|INITFUNCTION|
+    (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| |COMMON-LISP|::|NIL|) :|TYPE|
+    '#3#))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#5#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G24902| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G24903| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|POTENTIAL-CLASS|
+      (|CLOS|::|SPECIALIZER| |CLOS|::|SUPER-CLASS|) |COMMON-LISP|::|NIL|
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|POTENTIAL-CLASS| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|POTENTIAL-CLASS|
+  :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|SPECIALIZER| '|CLOS|::|SUPER-CLASS|)
+  :|DIRECT-SLOTS| (|COMMON-LISP|::|LIST|) :|METACLASS| #1#
+  ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G24939| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G24940| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|DEFINED-CLASS| (|CLOS|::|POTENTIAL-CLASS|)
+      ((|CLOS|::|$DIRECT-SUPERCLASSES| :|TYPE| |COMMON-LISP|::|LIST| :|INITARG|
+        :|DIRECT-SUPERCLASSES|)
+       (|CLOS|::|$ALL-SUPERCLASSES| :|TYPE| |COMMON-LISP|::|HASH-TABLE|)
+       (|CLOS|::|$PRECEDENCE-LIST| :|TYPE| |COMMON-LISP|::|LIST|)
+       (|CLOS|::|$DIRECT-SLOTS| :|TYPE| |COMMON-LISP|::|LIST| :|INITARG|
+        :|DIRECT-SLOTS|)
+       (|CLOS|::|$SLOTS| :|TYPE| |COMMON-LISP|::|LIST|)
+       (|CLOS|::|$SLOT-LOCATION-TABLE| :|TYPE| |COMMON-LISP|::|HASH-TABLE|
+        :|INITFORM| |CLOS|::|EMPTY-HT|)
+       (|CLOS|::|$DIRECT-DEFAULT-INITARGS| :|TYPE| |COMMON-LISP|::|LIST|
+        :|INITARG| :|DIRECT-DEFAULT-INITARGS|)
+       (|CLOS|::|$DEFAULT-INITARGS|)
+       (|CLOS|::|$DOCUMENTATION| :|TYPE|
+        #3=(|COMMON-LISP|::|OR| |COMMON-LISP|::|STRING| |COMMON-LISP|::|NULL|)
+        :|INITARG| :|DOCUMENTATION|)
+       (|CLOS|::|$LISTENERS| :|TYPE| |COMMON-LISP|::|LIST| :|INITFORM|
+        |COMMON-LISP|::|NIL|)
+       (|CLOS|::|$INITIALIZED| :|TYPE| #4=(|COMMON-LISP|::|INTEGER| 0. 6.)
+        :|INITFORM| 0.))
+      #5=(:|FIXED-SLOT-LOCATIONS| . #6=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#5# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|DEFINED-CLASS| '#5#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|DEFINED-CLASS|
+  :|DIRECT-SUPERCLASSES| (|COMMON-LISP|::|LIST| '|CLOS|::|POTENTIAL-CLASS|)
+  :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$DIRECT-SUPERCLASSES| :|INITARGS|
+    '(:|DIRECT-SUPERCLASSES|) :|TYPE| '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$ALL-SUPERCLASSES| :|TYPE|
+    '|COMMON-LISP|::|HASH-TABLE|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$PRECEDENCE-LIST| :|TYPE|
+    '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$DIRECT-SLOTS| :|INITARGS|
+    '(:|DIRECT-SLOTS|) :|TYPE| '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$SLOTS| :|TYPE|
+    '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$SLOT-LOCATION-TABLE| :|INITFORM|
+    '|CLOS|::|EMPTY-HT| :|INITFUNCTION|
+    (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| |CLOS|::|EMPTY-HT|) :|TYPE|
+    '|COMMON-LISP|::|HASH-TABLE|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$DIRECT-DEFAULT-INITARGS|
+    :|INITARGS| '(:|DIRECT-DEFAULT-INITARGS|) :|TYPE| '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$DEFAULT-INITARGS|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$DOCUMENTATION| :|INITARGS|
+    '(:|DOCUMENTATION|) :|TYPE| '#3#)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$LISTENERS| :|INITFORM|
+    '|COMMON-LISP|::|NIL| :|INITFUNCTION|
+    (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| |COMMON-LISP|::|NIL|) :|TYPE|
+    '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$INITIALIZED| :|INITFORM| '0.
+    :|INITFUNCTION| (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| 0.) :|TYPE| '#4#))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#6#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G24948| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G24949| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|BUILT-IN-CLASS| (|CLOS|::|DEFINED-CLASS|)
+      ((|CLOS|::|$PROTOTYPE| :|TYPE| |COMMON-LISP|::|T|))
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|BUILT-IN-CLASS| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|BUILT-IN-CLASS|
+  :|DIRECT-SUPERCLASSES| (|COMMON-LISP|::|LIST| '|CLOS|::|DEFINED-CLASS|)
+  :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$PROTOTYPE| :|TYPE|
+    '|COMMON-LISP|::|T|))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G24985| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G24986| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|SLOTTED-CLASS| (|CLOS|::|DEFINED-CLASS|)
+      ((|CLOS|::|$SUBCLASS-OF-STABLEHASH-P| :|TYPE| |COMMON-LISP|::|BOOLEAN|)
+       (|CLOS|::|$GENERIC-ACCESSORS| :|INITFORM| |COMMON-LISP|::|T|)
+       (|CLOS|::|$DIRECT-ACCESSORS| :|TYPE| |COMMON-LISP|::|LIST| :|INITFORM|
+        #3='|COMMON-LISP|::|NIL|)
+       (|CLOS|::|$VALID-INITARGS-FROM-SLOTS| :|TYPE| |COMMON-LISP|::|LIST|)
+       (|CLOS|::|$INSTANCE-SIZE| :|TYPE|
+        #4=(|COMMON-LISP|::|INTEGER| 1. |COMMON-LISP|::|*|)))
+      #5=(:|FIXED-SLOT-LOCATIONS| . #6=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#5# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|SLOTTED-CLASS| '#5#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|SLOTTED-CLASS|
+  :|DIRECT-SUPERCLASSES| (|COMMON-LISP|::|LIST| '|CLOS|::|DEFINED-CLASS|)
+  :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$SUBCLASS-OF-STABLEHASH-P| :|TYPE|
+    '|COMMON-LISP|::|BOOLEAN|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$GENERIC-ACCESSORS| :|INITFORM|
+    '|COMMON-LISP|::|T| :|INITFUNCTION|
+    (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| |COMMON-LISP|::|T|))
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$DIRECT-ACCESSORS| :|INITFORM| '#3#
+    :|INITFUNCTION| (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| #3#) :|TYPE|
+    '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$VALID-INITARGS-FROM-SLOTS| :|TYPE|
+    '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$INSTANCE-SIZE| :|TYPE| '#4#))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#6#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25023| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25024| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|SEMI-STANDARD-CLASS|
+      (|CLOS|::|SLOTTED-CLASS|)
+      ((|CLOS|::|$CURRENT-VERSION| :|TYPE| |COMMON-LISP|::|SIMPLE-VECTOR|)
+       (|CLOS|::|$FUNCALLABLEP| :|TYPE| |COMMON-LISP|::|BOOLEAN|)
+       (|CLOS|::|$FIXED-SLOT-LOCATIONS| :|INITARG| :|FIXED-SLOT-LOCATIONS|)
+       (|CLOS|::|$INSTANTIATED| :|TYPE| |COMMON-LISP|::|BOOLEAN| :|INITFORM|
+        |COMMON-LISP|::|NIL|)
+       (|CLOS|::|$DIRECT-INSTANCE-SPECIALIZERS| :|TYPE|
+        #3=(|COMMON-LISP|::|OR| |COMMON-LISP|::|HASH-TABLE| |CLOS|::|WEAK-LIST|
+            |COMMON-LISP|::|NULL|)
+        :|INITFORM| |COMMON-LISP|::|NIL|)
+       (|CLOS|::|$FINALIZED-DIRECT-SUBCLASSES| :|TYPE|
+        #4=(|COMMON-LISP|::|OR| |COMMON-LISP|::|HASH-TABLE| |CLOS|::|WEAK-LIST|
+            |COMMON-LISP|::|NULL|)
+        :|INITFORM| #5='|COMMON-LISP|::|NIL|)
+       (|CLOS|::|$PROTOTYPE| :|TYPE|
+        #6=(|COMMON-LISP|::|OR| |COMMON-LISP|::|STANDARD-OBJECT|
+            |COMMON-LISP|::|NULL|)))
+      (:|DEFAULT-INITARGS| :|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+      #7=(:|FIXED-SLOT-LOCATIONS| . #8=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#7# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|SEMI-STANDARD-CLASS| '#7#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|SEMI-STANDARD-CLASS| :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|SLOTTED-CLASS|) :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$CURRENT-VERSION| :|TYPE|
+    '|COMMON-LISP|::|SIMPLE-VECTOR|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$FUNCALLABLEP| :|TYPE|
+    '|COMMON-LISP|::|BOOLEAN|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$FIXED-SLOT-LOCATIONS| :|INITARGS|
+    '(:|FIXED-SLOT-LOCATIONS|))
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$INSTANTIATED| :|INITFORM|
+    '|COMMON-LISP|::|NIL| :|INITFUNCTION|
+    (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| |COMMON-LISP|::|NIL|) :|TYPE|
+    '|COMMON-LISP|::|BOOLEAN|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$DIRECT-INSTANCE-SPECIALIZERS|
+    :|INITFORM| '|COMMON-LISP|::|NIL| :|INITFUNCTION|
+    (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| |COMMON-LISP|::|NIL|) :|TYPE| '#3#)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$FINALIZED-DIRECT-SUBCLASSES|
+    :|INITFORM| '#5# :|INITFUNCTION|
+    (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| #5#) :|TYPE| '#4#)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$PROTOTYPE| :|TYPE| '#6#))
+  :|METACLASS| #1# :|DIRECT-DEFAULT-INITARGS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| ':|FIXED-SLOT-LOCATIONS| '|COMMON-LISP|::|NIL|
+    (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| |COMMON-LISP|::|NIL|)))
+  ':|FIXED-SLOT-LOCATIONS| '#8#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DOCUMENTATION| |COMMON-LISP|::|NIL|
+    :|GENERIC-ACCESSORS| '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25060| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25061| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|STANDARD-CLASS|
+      (|CLOS|::|SEMI-STANDARD-CLASS|) |COMMON-LISP|::|NIL|
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|STANDARD-CLASS| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|STANDARD-CLASS|
+  :|DIRECT-SUPERCLASSES| (|COMMON-LISP|::|LIST| '|CLOS|::|SEMI-STANDARD-CLASS|)
+  :|DIRECT-SLOTS| (|COMMON-LISP|::|LIST|) :|METACLASS| #1#
+  ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25098| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25099| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|STRUCTURE-CLASS| (|CLOS|::|SLOTTED-CLASS|)
+      ((|CLOS|::|$NAMES| :|TYPE| |COMMON-LISP|::|CONS|)
+       (|CLOS|::|$KCONSTRUCTOR| :|TYPE| |COMMON-LISP|::|SYMBOL|)
+       (|CLOS|::|$BOA-CONSTRUCTORS| :|TYPE| |COMMON-LISP|::|LIST|)
+       (|CLOS|::|$COPIER| :|TYPE| |COMMON-LISP|::|SYMBOL|)
+       (|CLOS|::|$PREDICATE| :|TYPE| |COMMON-LISP|::|SYMBOL|)
+       (|CLOS|::|$PROTOTYPE| :|TYPE|
+        #3=(|COMMON-LISP|::|OR| |COMMON-LISP|::|STRUCTURE-OBJECT|
+            |COMMON-LISP|::|NULL|)))
+      #4=(:|FIXED-SLOT-LOCATIONS| . #5=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#4# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|STRUCTURE-CLASS| '#4#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|STRUCTURE-CLASS|
+  :|DIRECT-SUPERCLASSES| (|COMMON-LISP|::|LIST| '|CLOS|::|SLOTTED-CLASS|)
+  :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$NAMES| :|TYPE|
+    '|COMMON-LISP|::|CONS|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$KCONSTRUCTOR| :|TYPE|
+    '|COMMON-LISP|::|SYMBOL|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$BOA-CONSTRUCTORS| :|TYPE|
+    '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$COPIER| :|TYPE|
+    '|COMMON-LISP|::|SYMBOL|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$PREDICATE| :|TYPE|
+    '|COMMON-LISP|::|SYMBOL|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$PROTOTYPE| :|TYPE| '#3#))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#5#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25139| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25140| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|SLOT-DEFINITION| (|CLOS|::|METAOBJECT|)
+      ((|CLOS|::|$NAME| :|TYPE| |COMMON-LISP|::|SYMBOL| :|INITARG| :|NAME|)
+       (|CLOS|::|$INITARGS| :|TYPE| |COMMON-LISP|::|LIST| :|INITARG|
+        :|INITARGS|)
+       (|CLOS|::|$TYPE| :|TYPE| |COMMON-LISP|::|T| :|INITARG| :|TYPE|)
+       (|CLOS|::|$ALLOCATION| :|TYPE| |COMMON-LISP|::|SYMBOL| :|INITARG|
+        :|ALLOCATION|)
+       (|CLOS|::|$INHERITABLE-INITER| :|TYPE| |COMMON-LISP|::|CONS| :|INITARG|
+        |CLOS|::|INHERITABLE-INITER|)
+       (|CLOS|::|$INHERITABLE-DOC| :|TYPE| |COMMON-LISP|::|CONS| :|INITARG|
+        |CLOS|::|INHERITABLE-DOC|))
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|SLOT-DEFINITION| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|SLOT-DEFINITION|
+  :|DIRECT-SUPERCLASSES| (|COMMON-LISP|::|LIST| '|CLOS|::|METAOBJECT|)
+  :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$NAME| :|INITARGS| '(:|NAME|)
+    :|TYPE| '|COMMON-LISP|::|SYMBOL|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$INITARGS| :|INITARGS|
+    '(:|INITARGS|) :|TYPE| '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$TYPE| :|INITARGS| '(:|TYPE|)
+    :|TYPE| '|COMMON-LISP|::|T|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$ALLOCATION| :|INITARGS|
+    '(:|ALLOCATION|) :|TYPE| '|COMMON-LISP|::|SYMBOL|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$INHERITABLE-INITER| :|INITARGS|
+    '(|CLOS|::|INHERITABLE-INITER|) :|TYPE| '|COMMON-LISP|::|CONS|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$INHERITABLE-DOC| :|INITARGS|
+    '(|CLOS|::|INHERITABLE-DOC|) :|TYPE| '|COMMON-LISP|::|CONS|))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25177| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25178| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|DIRECT-SLOT-DEFINITION|
+      (|CLOS|::|SLOT-DEFINITION|)
+      ((|CLOS|::|$READERS| :|TYPE| |COMMON-LISP|::|LIST| :|INITARG| :|READERS|)
+       (|CLOS|::|$WRITERS| :|TYPE| |COMMON-LISP|::|LIST| :|INITARG|
+        :|WRITERS|))
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|DIRECT-SLOT-DEFINITION| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|DIRECT-SLOT-DEFINITION| :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|SLOT-DEFINITION|) :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$READERS| :|INITARGS| '(:|READERS|)
+    :|TYPE| '|COMMON-LISP|::|LIST|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$WRITERS| :|INITARGS| '(:|WRITERS|)
+    :|TYPE| '|COMMON-LISP|::|LIST|))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25214| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25215| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|EFFECTIVE-SLOT-DEFINITION|
+      (|CLOS|::|SLOT-DEFINITION|)
+      ((|CLOS|::|$LOCATION| :|TYPE|
+        #3=(|COMMON-LISP|::|OR| |COMMON-LISP|::|NULL| |COMMON-LISP|::|INTEGER|
+            |COMMON-LISP|::|CONS|)
+        :|INITARG| |CLOS|::|LOCATION|)
+       (|CLOS|::|$EFM-SVUC| :|TYPE| |COMMON-LISP|::|FUNCTION|)
+       (|CLOS|::|$EFM-SSVUC| :|TYPE| |COMMON-LISP|::|FUNCTION|)
+       (|CLOS|::|$EFM-SBUC| :|TYPE| |COMMON-LISP|::|FUNCTION|)
+       (|CLOS|::|$EFM-SMUC| :|TYPE| |COMMON-LISP|::|FUNCTION|))
+      #4=(:|FIXED-SLOT-LOCATIONS| . #5=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#4# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|EFFECTIVE-SLOT-DEFINITION| '#4#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|EFFECTIVE-SLOT-DEFINITION| :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|SLOT-DEFINITION|) :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$LOCATION| :|INITARGS|
+    '(|CLOS|::|LOCATION|) :|TYPE| '#3#)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$EFM-SVUC| :|TYPE|
+    '|COMMON-LISP|::|FUNCTION|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$EFM-SSVUC| :|TYPE|
+    '|COMMON-LISP|::|FUNCTION|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$EFM-SBUC| :|TYPE|
+    '|COMMON-LISP|::|FUNCTION|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$EFM-SMUC| :|TYPE|
+    '|COMMON-LISP|::|FUNCTION|))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#5#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25250| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25251| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|STANDARD-SLOT-DEFINITION|
+      (|CLOS|::|SLOT-DEFINITION|) |COMMON-LISP|::|NIL|
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|STANDARD-SLOT-DEFINITION| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|STANDARD-SLOT-DEFINITION| :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|SLOT-DEFINITION|) :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|) :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25288| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25289| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|STANDARD-DIRECT-SLOT-DEFINITION|
+      (|CLOS|::|DIRECT-SLOT-DEFINITION| |CLOS|::|STANDARD-SLOT-DEFINITION|)
+      |COMMON-LISP|::|NIL|
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|STANDARD-DIRECT-SLOT-DEFINITION| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|STANDARD-DIRECT-SLOT-DEFINITION| :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|DIRECT-SLOT-DEFINITION|
+   '|CLOS|::|STANDARD-SLOT-DEFINITION|)
+  :|DIRECT-SLOTS| (|COMMON-LISP|::|LIST|) :|METACLASS| #1#
+  ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25326| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25327| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|STANDARD-EFFECTIVE-SLOT-DEFINITION|
+      (|CLOS|::|EFFECTIVE-SLOT-DEFINITION| |CLOS|::|STANDARD-SLOT-DEFINITION|)
+      |COMMON-LISP|::|NIL|
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|STANDARD-EFFECTIVE-SLOT-DEFINITION| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|STANDARD-EFFECTIVE-SLOT-DEFINITION| :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|EFFECTIVE-SLOT-DEFINITION|
+   '|CLOS|::|STANDARD-SLOT-DEFINITION|)
+  :|DIRECT-SLOTS| (|COMMON-LISP|::|LIST|) :|METACLASS| #1#
+  ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25364| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25365| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|STRUCTURE-DIRECT-SLOT-DEFINITION|
+      (|CLOS|::|DIRECT-SLOT-DEFINITION|) |COMMON-LISP|::|NIL|
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|STRUCTURE-DIRECT-SLOT-DEFINITION| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|STRUCTURE-DIRECT-SLOT-DEFINITION| :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|DIRECT-SLOT-DEFINITION|) :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|) :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25402| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25403| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|STRUCTURE-EFFECTIVE-SLOT-DEFINITION|
+      (|CLOS|::|EFFECTIVE-SLOT-DEFINITION|)
+      ((|CLOS|::|$EFM-SVUC| :|TYPE| |COMMON-LISP|::|FUNCTION| :|INITFORM|
+        #3=#'|CLOS|::|%SLOT-VALUE-USING-CLASS|)
+       (|CLOS|::|$EFM-SSVUC| :|TYPE| |COMMON-LISP|::|FUNCTION| :|INITFORM|
+        #4=#'|CLOS|::|%SET-SLOT-VALUE-USING-CLASS|)
+       (|CLOS|::|$EFM-SBUC| :|TYPE| |COMMON-LISP|::|FUNCTION| :|INITFORM|
+        #5=#'|CLOS|::|%SLOT-BOUNDP-USING-CLASS|)
+       (|CLOS|::|$EFM-SMUC| :|TYPE| |COMMON-LISP|::|FUNCTION| :|INITFORM|
+        #6=#'|CLOS|::|%SLOT-MAKUNBOUND-USING-CLASS|)
+       (|CLOS|::|$READONLY| :|TYPE| |COMMON-LISP|::|BOOLEAN| :|INITARG|
+        |CLOS|::|READONLY|))
+      #7=(:|FIXED-SLOT-LOCATIONS| . #8=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#7# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|STRUCTURE-EFFECTIVE-SLOT-DEFINITION| '#7#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|STRUCTURE-EFFECTIVE-SLOT-DEFINITION| :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|EFFECTIVE-SLOT-DEFINITION|) :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$EFM-SVUC| :|INITFORM| '#3#
+    :|INITFUNCTION|
+    (|COMMON-LISP|::|FUNCTION| |CLOS|::|DEFAULT-$EFM-SVUC|
+     (|COMMON-LISP|::|LAMBDA| |COMMON-LISP|::|NIL| #3#))
+    :|TYPE| '|COMMON-LISP|::|FUNCTION|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$EFM-SSVUC| :|INITFORM| '#4#
+    :|INITFUNCTION|
+    (|COMMON-LISP|::|FUNCTION| |CLOS|::|DEFAULT-$EFM-SSVUC|
+     (|COMMON-LISP|::|LAMBDA| |COMMON-LISP|::|NIL| #4#))
+    :|TYPE| '|COMMON-LISP|::|FUNCTION|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$EFM-SBUC| :|INITFORM| '#5#
+    :|INITFUNCTION|
+    (|COMMON-LISP|::|FUNCTION| |CLOS|::|DEFAULT-$EFM-SBUC|
+     (|COMMON-LISP|::|LAMBDA| |COMMON-LISP|::|NIL| #5#))
+    :|TYPE| '|COMMON-LISP|::|FUNCTION|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$EFM-SMUC| :|INITFORM| '#6#
+    :|INITFUNCTION|
+    (|COMMON-LISP|::|FUNCTION| |CLOS|::|DEFAULT-$EFM-SMUC|
+     (|COMMON-LISP|::|LAMBDA| |COMMON-LISP|::|NIL| #6#))
+    :|TYPE| '|COMMON-LISP|::|FUNCTION|)
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$READONLY| :|INITARGS|
+    '(|CLOS|::|READONLY|) :|TYPE| '|COMMON-LISP|::|BOOLEAN|))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#8#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25444| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25445| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|EQL-SPECIALIZER| (|CLOS|::|SPECIALIZER|)
+      ((|CLOS|::|$SINGLETON| :|INITARG| |CLOS|::|SINGLETON|))
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|T|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|EQL-SPECIALIZER| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS| '|CLOS|::|EQL-SPECIALIZER|
+  :|DIRECT-SUPERCLASSES| (|COMMON-LISP|::|LIST| '|CLOS|::|SPECIALIZER|)
+  :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|
+   (|COMMON-LISP|::|LIST| :|NAME| '|CLOS|::|$SINGLETON| :|INITARGS|
+    '(|CLOS|::|SINGLETON|)))
+  :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25482| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25483| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|FORWARD-REFERENCE-TO-CLASS|
+      (|CLOS|::|SUPER-CLASS|) |COMMON-LISP|::|NIL|
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|NIL|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|FORWARD-REFERENCE-TO-CLASS| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|FORWARD-REFERENCE-TO-CLASS| :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|SUPER-CLASS|) :|DIRECT-SLOTS|
+  (|COMMON-LISP|::|LIST|) :|METACLASS| #1# ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|COMMON-LISP|::|LET*|
+ ((#1=#:|G25491| |CLOS|::|<STANDARD-CLASS>|)
+  (#2=#:|G25492| |CLOS|::|*<STANDARD-CLASS>-VALID-INITIALIZATION-KEYWORDS*|))
+ (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|EQ| #2# '|COMMON-LISP|::|T|)
+  (|COMMON-LISP|::|UNLESS|
+   (|COMMON-LISP|::|MEMBER| ':|FIXED-SLOT-LOCATIONS| #2#)
+   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+    '(|CLOS|::|DEFCLASS| |CLOS|::|MISDESIGNED-FORWARD-REFERENCED-CLASS|
+      (|CLOS|::|FORWARD-REFERENCE-TO-CLASS| |CLOS|::|POTENTIAL-CLASS|)
+      |COMMON-LISP|::|NIL|
+      #3=(:|FIXED-SLOT-LOCATIONS| . #4=(|COMMON-LISP|::|NIL|)))
+    :|DETAIL| '#3# (|SYSTEM|::|TEXT| "~S ~S: invalid option ~S")
+    '|CLOS|::|DEFCLASS| '|CLOS|::|MISDESIGNED-FORWARD-REFERENCED-CLASS| '#3#)))
+ (|COMMON-LISP|::|APPLY| #'|CLOS|::|ENSURE-CLASS|
+  '|CLOS|::|MISDESIGNED-FORWARD-REFERENCED-CLASS| :|DIRECT-SUPERCLASSES|
+  (|COMMON-LISP|::|LIST| '|CLOS|::|FORWARD-REFERENCE-TO-CLASS|
+   '|CLOS|::|POTENTIAL-CLASS|)
+  :|DIRECT-SLOTS| (|COMMON-LISP|::|LIST|) :|METACLASS| #1#
+  ':|FIXED-SLOT-LOCATIONS| '#4#
+  (|COMMON-LISP|::|APPEND| '(:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+   (|COMMON-LISP|::|LIST| :|DIRECT-DEFAULT-INITARGS| |COMMON-LISP|::|NIL|
+    :|DOCUMENTATION| |COMMON-LISP|::|NIL| :|GENERIC-ACCESSORS|
+    '|COMMON-LISP|::|T|))))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|BC-P|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|BC-AND|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS1| |CLOS|::|CLASS2|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|BC-AND-NOT|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|CLOS|::|CLASS1| |CLOS|::|CLASS2|)))

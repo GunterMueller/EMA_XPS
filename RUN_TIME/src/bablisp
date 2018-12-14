@@ -1,0 +1,2 @@
+#!/bin/sh
+/home/admin/ex216/EMA-XPS/bin/clisp -M /home/admin/ex216/tmp/Babylon-2.3/babylon.mem

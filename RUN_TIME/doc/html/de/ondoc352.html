@@ -1,0 +1,84 @@
+<html><head><title>DEFINE-CONSTRAINT</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc353.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc351.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-CONSTRAINT</strong></font></center><p>
+
+<PRE>DEFINE-CONSTRAINT
+=================
+
+Syntax: (define-constraint &lt;Constraint-Name&gt; OF
+            &lt;constraint-pattern-Name&gt;
+            [:DOCUMENTATION &lt;Dokumentation&gt;]
+            [:EXPLANATION &lt;Erkl&auml;rung&gt;]
+            [FOR-EACH
+            (&lt;bab-Var&gt; &lt;bab-lisp-Ausdruck&gt;)]
+            WITH &lt;einfache-Pr&auml;dikation&gt;+)
+
+Warnung: Der Erkl&auml;rungseintrag wird durch 
+         EMA-XPS nicht unterst&uuml;tzt, d.h.
+         :documentation und :explanation
+         werden ignoriert.
+
+Mit einem Constraint definieren Sie die Aus-
+pr&auml;gungen f&uuml;r die Parameter des Constraint-
+Pattern. Im Constraint-Pattern legen Sie fest,
+wie bestimmte Werte verkn&uuml;pft werden sollen.
+Im Constraint legen Sie die konkreten Werte f&uuml;r
+die Verkn&uuml;pfung fest. Sie k&ouml;nnen dabei Attribut-
+werte einer einzelnen wie auch mehrerer Instanzen
+verkn&uuml;pfen.
+
+FOR-EACH erwartet eine Liste mit einer Variablen
+gefolgt von einem Lisp-Ausdruck. Der Lisp-Ausdruck
+mu&szlig; zu einer Liste mit g&uuml;ltigen Bedingungen eva-
+luieren. Durch die FOR-EACH Deklaration kann z.B.
+f&uuml;r jede Instanz eines bestimmten Rahmens ein
+Constraint erzeugt werden.
+
+WITH erwartet eine einfache Pr&auml;dikation. Die
+Pr&auml;dikationen in den WITH-Klauseln d&uuml;rfen
+nicht aufeinander aufbauen. F&uuml;r jeden Parameter
+des Patterns mu&szlig; genau eine WITH-Klausel exis-
+tieren.
+
+Beispiel: &gt;(define-constraint-pattern
+             berechne-reale-kosten)
+             (_reale-Kosten _Landes-Wuensche)
+             :documentation &quot;Berechnet die 
+             entstehenden Kosten f&uuml;r den Kunden
+             bei Besuch der L&auml;nder
+             _Landes-Wuensche.&quot;
+             RULES
+             (KNOWN (_Landes-Wuensche)
+             THEN (is _reale-Kosten (berechne-kosten-
+             der-kunde _Landes-Wuensche))))
+          &gt;(define-constraint berechne-kosten-fuer-
+             kunden
+             OF berechne-reale-kosten
+             FOR-EACH (ein-kunde (instances-of
+             'Kunde)))
+             WITH
+             [entstehende-Kosten ein-Kunde
+             _reale-Kosten]
+             [ziele ein-Kunde _Landes-Wuensche])
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc353.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc351.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-CONSTRAINT done --!>

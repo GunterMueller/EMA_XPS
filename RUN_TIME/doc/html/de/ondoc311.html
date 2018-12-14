@@ -1,0 +1,55 @@
+<html><head><title>ADD-TO-SET</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc312.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc310.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>ADD-TO-SET</strong></font></center><p>
+
+<PRE>ADD-TO-SET
+==========
+
+Syntax: (add-to-set &lt;Lisp-Typ: T&gt;
+                    &lt;evaluates-to &lt;set-of A (...)&gt;&gt;
+                    [:TEST &lt;Lisp-Typ: Funktion&gt;])
+
+        ==&gt; &lt;set-of A (...)&gt; | &lt;new-set-of A (...)&gt;
+
+Diese Funktion f&uuml;gt einer Menge ein Element hinzu.
+
+Warnung: Eine TYP-Pr&uuml;fung kann einen Fehler
+         verursachen: Wenn alle Elemente der
+         Menge den gleichen Typ haben, dann
+         pr&uuml;fe das erste Element mit CAVAT:
+         Was ist mit einer leeren Menge ?!?
+
+Beispiel: &gt;(add-to-set bonn *hauptstaedte*)
+          Fehler: Die Elementtyp Restriktion 
+                  wurde verletzt.
+
+          &gt;(add-to-set hamburg *staedte*)
+          #&lt;set-of STADT (...)&gt;
+
+          &gt;(set-to-list *)
+          (#&lt;STADT HAMBURG&gt; #&lt;HAUPTSTADT PARIS&gt; 
+                #&lt;STADT DORTMUND&gt; #&lt;HAUPTSTADT 
+                       BRUESSEL&gt; #&lt;STADT BONN&gt;
+                           #&lt;HAUPTSTADT BERLIN&gt;)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc312.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc310.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- ADD-TO-SET done --!>

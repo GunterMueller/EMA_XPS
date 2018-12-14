@@ -1,0 +1,1 @@
+../../tests/strings.tst

@@ -1,0 +1,48 @@
+<html><head><title>DEPENDENTS-OF</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc286.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc284.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEPENDENTS-OF</strong></font></center><p>
+
+<PRE>DEPENDENTS-OF
+=============
+
+syntax: (dependents-of &lt;relation-specifier&gt;
+                       &lt;instance-specifier&gt;
+                       {[:READ T | NIL | Var]
+                        [:WRITE T | NIL | Var]}+
+                       [:IDENTIFIER T | NIL | Var]
+                       [:KB &lt;kb&gt;])
+
+Warning: yet not implemented!
+
+This function returns the read- and/or write-
+dependents of an instance relation. If you want to 
+have all read-dependent receivers, then you have to 
+set ':READ' to T. If you only want to have write-
+dependent receivers, then ':WRITE' has to be set to T.
+The list of dependents will be returned as objects 
+or as identifiers.
+
+example: &gt;(dependents-of 'place museum :read T)
+         (#&lt;TRAFFICOFFICE TRAFFICOFFICE-PARIS&gt;)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc286.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc284.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEPENDENTS-OF done --!>

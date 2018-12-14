@@ -1,0 +1,72 @@
+<html><head><title>[</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc332.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc330.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>[</strong></font></center><p>
+
+<PRE>[
+=
+
+Syntax: ($PRED &lt;Pr&auml;dikation&gt;)  oder  [&lt;Pr&auml;dikation&gt;]
+
+wobei: &lt;Pr&auml;dikation&gt; ::=
+           {&lt;compound-Pr&auml;dikation&gt; |
+           &lt;einfache-Pr&auml;dikation&gt; |
+           (match &lt;bql-Variable&gt;
+           {bab-lisp-Ausdr. |
+           &lt;bql-Variable&gt;} |
+           (element-of &lt;bql-Variable&gt;
+           {&lt;bab-lisp-Ausdr.&gt; |
+           &lt;bql-Variable&gt;} |
+           &lt;Lisp-Typ: T&gt;}
+
+PR&Auml;DIKATIONEN sind Aussagen &uuml;ber das Wissen in
+der Wissensbasis. Sie werden durch eckige Klammern
+gekennzeichnet. Eine EINFACHE-PR&Auml;DIKATION besteht
+in der Regel aus einem Namen und einem oder zwei
+Argumenten. Hat die Pr&auml;dikation nur ein Argument, dann
+wird sie einstellig genannt. Hat sie zwei Argumente, 
+dann wird sie zweistellig genannt. Werden mehrere Pr&auml;-
+dikationen verkn&uuml;pft, so spricht man von einer
+COMPOUND-PR&Auml;DIKATION.
+
+COMPOUND-PR&Auml;DIKATIONEN sind mit [AND, [OR oder
+[NOT verkn&uuml;pft.
+
+Eine einstellige Pr&auml;dikation beschreibt eine
+Frame-Instanz Beziehung.
+
+Eine zweistellige Pr&auml;dikation beschreibt eine
+Beziehung zwischen einer Instanz und einem Wert.
+
+Die Ausdr&uuml;cke der Pr&auml;dikation werden von links
+nach rechts abgearbeitet.
+
+Beispiel: &gt;(ask [stadt _stadt]
+             (kb-format &quot;~% ~A&quot; _stadt))
+         #&lt;HAUPTSTADT PARIS&gt;
+         #&lt;STADT WUPPERTAL&gt;
+         #&lt;HAUPTSTADT LONDON&gt;
+         #&lt;STADT DEN-HAAG&gt;
+         #&lt;HAUPTSTADT AMSTERDAM&gt;
+         NIL
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc332.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc330.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- [ done --!>

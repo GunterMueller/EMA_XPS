@@ -1,0 +1,26 @@
+#!/bin/sh
+## line 3 is changed automatically!
+emapath=../EMA-XPS      ## relative to `src' directory!
+
+############################################
+#   xps                                    #
+#                                          #
+#   Shell Skript to run EMA-XPS (Develop)  #
+############################################
+
+### enter your preferred language (deutsch|english) here,
+### if you want to overwrite NLS settings:
+LANG=deutsch
+#LANG=english
+
+### Necessary for EMA-XPS to find its resources!
+XAPPLRESDIR=$emapath/lib
+
+### Necessary unless in a native Motif environment
+XKEYSYMDB=$emapath/lib/XKeysymDB
+
+export XAPPLRESDIR LANG XKEYSYMDB
+
+exec $XAPPLRESDIR/ema-xps $*
+
+### EOF

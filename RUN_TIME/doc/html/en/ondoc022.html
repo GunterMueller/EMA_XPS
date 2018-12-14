@@ -1,0 +1,190 @@
+<html><head><title>BABYLON-LISP</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc023.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>BABYLON-LISP</strong></font></center><p>
+
+<PRE>babylon-LISP
+============
+
+The hybrid shell babylon3 offers only a subset of the 
+power of CommonLISP to the knowledge engineer. Under
+EMA-XPS all CommonLISP constructs may be used. But take
+care of the emulations! 
+Especially the use of arrays should be avoided, not to 
+run into conflict with babylon3 SETs.
+
+Following is the *allowed* set of BabylonLISP con-
+structs, which may sometimes be different to the
+CommonLISP syntax!
+
+The organisation of this capter is close to   
+chapter 9 of the babylon3 documentation.
+
+
+
+The rest of this page focusses on the miscelaneous
+data types available with babylon LISP:
+
+
+NUMBERS
+=======
+
+There are four different kinds of numbers in
+Common Lisp: Integers, ratios, floating-point
+numbers and complex numbers.
+
+
+INTEGERS
+--------
+
+syntax: &lt;sign&gt;&lt;digits&gt;
+
+The integers may have a sign and they normally have
+a base of 10. This base can be in the range from 2 to
+36, too.
+
+syntax: #&lt;base&gt;R&lt;sign&gt;&lt;digits&gt;
+
+There are special notations for binary, octal and
+hexadecimal bases:
+
+syntax: #B&lt;sign&gt;&lt;digits&gt;
+        #O&lt;sign&gt;&lt;digits&gt;
+        #X&lt;sign&gt;&lt;digits&gt;
+
+examples:       3
+               +5
+               -4
+               #2R1011	; decimal 11, base 2.
+               #B-1011 ; decimal -11, binary base.
+               #O325   ; decimal 213, octal base.
+               #XD4    ; decimal 212, hexad. base.
+
+
+RATIOS
+------
+
+syntax: &lt;sign&gt;&lt;digits&gt;/&lt;digits&gt;
+
+Ratios can consist of two integers.
+They may have a sign too. The denominator of a ratio
+may not be zero and if the ratio is not shortened, it
+will be converted internally into a shortened form.
+A different base can also be used, but in this case
+the base number is for the numerator and the denomi-
+nator.
+
+syntax:     #&lt;base&gt;R&lt;sign&gt;&lt;digits&gt;/&lt;digits&gt;
+            #B&lt;sign&gt;&lt;digits&gt;/&lt;digits&gt;
+            #O&lt;sign&gt;&lt;digits&gt;/&lt;digits&gt;
+            #X&lt;sign&gt;&lt;digits&gt;/&lt;digits&gt;
+
+examples:       3/2
+               -1/3
+
+               &gt;(/ 4 6)
+               2/3	; internally converted!
+
+               #B11/10	; decimal 3/2, binary base.
+
+
+FLOATING-POINT NUMBERS
+----------------------
+
+syntax: &lt;sign&gt;&lt;digits&gt;.&lt;digits&gt;&lt;format&gt;&lt;sign&gt;&lt;exp.&gt;
+
+Floating-point numbers may have a sign and they can be
+written as decimal ratios or in an exponentiell form.
+Floating-point numbers can be used with different pre-
+cisions, depending on the implementation. The letters
+e, s, f, d und l specify the format.
+
+e: format isn't specified
+s: short-format:
+      (min. precision 13 bits, min. exp. 5 bits)
+f: single-format:
+      (min. precision 24 bits, min. exp. 8 bits)
+d: double-format:
+      (min. precision 50 bits, min. exp. 8 bits)
+l: long-format:
+      (min. precision 50 bits, min. exp. 8 bits)
+
+examples:       0.0      ; zero in default format
+                0E0      ; also zero in default format
+                2.123
+                1.62E+19
+                16.2E+18
+                -13.4
+                3.1415927
+                      ; pi in default format
+                3.1416s0
+                      ; pi in short format
+                3.1415927
+                      ; pi in single format
+                3.141592653589793d0
+                      ; pi in double format
+                3.1415926535897932385L0
+                      ; pi in long format
+
+
+COMPLEX NUMBERS
+---------------
+
+syntax: #C(&lt;real part&gt; &lt;imaginary part&gt;)
+
+Complex numbers are represented in cartesian form,
+with a real part and an imaginary part each of which
+is a non-complex number. They will be converted
+internally, if they are of a different type.
+
+examples:      #C(3.0s1 1.5s-1)
+               #C(1 -2)
+               #C(2/3 2.0)     ; will be converted 
+               #C(0 1)            internally to
+                                   #C(0.6666667 2.0)
+
+
+CHARACTERS
+==========
+
+Syntax: #\&lt;character&gt;
+
+In Common Lisp you can use all ASCII-codes (0 - 255)
+as a character. Characters return theirselves.
+Characters with the same ASCII-Codes are EQ most of
+the time (Depends on the implementation).
+
+example:       &gt;#\A
+               #\A
+
+
+STRINGS
+=======
+
+Syntax: &quot;&lt;string&gt;&quot;
+
+Strings are special vectors, which elements are
+characters. Stringoperations only work on the active
+part of a string. Strings are enclosed in &quot;&quot;.
+
+example:       &gt;&quot;hallo&quot;
+               &quot;hallo&quot;
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc023.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- BABYLON-LISP done --!>

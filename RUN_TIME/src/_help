@@ -1,0 +1,697 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!    master file for the Help Utility           !!
+!!                                               !!
+!!    help-cv converts "\nFF\n" to "\n\f\n" and  !!
+!!    outputs only lines beginning with a ".".   !!
+!!    This DOT is not transfered !!              !!
+!!                                               !!
+!!    The ">" works like "." but should be the   !!
+!!    first printed line of a topic. It is used  !!
+!!    as the BROWSE-keyword!                     !!
+!!                                               !!
+!!    CONVENTION: write "! HELP_YYY_XXX"         !!
+!!    in front of #ifdef and after the FF to     !!
+!!    indicate the topic as specified in help.h  !!
+!!    using #define                              !!
+!!                                               !!
+!!    The well known switch is __english         !!
+!!                                               !!
+!!    ======================================     !!
+!!                                               !!
+!!    WARNING: because of a flaw in GNU cpp you  !!
+!!    only should use backquotes in spite of     !!
+!!    quotes!                                    !!
+!!                                               !!
+!!         ae = \344            Ae = \304        !!
+!!         oe = \366            Oe = \326        !!
+!!         ue = \374            Ue = \334        !!
+!!         sz = \337     Paragraph = \247        !!
+!!                                               !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ 
+!
+! no heading FF allowed in front of the first page !!
+! ---------------------------------------------------
+!
+ 
+! This is page 0 (the MasterHelpPage):
+!
+! HELP_MASTER_PAGE
+>EMA-XPS
+.
+#ifdef __english
+
+.This is the Expert System Shell 
+.of the Electrical Drives Laboratory (EMA), 
+.University of Wuppertal, Germany. 
+.Version 2.1.6
+. 
+.Copying and redistribution allowed under the terms 
+.of the copyright notice included! 
+.See the file COPYRIGHT for details. 
+. 
+.Copyright \251 1989-2008. 
+. 
+.This Software is based on the following: 
+.\273 Unix \256 
+.\273 The X Window System \256 
+.\273 OSF/Motif \256 
+.\273 Gnu C Compiler \256 
+.\273 CLISP \256 
+.\273 The AI Workbench Babylon \256 
+. 
+.For further information please contact 
+.    Hans Groschwitz 
+.    \273 hans@wmwap1.math.uni-wuppertal.de \253 
+.via electronic mail (Internet)
+.
+.or visit this WWW-page:
+.    http://wmwap1.math.uni-wuppertal.de/EMA-XPS/
+.
+.or read its local copy:
+.    file:/<...>/EMA-XPS/doc/index.html
+#else
+
+.Dies ist die Expertensystem-Schale 
+.des Labors f\374r elektrische Maschinen und Antriebe (EMA), 
+.Bergische Universit\344t GH Wuppertal, Deutschland. 
+.Version 2.1.6
+. 
+.Vervielf\344ltigung und Weitervertrieb sind im Rahmen der 
+.beigef\374gten Copyright Notiz gestattet! 
+.Genaueres entnehmen Sie bitte der Datei COPYRIGHT. 
+. 
+.Urheberrechte \251 1989-2008. 
+. 
+.Dieses Programm basiert auf den folgenden Produkten: 
+.\273 Unix \256 
+.\273 Das X Window System \256 
+.\273 OSF/Motif \256 
+.\273 Gnu C Compiler \256 
+.\273 CLISP \256 
+.\273 Die KI Werkbank Babylon \256 
+. 
+.F\374r weitere Informationen wenden Sie sich bitte an 
+.    Hans Groschwitz 
+.    \273 hans@wmwap1.math.uni-wuppertal.de \253    
+.via electronische Post (Internet). 
+.
+.oder besuchen die folgende WWW-Seite:
+.    http://wmwap1.math.uni-wuppertal.de/EMA-XPS/
+.
+.oder lesen Sie deren lokale Kopie
+.    file:/<...>/EMA-XPS/doc/index.html
+
+#endif
+FF
+! HELP_ACKNOWLEDGEMENTS
+#ifdef __english
+>ACKNOWLEDGEMENTS
+.
+.Acknowledgements
+.================
+.
+.I would like to order my acknowledgements chrono-
+.logically:
+.
+.At first I want to thank my Professor Joachim Holtz
+.for supporting this idea for the comlete time of
+.this project and granting availability of latest
+.computing power (ApolloDomainOS, SunOS, Linux).
+.
+.Remembering the first steps in X11/Motif\256 pro-
+.gramming and setting up UNIX\256 Interprocess-
+.Communications I want to thank Andreas Hennecke
+.for the parts of source he added to build the X-
+.version of EMA-Laboratory`s Graphics Standard GRF3.
+.This was used to build the KLED-application, an
+.interactive tool for mouse-oriented manipulation
+.of graphs, which is part of the EMA-XPS distri-
+.bution. In this context the concept of a two-
+.process-solution (one event-oriented, the other
+.with a sequential work-flow) was born. The infe-
+.rence engine of Babylon2 (developed by the GMD)
+.works merely text-oriented, but its source is
+.available free of charge. To avoid "re-inventing
+.the wheel" only the graphic support should be 
+.added by accompanying the Babylon2-process with
+.a graphics manager.
+.
+.For testing and implementing a first version of
+.this solution adapted to the demands of this pro-
+.ject, the core-part of EMA-XPS v1, Jochen Krom-
+.berg must be honored.
+.
+.In advance the work of Klaus Senf must be grate-
+.fully mentioned. He built the complete rest of
+.the GUI of EMA-XPS v1 to demonstrate the great
+.chances of this concept.
+.
+.Although it were bad news, that "babylon v3.1-
+.beta" from VW-GEDAS was removed from the market,
+.the hopes in this project were strongly growing.
+.The idea of adapting EMA-XPS to become a repla-
+.cement for babylon3 emerged higher stability and
+.flexibility of the core-IPC.
+.Therefore the number of physical channels has
+.been reduced to 1. Up to 1000 virtual channels
+.can be multiplexed across it now.
+.
+.The most important prerequisite for the replace-
+.ment-task was building a babylon3-like graphic
+.session-time user-interface. This has been cre-
+.ated by Michael Block with great love in details.
+.
+.For studying the knowledge-programming-languages
+.of Babylon2 and babylon3, their common sets and
+.their differences, I`d like to thank Jan Legen-
+.hausen. He found the principles of how-to-trans-
+.form babylon3 constructs into Babylon2/EMA-XPS
+.ones. Therefore he developed the language-trans-
+.lator "3to2", which has been superseded by a 
+.load-time input-filter as a part of EMA-XPS v2.1.
+.
+.For converting and optimizing the knowledge-
+.editors of EMA-XPS v1 my thanks aren`t finally 
+.directed to Karsten Vossberg and Stephan Peters.
+.This includes changing code in a way, that the
+.complete multi-language-support of EMA-XPS v2.1
+.has been moved to X-Resources. This enables
+.even users of binary distributions to build 
+.their own language support.
+.
+.Last but not least to mention is Frans Ceelen,
+.who added online documentation of the state of the
+.babylon3 emulation. This help on syntax is available 
+.while editing knowledge from within the text fields
+.of the knowledge editors.
+.
+.
+.EMA-XPS v2.1 is available in 8 instances now.
+.Between full-color vs. black&white mode, run-
+.time vs. developer-version, and german vs.
+.english language support may be chosen.
+.
+.Hans Groschwitz
+.Wuppertal, Germany
+.March 22, 1996
+.
+#else
+>DANKSAGUNGEN
+.
+.Danksagungen
+.============
+.
+.Ich m\366chte meine Danksagungen zeitlich ordnen:
+.
+.Zun\344chst m\366chte ich meinem Professor Joachim
+.Holtz f\374r die uneingeschr\344nkte Unterst\374tzung 
+.w\344hrend der gesamten Projektlaufzeit sowie die
+.Bereithaltung der jeweils aktuellsten Rechner-Hardware
+.(ApolloDomainOS, SunOS, Linux) danken.
+.
+.Eingedenk der ersten Gehversuche in der X11/Motif\256
+.Programmierung sowie dem Aufsetzen unterschiedlicher
+.Arten der UNIX\256 Interproze\337kommunikation m\366chte
+.ich Andreas Hennecke f\374r seine Anteile am Quell-
+.text der X-Version des EMA-Labor Grafikstandards GRF3
+.danken. Damit wurde der Kennlinieneditor KLED reali-
+.siert, eine maus-orientierte grafische Anwendung zur
+.interaktiven Manipulation von Graphen. KLED ist Be-
+.standteil der EMA-XPS Distribution. In diesem Zu-
+.sammenhang ist das Konzept einer Zwei-Proze\337-L\366sung
+.(einer arbeitet ereignisorientiert, der andere 
+.sequentiell) entstanden. Die Inferenzmaschine von 
+.Babylon2 (entwickelt von der GMD) unterst\374tzt nur
+.reine Textein- und -ausgaben. Die Quelltexte sind aber
+.kostenfrei verf\374gbar. Um nicht "das Rad zweimal zu
+.erfinden" sollte nur die Grafikf\344higkeit dadurch
+.erg\344nzt werden, da\337 der Babylon2-Proze\337 von
+.einem Grafikmanager begleitet wird. 
+.
+.Joachim Kromberg trug seinen Anteil bei der Erprobung
+.und Implementierung einer ersten Version dieses 
+.L\366sungsansatzes in Form des Kernst\374cks von EMA-XPS
+.v1 bei. daf\374r sei ihm auch an dieser Stelle Dank
+.ausgesprochen.
+.
+.Weiterhin mu\337 die Arbeit von Klaus Senf besonders ge-
+.w\374rdigt werden. Er schrieb den Rest der grafischen 
+.Oberfl\344che von EMA-XPS v1. So konnten die gro\337en
+.Chancen dieses Ansatzes verdeutlicht werden.
+.
+.Obwohl es vielfach unerfreulich aufgenommen wurde,
+.da\337 "babylon 3.1-beta" von VW-GEDAS vom Markt genom-
+.men worden war, ergaben sich daraus stark wachsende 
+.Hoffnungen in dieses Vorhaben. 
+.Die Idee, EMA-XPS so anzupassen, da\337 es ein Ersatz
+.f\374r babylon3 werden kann, setzten gr\366\337ere Sta-
+.bilit\344t und Flexibilit\344t der Lowlevel-Interproze\337-
+.Kommunikation voraus. 
+.Zu diesem Zweck wurde die Nummer der physikalischen 
+.Kan\344le auf 1 reduziert. Bis zu 1000 virtuelle Kan\344le
+.k\366nnen mittlerweile dar\374ber gemultiplext werden.
+.
+.Die wichtigste Voraussetzung f\374r die Herausforderung,
+.ein Ersatz f\374r babylon3 zu werden, war die Schaffung
+.einer \344quivalenten Endbenutzerschnittstelle. Diese
+.ist von Michael Block mit gro\337er Liebe ins Detail 
+.umgesetzt worden. 
+.
+.F\374r die Untersuchung der Wissenseingabesprachen von 
+.von Babylon2 und babylon3, ihre Gemeinsamkeiten und 
+.Unterschiede, m\366chte ich Jan Legenhausen danken. 
+.Er stellte die Prinzipien f\374r die \334bersetzung von
+.babylon3 Konstrukten in Babylon2/EMA-XPS entsprechende
+.zusammen. Daraus entwickelte er den \334bersetzer "3to2",
+.der mittlerweile von einem in EMA-XPS v2.1 integrierten
+.zur Ladezeit aktivierten Einlesefilter ersetzt wurde.
+.
+.Nicht zum Schlu\337 sei mein Dank gerichtet an Karsten 
+.Vossberg und Stephan Peters, die die Wissenseditoren 
+.von EMA-XPS v1 angepa\337t und optimiert haben. 
+.Dies schlie\337t grunds\344tzliche \304nderungen der
+.Quelltexte ein, um die komplette Mehrsprachunter-
+.st\374tzung von EMA-XPS v2.1 mittels X-Resourcen hand-
+.haben zu k\366nnen. Dies versetzt sogar Benutzer 
+.reiner Bin\344rdistributionen in die Lage, die Unter-
+.st\374tzung weiterer Sprachen zu realisieren.
+.
+.Last but not least m\366chte ich Frans Ceelen erw\344hnen,
+.der den Stand der babylon3 Emulation in Form einer 
+.Online-Dokumentation erg\344nzte. Diese Hilfe zur Syntax
+.steht bei der Wissenseingabe innerhalb der Textfelder 
+.der Wissenseditoren zur Verf\374gung.
+.
+.
+.EMA-XPS v2.1 ist mittlerweile in 8 Auspr\344gungen 
+.verf\374gbar. Es kann zwischen Vollfarb- und Schwarz-
+.Wei\337-Darstellung, Laufzeit- und Entwicklungsversion,
+.sowie zwischen deutscher, beziehungsweise englischer
+.Sprachunterst\374tzung unabh\344ngig gew\344hlt werden. 
+.
+.Hans Groschwitz
+.Wuppertal, Deutschland
+.22. M\344rz 1996
+.
+#endif
+.
+FF
+! HELP_CONTENTS
+#ifdef __english
+>CONTENTS
+.   CONTENTS
+.   ========
+.
+.1  Acknowledgements ........................ 1
+.2  Projects ................................ 3
+.3  References .............................. 4
+.4  The Main Menu ........................... 5
+.5  The Session Screen ...................... 6
+.6  The Debugger ............................ 7
+.7  The Explanation Window .................. 8
+.8  The Tracer .............................. 9
+.9  Introducing the Editors ................ 10
+.   9.1  The Frame-Editor .................. 11
+.   9.2  The Instance-Editor ............... 12
+.   9.3  The Behavior-Editor ............... 13
+.   9.4  The Rule-Editor ................... 14
+.   9.5  The Prolog-Editor ................. 15
+.   9.6  The Constraint-Editor ............. 16
+.   9.7  The Constraintnet-Editor .......... 17
+.   9.8  The Restriction-Editor ............ 18
+.   9.9  The Task-Editor ................... 19
+.   9.10 The Miscelaneous-Editor ........... 20
+.10 Syntax of Knowledge Constructs ......... 21
+.   10.1 babylon-LISP ...................... 22
+.   10.2 User-Interface ................... 227
+.   10.3 Knowledge-Handling ............... 279
+.   10.4 Babylon Query Language (BQL) ..... 328
+.   10.5 Knowledge-Base Constructs ........ 343
+.   10.6 Explanation Facility ............. 358
+.   10.7 Unsupported ...................... 368
+#else
+>INHALT
+.   INHALT
+.   ======
+.
+.1  Danksagungen ............................ 1
+.2  Projekte ................................ 3
+.3  Literatur ............................... 4
+.4  Das Hauptmen\374 ........................... 5
+.5  Das Sitzungsfenster ..................... 6
+.6  Das Fehlerwerkzeug ...................... 7
+.7  Das Erkl\344rungsfenster ................... 8
+.8  Der Tracer .............................. 9
+.9  Einf\374hrung zu den Editoren ............. 10
+.   9.1  Der Frame-Editor .................. 11
+.   9.2  Der Instanz-Editor ................ 12
+.   9.3  Der Behavior-Editor ............... 13
+.   9.4  Der Regel-Editor .................. 14
+.   9.5  Der Prolog-Editor ................. 15
+.   9.6  Der Constraint-Editor ............. 16
+.   9.7  Der Constraintnetz-Editor ......... 17
+.   9.8  Der Restriktionen-Editor .......... 18
+.   9.9  Der Task-Editor ................... 19
+.   9.10 Der Sonstiges-Editor .............. 20
+.10 Syntax der Wissenskonstrukte ........... 21
+.   10.1 babylon-LISP ...................... 22
+.   10.2 Endbenutzerschnittstelle ......... 227
+.   10.3 Wissensverarbeitung .............. 279
+.   10.4 Babylon Query Language (BQL) ..... 328
+.   10.5 Wissensbasiskonstrukte ........... 343
+.   10.6 Erkl\344rungskomponente ............. 358
+.   10.7 Nicht Unterst\374tztes .............. 368
+#endif
+.
+FF
+! HELP_PROJECTS
+#ifdef __english
+>PROJECTS
+.Projects
+.========
+.
+.* Clean PACKAGE handling of KBs (currently everything
+.  takes place within the BABYLON package).
+.
+.* Support of more natural languages. Accepting values
+.  like 'en_US' in $LANG, too.
+#else
+>PROJEKTE
+.Projekte
+.========
+.
+.* Bessere Nutzung der PACKAGEs pro WB (momentan findet
+.  alles in der BABYLON Package statt).
+.
+.* Unterst\374tzung weiterer nat\374rlicher Sprachen
+.  sowie Werten wie 'de_DE' in $LANG.
+#endif
+FF
+! HELP_REFERENCES
+#ifdef __english
+>REFERENCES
+.References
+.==========
+.
+.The AI-means of Babylon2 are written in CommonLISP, which
+.is described in
+.    Guy L. Steele Jr.: Common Lisp - The Language.
+.    Digital Press. 1st edition 1984, 465 pages.
+.    ("CLtL1" for short)
+.
+.This has been superceded by
+.    Guy L. Steele Jr.: Common Lisp - The Language.
+.    Digital Press. 2nd edition 1990, 1032 pages.
+.    ("CLtL2" for short).
+.
+.Babylon itself is described in
+.    T. Christaller, F. Di Primio, A. Voss (Editors):
+.    The AI-Workbench Babylon.
+.    Addison Wesley. 2nd edition 1999, 888 pages.
+.
+.The enhancements of EMA-XPS to Babylon are documented in
+.    http://wmwap1.math.uni-wuppertal.de/EMA-XPS/ .
+.
+.This WWW document is part of the distribution, too.
+.    Its location is
+.    file:/<...>/EMA-XPS/doc/en/index.html .
+
+#else
+>LITERATUR
+.Literatur
+.=========
+.
+.Die hybriden Wissensrepr\344sentationsformen und Konzepte
+.von Babylon2 sind in der Sprache CommonLISP realisiert
+.worden. Sie wird beschrieben in
+.    Guy L. Steele Jr.: Common Lisp - The Language.
+.    Digital Press. 1st edition 1984, 465 Seiten.
+.    (als "CLtL1" abgek\374rzt)
+.
+.Dieses Buch wurde abgel\366st von
+.    Guy L. Steele Jr.: Common Lisp - The Language.
+.    Digital Press. 2nd edition 1990, 1032 Seiten.
+.    (als "CLtL2" abgek\374rzt).
+.
+.Babylon selbst wird vorgestellt in
+.    T. Christaller, F. Di Primio, A. Voss (Editors):
+.    The AI-Workbench Babylon.
+.    Addison Wesley. 2nd edition 1999, 888 Seiten.
+.
+.Die Erweiterungen von EMA-XPS gegen\374ber Babylon 
+.sind dokumentiert in
+.    http://wmwap1.math.uni-wuppertal.de/EMA-XPS/ .
+.
+.Dieses WWW Dokument ist auch Bestandteil der
+.EMA-XPS Distribution. Es ist zu finden unter
+.    file:/<...>/EMA-XPS/doc/en/index.html .
+
+#endif
+FF
+
+! HELP_MAIN_MENU
+
+#include "_help.main"
+
+FF
+! HELP_SESSION_SCREEN_MENU
+
+#include "_help.ui"
+
+FF
+! HELP_DEBUGGER_PAD
+
+#include "_help.debugger"
+
+FF
+! HELP_EXPLAIN_MENU
+
+#include "_help.explain"
+
+FF
+! HELP_TRACE_MENU
+
+#include "_help.trace"
+
+FF
+! HELP_ON_EDITORS
+#ifdef __english
+>EDITORS
+.Introducing the Editors
+.=======================
+.
+.The development version of EMA-XPS offers graphic
+.editors for the user-friendly input of knowledge.
+.The editors are optimized for the concerned
+.representations of the hybrid inference engine of
+.Babylon2.
+.
+.the objectoriented means are serviced by a frame,
+.instance, and behavior editor. Production rules
+.are inputted using the rule editor, a prolog edi-
+.tor enables handling of Horn clauses. Constraints
+.are serviced by a constraint, constraint net, and
+.a restriction editor.
+.
+.Additionally a task editor for building callbacks
+.in event oriented sessions and a special editor
+.for all the remaining constructs, not managed by 
+.one of the other editors above, are available.
+.
+#else
+>EDITOREN
+.Einf\374hrung zu den Editoren
+.==========================
+.
+.EMA-XPS stellt in der Entwicklerversion grafische 
+.Editoren f\374r eine benutzerfreundliche Wissensein-
+.gabe zur Verf\374gung, die auf die jeweilige Repr\344-
+.sentation der hybriden Inferenzmaschine von Babylon2
+.hin optimiert wurden. 
+.
+.F\374r die objektorientierten F\344higkeiten sind
+.dies der Frame-, Instanz- und Behavioreditor, f\374r
+.die Regelverarbeitung der Regeleditor, sowie ein
+.Prologeditor zur Eingabe von Hornklauseln. F\374r 
+.die Constraintbehandlung stehen ein Constraint-, 
+.Constraintnetz- und ein Restriktioneneditor bereit. 
+.
+.Schlie\337lich stehen ein Taskeditor zur Ausgestal-
+.tung ereignisorientierter Sitzungen sowie ein Editor
+.f\374r sonstige, anderweitig nicht erfa\337te
+.Konstrukte zur Verf\374gung.
+.
+#endif
+FF
+! HELP_FRAME_MENU
+
+#include "_help.frame"
+
+FF
+! HELP_INSTANCE_MENU
+
+#include "_help.instance"
+
+FF
+! HELP_BEHAVIOR_MENU
+
+#include "_help.behavior"
+
+FF
+! HELP_RULE_MENU
+
+#include "_help.rule"
+
+FF
+! HELP_PROLOG_MENU
+
+#include "_help.prolog"
+
+FF
+! HELP_CONSTRAINT_MENU
+
+#include "_help.constraint"
+
+FF
+! HELP_CSNET_MENU
+#include "_help.csnet"
+FF
+! HELP_RESTRICTION_MENU
+
+#include "_help.restriction"
+
+FF
+! HELP_TASK_MENU
+
+#include "_help.task"
+
+FF
+! HELP_MISC_MENU
+
+#include "_help.misc"
+
+FF
+! HELP_BABYLON_SYNTAX
+>SYNTAX
+#ifdef __english
+.Syntax of Knowledge Constructs
+.==============================
+.
+.The next pages describe preferably babylon3-
+.commands and their state of emulation with
+.the means of Babylon2.
+.
+.EMA-XPS furthermore allows the use of the com-
+.plete Babylon2 library as well as the complete
+.set of CommonLISP commands.
+.
+.WARNING: Those add ons are not covered by this
+.         guidance, because the knowledge pro-
+.         grammer should preferably use the emu-
+.         lated commands of the babylon3 language!
+.
+.Help on the add ons is available in the litera-
+.ture referenced!
+.
+.The following pages are sorted by topics.
+.For an alphabetically search use the browser,
+.please.
+.
+.By typing a command or clicking on it from
+.within an editor`s textfield and pressing [F1]
+.or [Help] an even faster search can be achieved.
+.
+#else
+.Syntax der Wissenskonstrukte
+.============================
+.
+.Im folgenden wird vorwiegend der babylon3-Befehls-
+.satz beschrieben, sowie der Grad ihrer Nachbildung
+.mit den Mitteln von Babylon2.
+.
+.Unter EMA-XPS stehen aber dar\374berhinaus auch die
+.Funktionsbibliotheken von Babylon2 sowie der kom-
+.plette Sprachumfang von CommonLISP zur Verf\374gung. 
+.
+.HINWEIS: Diese Zus\344tze sind NICHT Bestandteil
+.         dieser Hilfestellung, da der Wissenspro-
+.         grammierer sich bevorzugt des nachgebil-
+.         deten Sprachumfangs von babylon3 bedienen
+.         sollte!
+.
+.Hilfe dar\374ber kann den in den Literaturhinweisen
+.empfohlenen B\374chern entnommen werden!
+.
+.Die folgenden Seiten sind nach Themengebieten
+.zusammengestellt. Um alphabetisch zu suchen,
+.ist das Suchwerkzeug zu verwenden.
+.
+.Durch Anw\344hlen eines LISP-Kommandos mit der
+.Maus und anschliessendes Dr\374cken der [F1] oder
+.[Hilfe]-Taste kann die Suche schneller eingelei-
+.tet werden.
+.
+#endif
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!    ORGANISATION OF THE CHAPTERS:              !!
+!!    (this includes an introducing page!)       !!
+!!    10.1 babylon-LISP                          !!
+!!         (chapter 9 of B3-REF)                 !!
+!!    10.2 User-Interface Programing             !!
+!!         (chapters 4 and 6 of B3-REF)          !!
+!!    10.3 Knowledge-Handling                    !!
+!!         (chapter 7 of B3-REF)                 !!
+!!    10.4 Babylon Query Language (BQL)          !!
+!!         (chapter 2 of B3-REF)                 !!
+!!    10.5 Knowledge-Base Constructs             !!
+!!         (chapter 3 of B3-REF)                 !!
+!!    10.6 Explanations                          !!
+!!         (EMA-XPS specific, must be NEW!)      !!
+!!    10.7 Unsupported                           !!
+!!         (chapters 5 and 8 of B3-REF)          !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+FF
+! HELP_BLISP
+
+#include "_help.blisp"
+
+FF
+! HELP_GUI
+
+#include "_help.gui"
+
+FF
+! HELP_KNOWLEDGE
+
+#include "_help.knowledge"
+
+FF
+! HELP_BQL
+
+#include "_help.bql"
+
+FF
+! HELP_KB_CONSTRUCTS
+
+#include "_help.kb_constructs"
+
+FF
+! HELP_EXPLANATIONS
+! Babylon2 explanations
+
+#include "_help.explanations"
+
+FF
+! HELP_UNSUPPORTED
+! babylon3 explanations and create-a`s
+
+#include "_help.unsupported"
+
+!
+! -------------------------------------------------------
+! no trailing FF necessary at the end of the last page !!
+!
+!!! EOF

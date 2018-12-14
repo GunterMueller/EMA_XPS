@@ -1,0 +1,58 @@
+<html><head><title>LIST-TO-SET</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc322.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc320.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>LIST-TO-SET</strong></font></center><p>
+
+<PRE>LIST-TO-SET
+===========
+
+syntax: (list-to-set &lt;evaluates-to list&gt;
+                     [:TYPE &lt;evaluates-to type-name&gt;]
+                     [:TEST &lt;lisp-type: function&gt;])
+
+        ==&gt; #&lt;set-of X (...)&gt;
+
+This function produces a set with the given 
+elements.
+
+Warning: type checking may cause an error!
+
+example: &gt;(list-to-set 
+            (list Paris Dortmund Bruessel 
+                 Bonn Berlin))
+         #&lt;set-of T (...)&gt;
+      
+         &gt;(setf *cities*
+            (list-to-set
+               (list Paris Dortmund Bruessel 
+                    Bonn Berlin)
+               :TYPE 'CITY))
+         #&lt;set-of CITY (...)&gt;
+
+         &gt;(setf *capital-cities*
+            (list-to-set
+               (list Paris Dortmund Bruessel 
+                      Bonn Berlin)
+               :TYPE 'CAPITAL-CITY))
+         #&lt;set-of CAPITAL-CITY (...)&gt;
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc322.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc320.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- LIST-TO-SET done --!>

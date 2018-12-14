@@ -1,0 +1,16 @@
+#!/bin/sh
+## line 3 is changed automatically!
+emapath=../EMA-XPS      ## relative to `src' directory!
+
+####################################################
+#     Sample script for autorunning a KB using     #
+#     X-Resources (in spite of hardcoding color    #
+#     values into the KB) in a runtime             #
+#     environment of EMA-XPS v2                    #
+####################################################
+
+cd $emapath
+xrdb -m kbs/EMA-XPS.UI-DEMO
+exec bin/rxps -kbs kbs -kb ui-demo -run $*
+
+# eof

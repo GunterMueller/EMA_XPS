@@ -1,0 +1,45 @@
+<html><head><title>CONSTRAINT-PATTERN-OF</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc285.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc283.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>CONSTRAINT-PATTERN-OF</strong></font></center><p>
+
+<PRE>CONSTRAINT-PATTERN-OF
+=====================
+
+syntax: (constraint-pattern-of &lt;constraint-specifier&gt;
+                          [:IDENTIFIER T | NIL | Var]
+                          [:KB &lt;kb&gt;])
+
+Warning: yet not implemented!
+
+This function returns the constraint pattern, to which
+the given constraint belongs. If you do not give
+details you will get back the object and ':IDENTIFIER'
+will be set to NIL, otherwise the constraint pattern
+will be returned as an identifier.
+
+example: &gt;(constraint-pattern-of
+                   calculate-costs-for-clients
+                   :IDENTIFIER T)
+         CALCULATE-REAL-COSTS
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc285.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc283.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- CONSTRAINT-PATTERN-OF done --!>

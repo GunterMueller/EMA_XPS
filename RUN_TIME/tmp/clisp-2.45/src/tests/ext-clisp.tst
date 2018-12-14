@@ -1,0 +1,1 @@
+../../tests/ext-clisp.tst

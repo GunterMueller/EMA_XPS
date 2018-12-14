@@ -1,0 +1,1 @@
+../../tests/weakhash.tst

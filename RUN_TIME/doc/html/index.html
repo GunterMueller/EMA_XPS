@@ -1,0 +1,246 @@
+<HEAD>
+<TITLE>EMA-XPS - A Hybrid Graphic Expert System Shell</TITLE>
+</HEAD>
+
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<!------------------------------------------------->
+
+<CENTER>
+<strong>
+<font size="6">
+The Hybrid Graphic Expert System Shell
+<br>
+</font>
+<font size="8">
+EMA-XPS
+</font>
+<p>
+A distributed application for preemptive multitasking operationg systems
+
+
+<P>
+<IMG SRC="EmaXpsMain.gif">
+<P>
+
+
+<IMG SRC="green-tr.gif">
+Welcome to the world of EMA Laboratory's Expert System Shell
+<IMG SRC="green-tr.gif">
+<BR>
+<blink><i>
+<font size="6">
+*** EMA-XPS v2.1.6 ***
+</font>
+</i></blink>
+
+
+<P>
+<IMG SRC="red-tr.gif">
+Copyright (c) 1989 - 2008 Hans Groschwitz
+<IMG SRC="red-tr.gif">
+<BR>
+All Rights Reserved
+
+
+<P>
+<HR SIZE=6>
+<p>
+
+
+<i>
+Hier k&ouml;nnen Sie die 
+<A HREF="startseite.html">deutsche<IMG SRC="germany.gif"></a>
+Version dieser Seite sehen.
+</i>
+
+
+<p>
+<HR SIZE=6>
+<P>
+
+
+</strong>
+</CENTER>
+
+
+<DD>
+<IMG SRC="docIcon.gif">
+<strong><i>
+<FONT SIZE="6">A</FONT>BSTRACT
+</i></strong>
+
+<br clear=left>
+<MENU>
+
+
+<DD>
+<IMG SRC="EmaXpsIcon.gif">
+     EMA-XPS is a hybrid graphic expert system shell based on the
+     ASCII-oriented shell Babylon 2.3 of the German National
+     Research Center for Computer Sciences 
+(<A HREF="http://www.gmd.de/" target="_blank">GMD</A>). In addition to
+<A 
+HREF="http://de.wikipedia.org/wiki/GMD-Forschungszentrum_Informationstechnik"
+target="_blank"><!-- http://nathan.gmd.de/projects/babylon.html -->Babylon's  
+AI-power</A>  (object  oriented  data representation,
+     forward and backward chained rules - collectable into  sets,
+     horn clauses, and constraint networks) a graphic interface
+     based on the X11 Window  System  and  the  OSF/Motif  Widget
+     Library has been provided.
+<P>
+
+
+<DD>
+<IMG SRC="EmaXpsIcon.gif">
+     To avoid collisions of the two programming techniques (event
+     oriented vs. procedural style), two separate programs solve
+     these  different  jobs.  The  first  one   works   event
+     oriented. It initializes a bidirectional pair of interprocess communication channels
+ using one pseudo teletype  (like  xterm).  In  advance  it
+     spawns  a  LISP-world containing the features of Babylon and
+     the extensions for interprocess communication.
+<P>
+
+
+<DD>
+<IMG SRC="EmaXpsIcon.gif">
+     In addition to the AI-features of Babylon it offers a  task-processor.
+  For  the  input of knowledge specialized editors
+     have been realized.  Additional  support  is  granted  by  a
+     tracer.  At  session time a flexible and widely configurable
+     full-screen application and popup dialogs are available. The
+     user  may choose to ask for explanations on the state of the
+     inference process. For information on how to use EMA-XPS  at
+     run-time,   an   interactive   help  facility  is  provided.
+     Meanwhile the on-line documentation of the Babylon syntax is
+     offered this way, too.
+<P>
+
+
+<DD>
+<IMG SRC="EmaXpsIcon.gif">
+     Beginning with version 2.1 of EMA-XPS knowledge  base  files
+     of the shell ``babylon 3.1-beta'' from VW-GEDAS (which is no
+     more available) can be loaded, too. Those KBs are translated
+     into EMA-XPS style KBs at load-time (see the
+     <A HREF="FTP/NOTES">release notes</A>).
+<P>
+
+
+<DD>
+<IMG SRC="EmaXpsIcon.gif">
+     Additionally to the source distribution, currently static bound versions for 
+     Linux 1.2 (AOUT) and SunOS 4.1 are available.
+Both are linked with X11R6 and OSF/Motif 2.0 libraries and use Bruno Haible's
+<A HREF="http://clisp.cons.org/" target="_blank">CLISP</a>
+interpreter.
+
+
+
+</MENU>
+<HR SIZE=6>
+<br clear=left>
+<MENU>
+
+
+
+<IMG SRC="red-tr.gif">
+<strong><i>
+<FONT SIZE="6">C</FONT>OPYING
+</i></strong>
+<DD>
+EMA-XPS and CLISP are copyrighted under the terms of the 
+<A HREF="FTP/GNU-GPL">GNU General
+Public License</A>. Click <A HREF="FTP/COPYRIGHT">here</A> for details!
+
+<P>
+
+<IMG SRC="red-tr.gif">
+<strong><i>
+<FONT SIZE="6">W</FONT>ARRANTY
+</i></strong>
+<DD>
+<IMG SRC="Warning.gif">
+This software ships with <BLINK><FONT SIZE="6">A</FONT>BSOLUTELY <FONT
+SIZE="6">N</FONT>O <FONT SIZE="6">W</FONT>ARRANTY</BLINK>!
+<IMG SRC="Warning.gif">
+
+<P>
+
+<IMG SRC="green-tr.gif">
+<strong><i>
+<FONT SIZE="6">I</FONT>NSTALLATION
+</i></strong>
+<DD> 
+Click <A HREF="FTP/INSTALL">here</A> for hints!
+
+
+
+</MENU>
+<HR SIZE=6>
+<br clear=left>
+<MENU>
+
+
+<i><strong>
+<IMG SRC="biblio.gif">
+Get in touch with the documentation:
+</i></strong>
+<p><dd>
+<IMG SRC="check.gif">
+<A HREF="en/uguide.html">User's Guide</a>
+<p><dd>
+<IMG SRC="check.gif"> 
+<A HREF="en/pguide.html">Programmer's Guide</a>
+<p><dd>
+<IMG SRC="check.gif"> 
+<A HREF="en/ref.html">Programmer's Reference</a>
+<p><dd>
+<IMG SRC="check.gif"> 
+<A HREF="en/doc.html">Software Documentation</a>
+<p><dd>
+<IMG SRC="check.gif"> 
+<A HREF="en/lit.html">References</a> (Literature)
+<p>
+
+<i><strong>
+<IMG SRC="source.gif">
+Download the software:
+</i></strong>
+<p><dd>
+<IMG SRC="green-tr.gif">
+Here is the <strong>source</strong> distribution of <A HREF="FTP/emaxps.tar.gz">EMA-XPS</a>.
+<p><dd>
+<IMG SRC="red-tr.gif">
+Here you get a <strong>mirrored</strong> version of the 
+<A HREF="FTP/babylon.tar.gz">Babylon-2.3</a> LISP sources.
+<p><dd>
+<IMG SRC="red-tr.gif">
+And here is a <strong>mirror</strong> of the <A HREF="FTP/clisp.tar.gz">CLISP</a>
+LISP interpreter's source. CLISP is
+optimized in a way, that most native <i><strong>cc</strong></i>'s might fail.
+You should use the <i><strong>gcc</strong></i> instead!
+<p>
+
+
+
+</MENU>
+<HR SIZE=6>
+<br clear=left>
+
+
+<IMG SRC="green-tr.gif">
+Email (December 2008):
+<DD> <A HREF="mailto:hans@ema-xps.org">hans@ema-xps.org</A>
+
+
+<P>
+
+
+
+<!------------------------------------------------->
+<font>
+</body>
+<!***eof***>

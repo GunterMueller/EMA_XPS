@@ -1,0 +1,46 @@
+<html><head><title>INTERSECTION-OF-SETS</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc316.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc314.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>INTERSECTION-OF-SETS</strong></font></center><p>
+
+<PRE>INTERSECTION-OF-SETS
+====================
+
+syntax: (intersection-of-sets 
+              &lt;evaluates-to &lt;set-of A (...)&gt;&gt;
+              &lt;evaluates-to &lt;set-of B (...)&gt;&gt;
+              [:TYPE &lt;evaluates-to type-name&gt;]
+              [:TEST &lt;lisp-type: function&gt;])
+
+        ==&gt; &lt;set-of X (...)&gt;
+
+This function produces the intersection of two sets.
+
+Warning: type checking may cause an error!
+
+example: &gt;(set-to-list (intersection-of-sets
+               *cities* *capital-cities* 
+               :TYPE 'capital-city))
+         (#&lt;CAPITAL-CITY PARIS&gt; #&lt;CAPITAL-CITY 
+              BRUESSEL&gt; #&lt;CAPITAL-CITY BERLIN&gt;)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc316.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc314.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- INTERSECTION-OF-SETS done --!>

@@ -1,0 +1,61 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.uid     Hans Groschwitz        06.10.94   !!
+!!                                                   !!
+!!   User Interface Dialogs for EMA-XPS              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#ifdef __english
+SessionDialogs.UidInformation_popup.title:              UID Information
+SessionDialogs.UidAcceptCancel_popup.title:             UID Accept or Cancel
+SessionDialogs.UidAcceptCancel_popup*okLabelString:     Accept
+SessionDialogs.UidYesNoCancel_popup.title:              UID Yes, No or Cancel
+SessionDialogs.UidYesNoCancel_popup*okLabelString:      Yes
+SessionDialogs.UidYesNoCancel_popup*cancelLabelString:  No
+SessionDialogs.UidYesNoCancel_popup*helpLabelString:    Cancel
+SessionDialogs.UidPrompt_popup.title:                   UID Prompt for Input
+SessionDialogs.UidOneOfMany_popup.title:                UID Choose One of Many
+SessionDialogs.UidSomeOfMany_popup.title:               UID Choose Some of Many
+#else /* deutsch */
+SessionDialogs.UidInformation_popup.title:              UID Information
+SessionDialogs.UidInformation_popup*okLabelString:      Best\344tigen
+SessionDialogs.UidAcceptCancel_popup.title:             UID Best\344tigen oder Abbrechen
+SessionDialogs.UidAcceptCancel_popup*okLabelString:     Best\344tigen
+SessionDialogs.UidAcceptCancel_popup*cancelLabelString: Abbrechen
+SessionDialogs.UidYesNoCancel_popup.title:              UID Ja, Nein oder Abbrechen
+SessionDialogs.UidYesNoCancel_popup*okLabelString:      Ja
+SessionDialogs.UidYesNoCancel_popup*cancelLabelString:  Nein
+SessionDialogs.UidYesNoCancel_popup*helpLabelString:    Abbrechen
+SessionDialogs.UidPrompt_popup.title:                   UID Eingabeaufforderung
+SessionDialogs.UidPrompt_popup*okLabelString:           Best\344tigen
+SessionDialogs.UidPrompt_popup*cancelLabelString:       Abbrechen
+SessionDialogs.UidOneOfMany_popup.title:                UID 1-aus-n Auswahl
+SessionDialogs.UidOneOfMany_popup*okLabelString:        Best\344tigen
+SessionDialogs.UidOneOfMany_popup*cancelLabelString:    Abbrechen
+SessionDialogs.UidSomeOfMany_popup.title:               UID einige-aus-n Auswahl
+SessionDialogs.UidSomeOfMany_popup*okLabelString:       Best\344tigen
+SessionDialogs.UidSomeOfMany_popup*cancelLabelString:   Abbrechen
+#endif /* english */
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     Color Settings                            !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#ifdef COLOR
+
+SessionDialogs*background:                     wheat
+SessionDialogs*foreground:                     black
+
+!! Simulate B3 style UI-Dialogs (Texts):
+!! INFO: BG-color of the PushButtons-GADGETS (!) cannot be changed!
+!!
+SessionDialogs*XmRowColumn*XmList*background:  orange
+SessionDialogs*XmRowColumn*XmText*background:  orange
+
+
+#else /* MONO */
+
+!! here non-default settings only, please!
+
+#endif /* COLOR */
+
+!!! EOF

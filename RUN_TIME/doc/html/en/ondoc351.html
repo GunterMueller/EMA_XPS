@@ -1,0 +1,79 @@
+<html><head><title>DEFINE-BEHAVIOR</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc352.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc350.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-BEHAVIOR</strong></font></center><p>
+
+<PRE>DEFINE-BEHAVIOR
+===============
+
+syntax: (define-behavior &lt;behavior-name&gt;
+           {:PRIMARY | :BEFORE | :AFTER}
+           &lt;behavior-specialized-lambda-list&gt;
+           [:DOCUMENTATION &lt;documentation&gt;]
+           [:EXPLANATION &lt;explanation&gt;]
+           &lt;behavior-body&gt;)
+
+Warning: The explanation facility is not sup-
+         ported, hence :documentation and
+         :explanation are ignored.
+
+This function defines a behavior. A behavior
+exists of a name, that describes the behavior,
+a &lt;qualifier&gt;, that specifies, whether the behavior
+is a central behavior or an additional behaviour,
+a lambda list, with which the parameters of the
+behavior can be set and a behavior body, which
+defines, what the behavior has to do. The docu-
+mentation and the explanation are optional.
+NOTIFY-READ-DEPENDENT and NOTIFY-WRITE-DEPENDENT
+are special behaviors, which you have to use, if
+you want to make a read- or write-dependent.
+
+syntax: (define-behavior notify-read-dependent
+           :primary
+           ((&lt;place-holder for receiver frametype&gt;
+           (&lt;place-holder for transmitter frametype&gt;)
+           relation-name value)
+           &lt;behavior-body&gt;)
+
+The &lt;qualifier&gt; can be :before :after or :primary.
+:primary specifies a central behavior. :before and
+:after are additions, which will be executed before
+or after the central method.
+
+The &lt;lambda-list&gt; can contain the following:
+The first parameter of the lambda-list has to be
+(&lt;variable-name&gt; &lt;frame-type&gt;). the following
+parameter can be (&lt;variable-name&gt; &lt;frame-name&gt;)
+
+It is also possible to have a remaining argument in
+the behavior-argument-lists (define-behavior
+&lt;behavior-name&gt; &lt;qualifier&gt; ((arg-1 &lt;frame-name&gt;)
+&amp;rest arg-list)...)
+
+example: &gt;(define-behavior client-satisfied
+            :primary ((a-client client)
+                      (an-offer offer))
+            (kb-confirm &quot;Are you satisfied with
+            the offer: ~A ?&quot; an-offer))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc352.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc350.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-BEHAVIOR done --!>

@@ -1,0 +1,115 @@
+<html><head><title>RELATION-SPECIFICATION</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc348.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc346.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>RELATION-SPECIFICATION</strong></font></center><p>
+
+<PRE>RELATION-SPECIFICATION
+======================
+
+syntax: &lt;relation specification&gt; ::=
+           [:GENERAL-RELATIONS 
+              (&lt;frame relation&gt;*)]
+           [:PART-RELATIONS
+              (&lt;frame relation&gt;*)]
+
+        &lt;frame relation&gt; ::=
+           ([:DOCUMENTATION &lt;documentation&gt;]
+           [:EXPLANATION &lt;explanation&gt;]
+           [:VALUE-RESTRICTION
+             {&lt;lisp-type: symbol&gt; |
+             &lt;frame-type&gt;}]
+           [:NUMBER-RESTRICTION (&lt;min&gt;&lt;max&gt;)]
+           [:INITIAL-VALUE {&lt;instance-name&gt;|
+              &lt;evaluates-to-set&gt; | 
+              &lt;lisp-type: T}]
+           [:INITABLE {T | NIL}]
+           [:READ-ONLY {T | NIL}]
+           [:IF-UNDETERMINED &lt;lisp-type: T&gt;]
+           [:READ-DEPENDENTS &lt;lisp-type: T&gt;]
+           [:WRITE-DEPENDENTS &lt;lisp-type: T&gt;])
+
+Warning: The explanation facility is not sup-
+         ported, hence :documentation and
+         :explanation are ignored.
+
+With the relation specification it is possible to
+determine the given feature or the given element more
+exactly, when making the frame definition.
+':documentation' and ':description' can contain
+explanations for the user.
+With ':value-restriction' it is possible to restrict
+the range of the given attribute. Here can be used
+lisp-types like string, number, list or a frame name.
+If you use a frame name, then you can only use
+instances of the corresponding frame with the instance
+relation. With ':number-restriction' it is possible to
+restrict the number of values, that can be entered at
+the instance relation. The minimum and the maximum
+number of values have to be defined.
+':initial-value' describes a default value, that
+should be entered during the initialization, if no
+other value has been entered during the definition
+of the instance.
+With ':initable' it can be determined, whether the
+initial value can be changed during the instanciation
+or not. If T is used, it can be overwritten. If NIL
+is used, the default value will always be used during
+the initialization.
+':read-only' avoids, that writing over the value,
+which is given during the initialization is possible.
+That means, that you can only get access to the value
+in order to read it (for example with ASK).
+':if-undetermined' describes, which actions have to
+be executed, when the value of the instance relation
+is unknown. For this a list of babylon-expressions has
+to be set up, which will be executed in sequential
+order.
+':read-dependents' give the possibility 
+to handle read-access on a value more differentiated.
+It is possible to send a message to other instances,
+if there exists a read-access on the value. You have
+to give an instance to the value, that has to have a
+read-dependent. The message will be send to this
+instance. In order to work out the message, it is
+neccesary to describe a behavior with the name notify-
+read-dependent, that treats the message for instances
+of the corresponding class.
+':write-dependents' function analogue to ':read-
+dependents', except that here we are dealing with
+writing accesses.
+
+example: &gt; (define-frame client
+              :general-relations
+              (holidayinterest
+                 (:value-restriction symbol
+              :if-undetermined (ask (match _x (start
+              'ask-for-holiday-insterest))
+              (tell [holidayinterest instance _x])))
+              proposal (:value-restriction countries)
+              destinations (:value-restriction
+                countries
+              :if-undetermined (ask [countries
+                _country]
+              (tell [destinations instance
+                _country])))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc348.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc346.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- RELATION-SPECIFICATION done --!>

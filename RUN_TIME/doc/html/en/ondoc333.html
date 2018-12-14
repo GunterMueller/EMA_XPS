@@ -1,0 +1,61 @@
+<html><head><title>[OR</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc334.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc332.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>[OR</strong></font></center><p>
+
+<PRE>[OR
+===
+
+Syntax: [or &lt;predication&gt;*]
+
+OR sequentially searches, from the left to the right,
+for the solutions of the predications. If OR is
+finished, it will return the solutions of all the
+predications and an unusable value.
+Statements can have the values True, False and
+Unknown. The following table shows, how OR functions:
+
+  -------------------------
+  |  or |  T  |  F  |  U  |
+  -------------------------
+  |  T  |  T  |  T  |  T  |
+  -------------------------
+  |  F  |  T  |  F  |  U  |
+  -------------------------
+  |  U  |  T  |  U  |  U  |
+  -------------------------
+
+Example: &gt;(ask [or
+               [options SIEMENS-NIXDORF _options]
+               [options WANG _options]]
+               (kb-format &quot;~% ~A&quot; (name-of _options)))
+         1GB-HARDDISK
+         16MB-RAM
+         850MB-HARDDISK
+         8MB-RAM
+         NIL
+
+First the interpreter searches for the bindings of
+the first predication, then for the links of the
+second and then it returns all links which it found.
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc334.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc332.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- [OR done --!>

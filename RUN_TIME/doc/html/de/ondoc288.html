@@ -1,0 +1,46 @@
+<html><head><title>INSTANCES-OF</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc289.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc287.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>INSTANCES-OF</strong></font></center><p>
+
+<PRE>INSTANCES-OF
+============
+
+Syntax: (instances-of &lt;Rahmen-Specifier&gt;
+                      [:DIRECT T | NIL | Var]
+                      [:IDENTIFIER T | NIL | Var]
+                      [:KB &lt;kb&gt;])
+
+Diese Funktion liefert eine Liste von statischen 
+Instanzobjekten bzw. Instanzidentifiern eines 
+Rahmens. Dynamische Instanzen k&ouml;nnen auf diese
+Weise nicht gefunden werden!
+Machen Sie keine Angabe werden ':DIRECT' und
+':IDENTIFIER' auf NIL gesetzt und Sie erhalten eine 
+Liste mit allen Instanzen des Rahmens als Objekten.
+
+Beispiel: &gt;(instances-of 'Stadt)
+          (#&lt;HAUPTSTADT PARIS&gt; #&lt;HAUPTSTADT LONDON&gt;
+              #&lt;HAUPTSTADT NEW-YORK&gt; 
+                    #&lt;HAUPTSTADT BERLIN&gt;)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc289.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc287.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- INSTANCES-OF done --!>

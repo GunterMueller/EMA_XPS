@@ -1,0 +1,277 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.rule    Hans Groschwitz        19.07.95   !!
+!!                 Susanne Wellmann                  !!
+!!                 Klaus Senf                        !!
+!!                 Michael Block                     !!
+!!                 Stephan Peters                    !!
+!!                                                   !!
+!!   Functions to build the rule-editor.             !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!*** HACK -- to be hardcoded later ??? ***
+
+Rule-Editor*junctor_rowcol.topOffset:            4
+Rule-Editor*if_label.topOffset:                  6  
+Rule-Editor*kb_label.height:                     30 
+Rule-Editor*kb_button.height:                    30
+Rule-Editor*ruleset_label.height:                30
+Rule-Editor*ruleset_button.height:               30
+Rule-Editor*rule_label.height:                   30
+Rule-Editor*rule_button.height:                  30
+Rule-Editor*if_label.height:                     34 
+Rule-Editor*if_textWinSW.height:                 240
+Rule-Editor*then_label.height:                   40
+
+!*** general settings ***
+
+Rule-Editor.width:                               550
+Rule-Editor.height:                              700
+
+!*** language dependent settings ***
+
+#ifdef __english
+Rule-Editor.title:                               Rule-Editor
+Rule-Editor.iconName:                            Rule
+!
+Rule-Editor*edit_menu_button.labelString:        Edit
+Rule-Editor*edit_menu_button.mnemonic:           E
+Rule-Editor*save_button.labelString:             Apply this Rule ...
+Rule-Editor*save_button.mnemonic:                A
+Rule-Editor*del_rule_button.labelString:         Delete this Rule ...
+Rule-Editor*del_rule_button.mnemonic:            D
+Rule-Editor*del_ruleset_button.labelString:      Delete this RuleSet ...
+Rule-Editor*del_ruleset_button.mnemonic:         e
+Rule-Editor*undo_button.labelString:             Undo Changes
+Rule-Editor*undo_button.mnemonic:                U
+Rule-Editor*move_rule_button.labelString:        Move this Rule ...
+Rule-Editor*move_rule_button.mnemonic:           M
+!
+Rule-Editor*help_menu_button.labelString:        Help
+Rule-Editor*help_menu_button.mnemonic:           H
+Rule-Editor*on_menu_button.labelString:          on Menu ...
+Rule-Editor*on_menu_button.mnemonic:             M
+Rule-Editor*on_syntax.labelString:               on Syntax ...
+Rule-Editor*on_syntax.mnemonic:                  S
+Rule-Editor*move_button.labelString:             Move Rule ...
+Rule-Editor*move_button.mnemonic:                M
+!
+Rule-Editor*kb_label.labelString:                Knowledge Base:
+Rule-Editor*ruleset_label.labelString:           Rule Set:
+Rule-Editor*rule_label.labelString:              Rule:
+Rule-Editor*if_label.labelString:                IF
+Rule-Editor*then_label.labelString:              THEN
+Rule-Editor*kb_button.labelString:               (none)
+Rule-Editor*ruleset_button.labelString:          (none)
+Rule-Editor*rule_button.labelString:             (none)
+!
+Rule-Editor*kb_selection_popup.title:            Choose a Knowledge Base
+Rule-Editor*kb_selection.listLabelString:        Known knowledge bases
+!
+Rule-Editor*kb_selection_msg_popup.title:        Incorrect Input
+Rule-Editor*kb_selection_msg*messageString:      Please choose a knowledge base!
+!
+Rule-Editor*ruleset_selection_popup.title:       Choose a Rule Set
+Rule-Editor*ruleset_selection.listLabelString:   Known rule sets
+Rule-Editor*ruleset_selection.selectionLabelString: Selection / new rule set
+!
+Rule-Editor*ruleset_selection_msg_popup.title:   Incorrect Input
+Rule-Editor*ruleset_selection_msg*messageString: Please choose a rule set!
+!
+Rule-Editor*rule_selection_popup.title:          Choose a Rule
+Rule-Editor*rule_selection.listLabelString:      Known rules
+Rule-Editor*rule_selection.selectionLabelString: Selection / new rule
+!
+Rule-Editor*rule_selection_msg_popup.title:      Incorrect Input
+Rule-Editor*rule_selection_msg*messageString:    Please choose a rule!
+!
+Rule-Editor*del_ruleset_war_popup.title:         RuleSet-Delete Confirmation
+Rule-Editor*del_ruleset_war.messageString:       \
+ Do you really want to delete this rule set?
+Rule-Editor*del_ruleset_war.okLabelString:       Yes 
+Rule-Editor*del_ruleset_war.cancelLabelString:   No  
+!
+Rule-Editor*del_rule_war_popup.title:            Rule-Delete Confirmation
+Rule-Editor*del_rule_war.messageString:          \
+ Do you really want to delete this rule?
+Rule-Editor*del_rule_war.okLabelString:          Yes
+Rule-Editor*del_rule_war.cancelLabelString:      No
+!
+Rule-Editor*save_war_popup.title:                Apply-Rule Confirmation
+Rule-Editor*save_war.messageString:              \
+ Do you really want to apply this rule?
+Rule-Editor*save_war.okLabelString:              Yes
+Rule-Editor*save_war.cancelLabelString:          No
+!
+Rule-Editor*move_selection_form_popup.title:     Move a Rule
+Rule-Editor*move_selection_form*listLabelString: Known rules
+Rule-Editor*move_label.labelString:              \
+ Please choose the rule becoming the new \n\
+ direct neighbour of the current rule!
+Rule-Editor*radio_before.labelString:            before
+Rule-Editor*radio_after.labelString:             after
+!!
+Rule-Editor*kb_selection_war_popup.title:            Overwrite-Rule Confirmation
+Rule-Editor*kb_selection_war.messageString:          \
+ Do you really want to overwrite this rule?
+Rule-Editor*kb_selection_war.okLabelString:          Yes
+Rule-Editor*kb_selection_war.cancelLabelString:      No
+!
+Rule-Editor*rule_selection_war_popup.title:          Overwrite-Rule Confirmation
+Rule-Editor*rule_selection_war.messageString:        \
+ Do you really want to overwrite this rule?
+Rule-Editor*rule_selection_war.okLabelString:        Yes
+Rule-Editor*rule_selection_war.cancelLabelString:    No
+!
+Rule-Editor*ruleset_selection_war_popup.title:       Overwrite-Rule Confirmation
+Rule-Editor*ruleset_selection_war.messageString:     \
+ Do you really want to overwrite this rule?
+Rule-Editor*ruleset_selection_war.okLabelString:     Yes
+Rule-Editor*ruleset_selection_war.cancelLabelString: No
+!
+Rule-Editor*move_selection_msg_popup.title:          Incorrect Input
+Rule-Editor*move_selection_msg.messageString:        Please choose a rule!
+!
+
+
+#else /* deutsch */
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! Wichtiger Hinweis zum Title von MessageBoxDialogen und dergleichen:
+!!!
+!!! *popup_name.dialogTitle: St\374rzt ab!!!
+!!! *popup_name.dialogTitle: Stuerzt NICHT ab!!!
+!!!
+!!! Alternative:
+!!!
+!!! *popup_name_popup.title:  St\374rzt auch nicht ab!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Rule-Editor.title:                               Regel-Editor
+Rule-Editor.iconName:                            Regel
+!
+Rule-Editor*edit_menu_button.labelString:        Bearbeiten
+Rule-Editor*edit_menu_button.mnemonic:           B
+Rule-Editor*save_button.labelString:             Diese Regel \374bernehmen ...
+Rule-Editor*save_button.mnemonic:                R
+Rule-Editor*del_rule_button.labelString:         Diese Regel l\366schen ...
+Rule-Editor*del_rule_button.mnemonic:            l
+Rule-Editor*del_ruleset_button.labelString:      Diese Regelmenge l\366schen ...
+Rule-Editor*del_ruleset_button.mnemonic:         m
+Rule-Editor*undo_button.labelString:             \304nderungen zur\374cknehmen
+Rule-Editor*undo_button.mnemonic:                z
+Rule-Editor*move_rule_button.labelString:        Diese Regel verschieben ...
+Rule-Editor*move_rule_button.mnemonic:           v
+!
+Rule-Editor*help_menu_button.labelString:        Hilfe
+Rule-Editor*help_menu_button.mnemonic:           H
+Rule-Editor*on_menu_button.labelString:          zum Men\374 ...
+Rule-Editor*on_menu_button.mnemonic:             M
+Rule-Editor*on_syntax.labelString:               zur Syntax ...
+Rule-Editor*on_syntax.mnemonic:                  S
+!
+Rule-Editor*kb_label.labelString:                Wissensbasis:
+Rule-Editor*ruleset_label.labelString:           Regelmenge:
+Rule-Editor*rule_label.labelString:              Regel:
+Rule-Editor*if_label.labelString:                WENN
+Rule-Editor*then_label.labelString:              DANN
+Rule-Editor*kb_button.labelString:               (unbestimmt)
+Rule-Editor*ruleset_button.labelString:          (unbestimmt)
+Rule-Editor*rule_button.labelString:             (unbestimmt)
+!
+Rule-Editor*kb_selection_popup.title:            Auswahl der Wissensbasis
+Rule-Editor*kb_selection.listLabelString:        Bekannte Wissensbasen
+Rule-Editor*kb_selection.cancelLabelString:      Abbrechen
+!
+Rule-Editor*kb_selection_msg_popup.title:        Falsche Eingabe
+Rule-Editor*kb_selection_msg.messageString:      Bitte w\344hlen Sie eine Wissensbasis aus!!
+!
+Rule-Editor*ruleset_selection_popup.title:       Auswahl einer Regelmenge
+Rule-Editor*ruleset_selection.listLabelString:   Bekannte Regelmengen
+Rule-Editor*ruleset_selection.selectionLabelString: Auswahl / neue Regelmenge
+Rule-Editor*ruleset_selection.cancelLabelString: Abbrechen
+!
+Rule-Editor*ruleset_selection_msg_popup.title:   Falsche Eingabe
+Rule-Editor*ruleset_selection_msg.messageString: Bitte w\344hlen Sie eine Regelmenge aus!!
+!
+Rule-Editor*rule_selection_popup.title:          Auswahl einer Regel
+Rule-Editor*rule_selection.listLabelString:      Bekannte Regeln
+Rule-Editor*rule_selection.selectionLabelString: Auswahl / neue Regel
+Rule-Editor*rule_selection.cancelLabelString:    Abbrechen
+!
+Rule-Editor*rule_selection_msg_popup.title:      Falsche Eingabe
+Rule-Editor*rule_selection_msg.messageString:    Bitte w\344hlen Sie eine Regel aus!!
+!
+Rule-Editor*del_ruleset_war_popup.title:         Regelmenge-L\366schen Best\344tigung
+Rule-Editor*del_ruleset_war.messageString:       \
+ Wollen Sie diese Regelmenge wirklich l\366schen?
+Rule-Editor*del_ruleset_war.okLabelString:       Ja
+Rule-Editor*del_ruleset_war.cancelLabelString:   Nein
+!
+Rule-Editor*del_rule_war_popup.title:            Regel-L\366schen Best\344tigung
+Rule-Editor*del_rule_war.messageString:          \
+ Wollen Sie die Regel wirklich l\366schen?
+Rule-Editor*del_rule_war.okLabelString:          Ja
+Rule-Editor*del_rule_war.cancelLabelString:      Nein
+!
+Rule-Editor*save_war_popup.title:                Regel-\334bernehmen Best\344tigung
+Rule-Editor*save_war.messageString:              \
+ Wollen Sie die Regel wirklich \374bernehmen?
+Rule-Editor*save_war.okLabelString:              Ja
+Rule-Editor*save_war.cancelLabelString:          Nein
+!
+Rule-Editor*move_selection_form_popup.title:     Regel Verschieben
+Rule-Editor*move_selection_form*listLabelString: Bekannte Regeln
+Rule-Editor*move_label.labelString:              \
+ Bitte w\344hlen Sie eine Regel aus,\n\
+ in deren direkte Nachbarschaft die aktuelle Regel \n\
+ verschoben werden soll!
+!
+Rule-Editor*radio_before.labelString:            vor
+Rule-Editor*radio_after.labelString:             hinter
+!!
+Rule-Editor*kb_selection_war_popup.title:            Regel-\334berschreiben Best\344tigung
+Rule-Editor*kb_selection_war.messageString:          \
+ Soll die ge\344nderte Regel \374berschrieben werden?
+Rule-Editor*kb_selection_war.okLabelString:          Ja
+Rule-Editor*kb_selection_war.cancelLabelString:      Nein
+!
+Rule-Editor*rule_selection_war_popup.title:          Regel-\334berschreiben Best\344tigung
+Rule-Editor*rule_selection_war.messageString:        \
+ Soll die ge\344nderte Regel \374berschrieben werden?
+Rule-Editor*rule_selection_war.okLabelString:        Ja
+Rule-Editor*rule_selection_war.cancelLabelString:    Nein
+!
+Rule-Editor*ruleset_selection_war_popup.title:       Regel-\334berschreiben Best\344tigung
+Rule-Editor*ruleset_selection_war.messageString:     \
+ Soll die ge\344nderte Regel \374berschrieben werden?
+Rule-Editor*ruleset_selection_war.okLabelString:     Ja
+Rule-Editor*ruleset_selection_war.cancelLabelString: Nein
+!
+Rule-Editor*move_selection_msg_popup.title:          Falsche Eingabe
+Rule-Editor*move_selection_msg.messageString:        Bitte w\344hlen Sie eine Regel aus!!
+!
+#endif /* english */
+
+
+!*** color settings ***
+
+#ifdef COLOR
+
+Rule-Editor*background:                          azure
+Rule-Editor*del_ruleset_war*background:          red
+Rule-Editor*del_rule_war*background:             red
+Rule-Editor*kb_selection_war*background:         red
+Rule-Editor*ruleset_selection_war*background:    red
+Rule-Editor*rule_selection_war*background:       red
+Rule-Editor*save_war*background:                 red
+Rule-Editor*kb_selection_msg*background:         red
+Rule-Editor*rule_selection_msg*background:       red
+Rule-Editor*ruleset_selection_msg*background:    red
+Rule-Editor*move_selection_msg*backround:        red
+
+#else   !!! MONO: here non-default settings only, please!
+
+#endif
+
+
+!!! EOF

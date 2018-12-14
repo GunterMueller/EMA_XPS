@@ -1,0 +1,693 @@
+;;;--------------------------------------------------
+;;;
+;;;   Wissensbasis "./kbs/kb-demo.kb"
+;;;
+;;;--------------------------------------------------
+
+(emaxps-make-kb kb-demo)
+
+;;;---------------------------------------
+;;;   Frames 
+;;;---------------------------------------
+
+
+;; ---------- FRAME 'anwendungframe' :
+
+(defframe anwendungframe
+ (slots
+  (leistungsklasse (active-value - :frage-mit-menu-anwendungframe nil) :possible-values
+   (:one-of kleiner-10kw 10kw-bis-100kw 100kw-bis-1mw groesser-1mw) :ask
+   ("~% Welche Leistung wird benoetigt ?~% ") :ask-menu "Geben Sie die Leistungsklasse an"
+  )
+  (betriebsquadranten (active-value - :frage-mit-menu-anwendungframe nil) :possible-values
+   (:one-of nur-erster erster-und-zweiter alle-vier) :ask
+   ("~% In welchen Quadranten muss gearbeitet werden ?~% ") :ask-menu "Geben Sie die Betriebsquadranten an"
+  )
+  (w=0-mit-moment (active-value - :frage-mit-menu-anwendungframe nil) :possible-values (:one-of ja nein)
+   :ask ("~% Wird bei Stillstand ein Haltemoment benoetigt ?~% ") :ask-menu
+   "Wuenschen Sie ein Haltemoment bei Stillstand ?"
+  )
+  (untere-drehgeschw (active-value - :frage-mit-menu-anwendungframe nil) :possible-values
+   (:one-of gleich-0 nahe-0 etwa-halbe-sw etwa-sw) :ask
+   ("~% Wo liegt untere Grenze des genutzten Drehzahlbereichs ?~% ") :ask-menu
+   "Untere Grenze des genutzten Drehzahlbereichs angeben"
+  )
+  (obere-drehgeschw (active-value - :frage-mit-menu-anwendungframe nil) :possible-values
+   (:one-of mehrfache-sw etwa-sw etwa-halbe-sw) :ask
+   ("~% Wo liegt obere Grenze des genutzten Drehzahlbereichs ?~% ") :ask-menu
+   "Obere Grenze des genutzten Drehzahlbereichs angeben"
+  )
+  (dynamik (active-value - :frage-mit-menu-anwendungframe nil) :possible-values
+   (:one-of gering mittel hoch) :ask ("~% Wie hoch sind die Anforderungen an die Dynamik ?~% ") :ask-menu
+   "Welche Anforderungen an die Dynamik haben Sie ?"
+)))
+
+
+(defbehavior (anwendungframe :frage-mit-menu-anwendungframe)
+ (lokaler-wert aktiver-wert annotationsname slotname)
+ "Erfragt die nicht-besetzten Werte der Anwendung-Instanz. Daher sollten 
+ alle Sloteintraege aller Anwendungen '-' sein !!!
+ ... :ask kommt in Frage, wenn Bloedsinn eingegeben worden ist"
+ (if (equal lokaler-wert '-)
+  (let (label (items nil) (def-val nil) (who nil)) (setq who ($value 'anwendung))
+   (cond
+    ((not (equal who '-)) (setq def-val (<- who :get slotname))
+     (setq items (get-poss-val-args (<- self :get slotname :possible-values)))
+     (setq label (<- self :get slotname :ask-menu))
+     (if (not label) (setq label "Treffen Sie eine Auswahl:"))
+     (setq lokaler-wert (dotask 'one-of-many-def items label def-val))
+     (<- self :put slotname lokaler-wert)
+ ))))
+ lokaler-wert
+)
+
+
+(definstance anfahrschaltung of anwendungframe with leistungsklasse = groesser-1mw betriebsquadranten =
+ nur-erster w=0-mit-moment = nein untere-drehgeschw = etwa-sw obere-drehgeschw = etwa-sw dynamik = gering
+)
+
+
+(definstance aufzug of anwendungframe with leistungsklasse = 10kw-bis-100kw betriebsquadranten = alle-vier
+ w=0-mit-moment = ja untere-drehgeschw = nahe-0 obere-drehgeschw = etwa-sw dynamik = gering
+)
+
+
+(definstance fahrantrieb of anwendungframe with leistungsklasse = groesser-1mw betriebsquadranten =
+ alle-vier w=0-mit-moment = nein untere-drehgeschw = nahe-0 obere-drehgeschw = mehrfache-sw dynamik =
+ mittel
+)
+
+
+(definstance luefter of anwendungframe with leistungsklasse = kleiner-10kw betriebsquadranten = nur-erster
+ w=0-mit-moment = nein untere-drehgeschw = etwa-halbe-sw obere-drehgeschw = etwa-sw dynamik = gering
+)
+
+
+(definstance positionierantrieb of anwendungframe with leistungsklasse = 10kw-bis-100kw betriebsquadranten
+ = alle-vier w=0-mit-moment = ja untere-drehgeschw = gleich-0 obere-drehgeschw = mehrfache-sw dynamik =
+ hoch
+)
+
+
+(definstance rollgang of anwendungframe with leistungsklasse = 100kw-bis-1mw betriebsquadranten = alle-vier
+ w=0-mit-moment = nein untere-drehgeschw = etwa-sw obere-drehgeschw = etwa-sw dynamik = gering
+)
+
+
+(definstance zementmuehle of anwendungframe with leistungsklasse = groesser-1mw betriebsquadranten =
+ alle-vier w=0-mit-moment = nein untere-drehgeschw = etwa-halbe-sw obere-drehgeschw = etwa-halbe-sw dynamik
+ = gering
+)
+
+
+(definstance zentrifuge of anwendungframe with leistungsklasse = 100kw-bis-1mw betriebsquadranten =
+ erster-und-zweiter w=0-mit-moment = nein untere-drehgeschw = nahe-0 obere-drehgeschw = mehrfache-sw
+ dynamik = gering
+)
+
+
+
+;; ---------- FRAME 'antriebframe' :
+
+(defframe antriebframe (supers anwendungframe)
+ (slots
+  (leistungsfaktor (active-value - :frage-mit-menu-antriebframe nil) :possible-values
+   (:one-of abhaengig gleich-1 stellbar egal) :ask
+   ("~% Wie hoch sind die Anforderungen an den Leistungsfaktor ?~%") :ask-menu
+   "Welche Anforderungen stellen Sie an den Leistungfaktor ?"
+  )
+  (verwendbar ja :possible-values (:one-of ja nein))
+))
+
+
+(defbehavior (antriebframe :frage-mit-menu-antriebframe)
+ (lokaler-wert aktiver-wert annotationsname slotname)
+ "
+Erfragt die nicht-besetzten Werte der Antrieb-Instanz. Daher sollten 
+alle Sloteintraege aller Antriebe '-' sein !!!
+... :ask kommt in Frage, wenn Bloedsinn eingegeben worden ist"
+ (if (equal lokaler-wert '-)
+  (let (label (items nil)) (setq items (get-poss-val-args (<- self :get slotname :possible-values)))
+   (setq label (<- self :get slotname :ask-menu)) (if (not label) (setq label "Treffen Sie eine Auswahl:"))
+   (setq lokaler-wert (dotask 'one-of-many-def items label)) (<- self :put slotname lokaler-wert)
+ ))
+ lokaler-wert
+)
+
+
+(definstance drehstromsteller of antriebframe with leistungsklasse = kleiner-10kw betriebsquadranten =
+ erster-und-zweiter w=0-mit-moment = nein untere-drehgeschw = nahe-0 obere-drehgeschw = etwa-sw dynamik =
+ gering leistungsfaktor = abhaengig
+)
+
+
+(definstance schleifringlaeuferkaskade of antriebframe with leistungsklasse =
+ (:multiple-value 100kw-bis-1mw groesser-1mw) betriebsquadranten = nur-erster w=0-mit-moment = nein
+ untere-drehgeschw = etwa-sw obere-drehgeschw = etwa-sw dynamik = mittel leistungsfaktor = abhaengig
+)
+
+
+(definstance direktumrichter-asm of antriebframe with leistungsklasse = groesser-1mw betriebsquadranten =
+ alle-vier w=0-mit-moment = ja untere-drehgeschw = gleich-0 obere-drehgeschw = etwa-halbe-sw dynamik =
+ mittel leistungsfaktor = abhaengig
+)
+
+
+(definstance direktumrichter-sm of antriebframe with leistungsklasse = groesser-1mw betriebsquadranten =
+ alle-vier w=0-mit-moment = ja untere-drehgeschw = gleich-0 obere-drehgeschw = etwa-halbe-sw dynamik =
+ mittel leistungsfaktor = abhaengig
+)
+
+
+(definstance strom-zk-umrichter-asm of antriebframe with leistungsklasse = 100kw-bis-1mw betriebsquadranten
+ = alle-vier w=0-mit-moment = nein untere-drehgeschw = nahe-0 obere-drehgeschw = mehrfache-sw dynamik =
+ mittel leistungsfaktor = abhaengig
+)
+
+
+(definstance strom-zk-umrichter-sm of antriebframe with leistungsklasse =
+ (:multiple-value 100kw-bis-1mw groesser-1mw) betriebsquadranten = alle-vier w=0-mit-moment = nein
+ untere-drehgeschw = nahe-0 obere-drehgeschw = mehrfache-sw dynamik = mittel leistungsfaktor = abhaengig
+)
+
+
+(definstance spannungs-zk-umrichter-asm of antriebframe with leistungsklasse =
+ (:multiple-value kleiner-10kw 10kw-bis-100kw 100kw-bis-1mw) betriebsquadranten = alle-vier w=0-mit-moment
+ = ja untere-drehgeschw = gleich-0 obere-drehgeschw = mehrfache-sw dynamik = hoch leistungsfaktor =
+ stellbar
+)
+
+
+(definstance spannungs-zk-umrichter-sm of antriebframe with leistungsklasse =
+ (:multiple-value kleiner-10kw 10kw-bis-100kw) betriebsquadranten = alle-vier w=0-mit-moment = ja
+ untere-drehgeschw = gleich-0 obere-drehgeschw = mehrfache-sw dynamik = hoch leistungsfaktor = stellbar
+)
+
+
+(definstance reluktanzantrieb of antriebframe with leistungsklasse = kleiner-10kw betriebsquadranten =
+ erster-und-zweiter w=0-mit-moment = ja untere-drehgeschw = nahe-0 obere-drehgeschw = mehrfache-sw dynamik
+ = hoch leistungsfaktor = stellbar
+)
+
+
+
+;; ---------- FRAME 'loesungframe' :
+
+(defframe loesungframe (supers antriebframe)
+ (slots
+  (anwendung (active-value - :frage-mit-menu-loesungframe nil) :possible-values
+   (:instance-of anwendungframe) :ask ("~% Was fuer eine antriebstechnische Anwendung liegt vor ?~% ")
+   :ask-menu "Fuer welche Anwendung suchen Sie einen Antrieb ?"
+  )
+  (zu-testen (active-value ur nil :add-to-list) :possible-values
+   (:one-of initialisieren naechster-nach-erfolg naechster-nach-misserfolg ur)
+  )
+  (getestet (-) :possible-values :list) (aktuell -) (weitere -)
+  (leistungsfaktor-unabhaengig - :possible-values (:one-of ja nein)) (endgueltige-loesung -)
+))
+
+
+(defbehavior (loesungframe :add-to-list) (neuer-wert alter-wert property slotname)
+ "put-Behavior des Slots 'zu-testen' von LoesungFrame.
+ initialisieren
+ naechster-nach-erfolg
+ naechster-nach-misserfolg"
+ (let ((tmp nil) (tested nil))
+  (dotask 'dbg "~%~%*** ~s ~s ~s ~s~%" neuer-wert alter-wert property slotname)
+  (setq tmp (<- self :get slotname)) (setq tested (<- self :get 'getestet))
+  (dotask 'dbg "~%~%***go : ~s ~s" slotname tmp)
+  (cond
+   ((equal neuer-wert 'initialisieren)
+    (if (equal tested '(-)) (setq tmp (get-instance-list 'antriebframe)) (setq tmp tested))
+    (<- self :put 'getestet nil)
+   )
+   ((equal neuer-wert 'naechster-nach-erfolg) (setq tmp (<- self :get 'weitere))
+    (<- self :put 'getestet (append (<- self :get 'getestet) (list (<- self :get 'aktuell))))
+   )
+   ((equal neuer-wert 'naechster-nach-misserfolg) (setq tmp (<- self :get 'weitere)))
+  )
+  (dotask 'dbg "~%~%***end: ~s ~s~%~%" slotname tmp) (setq neuer-wert tmp)
+ )
+ (<- self :put 'aktuell (car neuer-wert)) (<- self :put 'weitere (cdr neuer-wert)) neuer-wert
+)
+
+
+(defbehavior (loesungframe :frage-mit-menu-loesungframe)
+ (lokaler-wert aktiver-wert annotationsname slotname)
+ "Erfragt die nicht-besetzten Werte der Loesungsinstanz. Daher sollten 
+ alle Sloteintraege aller Antriebe und Anwendungen ungleich '-' sein !!!
+ ... :ask kommt in Frage, wenn Bloedsinn eingegeben worden ist"
+ (if (equal lokaler-wert '-)
+  (let (label (items (get-instance-list (second (<- self :get slotname ':possible-values)))))
+   (setq label
+    (or (<- self :get slotname :ask-menu) (format nil "Treffen Sie eine Auswahl fuer ~s" slotname))
+   )
+   (do nil ((not (or (equal lokaler-wert '-) (equal lokaler-wert 'nil))))
+    (setq lokaler-wert (dotask 'one-of-many-def items label)) (<- self :put slotname lokaler-wert)
+ )))
+ lokaler-wert
+)
+
+
+(definstance loesung of loesungframe)
+
+
+
+;;;---------------------------------------
+;;;   Regeln 
+;;;---------------------------------------
+
+
+(defrule-set :get-problem 
+(get-problem-1 ($true)
+ ($execute
+  (dotask 'clearw1)
+  (dotask 'writew1 "~%Bitte schildern Sie ihr antriebstechnisches Problem,~%")
+  (dotask 'writew1 "indem Sie mir die folgenden Fragen beantworten:~%")
+))
+
+(get-problem-2 ($true)
+ ($ask (loesung anwendung) (loesung leistungsklasse) (loesung betriebsquadranten) (loesung w=0-mit-moment)
+  (loesung untere-drehgeschw) (loesung obere-drehgeschw) (loesung dynamik)
+))
+)
+
+(defrule-set :print-problem 
+(print-problem-1 ($true)
+ ($execute
+  (dotask 'clearw1)
+  (dotask 'writew1 "~% Ich fasse Ihre Eingaben zusammen:")
+  (dotask 'writew1 "~%   Anwendung:                         ~s" (<- loesung anwendung))
+  (dotask 'writew1 "~%   Leistungsklasse:                     ~s" (<- loesung leistungsklasse))
+  (dotask 'writew1 "~%   Betriebsquadranten:                 ~s" (<- loesung betriebsquadranten))
+  (dotask 'writew1 "~%   Stillstands-Haltemoment noetig:      ~s" (<- loesung w=0-mit-moment))
+  (dotask 'writew1 "~%   untere Drehgeschwindigkeitsgrenze:  ~s" (<- loesung untere-drehgeschw))
+  (dotask 'writew1 "~%   obere Drehgeschwindigkeitsgrenze:   ~s" (<- loesung obere-drehgeschw))
+  (dotask 'writew1 "~%   Dynamik-Anforderungen:             ~s" (<- loesung dynamik))
+))
+)
+
+(defrule-set :initialize-hypotheses 
+(initialize-hypotheses-1 ($true) ($execute (loesung zu-testen = initialisieren)))
+)
+
+(defrule-set :generate-hypotheses 
+(generate-hypotheses-loopend ($and (null (<- loesung zu-testen))) ($execute (stop-execution)))
+
+(generate-hypotheses-1 ($and (aktuell-verwendbar) (not (leistungsklasse-verwendbar)))
+ ($execute
+  (dotask 'aktuelle-nicht-verwendbar-machen)
+  (say "~% ~s ist aufgrund seiner Leistungsklasse nicht anwendbar"
+   (dotask 'aktueller-antrieb))
+))
+
+(generate-hypotheses-2 ($and (aktuell-verwendbar) (not (betriebsquadranten-verwendbar)))
+ ($execute
+  (dotask 'aktuelle-nicht-verwendbar-machen)
+  (say "~% ~s ist aufgrund seiner Betriebsquadranten nicht anwendbar"
+   (dotask 'aktueller-antrieb))
+))
+
+(generate-hypotheses-3 ($and (aktuell-verwendbar) (not (w=0-mit-moment-verwendbar)))
+ ($execute
+  (dotask 'aktuelle-nicht-verwendbar-machen)
+  (say "~% ~s ist nicht anwendbar, da kein Stillstands-Haltemoment aufgebaut werden kann"
+   (dotask 'aktueller-antrieb)
+)))
+
+(generate-hypotheses-4 ($and (aktuell-verwendbar) (not (untere-drehgeschw-verwendbar)))
+ ($execute
+  (dotask 'aktuelle-nicht-verwendbar-machen)
+  (say "~% ~s ist aufgrund seiner unteren Drehgeschw.grenze nicht anwendbar"
+   (dotask 'aktueller-antrieb))
+))
+
+(generate-hypotheses-5 ($and (aktuell-verwendbar) (not (obere-drehgeschw-verwendbar)))
+ ($execute
+  (dotask 'aktuelle-nicht-verwendbar-machen)
+  (say "~% ~s ist aufgrund seiner oberen Drehgeschw.grenze nicht anwendbar"
+   (dotask 'aktueller-antrieb))
+))
+
+(generate-hypotheses-6 ($and (aktuell-verwendbar) (not (dynamik-verwendbar)))
+ ($execute
+  (dotask 'aktuelle-nicht-verwendbar-machen)
+  (say "~% ~s ist aufgrund seiner Dynamik nicht anwendbar"
+   (dotask 'aktueller-antrieb))
+))
+
+(generate-hypotheses-7 ($and (aktuell-verwendbar)) ($execute (loesung zu-testen = naechster-nach-erfolg)))
+
+(generate-hypotheses-8 ($and (not (aktuell-verwendbar)))
+ ($execute (loesung zu-testen = naechster-nach-misserfolg))
+)
+)
+
+(defrule-set :print-hypotheses 
+(print-hypotheses-1 ($true)
+ ($execute
+  (dotask 'writew2 "~% An Loesungsmoeglichkeiten verbleiben:~%  ~s~%" (<- loesung getestet))
+))
+)
+
+(defrule-set :verify0-hypotheses 
+(verify0-hypotheses-1 ($true) ($execute (loesung zu-testen = initialisieren)))
+)
+
+(defrule-set :verify1-hypotheses 
+(verify1-hypotheses-loopend ($and (null (<- loesung zu-testen))) ($execute (stop-execution)))
+
+(verify1-hypotheses-1
+ ($and
+  (aktuell-verwendbar)
+  (not (equal (<- (dotask 'aktueller-antrieb) leistungsfaktor) 'abhaengig)))
+ ($execute (<- loesung :put 'leistungsfaktor-unabhaengig 'ja))
+)
+
+(verify1-hypotheses-2 ($and (aktuell-verwendbar)) ($execute (loesung zu-testen = naechster-nach-erfolg)))
+
+(verify1-hypotheses-3 ($and (not (aktuell-verwendbar)))
+ ($execute (loesung zu-testen = naechster-nach-misserfolg))
+)
+)
+
+(defrule-set :verify2-hypotheses 
+(verify2-hypotheses-1
+ ($and
+  (equal (<- loesung leistungsfaktor-unabhaengig) 'ja))
+ ($execute
+  (uid-information "Bei einigen Loesungsvorschlaegen ist der ~%~
+                    Leistungsfaktor nicht abhaengig")
+))
+
+(verify2-hypotheses-2 ($and (equal (<- loesung leistungsfaktor-unabhaengig) 'ja))
+ ($ask (loesung leistungsfaktor))
+)
+
+(verify2-hypotheses-3 ($true) ($execute (loesung zu-testen = initialisieren)))
+)
+
+(defrule-set :verify3-hypotheses 
+(verify3-hypotheses-loopend ($and (null (<- loesung zu-testen))) ($execute (stop-execution)))
+
+(verify3-hypotheses-1
+ ($and (not (loesung leistungsfaktor = -)) (aktuell-verwendbar) (not (leistungsfaktor-verwendbar)))
+ ($execute
+  (dotask 'aktuelle-nicht-verwendbar-machen)
+  (say "~% ~s ist aufgrund seines unguenstigen Leistungsfaktors nicht anwendbar"
+   (dotask 'aktueller-antrieb))
+))
+
+(verify3-hypotheses-2 ($and (not (loesung leistungsfaktor = -)) (aktuell-verwendbar))
+ ($execute (loesung zu-testen = naechster-nach-erfolg))
+)
+
+(verify3-hypotheses-3 ($and (not (loesung leistungsfaktor = -)) (not (aktuell-verwendbar)))
+ ($execute (loesung zu-testen = naechster-nach-misserfolg))
+)
+
+(verify3-hypotheses-4 ($and (loesung leistungsfaktor = -))
+ ($execute (loesung zu-testen = naechster-nach-erfolg))
+)
+)
+
+(defrule-set :verify4-hypotheses 
+(verify4-hypotheses-1 ($true) ($execute (loesung zu-testen = initialisieren)))
+
+(verify4-hypotheses-2 ($and (aktuell-verwendbar))
+ ($execute (<- loesung :put 'endgueltige-loesung (dotask 'aktueller-antrieb)))
+))
+
+(defrule-set :print-results 
+(print-results-1 ($true)
+ ($execute
+  (dotask 'writew2 "~%~% Abschliessende Bewertung:")
+))
+
+(print-results-2 ($and (not (equal (<- loesung endgueltige-loesung) '-)))
+ ($execute
+  (dotask 'writew2 "~% Ich empfehle Ihnen fuer Ihr Problem ~s" (<- loesung anwendung))
+  (dotask 'writew2 "~% das folgende Antriebskonzept:")
+  (dotask 'writew2 "~%      ~s" (<- loesung endgueltige-loesung))
+))
+
+(print-results-3 ($and (equal (<- loesung endgueltige-loesung) '-))
+ ($execute
+  (dotask 'writew2 "~%   Nach meinem Erkenntnisstand gibt fuer das Problem,")
+  (dotask 'writew2 "~%   wie Sie es mir geschildert haben, keine Loesung. Sie")
+  (dotask 'writew2 "~%   sollten Ihre Ansprueche an den Antrieb zurueckstufen.")
+))
+)
+
+;;;---------------------------------------
+;;;   Feste Klauselmenge 
+;;;---------------------------------------
+
+
+(emaxps-defclauses ema-clauses
+((aktuell-verwendbar) 
+<- 
+(and (not (is nil (dotask 'aktueller-antrieb)))
+          (is ja (<- (dotask 'aktueller-antrieb) :get 'verwendbar))))
+
+((leistungsklasse-verwendbar) 
+<- 
+(dotask loesung-get leistungsklasse _soll)
+(dotask aktueller-antrieb-get-als-liste leistungsklasse _ist)
+(member _soll _ist))
+
+((betriebsquadranten-verwendbar) 
+<- 
+(dotask loesung-get betriebsquadranten _soll)
+(dotask aktueller-antrieb-get betriebsquadranten _ist)
+(or (== nur-erster _soll) (and (== erster-und-zweiter _soll) (/== nur-erster _ist))
+ (and (== alle-vier _soll) (== _soll _ist))
+))
+
+((w=0-mit-moment-verwendbar) 
+<- 
+(dotask loesung-get w=0-mit-moment _soll)
+(dotask aktueller-antrieb-get w=0-mit-moment _ist)
+(or (== nein _soll) (== _soll _ist)))
+
+((untere-drehgeschw-verwendbar) 
+<- 
+(dotask loesung-get untere-drehgeschw _soll)
+(dotask aktueller-antrieb-get untere-drehgeschw _ist)
+(or (== etwa-halbe-sw _soll) (and (== etwa-sw _soll) (== _soll _ist))
+ (and (== nahe-0 _soll) (/== etwa-halbe-sw _ist)) (and (== gleich-0 _soll) (== _soll _ist))
+))
+
+((obere-drehgeschw-verwendbar) 
+<- 
+(dotask loesung-get obere-drehgeschw _soll)
+(dotask aktueller-antrieb-get obere-drehgeschw _ist)
+(or (== etwa-halbe-sw _soll) (and (== etwa-sw _soll) (/== etwa-halbe-sw _ist))
+ (and (== mehrfache-sw _soll) (== _soll _ist))
+))
+
+((dynamik-verwendbar) 
+<- 
+(dotask loesung-get dynamik _soll)
+(dotask aktueller-antrieb-get dynamik _ist)
+(or (== gering _soll) (and (== mittel _soll) (/== gering _ist)) (and (== hoch _soll) (== _soll _ist))))
+
+((leistungsfaktor-verwendbar) 
+<- 
+(dotask loesung-get leistungsfaktor _soll)
+(dotask aktueller-antrieb-get leistungsfaktor _ist)
+(or (or (== egal _soll) (== abhaengig _soll)) (and (== gleich-1 _soll) (/== abhaengig _ist))
+ (and (== stellbar _soll) (== _soll _ist))
+)))
+
+;;;---------------------------------------
+;;;   Freie Klauselmengen
+;;;---------------------------------------
+
+
+(emaxps-defaxiom-set ema-axiom-set
+((member _x (_x . _tail)))
+((member _x (_h . _tail)) 
+<- 
+(member _x _tail)))
+
+;;;---------------------------------------
+;;;   Primitive-Constraints 
+;;;---------------------------------------
+ 
+
+(defconstraint adder (:type primitive) (:interface a b c)
+ (:relation (:pattern (a b (+ a b)) :if (constrained-p a b))
+  (:pattern (a (- c a) c) :if (constrained-p a c)) (:pattern ((- c b) b c) :if (constrained-p b c))
+ )
+ (:condition :or)
+)
+ 
+
+(defconstraint multiplier (:type primitive) (:interface a b c)
+ (:relation (:pattern (a b (* a b)) :if (constrained-p a b))
+  (:pattern (a (/ c a) c) :if (and (constrained-p a c) (/= a 0)))
+  (:pattern ((/ c b) b c) :if (and (constrained-p b c) (/= b 0)))
+  (:pattern (a b 0) :if (or (and (constrained-p a) (= a 0)) (and (constrained-p b) (= b 0))))
+ )
+ (:condition
+  (or (constrained-p a b) (constrained-p a c) (constrained-p b c) (and (constrained-p a) (= a 0))
+   (and (constrained-p b) (= b 0))
+)))
+ 
+
+(defconstraint equal (:type primitive) (:interface x y)
+ (:relation (:pattern (x x) :if (constrained-p x)) (:pattern (y y) :if (constrained-p y)))
+ (:condition (not (unconstrained-p x y)))
+)
+
+
+;;;---------------------------------------
+;;;   Constraint-Netze 
+;;;---------------------------------------
+ 
+
+(defconstraint same-sum (:type compound) (:interface a1 a2 b1 b2)
+ (:constraint-expressions (adder a1 a2 s) (adder b1 b2 s))
+)
+ 
+
+(defconstraint same-sum2 (:type compound) (:interface a1 a2 b1 b2)
+ (:constraint-expressions (adder a1 a2 s1) (adder b1 b2 s2) (equal s1 s2))
+)
+
+
+;;;---------------------------------------
+;;;   Restriktionen 
+;;;---------------------------------------
+ 
+
+(defrestriction dummy-restriction-1
+ (:restrictions
+  (:for-all antrieb =
+   (:one-of drehstromsteller schleifringlaeuferkaskade direktumrichter-asm direktumrichter-sm
+    strom-zk-umrichter-asm strom-zk-umrichter-sm spannungs-zk-umrichter-asm spannungs-zk-umrichter-sm
+    reluktanzantrieb
+   )
+   (equal (antrieb dynamik) (antrieb dynamik))
+)))
+ 
+
+(defrestriction dummy-restriction-2
+ (:restrictions
+  (:for-all antrieb =
+   (:one-of drehstromsteller schleifringlaeuferkaskade direktumrichter-asm direktumrichter-sm
+    strom-zk-umrichter-asm strom-zk-umrichter-sm spannungs-zk-umrichter-asm spannungs-zk-umrichter-sm
+    reluktanzantrieb
+   )
+   (equal (antrieb betriebsquadranten) (antrieb betriebsquadranten))
+)))
+
+
+;;;---------------------------------------
+;;;   Tasks
+;;;---------------------------------------
+
+(deftask dbg (str &optional arg1 arg2 arg3 arg4 arg5 arg6 arg7 arg8 arg9)
+ (if *dbg* (say str arg1 arg2 arg3 arg4 arg5 arg6 arg7 arg8 arg9))
+)
+
+(deftask aktueller-antrieb nil (<- loesung aktuell))
+
+(deftask aktuelle-nicht-verwendbar-machen nil
+ (<- (dotask 'aktueller-antrieb) :put 'verwendbar 'nein))
+
+(deftask aktueller-antrieb-get (slot)
+ "Die Funktion gibt den Wert des Attributs 'slot' von aktueller-antrieb 
+     zurueck."
+ (<- (dotask 'aktueller-antrieb) :get slot)
+)
+
+(deftask aktueller-antrieb-get-als-liste (slot)
+ "Die Funktion gibt den Wert des Attributs 'slot' von aktueller-antrieb 
+ als Liste zurueck. Falls der Wert ein Multiple-Value ist, wird das
+ Schluesselwort 'multiple-values' entfernt."
+ (let ((value nil))
+  (setq value (<- (dotask 'aktueller-antrieb) :get slot))
+  (cond ((not (listp value)) (setq value (list value))) (t (setq value (cdr value)))) value
+ )
+)
+
+(deftask loesung-get (slot)
+ "Die Funktion gibt den Wert des Attributs 'slot' von der Instance 'Loesung' 
+ als Liste zurueck."
+ (<- loesung :get slot)
+)
+
+(deftask clearw1 nil
+ "Loescht das obere Ausgabefenster"
+ (ui-set-text "W1" "")
+)
+
+(deftask clearw2 nil
+ "Loescht das untere Ausgabefenster"
+ (ui-set-text "W2" "")
+)
+
+(deftask writew1 (fmt &rest args)
+ "Ergaenzt das obere Ausgabefenster"
+ (ui-add-text "W1"
+  (apply 'format
+   (append (list nil fmt) args)
+  )
+ )
+)
+
+(deftask writew2 (fmt &rest args)
+ "Ergaenzt das untere Ausgabefenster"
+ (ui-add-text "W2"
+  (apply 'format
+   (append (list nil fmt) args)
+  )
+ )
+)
+
+(deftask one-of-many-def (items label &optional default)
+ "Praesentiert ein 1-aus-n Auswahl-Popup, das gegebenenfalls
+ einen DEFAULT-Wert praesentiert"
+
+ (let (labl ret)
+  (if default
+   (setf labl (format nil "~A~%Default = ~A" label default))
+  ;else
+   (setf labl label)
+  );if
+  (loop
+   (setf ret (uid-one-of-many items labl))
+   (if ret (return))   ;; cancel = NIL ...
+  );loop
+  ret      ;; return-value
+ );let
+)
+
+;;;---------------------------------------
+;;;   Instruktionen 
+;;;---------------------------------------
+
+(deftask main ()
+ (setq *dbg* nil)
+ (ui-create-label "lab1" 10 10 90 30 "Eingaben:" nil nil nil nil)
+ (ui-create-output-text "W1" 10 50 500 300 "" nil nil nil)
+ (ui-create-label "lab2" 10 360 90 30 "Ergebnisse:" nil nil nil nil)
+ (ui-create-output-text "W2" 10 400 500 300 "" nil nil nil)
+ (send-kb :add-axiom-set 'ema-axiom-set 'first)
+ (send-kb :find-implications :get-problem :do-all)
+ (send-kb :find-implications :print-problem :do-all)
+ (send-kb :find-implications :initialize-hypotheses :do-all)
+ (send-kb :find-implications :generate-hypotheses :while-all (not (null (<- loesung zu-testen))))
+ (send-kb :find-implications :print-hypotheses :do-all)
+ (send-kb :find-implications :verify0-hypotheses :do-all)
+ (send-kb :find-implications :verify1-hypotheses :while-all (not (null (<- loesung zu-testen))))
+ (send-kb :find-implications :verify2-hypotheses :do-all)
+ (send-kb :find-implications :verify3-hypotheses :while-all (not (null (<- loesung zu-testen))))
+ (send-kb :find-implications :verify4-hypotheses :do-all)
+ (send-kb :find-implications :print-results :do-all)
+ (dotask 'writew2 "~%~% Ende der Sitzung mit dem EMA-XPS~%")
+)
+
+;;;------ EOF ---------------------------------------

@@ -1,0 +1,128 @@
+<html><head><title>RELATION-SPECIFICATION</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc348.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc346.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>RELATION-SPECIFICATION</strong></font></center><p>
+
+<PRE>RELATION-SPECIFICATION
+======================
+
+Syntax: &lt;Relation-Spezifikation&gt; ::=
+           [:GENERAL-RELATIONS 
+              (&lt;Rahmen-Relation&gt;*)]
+           [:PART-RELATIONS
+              (&lt;Rahmen-Relation&gt;*)]
+
+        &lt;Rahmen-Relation&gt; ::=
+           ([:DOCUMENTATION &lt;Dokumentation&gt;]
+           [:EXPLANATION &lt;Erkl&auml;rung&gt;]
+           [:VALUE-RESTRICTION
+             {&lt;Lisp-Typ: Symbol&gt; |
+             &lt;Rahmen-Typ&gt;}]
+           [:NUMBER-RESTRICTION (&lt;min&gt;&lt;max&gt;)]
+           [:INITIAL-VALUE {&lt;Instanz-Name&gt;|
+              &lt;auswerten-nach-Menge&gt; | 
+              &lt;Lisp-Typ: T}]
+           [:INITABLE {T | NIL}]
+           [:READ-ONLY {T | NIL}]
+           [:IF-UNDETERMINED &lt;Lisp-Typ: T&gt;]
+           [:READ-DEPENDENTS &lt;Lisp-Typ: T&gt;]
+           [:WRITE-DEPENDENTS &lt;Lisp-Typ: T&gt;])
+
+Warnung: Der Erkl&auml;rungseintrag wird durch 
+         EMA-XPS nicht unterst&uuml;tzt, d.h.
+         :documentation und :explanation
+         werden ignoriert.
+
+Mit der Relationsspezifikation k&ouml;nnen Sie bei der
+Rahmendefinition das angegebene Merkmal bzw. den
+angegebenen Bestandteil genauer bestimmen. Unter
+':documentation' und ':description' geben Sie den
+Dokumentations- und Erkl&auml;rungseintrag an.
+
+Mit ':value-restriction' k&ouml;nnen Sie den Werte-
+bereich f&uuml;r das angegebene Attribut einschr&auml;nken.
+Sie k&ouml;nnen hier Lisp-Typen angeben, wie string,
+number, list oder einen Rahmennamen. Geben Sie
+letzteres an, so k&ouml;nnen bei der Instanz-Relation
+nur Instanzen des entsprechenden Rahmens eingetragen
+werden.
+
+Unter ':number-restriction' legen Sie die Anzahl der
+Werte fest, die bei der Instanz-Relation einge-
+tragen werden d&uuml;rfen. Sie geben die minimale und
+die maximale Anzahl von Werten an.
+
+':initial-value' bezeichnet einen Standardwert, der
+bei der Initialisierung eingetragen werden soll,
+wenn bei der Instanzdefinition nichts anderes
+angegeben wurde.
+
+Mit ':initable' legen Sie fest, ob der Initial-Wert
+bei der Instanziierung &uuml;berschrieben werden darf
+oder nicht. Wenn Sie T angeben, darf er &uuml;ber-
+schrieben werden, bei der Angabe von NIL wird bei
+der Initialisierung immer der Standardwert ein-
+getragen.
+
+':read-only' verhindert einen Schreibzugriff auf den
+bei der Instanziierung gesetzten Wert, d.h. Sie
+k&ouml;nnen nur lesend - beispielsweise mit einem ASK -
+auf den Wert zugreifen. Sie k&ouml;nnen bei un-
+bestimmten Werten diese nicht nachtr&auml;glich &auml;ndern
+oder durch ':if-undetermined' setzen.
+
+Unter ':if-undetermined' k&ouml;nnen Sie angeben, welche
+Aktionen ausgel&ouml;st werden sollen, falls der
+Wert der jeweiligen Instanzrelation unbekannt ist.
+Sie geben dazu in einer Liste die gew&uuml;nschten
+babylon-Ausdr&uuml;cke an, die sequentiell nacheinander
+ausgef&uuml;hrt werden sollen.
+
+:read-dependents geben Ihnen die M&ouml;glichkeit, Lese-
+zugriffe auf einen Wert differenzierter zu behandeln.
+Sie k&ouml;nnen andere Instanzen benachrichtigen, wenn
+auf einen Wert lesend zugegriffen wird. Bei dem Wert,
+der eine Leseabh&auml;ngigkeit haben soll, m&uuml;ssen Sie
+lediglich die Instanz angeben, zu der die Nachricht
+geschickt werden soll. Um die Nachricht zu verar-
+beiten ist es notwendig, ein Behavior mit dem Namen
+notify-read-dependent zu beschreiben, das die
+Nachricht f&uuml;r Instanzen der jeweiligen Klasse
+behandelt.
+
+Mit ':write-dependents' verfahren Sie analog wie mit
+':read-dependents', au&szlig;er da&szlig; es sich hier um
+Schreibzugriffe handelt.
+
+Beispiel: &gt;(define-frame Kunde
+             :general-relations
+             (urlaubsinteresse (:value-restriction
+                symbol
+             :if-undetermined (ask (match _x (start
+             'erfrage-urlaubs-interesse))
+             (tell [urlaubsinteresse instance _x])))
+             vorschlag (:value-restriction laender)
+             ziele (:value-restriction laender
+             :if-undetermined (ask [laender _land]
+             (tell [ziele instance _land])))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc348.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc346.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- RELATION-SPECIFICATION done --!>

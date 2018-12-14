@@ -1,0 +1,45 @@
+<html><head><title>LET</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc124.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc122.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>LET</strong></font></center><p>
+
+<PRE>LET
+===
+
+Syntax: (let ({&lt;Variable&gt; |
+             (&lt;Variable&gt; &lt;Wert&gt;) ...}) {&lt;Form&gt; ...})
+
+Diese Funktion definiert lokale Variablen, die in
+den Formen benutzt werden k&ouml;nnen. Der Anfangswert
+darf in jeder Form sein. Falls der Anfangswert nicht
+gegeben ist, wird NIL verwendet. LET gibt der Wert
+der letzten Form zur&uuml;ck.
+
+Beispiel:      &gt;Global         ; def. globale Variable
+               123
+               &gt;Konstante	; definierte Konstante
+               123
+               &gt;(let (x (y 789))
+                     (list x Global Konstante y))
+               (NIL 123 123 789)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc124.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc122.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- LET done --!>

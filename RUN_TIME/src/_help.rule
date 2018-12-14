@@ -1,0 +1,116 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _help.rule    Hans Groschwitz        19.07.95   !!
+!!                 Susanne Wellmann                  !!
+!!                 Klaus Senf                        !!
+!!                 Michael Block                     !!
+!!                 Stephan Peters                    !!
+!!                 Frans Ceelen           18.04.96   !!
+!!                                                   !!
+!!   Functions to build the rule-editor.             !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#ifdef __english
+>RULE-EDITOR
+.The Rule-Editor
+.===============
+.
+.Rules can be edited with the rule editor. To select
+.the respective knowledge base you have to click on
+.the field with the label "Knowledge Base". To select
+.the rule set and the rule you have to click on the
+.corresponding fields. If a new rule or rule set has
+.to be provided, then the new name has to be entered
+.in the field selection of the selection menue.
+.
+.The Edit menu:
+.
+.- Apply this Rule...
+.      The modified rule will be transfered into
+.      the knowledge base.
+.- Delete this Rule...
+.      The rule will be removed from the knowledge
+.      base.
+.- Delete this Rule Set...
+.      The rule set and its rules will be removed
+.      from the knowledge base.
+.- Undo Changes
+.      The old rule definition is reloaded from
+.      the knowledge base. This option is unavailable
+.      for a newly created rule.
+.- Move this Rule...
+.      This way the execution order of the rules
+.      within a set can be changed.
+.      A further selection menue appears, to select
+.      a rule in whose neighbourhood the current rule
+.      should be moved. A further choise is on whether
+.      to move the current rule in front or behind
+.      the selected rule.
+.
+.Rule modifications, not yet updated in the KB,
+.are displayed by an exclamation mark in the top right
+.corner.
+.
+.The Babylon2 junctor and action types can be changed
+.by clicking on the fields "IF" or "THEN". This will
+.offer a selection popup dialog.
+.
+.Help on the syntax of babylon- and lisp-expressions 
+.can be requested by placing the text cursor into a
+.word in the text fields of the editors, followed by
+.a keypress on the [Help]-Button [F1].
+.
+#else
+>REGEL-EDITOR
+.Der Regel-Editor
+.================
+.Mit dem Regel-Editor k\366nnen die Regeln editiert werden.
+.Zur Auswahl der betreffenden Wissensbasis ist das Feld
+.neben dem Label "Wissensbasis" anzuklicken. Um die Re-
+.gelmenge und die Regel auszuw\344hlen, sind die entspre-
+.chenden Felder anzuklicken. Soll eine neue Regel oder 
+.Regelmenge erstellt werden, so ist der neue Name in das
+.Feld Auswahl des Auswahlmen\374s einzutragen.
+.
+.Das Bearbeiten-Men\374:
+.
+.- Diese Regel \374bernehmen...    
+.       Die ge\344nderte Regel wird an die Wissensbasis 
+.       \374bergeben. 
+.- Diese Regel l\366schen...
+.       Die Regel wird aus der Wissensbasis entfernt.
+.- Diese Regelmenge l\366schen...   
+.       Die Regelmenge wird mit den zugeh\366rigen Regeln
+.       aus der Wissensbasis entfernt.
+.- \304nderungen zur\374cknehmen... 
+.       Es wird wieder die unbearbeitete Regel geladen.
+.       Diese Option steht bei einer neuerstellten Regel
+.       nicht zur Verf\374gung.
+.- Diese Regel verschieben...
+.       Die Regeln k\366nnen in ihrer Bearbeitungreihen-   
+.       folge vertauscht werden. 
+.       Es erscheint hierzu ein weiteres Auswahlmen\374,
+.       in dem die Regel ausgew\344hlt werden mu\337 in deren
+.       direkter Nachbarschaft die aktuelle Regel ver-
+.       schoben werden soll. Als weiteres ist auszuw\344h-
+.       len, ob die zu verschiebene Regel vor oder hin-
+.       ter der ausgew\344hlten Regel einzuordnen ist. 
+.
+.Wenn eine Regel ver\344ndert wurde und diese \304nderung 
+.noch nicht in die Wissensbasis \374bernommen wurde,
+.wird dies durch ein Ausrufzeichen in der rechten oberen
+.Ecke angezeigt. 
+.
+.Die Babylon2-Junktor- bzw. Aktionstypen k\366nnen durch
+.Anklicken der Felder rechts neben dem Label "WENN" bzw.
+."DANN" ver\344ndert werden. Es erscheint dann eine weitere
+.Auswahl.
+.
+.Durch Anw\344hlen eines Wortes in den Textfeldern der
+.Editoren mit dem Textcursor und anschlie\337endes Dr\374cken
+.des [Hilfe]-Knopfes [F1] kann Hilfe zur Syntax der
+.Babylon- und LISP-Ausdr\374cke abgerufen werden.
+.
+#endif
+
+!!! EOF

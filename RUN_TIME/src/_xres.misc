@@ -1,0 +1,123 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.misc    Hans Groschwitz        19.07.95   !!
+!!                 Stephan Peters                    !!
+!!                                                   !!
+!!   Functions to build the misc-editor.             !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! are the new dialogs UNUSED ?!?
+
+!*** HACK -- to be hardcoded later ??? ***
+
+Misc-Editor*kb_label.height:                     30
+Misc-Editor*kb_button.height:                    30
+
+!*** general settings ***
+
+Misc-Editor.height:                              700
+Misc-Editor.width:                               600
+
+!*** language settings ***
+
+Misc-Editor*help_menu_button.mnemonic:           H
+Misc-Editor*on_menu_button.mnemonic:             M
+Misc-Editor*on_syntax.mnemonic:                  S
+
+#ifdef __english
+Misc-Editor.title:                               Miscelaneous-Editor
+Misc-Editor.iconName:                            Misc
+!
+Misc-Editor*help_menu_button.labelString:        Help
+Misc-Editor*on_menu_button.labelString:          On Menu ...
+Misc-Editor*on_syntax.labelString:               On Syntax ...
+!
+Misc-Editor*edit_menu_button.labelString:        Edit
+Misc-Editor*edit_menu_button.mnemonic:           E
+Misc-Editor*save_button.labelString:             Apply these Constructs ...
+Misc-Editor*save_button.mnemonic:                A
+Misc-Editor*undo_button.labelString:             Undo Changes
+Misc-Editor*undo_button.mnemonic:                U
+!
+Misc-Editor*kb_label.labelString:                Knowledge Base:
+Misc-Editor*kb_button.labelString:               (none)
+Misc-Editor*cons_label.labelString:              Constructs:
+!
+Misc-Editor*kb_selection_popup.title:            Choose a Knowledge Base
+Misc-Editor*kb_selection.listLabelString:        Known knowledge bases
+!
+Misc-Editor*kb_selection_msg.dialogTitle:        Incorrect Input
+Misc-Editor*kb_selection_msg.messageString:      Please choose a knowledge base!
+!
+Misc-Editor*kb_selection_war_popup.Title:        Constructs-Apply Confirmation
+Misc-Editor*kb_selection_war.messageString:      \
+ Do you really want to apply these constructs?
+Misc-Editor*kb_selection_war.okLabelString:      Yes
+Misc-Editor*kb_selection_war.cancelLabelString:  No
+!
+!!!! new dialog!
+!!
+Misc-Editor*save_war_popup.Title:                Constructs-Overwrite Confirmation
+Misc-Editor*save_war.messageString:              \
+ Should these modified constructs be overwritten?
+Misc-Editor*save_war.okLabelString:              Yes
+Misc-Editor*save_war.cancelLabelString:          No
+
+#else /* deutsch */
+Misc-Editor.title:                               Sonstiges-Editor
+Misc-Editor.iconName:                            Sonstiges
+!
+Misc-Editor*help_menu_button.labelString:        Hilfe
+Misc-Editor*on_menu_button.labelString:          zum Men\374 ...
+Misc-Editor*on_syntax.labelString:               zur Syntax ...
+!
+Misc-Editor*edit_menu_button.labelString:        Bearbeiten
+Misc-Editor*edit_menu_button.mnemonic:           B
+Misc-Editor*save_button.labelString:             Diese Konstrukte \374bernehmen ...
+Misc-Editor*save_button.mnemonic:                K
+Misc-Editor*undo_button.labelString:             \304nderungen zur\374cknehmen
+Misc-Editor*undo_button.mnemonic:                z
+!
+Misc-Editor*kb_label.labelString:                Wissensbasis:
+Misc-Editor*kb_button.labelString:               (unbestimmt)
+Misc-Editor*cons_label.labelString:              Wissensbasis-Konstrukte:
+!
+Misc-Editor*kb_selection_popup.title:            Auswahl der Wissensbasis
+Misc-Editor*kb_selection.listLabelString:        Bekannte Wissensbasen
+Misc-Editor*kb_selection.cancelLabelString:      Abbrechen
+!
+Misc-Editor*kb_selection_msg.dialogTitle:        Falsche Eingabe
+Misc-Editor*kb_selection_msg.messageString:      Bitte w\344hlen Sie eine Wissensbasis aus!
+!
+Misc-Editor*kb_selection_war_popup.Title:        Konstrukte-\334berschreiben Best\344tigung
+Misc-Editor*kb_selection_war.messageString:      \
+ Sollen diese Konstrukte \374berschrieben werden?
+Misc-Editor*kb_selection_war.okLabelString:      Ja
+Misc-Editor*kb_selection_war.cancelLabelString:  Nein
+!
+!!!! Neuer Dialog!
+!!
+Misc-Editor*save_war_popup.Title:                Konstrukte-\334berschreiben Best\344tigung
+Misc-Editor*save_war.messageString:              \
+ Sollen diese Konstrukte \374berschrieben werden?
+Misc-Editor*save_war.okLabelString:              Ja
+Misc-Editor*save_war.cancelLabelString:          Nein
+
+#endif /* english */
+
+
+!*** color settings ***
+
+#ifdef COLOR
+
+Misc-Editor*background:                          azure
+Misc-Editor*save_war*background:                 red
+Misc-Editor*kb_selection_war*background:         red
+Misc-Editor*kb_selection_msg*background:         red
+
+#else   !!! MONO: here non-default settings only, please!
+
+#endif
+
+
+!!! EOF

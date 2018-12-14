@@ -1,0 +1,44 @@
+<html><head><title>MAKE-BABYLON-MENU-ITEM</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc245.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc243.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>MAKE-BABYLON-MENU-ITEM</strong></font></center><p>
+
+<PRE>MAKE-BABYLON-MENU-ITEM
+======================
+
+syntax: (make-babylon-menu-item &lt;interface&gt;
+           &lt;menu&gt; &lt;name&gt; &lt;label&gt; 
+           &amp;optional &lt;action&gt; &amp;rest &lt;args&gt;)
+
+This function makes a menu-item for an existing menu. 
+&lt;menu&gt; is the name from the existing menu. &lt;name&gt; is 
+the name for the menu-item. &lt;label&gt; is the text from 
+the menu-item. &lt;action&gt; starts a task, after the 
+user has pressed the menu-button. 
+
+example: &gt;(defun make-kb-interface (interface)
+             (add-babylon-menu-item interface
+             (make-babylon-menu-item (get-babylon-menu
+             interface &quot;menu1&quot;) &quot;menu-item1&quot; &quot;item1&quot;
+             '(start 'input-demo-task interface))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc245.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc243.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- MAKE-BABYLON-MENU-ITEM done --!>

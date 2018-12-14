@@ -1,0 +1,88 @@
+<html><head><title>ASK</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc330.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc328.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>ASK</strong></font></center><p>
+
+<PRE>ASK
+===
+
+Syntax: (ask &lt;Pr&auml;dikation&gt; [:once]
+             &lt;bql-continuation&gt;)
+
+Diese Funktion stellt Anfragen an die Wissens-
+basis. Der WENN- und DANN-Teil einer Regel 
+entsprechen in ihrer Bedeutung einer ASK-
+Anfrage und deren &lt;bql-continuation&gt;. Ein ASK
+ist &auml;hnlich einer Regelausf&uuml;hrung. Die
+&lt;Pr&auml;dikation&gt; entspricht dem WENN-Teil, die
+&lt;bql-continuation&gt; dem DANN-Teil. Letztere
+kommt nur zur Ausf&uuml;hrung, falls erstere
+wenigstens einmal erf&uuml;llbar ist.
+
+Die &lt;Pr&auml;dikation&gt; kann wie folgt aussehen
+  [&lt;Framename&gt; &lt;Instanz&gt;],
+oder
+  [&lt;Relationsname&gt; &lt;Instanz&gt; &lt;Wert&gt;]
+Sie kann durch logische Operatoren
+wie  [and ...  oder  [or ...  verkn&uuml;pft
+werden.
+
+&lt;Instanz&gt; und &lt;Wert&gt; k&ouml;nnen eine logische
+Variable enthalten, die durch einen Unter-
+strich am Namensanfang (z.B.: _ein-computer)
+erkannt werden kann. Die entsprechende Bele-
+gung wird in der Wissensbasis gesucht und an
+der Variablen gebunden.
+
+&lt;bql-continuation&gt; besteht aus babylon-Aus-
+dr&uuml;cken, die logische Variablen enthalten
+d&uuml;rfen, sofern sie in &lt;Pr&auml;dikation&gt; benutzt
+werden. Die &lt;bql-continuation&gt; wird wiederholt
+bis keine unterschiedliche Belegungen f&uuml;r die
+logische Variable mehr existieren. Die Be-
+legungen sind gleich, wenn die Werte der
+logischen Variable EQUAL sind.
+
+[:once] bedeutet das die continuation nur ein-
+mal ausgef&uuml;hrt wird. Die Funktion ASK wird
+anhalten, nachdem sie die erste Belegung in der
+Pr&auml;dikation gefunden hat.
+
+ASK liefert immer NIL.
+
+Beispiel: &gt;(ask
+            [or
+             [Optionen SIEMENS-NIXDORF _option]
+             [Optionen WANG _option]]
+            (kb-format &quot;~% ~A&quot;
+            (name-of _option)))
+          1GB-FESTPLATTE
+          16MB-RAM
+          850MB-FESTPLATTE
+          QUAD-SPEED-CDROM
+          NIL
+
+Siehe auch die HAS-PART Pr&auml;dikation, sowie die
+Operatoren ELEMENT-OF und MATCH, deren R&uuml;ckgabe-
+werte nur im Zusammenhang mit ASK sinnvoll sind.
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc330.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc328.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- ASK done --!>

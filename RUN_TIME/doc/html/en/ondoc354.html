@@ -1,0 +1,88 @@
+<html><head><title>DEFINE-RULE</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc355.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc353.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-RULE</strong></font></center><p>
+
+<PRE>DEFINE-RULE
+===========
+
+syntax: (define-rule &lt;rule-name&gt; &lt;ruleset-task-name&gt;
+           [:DOCUMENTATION &lt;documentation&gt;]
+           [:EXPLANATION &lt;explanation&gt;]
+           [:PRIORITY &lt;lisp-type: number&gt;]
+           IF &lt;rule-premise&gt;
+           {THEN | THEN-ONCE} &lt;rule-conclusion&gt;+)
+
+Warning: The explanation facility is not sup-
+         ported, hence :documentation and
+         :explanation are ignored.
+         The priority is ignored here! When loading
+         a babylon3 KB, priorities influence the 
+         placement of a given rule within a ruleset.
+         Babylon2 rules have high priority, when
+         they are placed at the beginning of a ruleset!
+
+This definition form describes the exact syntax 
+for making a rule.
+&lt;rule-name&gt; is the name of the rule, &lt;ruleset&gt; is
+the name of a set of rules, related to
+the new rule. The keywords ':documentation',
+':explanation' and ':priority' are optional.
+The keywords:
+                 if &lt;left-side&gt; then &lt;right-side&gt;
+ or
+                 if &lt;left-side&gt; then-once &lt;right-side&gt;
+
+follow the rule in the natural notation.
+The priority is an integer. If more than one rule
+have valid instances and the rule evaluation has to
+be controlled by the priority, then the rule with
+the highest priority number will be executed first.
+
+It is possible to use all the BQL-expressions and
+Lisp-expressions in the rule-premise, as long as they
+do not have side effects on the knowledge base.
+
+All the BQL-expressions and Lisp-expressions can be
+used in the rule conclusion. Here you will
+normaly change the knowledge base with
+tell or retell.
+
+example: &gt;(define-rule HOLIDAYCHOICE
+             HOLIDAYOFFER
+             :documentation &quot;choose a city&quot;
+             :explanation ((&quot;this rule has
+               to pick out a city&quot;))
+             :priority 1
+             IF
+             [and [holidayinterests a-client _x]
+               [countries _country]
+               (client-satisfied a-client _country)
+               [cities _country _city]
+               [offer _city _offer]
+               (is-of-frame _offer _x)]
+             THEN
+             (kb-format &quot;~%Visit ~:(~A~)
+                  in ~: (~A~).&quot;
+             (name-of _offer) (name-of _city)))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc355.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc353.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-RULE done --!>

@@ -1,0 +1,176 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.task    Hans Groschwitz        19.07.95   !!
+!!                 Stephan Peters                    !!
+!!                                                   !!
+!!   Functions to build the task-editor.             !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! are the new dialogs UNUSED ?!?
+
+!*** HACK -- to be hardcoded later ??? ***
+
+Task-Editor*kb_label.height:                     30 
+Task-Editor*kb_button.height:                    30 
+Task-Editor*task_label.height:                   30 
+Task-Editor*task_button.height:                  30 
+Task-Editor*args_label.height:                   30 
+Task-Editor*comm_label.height:                   30 
+Task-Editor*body_label.height:                   30 
+
+!*** general settings ***
+
+Task-Editor.width:                               600
+Task-Editor.height:                              700
+
+!*** language settings ***
+
+Task-Editor.title:                               Task-Editor
+Task-Editor.iconName:                            Task
+
+Task-Editor*help_menu_button.mnemonic:           H
+Task-Editor*on_menu_button.mnemonic:             M
+Task-Editor*on_syntax.mnemonic:                  S
+
+#ifdef __english
+Task-Editor*help_menu_button.labelString:        Help
+Task-Editor*on_menu_button.labelString:          On Menu ...
+Task-Editor*on_syntax.labelString:               On Syntax ...
+!
+Task-Editor*edit_menu_button.labelString:        Edit
+Task-Editor*edit_menu_button.mnemonic:           E
+Task-Editor*save_button.labelString:             Apply this Task ...
+Task-Editor*save_button.mnemonic:                A
+Task-Editor*del_task_button.labelString:         Delete this Task ...
+Task-Editor*del_task_button.mnemonic:            D
+Task-Editor*undo_button.labelString:             Undo Changes
+Task-Editor*undo_button.mnemonic:                U
+!
+Task-Editor*kb_label.labelString:                Knowledge Base:
+Task-Editor*task_label.labelString:              Task:
+Task-Editor*args_label.labelString:              Variables: 
+Task-Editor*comm_label.labelString:              Comment:
+Task-Editor*body_label.labelString:              Body:
+Task-Editor*kb_button.labelString:               (none)
+Task-Editor*task_button.labelString:             (none)
+!
+Task-Editor*kb_selection_popup.title:            Choose a Knowledge Base
+Task-Editor*kb_selection.listLabelString:        Known knowledge bases
+!
+Task-Editor*kb_selection_msg.dialogTitle:        Incorrect Input
+Task-Editor*kb_selection_msg.messageString:      Please choose a knowledge base!
+!
+Task-Editor*task_selection_popup.title:          Choose a Task
+Task-Editor*task_selection.listLabelString:      Known tasks
+Task-Editor*task_selection.selectionLabelString: Selection / new task
+!
+Task-Editor*task_selection_msg.dialogTitle:      Incorrect Input
+Task-Editor*task_selection_msg.messageString:    Please choose a task!
+!
+Task-Editor*save_war_popup.Title:                Task-Apply Confirmation
+Task-Editor*save_war_popup.messageString:        \
+ Do you really want to apply this task?
+Task-Editor*save_war.okLabelString:              Yes
+Task-Editor*save_war.cancelLabelString:          No
+!
+Task-Editor*del_task_war_popup.Title:            Task-Delete Confirmation
+Task-Editor*del_task_war.messageString:          \
+ Do you really want to delete this task?
+Task-Editor*del_task_war.okLabelString:          Yes
+Task-Editor*del_task_war.cancelLabelString:      No
+!
+!!!!!!!! new dialogs: 2 identical versions ==> should be one!
+!!!
+Task-Editor*task_selection_war_popup.Title:      Task-Overwrite Confirmation
+Task-Editor*task_selection_war.messageString:    \
+ Should this modified task be overwritten?
+Task-Editor*task_selection_war.okLabelString:    Yes
+Task-Editor*task_selection_war.cancelLabelString:No
+!
+Task-Editor*kb_selection_war_popup.Title:        Task-Overwrite Confirmation
+Task-Editor*kb_selection_war.messageString:      \
+ Should this modified task be overwritten?
+Task-Editor*kb_selection_war.okLabelString:      Yes
+Task-Editor*kb_selection_war.cancelLabelString:  No
+
+#else /* deutsch */
+Task-Editor*help_menu_button.labelString:        Hilfe
+Task-Editor*on_menu_button.labelString:          zum Men\374 ...
+Task-Editor*on_syntax.labelString:               zur Syntax ...
+!
+Task-Editor*edit_menu_button.labelString:        Bearbeiten
+Task-Editor*edit_menu_button.mnemonic:           B
+Task-Editor*save_button.labelString:             Diese Task \374bernehmen ...
+Task-Editor*save_button.mnemonic:                T
+Task-Editor*del_task_button.labelString:         Diese Task l\366schen ...
+Task-Editor*del_task_button.mnemonic:            l
+Task-Editor*undo_button.labelString:             \304nderungen zur\374cknehmen
+Task-Editor*undo_button.mnemonic:                z
+!
+Task-Editor*kb_label.labelString:                Wissenbasis:
+Task-Editor*task_label.labelString:              Task:
+Task-Editor*args_label.labelString:              Variablen:
+Task-Editor*comm_label.labelString:              Kommentar:
+Task-Editor*body_label.labelString:              K\366rper:
+Task-Editor*kb_button.labelString:               (unbestimmt)
+Task-Editor*task_button.labelString:             (unbestimmt)
+!
+Task-Editor*kb_selection_popup.title:            Auswahl der Wissensbasis
+Task-Editor*kb_selection.listLabelString:        Bekannte Wissensbasen
+Task-Editor*kb_selection.cancelLabelString:      Abbrechen
+!
+Task-Editor*kb_selection_msg.dialogTitle:        Falsche Eingabe
+Task-Editor*kb_selection_msg.messageString:      Bitte w\344hlen Sie eine Wissensbasis aus!
+!
+Task-Editor*task_selection_popup.title:          Auswahl einer Task
+Task-Editor*task_selection.listLabelString:      Bekannte Tasks
+Task-Editor*task_selection.selectionLabelString: Auswahl / neue Task
+Task-Editor*task_selection.cancelLabelString:    Abbrechen
+!
+Task-Editor*task_selection_msg.dialogTitle:      Falsche Eingabe
+Task-Editor*task_selection_msg.messageString:    Bitte w\344hlen Sie eine Task aus!
+!
+Task-Editor*save_war_popup.Title:                Task-\334bernehmen Best\344tigung
+Task-Editor*save_war.messageString:              \
+ Wollen Sie diese Task wirklich \374bernehmen?
+Task-Editor*save_war.okLabelString:              Ja
+Task-Editor*save_war.cancelLabelString:          Nein
+!
+Task-Editor*del_task_war_popup.Title:            Task-L\366schen Best\344tigung
+Task-Editor*del_task_war.messageString:          \
+ Wollen Sie diese Task wirklich l\366schen?
+Task-Editor*del_task_war.okLabelString:          Ja
+Task-Editor*del_task_war.cancelLabelString:      Nein
+!
+!!!!!!!! Neue Dialoge: beide gleich ==> einer reicht!
+!!!
+Task-Editor*task_selection_war_popup.Title:      Task-\334berschreiben Best\344tigung
+Task-Editor*task_selection_war.messageString:    \
+ Soll die ge\344nderte Task \374berschrieben werden? 
+Task-Editor*task_selection_war.okLabelString:    Ja
+Task-Editor*task_selection_war.cancelLabelString:Nein
+!
+Task-Editor*kb_selection_war_popup.Title:        Task-\334berschreiben Best\344tigung
+Task-Editor*kb_selection_war.messageString:      \
+ Soll die ge\344nderte Task \374berschrieben werden? 
+Task-Editor*kb_selection_war.okLabelString:      Ja
+Task-Editor*kb_selection_war.cancelLabelString:  Nein
+
+#endif /* english */
+
+!*** color settings ***
+
+#ifdef COLOR
+Task-Editor*background:                          azure
+Task-Editor*del_task_war*background:             red
+Task-Editor*save_war*background:                 red
+Task-Editor*kb_selection_war*background:         red
+Task-Editor*task_selection_war*background:       red
+Task-Editor*kb_selection_msg*background:         red
+Task-Editor*task_selection_msg*background:       red
+
+#else   !!! MONO: here non-default settings only, please!
+
+#endif
+
+!!! EOF

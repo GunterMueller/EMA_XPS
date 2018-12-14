@@ -1,0 +1,57 @@
+<html><head><title>KB-MULTIPLE-CHOOSE-FROM-MENU</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc233.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc231.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>KB-MULTIPLE-CHOOSE-FROM-MENU</strong></font></center><p>
+
+<PRE>KB-MULTIPLE-CHOOSE-FROM-MENU
+============================
+
+Syntax: (kb-multiple-choose-from-menu
+           &lt;babylon-menu-item-list&gt;
+           &lt;babylon-menu-title&gt;
+           [&lt;item-extraction-function&gt;])
+
+Mit KB-MULTIPLE-CHOOSE-FROM-MENU erhalten Sie einen
+Dialog mit verschiedenen Men&uuml;intr&auml;gen, aus denen
+Sie sich mehrere ausw&auml;hlen k&ouml;nnen. Die BABYLON-
+MENU-ITEM-LIST enth&auml;lt die Men&uuml;eintr&auml;ge. Der
+BABYLON-MENU-TITLE ist die Dialog&uuml;berschrift. Mit
+ITEM-EXTRACTION-FUNCTION k&ouml;nnen Sie optional eine
+Funktion angeben, mit der Sie bestimmen, wie sich
+die Eintr&auml;ge darstellen sollen. Sie haben die
+M&ouml;glichkeit zwischen Ja und Nein zu w&auml;hlen. Bei
+Best&auml;tigung werden die selektierten Men&uuml;eintr&auml;ge
+als Liste zur&uuml;ckgeliefert, bei Nein wird NIL zu-
+r&uuml;ckgeliefert. Die Best&auml;tigung ohne Selektion
+wird wie Nein behandelt.
+
+Beispiel: &gt;(kb-multiple-choose-from-menu
+              (instances-of 'Stadt)
+              &quot;Welche der St&auml;dte wollen Sie
+              besuchen&quot; #'name-of)
+          ==&gt;
+          Erzeugt einen OK-Dialog, indem Sie sich
+          f&uuml;r mehrere St&auml;dte entscheiden k&ouml;nnen.
+          Die St&auml;dte, f&uuml;r die Sie sich entschieden
+          haben, kommen als Objektliste zur&uuml;ck.
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc233.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc231.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- KB-MULTIPLE-CHOOSE-FROM-MENU done --!>

@@ -1,0 +1,65 @@
+<html><head><title>RETELL-INSTANCE-VALUE</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc305.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc303.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>RETELL-INSTANCE-VALUE</strong></font></center><p>
+
+<PRE>RETELL-INSTANCE-VALUE
+=====================
+
+Syntax: (retell-instance-value 
+                        &lt;evaluates-to Relationsname&gt;
+                        &lt;evaluates-to Instanz-Spec&gt;
+                        {&lt;Lisp-Typ: T&gt; | &lt;set&gt;}
+                            ;; Tell-Wert
+                        &lt;Lisp-Typ: T&gt;
+                            ;; Untell-Wert
+                        [:write-dependents
+                            {T | NIL | Var}]
+                        [:probe
+                            {T | NIL | :and-do | Var}])
+
+Ist Untell-Wert in der Wertemenge der Instanzrelation 
+enthalten, so wird er entfernt und der Tell-Wert, bzw. 
+die nicht bereits enthaltenen Elemente des Tell-
+Wertes, hinzugef&uuml;gt. Ein Wert wird ersatzlos 
+entfernt, falls Tell-Wert eine Teilmenge der 
+Wertemenge ist. Ist der Untell-Wert nicht in der 
+Wertemenge enthalten, kann keine Ersetzung folgen.
+Ist der Schalter ':write-dependents' ungleich NIL, 
+werden nach dem scheibenden Zugriff eventuell 
+vorhandene write-dependents &uuml;ber die Werte&auml;nderung 
+informiert.
+R&uuml;ckgabewert ist die ver&auml;nderte Wertemenge oder 
+NIL, wenn der Untell-Wert nicht in der Wertemenge 
+enthalten ist.
+
+Beispiel: &gt;(retell-instance-value 'angebote Paris
+                                  Hofbr&auml;uhaus 
+                                  Louvre)
+          #&lt;set-of ANGEBOT (...)&gt;
+    
+          &gt;(retell-instance-value 'angebote Paris
+                                  {Hofbr&auml;uhaus} 
+                                  Centre-Pompidou)
+          NIL
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc305.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc303.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- RETELL-INSTANCE-VALUE done --!>

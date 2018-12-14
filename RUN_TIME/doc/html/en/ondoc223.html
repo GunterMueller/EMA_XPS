@@ -1,0 +1,88 @@
+<html><head><title>FORMAT</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc224.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc222.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>FORMAT</strong></font></center><p>
+
+<PRE>FORMAT
+======
+
+syntax: (format &lt;stream&gt; &lt;format-string&gt; {&lt;arg&gt; ...})
+
+This function is used to produce a formatted output.
+The format directives consist of a tilde (~), 
+optional prefix parameters separated by commas, 
+optional colon (:) and at-sign (@) modifiers, 
+and a single character indicating what kind of 
+directive this is.
+
+~A     Ascii. An &lt;arg&gt;, any Lisp object, is printed 
+               without escape characters. The output 
+               is not suitable for input to read.
+~S     Symbolic-expression. This is just like ~A, 
+               but &lt;arg&gt; is printed with escape 
+               characters. The output is therefore 
+               suitable for input to read.
+~D     Decimal. An &lt;arg&gt;, which should be an integer, 
+               is printed in decimal radix.
+~B     Binary. This is just like ~D but prints in 
+               binary radix instead of decimal.
+~O     Octal. This is just like ~D but prints in 
+               octal radix instead of decimal.
+~X     Hexadecimal. This is just like ~D but prints 
+               in hexadecimal radix instead of 
+               decimal.
+~F     Fixed-format floating-point. The next &lt;arg&gt; 
+               is printed as a floating point number. 
+               The full form is ~w,d,kF. The 
+               parameter w is the width of the field 
+               to be printed. d is the number of 
+               digits to print after the decimal 
+               point. k is a scale factor that 
+               defaults to zero.
+~E     Exponential floating-point. The next &lt;arg&gt; is 
+               printed as a floating point number in 
+               exponential notation. The full form is
+               ~w,d,e,kE. e is the number of digits 
+               to use when printing the exponent.
+~$     Dollars floating-point. The next argument is 
+               printed as a floating-point number in 
+               fixed-format notation. This format is
+               particularly convenient for printing 
+               a value as dollars and cents. The full 
+               form is ~d,n,w$. n is the minimum 
+               number of digits to print before the
+               decimal point (default value 1)
+~%     This outputs a #\newline character, thereby 
+               terminating the current output line 
+               and beginning a new one.
+~|     This outputs a page separator character, if 
+               possible.
+~T     Tabulate. This spaces over to a given column. 
+               ~colnum,colincT will output sufficient 
+               spaces to move the cursor to column
+               'colnum'.
+~~     This outputs a tilde.
+~&lt;nl&gt;  Tilde immediately followed by a newline 
+               ignores the newline and any following 
+               non-newline whitespace characters.
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc224.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc222.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- FORMAT done --!>

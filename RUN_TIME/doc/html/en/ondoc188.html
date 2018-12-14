@@ -1,0 +1,42 @@
+<html><head><title>GETF</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc189.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc187.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>GETF</strong></font></center><p>
+
+<PRE>GETF
+====
+
+syntax: (getf &lt;place&gt; &lt;indicator&gt; [&lt;default&gt;])
+
+This function searches in the list &lt;place&gt; for the
+element &lt;indicator&gt;. It returns the value, which
+belongs to the element, when the indicator is found.
+Otherwise &lt;default&gt; or NIL will be returned.
+
+example:       &gt;(setf pl '(a 1 b 2 c 3))
+               (A 1 B 2 C 3)
+               &gt;(getf pl 'b)
+               2
+               &gt;(getf pl 'x 'nothing)
+               NOTHING
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc189.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc187.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- GETF done --!>

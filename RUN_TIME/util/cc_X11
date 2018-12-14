@@ -1,0 +1,53 @@
+#!/bin/sh
+########################################################
+#   cc_X11           Hans Groschwitz       16.08.96    #
+#                                                      #
+#   This workarounds the missing GNU configure.        #
+#   See file util/PORTING for hints.                   #
+########################################################
+
+uname=`uname`
+
+if [ $uname = Linux ]; then
+   cc="gcc -O4"
+   opts="-I/usr/include/X11 -I/usr/X11R6/include"
+   optx=""
+elif [ $uname = CYGWIN_NT-5.1 ]; then
+   ## Cygwin@WinXP + OpenMotif230
+   cc="gcc -O4"
+   opts="-I/usr/include/X11 -I/usr/X11R6/include"
+   optx=""
+elif [ $uname = SunOS ]; then
+   cc="gcc -O4"
+   opts="-I/usr/include/X11 -I/usr/X11R6/include"
+   optx=""
+elif [ $uname = IRIX ]; then
+   cc="gcc -O4"
+   opts="-I/usr/include/X11 -I/usr/X11R6/include"
+   ## see /usr/include/time.h and /usr/include/sys/types.h and man nanosleep!
+   ## Yes, I know, its upgly!!
+   optx="-Dusleep(x)={struct{long s,ns;}p;p.s=0;p.ns=((x)*1000);nanosleep(&p,NULL);}"
+elif [ $uname = AIX ]; then
+   cc="cc -O"
+   opts="-I/usr/include/X11 -I/usr/X11R6/include"
+   optx=""
+elif [ $uname = HP-UX ]; then
+   cc="gcc -O4"
+   opts="-I/usr/include/X11 -I/usr/X11R6/include"
+   optx="-Dusleep(x)={struct{long s,ns;}p;p.s=0;p.ns=((x)*1000);nanosleep(&p,NULL);}"
+else
+   echo "$uname is currently unsupported!" 1>&2
+   exit 1
+fi
+
+echo "$uname: $cc $opts $optx $*" 1>&2
+
+## WARNING: Because of the "" in exec:
+## If optx is empty, an empty argv[n] is produced, which irritates the ld
+
+if [ -z "$optx" ]; then
+   exec $cc $opts $*
+fi
+exec $cc $opts "$optx" $*
+
+### eof

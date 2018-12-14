@@ -1,0 +1,1989 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!    babylon3 session screen documentation      !!
+!!    including the correspoding popup dialogs   !!
+!!    for the Help Utility                       !!
+!!                                               !!
+!!    help-cv converts "\nFF\n" to "\n\f\n" and  !!
+!!    outputs only lines beginning with a ".".   !!
+!!    This DOT is not transfered !!              !!
+!!                                               !!
+!!    The ">" works like "." but should be the   !!
+!!    first printed line of a topic. It is used  !!
+!!    as the BROWSE-keyword!                     !!
+!!                                               !!
+!!    The well known switch is __english         !!
+!!                                               !!
+!!    ======================================     !!
+!!                                               !!
+!!    WARNING: because of a flaw in GNU cpp you  !!
+!!    only should use backquotes in spite of     !!
+!!    quotes!                                    !!
+!!                                               !!
+!!         ae = \344            Ae = \304        !!
+!!         oe = \366            Oe = \326        !!
+!!         ue = \374            Ue = \334        !!
+!!         sz = \337     Paragraph = \247        !!
+!!                                               !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!
+! no heading FF allowed in front of the first page !!
+! ---------------------------------------------------
+!
+
+#ifdef __english
+>USER-INTERFACE
+.User-Interface
+.==============
+.
+.The following pages describe the babylon3 stylus
+.access to the GUI builder and the popup dialogs.
+.
+.Documentation of the original EMA-XPS functions
+.is avoided.
+.
+.WARNING 1: babylon3 offers one graphic interface
+.per running KB. EMA-XPS offers only one interface,
+.which is shared by all running KBs!
+.
+.WARNING 2: EMA-XPS does not offer the babylon3
+.textual interface. Instead it offers a simple 
+.session screen, which is NOT compatible to babylon3!
+.
+.The organisation of this capter is close to
+.chapters 4 (popups) and 6 (main screen) of the    
+.babylon3 documentation.   
+
+#else
+>ENDBENUTZERSCHNITTSTELLE
+.Endbenutzerschnittstelle
+.========================
+.
+.Die folgenden Seiten beschreiben die Programm-
+.bibliothek zur Erstellung grafischer Endbenutzer-
+.schnittstellen sowie der zugeh\366rigen Popup-
+.dialoge.
+.
+.Auf eine Dokumentation der originalen EMA-XPS
+.Funktionsaufrufe wird hier verzichtet.
+.
+.WARNUNG 1: babylon3 bietet pro laufender Wissensbasis
+.ein eigenes Sitzungsfenster. EMA-XPS dagegen stellt
+.nur ein Sitzungsfenster bereit, das dann von allen
+.laufenden Wissensbasen gleicherma\337en genutzt wird!
+.
+.WARNUNG 2: Unter babylon3 existiert die M\366glichkeit,
+.Sitzungen rein textstromorientiert ablaufen zu lassen.
+.Diese ist unter EMA-XPS nicht nachgebildet worden.
+.Stattdessen steht ein zu babylon3 inkompatibler
+.Simple Session Screen zur Verf\374gung!
+.
+.Die Organisation dieses Kapitels ist angelehnt an
+.die der Kapitel 4 (Popup Dialoge) und 6 (Sitzungs-
+.fenster) der babylon3 Dokumentation.
+
+#endif
+
+FF
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!    babylon3 GUI session screen popup dialogs  !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+>KB-CONFIRM
+.KB-CONFIRM
+.==========
+#ifdef __english
+.
+.syntax: (kb-confirm <babylon-format-string>
+.                    {<babylon-format-arg> ...})
+.
+.This function produces a confirmation-dialogue in an
+.own window. You can choose between yes and no.
+.If you confirm then T will be returned, otherwise NIL.
+.
+.example: >(ask [city _x]
+.               (kb-confirm "Would you like to
+.               visit ~A ?"
+.               (name-of _x)))
+.         Would you like to visit New-York ?
+.
+#else
+.
+.Syntax: (kb-confirm <Babylon-Format-Zeichenkette>
+.                    {<Babylon-Format-Arg> ...})
+.
+.Diese Funktion erzeugt einen Best\344tigungsdialog
+.in einem eigenen Fenster. Sie haben die M\366glich-
+.keit zwischen Ja und Nein zu w\344hlen.
+.Bei Best\344tigung wird T geliefert, sonst NIL.
+.
+.Beispiel: >(ask [Stadt _x]
+.                (kb-confirm "Wollen Sie die
+.                Stadt ~A besuchen?"
+.                (name-of _x)))
+.          Wollen Sie die Stadt Bonn besuchen?
+.
+#endif
+
+FF
+
+>KB-CHOOSE-FROM-MENU
+.KB-CHOOSE-FROM-MENU
+.===================
+#ifdef __english
+.
+.syntax: (kb-choose-from-menu
+.              <babylon-menu-item-list>
+.              <babylon-menu-title>
+.              [<item-extraction-function])
+.
+.With this function you get a dialogue with more
+.than one menu-items, from which you can choose
+.one. The babylon-menu-item-list contains the
+.menu-items. The babylon-menu-title is the text
+.above the dialogue. With the item-extraction-function
+.you can optionally specify how to represent the items.
+.You can choose between "yes" and "no". If you confirm
+.the selected menu-item will be returned, otherwise
+.NIL. A confirmation without a selection equals a "no".
+.
+.example: >(kb-choose-from-menu 
+.             `((AMSTERDAM HOLLAND) 
+.               (BERLIN GERMANY))
+.             "city:" #`first)
+.         (AMSTERDAM HOLLAND) will be returned
+.         after you have chosen the menu-item
+.         AMSTERDAM!
+.
+#else
+.
+.Syntax: (kb-choose-from-menu
+.              <babylon-menu-item-list>
+.              <babylon-menu-title>
+.              [<item-extraction-function])
+.
+.Mit dieser Funktion erhalten Sie einen Dialog mit
+.mehreren Men\374eintr\344gen, aus denen Sie sich eines
+.ausw\344hlen k\366nnen. Die babylon-menu-item-list
+.enth\344lt die Men\374eintr\344ge. Der babylon-menu-
+.title ist die Dialog\374berschrift. Mit item-
+.extraction-function k\366nnen Sie optional eine
+.Funktion angeben, mit der Sie bestimmen, wie sich
+.die Eintr\344ge darstellen sollen. Sie haben die
+.M\366glichkeit zwischen Ja und Nein zu w\344hlen.
+.Bei Best\344tigung wird der selektierte Men\374eintrag
+.zur\374ckgeliefert, bei Nein wird NIL zur\374ckge-
+.liefert. Die Best\344tigung ohne Selektion wird wie
+.Nein behandelt.
+.
+.Beispiel: >(kb-choose-from-menu
+.              `((AMSTERDAM NIEDERLANDE)
+.                (BERLIN DEUTSCHLAND))
+.              "Stadt:" #`first)
+.          (AMSTERDAM NIEDERLANDE) wird geliefert
+.          nachdem Sie den Men\374eintrag AMSTERDAM
+.          gew\344hlt haben!
+.
+#endif
+
+
+FF
+
+
+>KB-DECIDE
+.KB-DECIDE
+.=========
+#ifdef __english
+.
+.syntax: (kb-decide <string>)
+.
+.This function returns a yes-no-cancel dialogue.
+.You get a suggestion. Then you can decide whether
+.you accept it or not. It returns T by "yes",
+.NIL by "no" and :cancel if you choose "cancel".
+.
+.example: >(kb-decide "go to Main Menu?")
+.         T       will be returned if you have
+.                   choosen yes. 
+.
+#else
+.
+.Syntax: (kb-decide <Zeichenkette>)
+.
+.Diese Funktion liefert einen Ja-Nein-Abbrechen
+.Dialog. Sie erhalten einen Vorschlag und k\366nnen
+.sich entscheiden, ob Sie ihn annehmen oder ver-
+.werfen  bzw. lieber abbrechen wollen.
+.Sie liefert T bei Ja, NIL bei Nein und :cancel
+.wenn Sie Abbrechen ausw\344hlen.
+.
+.Beispiel: >(kb-decide "gehe zu Hauptmen\374?")
+.          T      wird geliefert, wenn Sie
+.                   Ja gew\344hlt haben.
+.
+#endif
+
+FF
+
+>KB-FORMAT
+.KB-FORMAT
+.=========
+#ifdef __english
+.
+.syntax: (kb-format <babylon-format-string>
+.                   {<babylon-format-arg> ...})
+.
+.With KB-FORMAT you get an output. KB-FORMAT
+.always returns NIL.
+.
+.example: >(ask [capital-city _city]
+.               (kb-format "~%~A" (name-of _city)))
+.         Paris
+.         London
+.         Amsterdam
+.
+.         >(kb-format "Visit ~{~A ~}"
+.           (set-to-list
+.            (ask-instance-values `offer Paris)))
+.         Visit
+.         (Louvre Notre-Dame Moulin-Rouge)
+.
+#else
+.
+.Syntax: (kb-format <babylon-Format-Zeichenkette>
+.                   {<babylon-Format-Arg> ...})
+.
+.Mit KB-FORMAT erhalten Sie eine Ausgabe. KB-FORMAT
+.gibt immer NIL zur\374ck.
+.
+.Beispiel: >(ask [Hauptstadt _stadt]
+.                 (kb-format "~%~A" (name-of _stadt)))
+.          Paris
+.          Londen
+.          Amsterdam
+.
+.          >(kb-format "Besuchen Sie ~{~A ~}"
+.             (set-to-list
+.              (ask-instance-values `Angebote Paris)))
+.          Besuchen Sie
+.          (Louvre Notre-Dame Moulin-Rouge)
+.
+#endif
+
+FF
+
+>KB-MULTIPLE-CHOOSE-FROM-MENU
+.KB-MULTIPLE-CHOOSE-FROM-MENU
+.============================
+#ifdef __english
+.
+.syntax: (kb-multiple-choose-from-menu
+.              <babylon-menu-item-list>
+.              <babylon-menu-title>
+.              [<item-extraction-function>])
+.
+.With KB-MULTIPLE-CHOOSE-FROM-MENU you get a
+.dialogue with different menu-items from which
+.you can choose some. The BABYLON-MENU-ITEM-LIST
+.contains the menu-items. The BABYLON-MENU-TITLE
+.is written above the dialogue.
+.With the ITEM-EXTRACTION-FUNCTION you can
+.optionally define how to output the items.
+.You can choose between yes and no.
+.If you confirm, then the selected menu-items
+.will be returned as a list, otherwise NILL will
+.be returned.
+.
+.example: >(kb-multiple-choose-from-menu
+.             (instances-of `city)
+.             "Which of these cities do you
+.             want to visit" #`name-of)
+.        ==>
+.        gives an OK-dialogue, in which you
+.        can choose several cities. The cities
+.        that have been chosen will be returned
+.        as an objectlist.
+.
+#else
+.
+.Syntax: (kb-multiple-choose-from-menu
+.           <babylon-menu-item-list>
+.           <babylon-menu-title>
+.           [<item-extraction-function>])
+.
+.Mit KB-MULTIPLE-CHOOSE-FROM-MENU erhalten Sie einen
+.Dialog mit verschiedenen Men\374intr\344gen, aus denen
+.Sie sich mehrere ausw\344hlen k\366nnen. Die BABYLON-
+.MENU-ITEM-LIST enth\344lt die Men\374eintr\344ge. Der
+.BABYLON-MENU-TITLE ist die Dialog\374berschrift. Mit
+.ITEM-EXTRACTION-FUNCTION k\366nnen Sie optional eine
+.Funktion angeben, mit der Sie bestimmen, wie sich
+.die Eintr\344ge darstellen sollen. Sie haben die
+.M\366glichkeit zwischen Ja und Nein zu w\344hlen. Bei
+.Best\344tigung werden die selektierten Men\374eintr\344ge
+.als Liste zur\374ckgeliefert, bei Nein wird NIL zu-
+.r\374ckgeliefert. Die Best\344tigung ohne Selektion
+.wird wie Nein behandelt.
+.
+.Beispiel: >(kb-multiple-choose-from-menu
+.              (instances-of `Stadt)
+.              "Welche der St\344dte wollen Sie
+.              besuchen" #`name-of)
+.          ==>
+.          Erzeugt einen OK-Dialog, indem Sie sich
+.          f\374r mehrere St\344dte entscheiden k\366nnen.
+.          Die St\344dte, f\374r die Sie sich entschieden
+.          haben, kommen als Objektliste zur\374ck.
+.
+#endif
+
+FF
+
+>KB-NOTIFY
+.KB-NOTIFY
+.=========
+#ifdef __english
+.
+.syntax: (kb-notify <babylon-format-string>
+.                   {<babylon-format-arg> ...})
+.
+.KB-NOTIFY returns a confirmation-dialogue, which means
+.that you will get an output and you can press Yes.
+.
+.example: >(ask [city _x] (kb-notify "~A" _x))
+.         NIL
+.         >(kb-notify "~{~%~A ~}"
+.            (instances-of `city :identifier T))
+.         T
+.
+#else
+.
+.Syntax: (kb-notify <babylon-Format-Zeichenkette>
+.                   {<babylon-Format-Arg> ...})
+.
+.KB-NOTIFY liefert einen Best\344tigungsdialog, d.h.
+.Sie erhalten eine Ausgabe und k\366nnen Ja dr\374cken.
+.
+.Beispiel: >(ask [Stadt _x] (kb-notify "~A" _x))
+.          NIL
+.          >(kb-notify "~{~%~A ~}"
+.             (instances-of `Stadt :identifier T))
+.          T
+.
+#endif
+
+FF
+
+>KB-PROMPT
+.KB-PROMPT
+.=========
+#ifdef __english
+.
+.syntax: (kb-prompt <babylon-format-string>
+.                   {<babylon-format-arg> ...})
+.
+.KB-PROMPT returns a dialogue with an input-request
+.and an input-field.
+.The input will be returned without being evaluated.
+.If you do not write anything into the field, then
+.NIL will be returned.
+.
+.example: >(kb-prompt "What is your name?")
+.         Ben
+.
+#else
+.
+.Syntax: (kb-prompt <babylon-Format-Zeichenkette>
+.                   {<babylon-Format-Arg> ...})
+.
+.KB-PROMPT liefert einen Dialog mit
+.Eingabeaufforderung und Eingabefeld.
+.Die von Ihnen gemachte Eingabe wird
+.zur\374ckgeliefert, jedoch nicht ausgewertet.
+.Machen Sie keine Eingabe, wird NIL
+.zur\374ckgeliefert.
+.
+.Beispiel: >(kb-prompt "Wie hei\337t du?")
+.          Marc
+.
+#endif
+
+FF
+
+>KB-READ
+.KB-READ
+.=======
+#ifdef __english
+.
+.syntax: (kb-read)
+.
+.KB-READ reads your input without evaluating it.
+.The input will be returned. If you do not give
+.any input, then NIL will be returned.
+.
+.example: >"Hello" (kb-read)
+.         "Hello"
+.
+#else
+.
+.Syntax: (kb-read)
+.
+.KB-READ liest ihre Eingabe ein, wertet sie jedoch
+.nicht aus. Die Eingabe wird zur\374ckgeliefert.
+.Machen Sie keine Eingabe, wird NIL zur\374ckgeliefert.
+.
+.Beispiel: >"Hallo" (kb-read)
+.          "Hallo"
+.
+#endif
+
+
+FF
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!    babylon3 session screen documentation      !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+>MAKE-BABYLON-PUSH-BUTTON
+.MAKE-BABYLON-PUSH-BUTTON
+.========================
+#ifdef __english
+.
+.syntax: (make-babylon-push-button <interface> 
+.           <wname> <xpos> <ypos> <width> <height>
+.           <label> <font> <color> 
+.           &optional <action> &rest <args>)
+.
+.This function defines a push-button for the window. 
+.<wname> is the name of the button. <xpos> and <ypos>
+.are the positions from the upper left corner. <width>
+.and <height> define the width and height of it.
+.<label> is the text on the button. <font> and <color>
+.are not supported  by Babylon v3. <action> describes
+.the task that will be started when the button is
+.pushed. The defined button will appear in the
+.<interface>.
+.
+.example: >(defun make-kb-interface (interface)
+.             (add-window-elements
+.             interface
+.             (list (make-babylon-push-button interface
+.             "PSHB1" 400 300 100 50  "OPTIONS" nil nil
+.             `(start `options-task interface)))))
+.
+#else
+.
+.Syntax: (make-babylon-push-button <Interface>
+.           <WName> <xPos> <yPos> <Breite> <H\366he>
+.           <Aufschrift> <Schriftfont> <Farbe> 
+.           &Optional <Aktion> &Rest <Arg>)
+.
+.Diese Funktion definiert einen "Push-Button" f\374r die 
+.Oberfl\344che. <WName> ist f\374r den Namen des Buttons. 
+.<xPos> und <yPos> geben die Position der oberen linken 
+.Ecke an. <Breite> und <H\366he> geben die Breite und H\366he 
+.des Buttons an. <Aufschrift> ist der Text auf dem
+.Button. <Schriftfont> und <Farbe> werden durch Babylon
+.v3 nicht unterst\374tzt. <Aktion> beschreibt die Task,
+.die bei dr\374cken der Taste gestartet wird. Der er-
+.zeugte Push-Button erscheint im Interface.
+.
+.Beispiel: >(defun make-kb-interface (interface)
+.              (add-window-elements
+.              interface
+.              (list
+.              (make-babylon-push-button interface
+.              "TASTE1" 400 300 100 50
+.              "OPTIONEN" nil nil
+.              `(start `optionen-task interface)))))
+.
+#endif
+
+FF
+
+>MAKE-BABYLON-GRAPHIC-BUTTON
+.MAKE-BABYLON-GRAPHIC-BUTTON
+.===========================
+#ifdef __english
+.
+.syntax: (make-babylon-graphic-button <interface>
+.           <wname> <xpos> <ypos> <width> <height> 
+.           <graphic-file> <color> 
+.           &optional <action> &rest <args>)
+.
+.This function defines a graphic-push-button for the 
+.window. <wname> is the name of the push-button.
+.<xpos> and <ypos> are the positions from the upper
+.left corner. <width> and <height> define the width
+.and height of the button. <graphic-file> is the name
+.of the graphic-file that will be used. <color> is not
+.supported by Babylon v3. <action> describes the task,
+.that will be started when the button is pressed. The
+.defined button will appear in the interface.
+.
+.example: >(defun make-kb-interface (interface)
+.             (add-window-elements
+.             interface
+.             (list (make-babylon-graphic-button 
+.             interface
+.             "PSHB1" 400 300 100 50
+.             "/bitmaps/horse" nil
+.             `(start `demo-task interface)))))
+.
+#else
+.
+.Syntax: (make-babylon-graphic-button <interface>
+.           <WName> <xPos> <yPos> <Breite> <H\366he> 
+.           <Grafik-Datei> <Farbe> 
+.           &Optional <Aktion> &Rest <Arg>)
+.
+.Diese Funktion definiert einen Grafik-Push-Button f\374r 
+.die Oberfl\344che. <WName> ist der Name des Buttons. 
+.<xPos> und <yPos> geben die Position der oberen linken 
+.Ecke an. <Breite> und <H\366he> definieren die Breite und 
+.H\366he des Buttons. <Grafik-Datei> ist der Name der 
+.Grafik-Datei, die benutzt wird. <Farbe> wird durch 
+.Babylon v3. nicht unterst\374tzt. <Aktion> beschreibt die 
+.Task, die bei dr\374cken der Taste aktiviert wird. Der 
+.erzeugte Grafik-Button erscheint im Interface.
+.
+.Beispiel: >(defun make-kb-interface (interface)
+.              (add-window-elements
+.              interface
+.              (list (make-babylon-graphic-button 
+.              interface
+.              "TASTE1" 400 300 100 50 
+.              "/bitmaps/pferd" nil
+.              `(start `demo-task interface)))))
+.
+#endif
+
+FF
+
+>MAKE-BABYLON-TEXT-LABEL
+.MAKE-BABYLON-TEXT-LABEL
+.=======================
+#ifdef __english
+.
+.syntax: (make-babylon-text-label <interface>
+.           <wname> <xpos> <ypos> <width> <height>
+.           <label> <frame> <font> <color>
+.           &rest <args>)
+.
+.This function defines a textfield on the window.
+.<wname> is the name of the field. <xpos> and <ypos>
+.give the position from the upper left corner. <width>
+.and <height> define the width and height of the
+.textfield. <frame>, <font> and <color> are not
+.supported by Babylon v3. The defined textfield will
+.appear in the interface.
+.
+.example: >(defun make-kb-interface (interface)
+.             (add-window-elements
+.             interface
+.             (list (make-babylon-text-label interface
+.             "BOX1" 400 300 100 50 "input:" 
+.             nil nil nil))))
+.
+#else
+.
+.Syntax: (make-babylon-text-label <Interface>
+.           <WName> <xPos> <yPos> <Breite> <H\366he>
+.           <Aufschrift> <Rahmen> <Schriftart> <Farbe>
+.           &Rest <Arg>)
+.
+.Diese Funktion definiert ein Textfeld auf der Ober-
+.fl\344che. <WName> ist der Name des Textfeldes. <xPos>
+.und <yPos> geben die Position der oberen linken Ecke
+.an. <Breite> und <H\366he> definieren die Gr\366\337e
+.des Textfeldes. <Aufschrift> beschreibt die Aufschrift
+.des Rahmens. <Rahmen>, <Schriftart> und <Farbe> werden
+.unter Babylon v3 nicht unterst\374tzt. Das erzeugte
+.Text-Feld erscheint im Interface.
+.
+.Beispiel: >(defun make-kb-interface (interface)
+.              (add-window-elements
+.              interface
+.              (list (make-babylon-text-label interface
+.              "BOX1" 400 300 100 50 "Eingabe:" 
+.              nil nil nil))))
+.
+#endif
+
+FF
+
+>MAKE-BABYLON-GRAPHIC-LABEL
+.MAKE-BABYLON-GRAPHIC-LABEL
+.==========================
+#ifdef __english
+.
+.syntax: (make-babylon-graphic-label <interface>
+.           <wname> <xpos> <ypos> <width> <height> 
+.           <graphic-file> <frame> <color> 
+.           &rest <args>)
+.
+.This function defines a graphic-box on the window.
+.<wname> is the name for the box. <xpos> and <ypos>
+.give the position from the upper left corner. <width>
+.and <height> define the size of the box. <graphic-
+.file> is the name of the graphic-file that will be
+.used. <frame> and <color> are not supported by Babylon
+.v3. The defined graphic-box will appear in the
+.interface.
+.
+.example: >(defun make-kb-interface (interface)
+.             (add-window-elements
+.             interface
+.             (list
+.             (make-babylon-graphic-label interface
+.             "BOX1" 400 300 100 50 "/bitmaps/horse" 
+.             nil nil))))
+.
+#else
+.
+.Syntax: (make-babylon-graphic-label <Interface>
+.           <WName> <xPos> <yPos> <Breite> <H\366he> 
+.           <Grafik-Datei> <Rahmen> <Farbe> 
+.           &Rest <Arg>)
+.
+.Diese Funktion definiert ein Grafik-Fenster auf der 
+.Oberfl\344che. <WName> ist der Namen f\374r das Fenster. 
+.<xPos> und <yPos> geben die Position der linken oberen 
+.Ecke an. <Breite> und <H\366he> definieren die Gr\366\337e
+.des Fensters. <Grafik-Datei> ist der Name der Grafik-
+.Datei, die benutzt wird. <Rahmen> und <Farbe> werden
+.unter Babylon v3 nicht unterst\374tzt. Das erzeugte
+.Grafik-Fenster erscheint im Interface.
+.
+.Beispiel: >(defun make-kb-interface (interface)
+.              (add-window-elements
+.              interface
+.              (list (make-babylon-graphic-label 
+.              interface
+.              "BOX1" 400 300 100 50 "/bitmaps/pferd" 
+.              nil nil))))
+.
+#endif
+
+FF
+
+>MAKE-BABYLON-INPUT-FIELD
+.MAKE-BABYLON-INPUT-FIELD
+.========================
+#ifdef __english
+.
+.syntax: (make-babylon-input-field <interface>
+.           <wname> <xpos> <ypos> <width> <height>
+.           <default-text> <font> <color> <action> 
+.           &rest <args>)
+.
+.This function defines an input-field on the window. 
+.<wname> is the name for the field. <xpos> and <ypos> 
+.give the position for the upper left corner. <width> 
+.and <height> define the size of the field. <default-
+.text> is the text that is written in the input-field.
+.<font> and <color> are not supported by Babylon v3.
+.<action> starts a task, after the user has pressed
+.return. The defined input-field will appear in the
+.interface.
+.
+.example: >(defun make-kb-interface (interface)
+.             (add-window-elements
+.             interface
+.             (list (make-babylon-input-field interface
+.             "babylon-standard-input" 400 300 100 50
+.             "input:" nil nil nil))))
+.
+#else
+.
+.Syntax: (make-babylon-input-field <Interface>
+.           <WName> <xPos> <yPos> <Breite> <H\366he>
+.           <Standard-Text> <Schriftart> <Farbe> <Aktion> 
+.           &Rest <Arg>)
+.
+.Diese Funktion definiert ein Eingabefeld auf der 
+.Oberfl\344che. <WName> ist der Name dieses Feldes. 
+.<xPos> und <yPos> geben die Position der oberen linken 
+.Ecke an. <Breite> und <H\366he> definieren die Gr\366\337e 
+.des Eingabe-Feldes. <Standard-Text> ist der Text, der 
+.im Eingabefeld steht. <Schriftart> und <Farbe> werden 
+.unter Babylon v3 nicht unterst\374tzt. <Aktion> startet 
+.eine Task, nachdem der Benutzer Return gedr\374ckt hat. 
+.Das Eingabe-Feld erscheint im Interface.
+.
+.Beispiel: >(defun make-kb-interface (interface)
+.              (add-window-elements
+.              interface
+.              (list
+.              (make-babylon-input-field interface
+.              "babylon-standard-input" 400 300 100 50
+.              "input:" nil nil nil))))
+.
+#endif
+
+FF
+
+>MAKE-BABYLON-OUTPUT-FIELD
+.MAKE-BABYLON-OUTPUT-FIELD
+.=========================
+#ifdef __english
+.
+.syntax: (make-babylon-output-field <interface>
+.           <wname> <xpos> <ypos> <width> <height>
+.           <default-text> <font> <color> &rest <args>)
+.
+.This function defines an output-field on the window. 
+.<wname> is the name for the field. <xpos> and <ypos> 
+.give the position for the upper left corner. <width> 
+.and <height> define the size of the field. <default-
+.text> is the text that is written in the output-field.
+.<font> and <color> are not supported by Babylon v3.
+.The defined output-field will appear in the interface.
+.
+.example: >(defun make-kb-interface (interface)
+.             (add-window-elements
+.             interface
+.             (list
+.             (make-babylon-output-field interface
+.             "babylon-standard-output" 400 300 100 50
+.             "This is an example!" nil nil))))
+.
+#else
+.
+.Syntax: (make-babylon-output-field <Interface>
+.           <WName> <xPos> <yPos> <Breite> <H\366he>
+.           <Standard-Text> <Schriftart> <Farbe> 
+.           &rest <Arg>)
+.
+.Diese Funktion definiert ein Ausgabefeld auf der 
+.Oberfl\344che. <WName> ist der Name dieses Feldes. 
+.<xPos> und <yPos> geben die Position der oberen linken 
+.Ecke an. <Breite> und <H\366he> definieren die Gr\366\337e 
+.des Ausgabe-Feldes. <Standard-Text> ist der Text, der 
+.im Ausgabe-Feld steht. <Schriftart> und <Farbe> werden 
+.unter Babylon v3 nicht unterst\374tzt. Das Ausgabe-Feld 
+.erscheint im Interface.
+.
+.Beispiel: >(defun make-kb-interface (interface)
+.              (add-window-elements
+.              interface
+.              (list
+.              (make-babylon-output-field interface
+.              "babylon-standard-output" 400 300 100 50
+.              "Dies ist ein Beispiel!" nil nil))))
+.
+#endif
+
+FF
+
+>MAKE-BABYLON-SEPARATOR
+.MAKE-BABYLON-SEPARATOR
+.======================
+#ifdef __english
+.
+.syntax: (make-babylon-separator <interface>
+.           <wname> <xpos> <ypos> <length> <orient>
+.           <color> &rest <args>)
+.
+.This function defines a separator-line on the window. 
+.<wname> is the name for the line. <xpos> and <ypos> 
+.give the position for the upper left end. <length> 
+.is the length of the line. <orient> can be
+."horizontal" or "vertikal". <color> is not supported
+.by Babylon v3. The separator-line will appear in the
+.interface.
+.
+.example: >(defun make-kb-interface (interface)
+.             (add-window-elements
+.             interface
+.             (list (make-babylon separator interface
+.             "separator1" 10 300 600
+.             "horizontal" nil))))
+.
+#else
+.
+.Syntax: (make-babylon-separator <Interface>
+.           <WName> <xPos> <yPos> <L\344nge> <Richtung>
+.           <Farbe> &Rest <Arg>)
+.
+.Diese Funktion definiert eine Trennlinie auf der 
+.Oberfl\344che. <WName> ist der Name dieser Linie. <xPos>
+.und <yPos> geben die Position des oberen linken Endes
+.an. <L\344nge> ist die L\344nge der Linie. Die
+.<Richtung> kann "horizontal" oder "vertikal" sein.
+.<Farbe> wird unter Babylon v3 nicht unterst\374tzt.
+.Die Trennlinie erscheint im Interface.
+.
+.Beispiel: >(defun make-kb-interface (interface)
+.              (add-window-elements
+.              interface
+.              (list (make-babylon-separator interface
+.              "trenner1" 10 300 600
+.              "horizontal" nil))))
+.
+#endif
+
+FF
+
+>MAKE-BABYLON-MENU
+.MAKE-BABYLON-MENU
+.=================
+#ifdef __english
+.
+.syntax: (make-babylon-menu <interface>
+.           <name> <label> &rest <args>)
+.
+.This function defines a menu on the window. <name> is 
+.the name for the menu. <label> is the text, which the 
+.menu has. The menu will appear at the upper
+.screenborder.
+.
+.example: >(defun make-kb-interface (interface)
+.             (add-babylon-menu 
+.             interface
+.             (make-babylon-menu interface
+.             "menu1" "Options")))
+.
+#else
+.
+.Syntax: (make-babylon-menu <Interface>
+.           <Name> <Aufschrift> &Rest <Arg>)
+.
+.Diese Funktion definiert ein Men\374 auf der Oberfl\344che. 
+.<Name> ist der Name dieses Men\374s. <Aufschrift> gibt 
+.den Eintrag an, den das Men\374 haben soll. Der Men\374-
+.eintrag erscheint am oberen Bildschirmrand.
+.
+.Beispiel: >(defun make-kb-interface (interface)
+.              (add-babylon-menu
+.              interface
+.              (make-babylon-menu interface
+.              "men\3741" "Optionen")))
+.
+#endif
+
+FF
+
+>MAKE-BABYLON-MENU-ITEM
+.MAKE-BABYLON-MENU-ITEM
+.======================
+#ifdef __english
+.
+.syntax: (make-babylon-menu-item <interface>
+.           <menu> <name> <label> 
+.           &optional <action> &rest <args>)
+.
+.This function makes a menu-item for an existing menu. 
+.<menu> is the name from the existing menu. <name> is 
+.the name for the menu-item. <label> is the text from 
+.the menu-item. <action> starts a task, after the 
+.user has pressed the menu-button. 
+.
+.example: >(defun make-kb-interface (interface)
+.             (add-babylon-menu-item interface
+.             (make-babylon-menu-item (get-babylon-menu
+.             interface "menu1") "menu-item1" "item1"
+.             `(start `input-demo-task interface))))
+.
+#else
+.
+.Syntax: (make-babylon-menu-item <Interface>
+.           <Men\374> <Name> <Aufschrift>
+.           &Optional <Aktion> &Rest <Arg>)
+.
+.Diese Funktion erzeugt einen Men\374eintrag f\374r ein 
+.bestehendes Men\374. <Men\374> ist der Name des schon 
+.existierenden Men\374s. <Name> ist der Name f\374r den 
+.Men\374eintrag. <Aufschrift> gibt den Eintrag an, den der 
+.Eintrag haben soll. <Aktion> startet eine Task, nach-
+.dem der Benutzer den Men\374-Button gedruckt hat.
+.
+.Beispiel: >(defun make-kb-interface (interface)
+.              (add-babylon-menu-item interface
+.              (make-babylon-menu-item
+.              (get-babylon-menu interface "men\3741") 
+.              "men\374-eintrag1" "eintrag1"
+.              `(start `input-demo-task interface))))
+.
+#endif
+
+FF
+
+>SET-PUSH-BUTTON-SENSITIVITY
+.SET-PUSH-BUTTON-SENSITIVITY
+.===========================
+#ifdef __english
+.
+.syntax: (set-push-button-sensitivity 
+.           <babylon-push-button> <T | NIL>)
+.
+.This function defines whether the button appears
+.sensitive or insensitive. The default value is T
+.(sensitive).
+.
+.example: >(define-task SENSITIVE-DEMO-TASK (interface)
+.             :documentation "This is a demo"
+.             actions
+.             (set-push-button-sensitivity)
+.             (get-window-element interface "pb1") nil)
+.             (kb-notify "The push-button is
+.             insensitive ?~%")
+.             (set-push-button-sensitivity)
+.             (get-window-element interface "pb1") t)
+.             (kb-notify "The push-button is sensitive 
+.             ?~%")
+.
+#else
+.
+.Syntax: (set-push-button-sensitivity 
+.           <babylon-push-button> <T | NIL>)
+.
+.Diese Funktion bestimmt dar\374ber, ob ein Button 
+.empfindlich oder unempfindlich erscheint. Der
+.Standardwert ist T (Empfindlich).
+.
+.Beispiel: >(define-task SENSITIVE-DEMO-TASK
+.              (interface)
+.              :documentation "Dies ist ein Demo"
+.              actions
+.              (set-push-button-sensitivity)
+.              (get-window-element interface "PB1")
+.              nil)
+.              (kb-notify "Der Push-Button ist 
+.	       unempfindlich ?~%")
+.              (set-push-button-sensitivity)
+.              (get-window-element interface "PB1") t)
+.              (kb-notify "Der Push-Button ist 
+.              empfindlich ?~%")
+.
+#endif
+
+FF
+
+>GET-PUSH-BUTTON-LABEL
+.GET-PUSH-BUTTON-LABEL
+.=====================
+#ifdef __english
+.
+.syntax: (get-push-button-label <babylon-push-button>)
+.
+.This function returns the text from the push-button-
+.label.
+.
+.example: >(define-task LABEL-DEMO-TASK (interface)
+.             :documentation "This is a demo"
+.             actions
+.             (setf new-text-label (kb-prompt "How do
+.             you want to call the push-button ~s ?~%" 
+.             "please push"))
+.             (if (stringp new-text-label)
+.             (set-push-button-label
+.             (get-window-element
+.             interface "pb1") new-text-label)
+.             (kb-format "The input ~s was false!
+.             please enter a string next time!" new-
+.             text-label))
+.             (kb-format "~10T- the push-button
+.             is called ~s~%"
+.             (get-push-button-label
+.             (get-window-element interface "pb1"))))
+.
+#else
+.
+.Syntax: (get-push-button-label <babylon-push-button>)
+.
+.Diese Funktion liefert die Aufschrift des Push-
+.Buttons.
+.
+.Beispiel: >(define-task LABEL-DEMO-TASK (interface)
+.              :documentation "Dies ist eine Demo"
+.              actions
+.              (setf new-text-label (kb-prompt 
+.              "Wie soll der neue push-button ~s
+.              hei\337en? ~%" "bitte dr\374cken"))
+.              (if (stringp new-text-label)
+.              (set-push-button-label
+.              (get-window-element
+.              interface "PB1") new-text-label)
+.              (kb-format "Die Eingabe ~s war falsch! 
+.              bitte geben Sie beim n\344chsten Mal
+.              eine Zeichenkette ein!" new-text-label))
+.              (kb-format "~10T- der Push-Button hei\337t 
+.              ~s~%"
+.              (get-push-button-label
+.              (get-window-element interface "PB1"))))
+.
+#endif
+
+FF
+
+>SET-PUSH-BUTTON-LABEL
+.SET-PUSH-BUTTON-LABEL
+.=====================
+#ifdef __english
+.
+.syntax: (set-push-button-label 
+.           <babylon-push-button> <label>)
+.
+.This function creates a label on the push-button.
+.
+.example: look at example from GET-PUSH-BUTTON-LABEL
+.
+#else
+.
+.Syntax: (set-push-button-label 
+.           <babylon-push-button> <label>)
+.
+.Diese Funktion erzeugt eine Aufschrift f\374r den 
+.Push-Button.
+.
+.Beispiel: Siehe Beispiel von GET-PUSH-BUTTON-LABEL
+.
+#endif
+
+FF
+
+>SET-GRAPHIC-BUTTON-SENSITIVITY
+.SET-GRAPHIC-BUTTON-SENSITIVITY
+.==============================
+#ifdef __english
+.
+.syntax: (set-graphic-button-sensitivity 
+.           <babylon-push-button> <T | NIL>)
+.
+.This function makes the Button sensitive or
+.insensitive. The default-value is T (sensitive).
+.
+.example: >(define-task SENSITIVE-DEMO-TASK (interface)
+.             :documentation "This is a demo"
+.             actions
+.             (set-graphic-button-sensitivity
+.             (get-window-element interface "GRAPHPB1") 
+.             nil)
+.             (kb-notify "The graphic-button is 
+.             insensitive ?~%")
+.             (set-graphic-button-sensitivity
+.             (get-window-element interface
+.             "GRAPHPB1") t)
+.             (kb-notify "The graphic-button is
+.             sensitive again ?~%"))
+.
+#else
+.
+.Syntax: (set-graphic-button-sensitivity 
+.           <babylon-push-button> <T | NIL>)
+.
+.Diese Funktion macht den Push-Button empfindlich oder 
+.unempfindlich. Der Standard-Wert ist T (empfindlich).
+.
+.Beispiel: >(define-task SENSITIVE-DEMO-TASK
+.              (interface)
+.              :documentation "Dies ist eine Demo"
+.              actions
+.              (set-graphic-button-sensitivity
+.              (get-window-element interface
+.              "GRAPHPB1") nil)
+.              (kb-notify "Der Graphic-Button ist 
+.              unempfindlich ?~%")
+.              (set-graphic-button-sensitivity
+.              (get-window-element interface
+.              "GRAPHPB1") t)
+.              (kb-notify "Der Graphic-Button ist
+.              wieder empfindlich ?~%"))
+.
+#endif
+
+FF
+
+>GET-GRAPHIC-BUTTON-PICTURE
+.GET-GRAPHIC-BUTTON-PICTURE
+.==========================
+#ifdef __english
+.
+.syntax: (get-graphic-button-picture 
+.           <babylon-graphic-button>)
+.
+.This function returns the filename of the 
+.graphic-button in string-form.
+.
+.example: >(get-graphic-button-picture
+.            (get-window-element interface "GRAPHPB1"))
+.
+#else
+.
+.Syntax: (get-graphic-button-picture 
+.           <babylon-graphic-button>)
+.
+.Diese Funktion liefert den Dateinamen des
+.Graphik-Buttons als Zeichenkette.
+.
+.Beispiel: >(get-graphic-button-picture
+.            (get-window-element interface "GRAPHPB1"))
+.
+#endif
+
+FF
+
+>SET-GRAPHIC-BUTTON-PICTURE
+.SET-GRAPHIC-BUTTON-PICTURE
+.==========================
+#ifdef __english
+.
+.syntax: (set-graphic-button-picture
+.           <babylon-graphic-button> <graphic-file>)
+.
+.This function assigns a picture (graphic-file) to the 
+.Button.
+.
+.example: >(set-graphic-button-picture
+.             (get-window-element interface "GRAPHPB1")
+.             "/bitmaps/horse")
+.
+#else
+.
+.Syntax: (set-graphic-button-picture
+.           <Babylon-Graphik-Button> <Graphik-Datei>)
+.
+.Diese Funktion weist dem Graphik-Button ein Bild 
+.(Graphik-Datei) zu.
+.
+.Beispiel: >(set-graphic-button-picture
+.             (get-window-element interface "GRAPHPB1")
+.             "/bitmaps/pferd")
+.
+#endif
+
+FF
+
+>GET-TEXT-LABEL
+.GET-TEXT-LABEL
+.==============
+#ifdef __english
+.
+.syntax: (get-text-label <babylon-text-label>)
+.
+.This function returns the text from the text-field in
+.string-form.
+.
+.example: >(get-text-label
+.             (get-window-element interface "TXTLB1"))
+.
+#else
+.
+.Syntax: (get-text-label <Babylon-Text-Label>)
+.
+.Diese Funktion liefert den Text des Text-Feldes 
+.als Zeichenkette.
+.
+.Beispiel: >(get-text-label
+.              (get-window-element interface "TXTLB1"))
+.
+#endif
+
+FF
+
+>SET-TEXT-LABEL
+.SET-TEXT-LABEL
+.==============
+#ifdef __english
+.
+.syntax: (set-text-label <babylon-text-label> <label>)
+.
+.This function writes the text on the text-field.
+.
+.example: >(set-text-label 
+.             (get-window-element interface "TXTLB1")
+.             "new input:")
+.
+#else
+.
+.Syntax: (set-text-label 
+.           <Babylon-Text-Label> <Aufschrift>)
+.
+.Diese Funktion schreibt einen Text auf das Text-Feld.
+.
+.Beispiel: >(set-text-label
+.              (get-window-element interface "TXTLB1")
+.              "neue Eingabe:")
+.
+#endif
+
+FF
+
+>GET-GRAPHIC-LABEL-PICTURE
+.GET-GRAPHIC-LABEL-PICTURE
+.=========================
+#ifdef __english
+.
+.syntax: (get-graphic-label-picture
+.           <babylon-graphic-label>)
+.
+.This function returns the filename of the picture in
+.string-form.
+.
+.example: >(get-graphic-label-picture
+.           (get-window-element interface "GRAPHLBL1"))
+.
+#else
+.
+.Syntax: (get-graphic-label-picture
+.           <Babylon-Graphik-Label>)
+.
+.Diese Funktion liefert den Dateinamen des Bildes als 
+.Zeichenkette.
+.
+.Beispiel: >(get-graphic-label-picture
+.             (get-window-element interface
+.                                 "GRAPHLBL1"))
+.
+#endif
+
+FF
+
+>SET-GRAPHIC-LABEL-PICTURE
+.SET-GRAPHIC-LABEL-PICTURE
+.=========================
+#ifdef __english
+.
+.syntax: (set-graphic-label-picture
+.           <babylon-graphic-label> <graphic-file>)
+.
+.This function changes the picture of the label.
+.
+.example: >(set-graphic-label-picture
+.            (get-window-element interface "GRAPHLBL1")
+.            "/bitmaps/new-graphic-file")
+.
+#else
+.
+.Syntax: (set-graphic-label-picture
+.           <Babylon-Graphik-Label> <Graphik-Datei>)
+.
+.Diese Funktion ver\344ndert das Bild der Aufschrift.
+.
+.Beispiel: >(set-graphic-label-picture
+.              (get-window-element interface
+.              "GRAPHLBL1")
+.              "/bitmaps/neue-graphik-datei")
+.
+#endif
+
+FF
+
+>GET-INPUT-FIELD-TEXT
+.GET-INPUT-FIELD-TEXT
+.====================
+#ifdef __english
+.
+.syntax: (get-input-field-text <babylon-input-field>)
+.
+.This function returns the text of the input-field 
+.in string-form.
+.
+.example: >(get-input-field-text
+.             (get-window-element interface
+.             "babylon-standard-input"))
+.
+#else
+.
+.Syntax: (get-input-field-text <Babylon-Eingabe-Feld>)
+.
+.Diese Funktion liefert den Text des Eingabefeldes 
+.als Zeichenkette.
+.
+.Beispiel: >(get-input-field-text
+.              (get-window-element interface
+.              "babylon-standard-input"))
+.
+#endif
+
+FF
+
+>SET-INPUT-FIELD-TEXT
+.SET-INPUT-FIELD-TEXT
+.====================
+#ifdef __english
+.
+.syntax: (set-input-field-text 
+.           <babylon-input-field> <text>)
+.
+.This function places the text for the input-field.
+.
+.example: >(set-input-field-text
+.             (get-window-element interface
+.             "babylon-standard-input") "example")
+.
+#else
+.
+.Syntax: (set-input-field-text 
+.           <Babylon-Eingabe-Feld> <Text>)
+.
+.Diese Funktion setzt den Text f\374r das Eingabefeld.
+.
+.Beispiel: >(set-input-field-text
+.              (get-window-element interface
+.              "babylon-standard-input") "Beispiel")
+.
+#endif
+
+FF
+
+>GET-OUTPUT-FIELD-TEXT
+.GET-OUTPUT-FIELD-TEXT
+.=====================
+#ifdef __english
+.
+.syntax: (get-output-field-text <babylon-output-field>)
+.
+.This function returns the text of the output-field in
+.string-form.
+.
+.example: >(get-output-field-text
+.             (get-window-element interface
+.             "babylon-standard-output"))
+.
+#else
+.
+.Syntax: (get-output-field-text <Babylon-Ausgabe-Feld>)
+.
+.Diese Funktion liefert den Text des Ausgabefeldes 
+.als Zeichenkette.
+.
+.Beispiel: >(get-output-field-text
+.              (get-window-element interface
+.              "babylon-standard-output"))
+.
+#endif
+
+FF
+
+>SET-OUTPUT-FIELD-TEXT
+.SET-OUTPUT-FIELD-TEXT
+.=====================
+#ifdef __english
+.
+.syntax: (set-output-field-text 
+.           <babylon-output-field> <text>)
+.
+.This function places the text for the output-field.
+.
+.example: >(set-output-field-text
+.             (get-window-element interface
+.             "babylon-standard-output")
+.             "You will get your text-outputs here ")
+.
+#else
+.
+.Syntax: (set-output-field-text 
+.           <Babylon-Ausgabe-Feld> <Text>)
+.
+.Diese Funktion setzt den Text f\374r das Ausgabefeld.
+.
+.Beispiel: >(set-output-field-text
+.              (get-window-element interface
+.              "babylon-standard-output")
+.              "Hier erhalten Sie Ihre Text-Ausgaben ")
+.
+#endif
+
+FF
+
+>ADD-OUTPUT-FIELD-TEXT
+.ADD-OUTPUT-FIELD-TEXT
+.=====================
+#ifdef __english
+.
+.syntax: (add-output-field-text 
+.           <babylon-output-field> <text>)
+.
+.This function adds new text to the text of 
+.the output-field.
+.
+.example: >(add-output-field-text
+.             (get-window-element interface
+.             "babylon-standard-output")
+.             "This is an example")
+.
+#else
+.
+.Syntax: (add-output-field-text 
+.           <Babylon-Ausgabe-Feld> <Text>)
+.
+.Diese Funktion f\374gt dem Ausgabefeld neuen Text 
+.hinzu.
+.
+.Beispiel: >(add-output-field-text
+.              (get-window-element interface
+.              "babylon-standard-output")
+.              "Dies ist ein Beipiel")
+.
+#endif
+
+FF
+
+>CLEAR-OUTPUT-FIELD-TEXT
+.CLEAR-OUTPUT-FIELD-TEXT
+.=======================
+#ifdef __english
+.
+.syntax: (clear-output-field-text 
+.           <babylon-output-field>)
+.
+.This function removes the text of the output-field.
+.
+.example: >(clear-output-field-text
+.             (get-window-element interface
+.             "babylon-standard-output"))
+.
+#else
+.
+.Syntax: (clear-output-field-text 
+.           <Babylon-Ausgabe-Feld>)
+.
+.Diese Funktion entfernt den Text des Ausgabefeldes.
+.
+.Beispiel: >(clear-output-field-text
+.              (get-window-element interface
+.              "babylon-standard-output"))
+.
+#endif
+
+FF
+
+>SET-MENU-SENSITIVITY
+.SET-MENU-SENSITIVITY
+.====================
+#ifdef __english
+.
+.syntax: (set-menu-sensitivity 
+.           <babylon-menu> <T | NIL>)
+.
+.This function indicates, whether the menu is sensitive 
+.or not. NIL indicates that the menu is insensitive.
+.
+.example: >(set-menu-sensitivity
+.             (get-babylon-menu interface "MENU1")
+.             NIL)
+.
+#else
+.
+.Syntax: (set-menu-sensitivity 
+.           <Babylon-Men\374> <T | NIL>)
+.
+.Diese Funktion gibt an, ob das Men\374 empfindlich 
+.oder unempfindlich sein soll. NIL gibt an, da\337 
+.das Men\374 unempfindlich ist.
+.
+.Beispiel: >(set-menu-sensitivity
+.              (get-babylon-menu interface "MENU1")
+.              NIL)
+.
+#endif
+
+FF
+
+>SET-MENU-ITEM-SENSITIVITY
+.SET-MENU-ITEM-SENSITIVITY
+.=========================
+#ifdef __english
+.
+.syntax: (set-menu-item-sensitivity 
+.           <babylon-menu-item> <T | NIL>)
+.
+.This function indicates, whether the menu-item is
+.sensitive or not. NIL indicates that the menu-item is 
+.insensitive.
+.
+.example: >(set-menu-item-sensitivity
+.             (get-babylon-menu-item interface
+.             "MENU1" "MENU-ITEM1")
+.             NIL)
+.
+#else
+.
+.Syntax: (set-menu-item-sensitivity
+.           <Babylon-Men\374-Eintrag> <T | NIL>)
+.
+.Diese Funktion gibt an, ob der Men\374eintrag sensitiv
+.oder insensitiv sein soll. NIL macht den Eintrag
+.insensitiv.
+.
+.Beispiel: >(set-menu-item-sensitivity
+.              (get-babylon-menu-item interface
+.              "MEN\3341" "MEN\334-EINTRAG1")
+.              NIL)
+.
+#endif
+
+FF
+
+>GET-BABYLON-MENU
+.GET-BABYLON-MENU
+.================
+#ifdef __english
+.
+.syntax: (get-babylon-menu <interface> <name>)
+.
+.This function returns the instance of the babylon-
+.menu.
+.
+.example: >(get-babylon-menu interface "MENU1")
+.
+#else
+.
+.Syntax: (get-babylon-menu <Interface> <Name>)
+.
+.Diese Funktion liefert die Instanz des Babylon-Men\374s.
+.
+.Beispiel: >(get-babylon-menu interface "MEN\3341")
+.
+#endif
+
+FF
+
+>GET-BABYLON-MENU-ITEM
+.GET-BABYLON-MENU-ITEM
+.=====================
+
+#ifdef __english
+.
+.syntax: (get-babylon-menu-item <interface>
+.           <menu-name> <menu-item-name>)
+.
+.This function returns the instance of the babylon-
+.menu-item.
+.
+.example: >(get-babylon-menu-item interface
+.             "MENU1" "MENU-ITEM1")
+.
+
+#else
+
+.
+.Syntax: (get-babylon-menu-item <Interface>
+.           <Men\374-Name> <Men\374-Eintrag-Name>)
+.
+.Diese Funktion liefert die Instanz des Babylon-
+.Men\374-Eintrags.
+.
+.Beispiel: >(get-babylon-menu-item interface
+.              "MEN\3341" "MEN\334-EINTRAG1")
+.
+#endif
+
+FF
+
+>GET-WINDOW-ELEMENT
+.GET-WINDOW-ELEMENT
+.==================
+#ifdef __english
+.
+.syntax: (get-window-element <interface> <name>)
+.
+.enables the access on window elements as
+.instances.
+.
+.example: >(get-window-element interface
+.                              "pushbutton-1")
+.
+#else
+.
+.Syntax: (get-window-element <Schnittstelle> <Name>)
+.
+.Erm\366glicht den Zugriff auf Oberfl\344chenelemente
+.als Instanzen.
+.
+.Beispiel: >(get-window-element interface
+.                               "Dr\374cktaste-1")
+.
+#endif
+
+FF
+
+>GET-INTERFACE
+.GET-INTERFACE
+.=============
+#ifdef __english
+.
+.syntax: (get-interface [<base-of-knowledge-object>])
+.
+.returns the interface object that is associated to
+.the knowledge base.
+.
+.example: >(get-interface *kb*)
+.
+#else
+.
+.Syntax: (get-interface [<Wissensbasisobjekt>])
+.
+.Liefert das zur Wissensbasis assoziierte
+.Interfaceobjekt.
+.
+.Beispiel: >(get-interface *kb*)
+.
+#endif
+
+FF
+
+>HIDE-EIS-ELEMENT
+.HIDE-EIS-ELEMENT
+.================
+#ifdef __english
+.
+.syntax: (hide-eis-element <window-element>)
+.
+.The window-element will be made invisible.
+.
+.example: >(hide-eis-element
+.             (get-window-element interface 
+.                "pushbutton-1"))
+.
+#else
+.
+.Syntax: (hide-eis-element <Oberfl\344chenelement>)
+.
+.Das Oberfl\344chenelement wird unsichtbar gemacht.
+.
+.Beispiel: >(hide-eis-element
+.              (get-window-element interface
+.                 "Dr\374cktaste-1"))
+.
+#endif
+
+FF
+
+>SHOW-EIS-ELEMENT
+.SHOW-EIS-ELEMENT
+.================
+#ifdef __english
+.
+.syntax: (show-eis-element <window-element>)
+.
+.The window-element will be made visible.
+.
+.example: >(show-eis-element
+.             (get-window-element interface
+.                "pushbutton-1"))
+.
+#else
+.
+.Syntax: (show-eis-element <Oberfl\344chenelement>)
+.
+.Das Oberfl\344chenelement wird sichtbar gemacht.
+.
+.Beispiel: >(show-eis-element
+.              (get-window-element interface
+.                 "Dr\374cktaste-1"))
+.
+#endif
+
+FF
+
+>GET-EIS-ELEMENT-X-POSITION
+.GET-EIS-ELEMENT-X-POSITION
+.==========================
+#ifdef __english
+.
+.syntax: (get-eis-element-x-position <window-element>)
+.
+.This function returns the x-position of the
+.window-element.
+.
+.example: >(get-eis-element-x-position
+.             (get-window-element interface
+.                "pushbutton-1"))
+.
+#else
+.
+.Syntax: (get-eis-element-x-position
+.                         <Oberfl\344chenelement>)
+.
+.Diese Funktion liefert die x-Position des
+.Oberfl\344chenelementes.
+.
+.Beispiel: >(get-eis-element-x-position
+.              (get-window-element interface
+.                 "Dr\374cktaste-1"))
+.
+#endif
+
+FF
+
+>GET-EIS-ELEMENT-Y-POSITION
+.GET-EIS-ELEMENT-Y-POSITION
+.==========================
+#ifdef __english
+.
+.syntax: (get-eis-element-y-position <window-element>)
+.
+.This function returns the y-position of the
+.window-element.
+.
+.example: >(get-eis-element-y-position
+.             (get-window-element interface
+.                "pushbutton-1"))
+.
+#else
+.
+.Syntax: (get-eis-element-y-position
+.                           <Oberfl\344chenelement>)
+.
+.Diese Funktion liefert die y-Position des
+.Oberfl\344chenelementes.
+.
+.Beispiel: >(get-eis-element-y-position
+.              (get-window-element interface
+.                 "Dr\374cktaste-1"))
+.
+#endif
+
+FF
+
+>SET-EIS-ELEMENT-X-POSITION
+.SET-EIS-ELEMENT-X-POSITION
+.==========================
+#ifdef __english
+.
+.syntax: (set-eis-element-x-position
+.           <window-element> <x-position>)
+.
+.This function sets the x-position of the
+.window-element.
+.
+.example: >(set-eis-element-x-position
+.             (get-window-element interface
+.                "pushbutton-1") 100)
+.
+#else
+.
+.Syntax: (set-eis-element-x-position
+.           <Oberfl\344chenelement> <x-Position>)
+.
+.Diese Funktion setzt die x-Position des Ober-
+.fl\344chenelementes.
+.
+.Beispiel: >(set-eis-element-x-position
+.              (get-window-element interface
+.                 "Dr\374cktaste-1") 100)
+.
+#endif
+
+FF
+
+>SET-EIS-ELEMENT-Y-POSITION
+.SET-EIS-ELEMENT-Y-POSITION
+.==========================
+#ifdef __english
+.
+.syntax: (set-eis-element-y-position
+.           <window-element> <y-position>)
+.
+.This function sets the y-position of the
+.window-element.
+.
+.example: >(set-eis-element-y-position
+.             (get-window-element interface
+.                "pushbutton-1") 300)
+.
+#else
+.
+.Syntax: (set-eis-element-y-position
+.           <Oberfl\344chenelement> <y-Position>)
+.
+.Diese Funktion setzt die y-Position des Ober-
+.fl\344chenelementes.
+.
+.Beispiel: >(set-eis-element-y-position
+.              (get-window-element interface
+.                 "Dr\374cktaste-1") 100)
+.
+#endif
+
+FF
+
+>GET-EIS-ELEMENT-SIZE
+.GET-EIS-ELEMENT-SIZE
+.====================
+#ifdef __english
+.
+.syntax: (get-eis-element-size <window-element>)
+.
+.This function returns a list with the height and 
+.the width of the window-element.
+.
+.example: >(get-eis-element-size
+.             (get-window-element interface
+.                "pushbutton-1"))
+.
+#else
+.
+.Syntax: (get-eis-element-size <Oberfl\344chenelement>)
+.
+.Diese Funktion liefert eine Liste mit H\366he und
+.Breite des entsprechenden Oberfl\344chenelementes.
+.
+.Beispiel: >(get-eis-element-size
+.              (get-window-element interface
+.                 "Dr\374cktaste-1"))
+.
+#endif
+
+FF
+
+>GET-EIS-ELEMENT-HEIGHT
+.GET-EIS-ELEMENT-HEIGHT
+.======================
+#ifdef __english
+.
+.syntax: (get-eis-element-height <window-element>)
+.
+.This function returns the height of the
+.window-element.
+.
+.example: >(get-eis-element-height
+.             (get-window-element interface
+.                "pushbutton-1"))
+.
+#else
+.
+.Syntax: (get-eis-element-height <Oberfl\344chenelement>)
+.
+.Diese Funktion liefert die H\366he des Oberfl\344chen-
+.elementes.
+.
+.Beispiel: >(get-eis-element-height
+.              (get-window-element interface
+.                 "Dr\374cktaste-1"))
+.
+#endif
+
+FF
+
+>GET-EIS-ELEMENT-WIDTH
+.GET-EIS-ELEMENT-WIDHT
+.=====================
+#ifdef __english
+.
+.syntax: (get-eis-element-width <window-element>)
+.
+.This function returns the width of the window-element.
+.
+.example: >(get-eis-element-width
+.             (get-window-element interface
+.                "pushbutton-1"))
+.
+#else
+.
+.Syntax: (get-eis-element-width <Oberfl\344chenelement>)
+.
+.Diese Funktion liefert die Breite des Oberfl\344chen-
+.elementes.
+.
+.Beispiel: >(get-eis-element-width
+.              (get-window-element interface
+.                 "Dr\374cktaste-1"))
+.
+#endif
+
+FF
+
+>SET-EIS-ELEMENT-SIZE
+.SET-EIS-ELEMENT-SIZE
+.====================
+#ifdef __english
+.
+.syntax: (set-eis-element-size <window-element>
+.                              <value-list>)
+.
+.This function sets the size of the window-
+.element. The values have to be integers.
+.
+.example: >(set-eis-element-size
+.             (get-window-element interface
+.                "pushbutton-1") `(10 20))
+.
+#else
+.
+.Syntax: (set-eis-element-size <Oberfl\344chenelement>
+.                              <Werte-Liste>)
+.
+.Diese Funktion setzt die Gr\366\337e des Oberfl\344chen-
+.elementes. Die Werte m\374ssen ganze Zahlen sein.
+.
+.Beispiel: >(set-eis-element-size
+.              (get-window-element interface
+.                 "Dr\374cktaste-1") `(10 20))
+.
+#endif
+
+FF
+
+>SET-EIS-ELEMENT-HEIGHT
+.SET-EIS-ELEMENT-HEIGHT
+.======================
+#ifdef __english
+.
+.syntax: (set-eis-element-height <window-element>
+.                                <height>)
+.
+.This function sets the height of the window-
+.element. The value has to be an integer.
+.
+.example: >(set-eis-element-height
+.             (get-window-element interface
+.                "pushbutton-1" 40)
+.
+#else
+.
+.Syntax: (set-eis-element-height 
+.           <Oberfl\344chenelement> <H\366he>)
+.
+.Diese Funktion setzt die H\366he des Oberfl\344chen-
+.elementes. Der Wert mu\337 eine ganze Zahl sein.
+.
+.Beispiel: >(set-eis-element-height
+.              (get-window-element interface
+.                 "Dr\374cktaste-1" 40)
+.
+#endif
+
+FF
+
+>SET-EIS-ELEMENT-WIDTH
+.SET-EIS-ELEMENT-WIDTH
+.=====================
+#ifdef __english
+.
+.syntax: (set-eis-element-width <window-element>
+.                               <width>)
+.
+.This function sets the width of the window-
+.element. The value has to be an integer.
+.
+.example: >(set-eis-element-width
+.             (get-window-element interface
+.                "pushbutton-1" 80)
+.
+#else
+.
+.Syntax: (set-eis-element-width 
+.           <Oberfl\344chenelement> <Breite>)
+.
+.Diese Funktion setzt die Breite des Oberfl\344chen-
+.elementes. Der Wert mu\337 eine ganze Zahl sein.
+.
+.Beispiel: >(set-eis-element-width
+.              (get-window-element interface
+.                 "Dr\374cktaste-1" 80)
+.
+#endif         
+
+
+!
+! -----------------------------------------------------
+! no trailing FF allowed at the end of the last page !!
+!
+!!! EOF  

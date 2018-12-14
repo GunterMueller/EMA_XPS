@@ -1,0 +1,158 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.behavior   Hans Groschwitz     19.07.95   !!
+!!                    Karsten Vossberg               !!
+!!                    Klaus Senf                     !!
+!!                                                   !!
+!!   Functions to build the behavior-editor.         !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!*** general settings ***
+
+Behavior-Editor.height:                               700
+Behavior-Editor.width:                                500
+
+Behavior-Editor.iconName:                             Behavior
+Behavior-Editor.title:                                Behavior-Editor
+
+!*** language settings ***
+
+Behavior-Editor*Help.mnemonic:                        H
+Behavior-Editor*on_menu.mnemonic:                     M
+Behavior-Editor*on_syntax.mnemonic:                   S
+
+#ifdef __english
+Behavior-Editor*Help.labelString:                     Help
+Behavior-Editor*on_menu.labelString:                  On Menu ...
+Behavior-Editor*on_syntax.labelString:                On Syntax ...
+!
+Behavior-Editor*Bearbeiten.labelString:               Edit
+Behavior-Editor*Bearbeiten.mnemonic:                  E
+Behavior-Editor*Laden.labelString:                    Apply this Behavior ...
+Behavior-Editor*Laden.mnemonic:                       A
+Behavior-Editor*Behaviorloeschen.labelString:         Delete this Behavior ...
+Behavior-Editor*Behaviorloeschen.mnemonic:            D
+Behavior-Editor*ReChange.labelString:                 Undo Changes
+Behavior-Editor*ReChange.mnemonic:                    U
+!
+Behavior-Editor*kb.labelString:                       Knowledge Base:
+Behavior-Editor*Frame.labelString:                    Frame:
+Behavior-Editor*Behavior.labelString:                 Behavior:
+Behavior-Editor*Typ.labelString:                      Type:
+Behavior-Editor*Variablen.labelString:                Variables:
+Behavior-Editor*Kommentar.labelString:                Comment:
+Behavior-Editor*Rumpf.labelString:                    Body:
+Behavior-Editor*fr_name.labelString:                  (none)
+Behavior-Editor*in_name.labelString:                  (none)
+Behavior-Editor*kb_name.labelString:                  (none)
+!
+Behavior-Editor*kb_selection_form.dialogTitle:        Choose a Knowledge Base
+Behavior-Editor*kb_selection.listLabelString:         Known knowledge bases
+!
+Behavior-Editor*kb_selection_msg.dialogTitle:         Incorrect Input
+Behavior-Editor*kb_selection_msg*messageString:       Please choose a knowledge base!
+!
+Behavior-Editor*fr_selection_form.dialogTitle:        Choose a Frame
+Behavior-Editor*fr_selection.listLabelString:         Known frames
+!
+Behavior-Editor*fr_selection_msg.dialogTitle:         Incorrect Input
+Behavior-Editor*fr_selection_msg*messageString:       Please choose a frame!
+!
+Behavior-Editor*be_selection_form.dialogTitle:        Choose a Behavior
+Behavior-Editor*be_selection.listLabelString:         Known behaviors
+Behavior-Editor*be_selection*selectionLabelString:    Selection / new behavior
+!
+Behavior-Editor*be_selection_msg.dialogTitle:         Incorrect Input
+Behavior-Editor*be_selection_msg*messageString:       Please choose a behavior!
+!
+Behavior-Editor*LoadWarningW_popup.title:             Behavior-Apply Confirmation
+Behavior-Editor*LoadWarningW*messageString:           \
+ Do you really want to apply this behavior? 
+Behavior-Editor*LoadWarningW*okLabelString:           Yes
+Behavior-Editor*LoadWarningW*cancelLabelString:       No
+!
+Behavior-Editor*DelWarningW_popup.title:              Behavior-Delete Confirmation
+Behavior-Editor*DelWarningW*messageString:            \
+ Do you really want to delete this behavior? 
+Behavior-Editor*DelWarningW*okLabelString:            Yes
+Behavior-Editor*DelWarningW*cancelLabelString:        No
+
+#else /* deutsch */
+Behavior-Editor*Help.labelString:                     Hilfe
+Behavior-Editor*on_menu.labelString:                  zum Men\374 ...
+Behavior-Editor*on_syntax.labelString:                zur Syntax ...
+!
+Behavior-Editor*Bearbeiten.labelString:               Bearbeiten
+Behavior-Editor*Bearbeiten.mnemonic:                  B
+Behavior-Editor*Laden.labelString:                    Dieses Behavior \374bernehmen ...
+Behavior-Editor*Laden.mnemonic:                       B
+Behavior-Editor*Behaviorloeschen.labelString:         Dieses Behavior l\366schen ...
+Behavior-Editor*Behaviorloeschen.mnemonic:            l
+Behavior-Editor*ReChange.labelString:                 \304nderungen zur\374cknehmen
+Behavior-Editor*ReChange.mnemonic:                    z
+!
+Behavior-Editor*kb.labelString:                       Wissensbasis:
+Behavior-Editor*Frame.labelString:                    Frame:
+Behavior-Editor*Behavior.labelString:                 Behavior:
+Behavior-Editor*Typ.labelString:                      Typ:
+Behavior-Editor*Variablen.labelString:                Variablen:
+Behavior-Editor*Kommentar.labelString:                Kommentar:
+Behavior-Editor*Rumpf.labelString:                    K\366rper:
+Behavior-Editor*fr_name.labelString:                  (unbestimmt)
+Behavior-Editor*in_name.labelString:                  (unbestimmt)
+Behavior-Editor*kb_name.labelString:                  (unbestimmt)
+!
+Behavior-Editor*kb_selection_form.dialogTitle:        Auswahl der Wissensbasis
+Behavior-Editor*kb_selection.listLabelString:         Bekannte Wissensbasen
+Behavior-Editor*kb_selection.cancelLabelString:       Abbrechen
+!
+Behavior-Editor*kb_selection_msg.dialogTitle:         Falsche Eingabe
+Behavior-Editor*kb_selection_msg*messageString:       Bitte w\344hlen Sie eine Wissensbasis aus!
+!
+Behavior-Editor*fr_selection_form.dialogTitle:        Auswahl eines Frames
+Behavior-Editor*fr_selection.listLabelString:         Bekannte Frames
+Behavior-Editor*fr_selection.cancelLabelString:       Abbrechen
+!
+Behavior-Editor*fr_selection_msg.dialogTitle:         Falsche Eingabe
+Behavior-Editor*fr_selection_msg*messageString:       Bitte w\344hlen Sie einen Frame aus!
+!
+Behavior-Editor*be_selection_form.dialogTitle:        Auswahl eines Behaviors
+Behavior-Editor*be_selection.listLabelString:         Bekannte Behaviors
+Behavior-Editor*be_selection*selectionLabelString:    Auswahl / Neues Behavior
+Behavior-Editor*be_selection.cancelLabelString:       Abbrechen
+!
+Behavior-Editor*be_selection_msg.dialogTitle:         Falsche Eingabe
+Behavior-Editor*be_selection_msg*messageString:       Bitte w\344hlen Sie ein Behavior aus!
+!
+Behavior-Editor*LoadWarningW_popup.title:             Behavior-\334bernehmen Best\344tigung
+Behavior-Editor*LoadWarningW*messageString:           \
+ Wollen Sie dieses Behavior wirklich \374bernehmen?
+Behavior-Editor*LoadWarningW*okLabelString:           Ja
+Behavior-Editor*LoadWarningW*cancelLabelString:       Nein
+!
+Behavior-Editor*DelWarningW_popup.title:              Behavior-L\366schen Best\344tigung
+Behavior-Editor*DelWarningW*messageString:            \
+ Wollen Sie dieses Behavior wirklich l\366schen?
+Behavior-Editor*DelWarningW*okLabelString:            Ja
+Behavior-Editor*DelWarningW*cancelLabelString:        Nein
+
+#endif /* english */
+
+
+!*** color settings ***
+
+#ifdef COLOR
+
+Behavior-Editor*background:                           azure
+Behavior-Editor*LoadWarningW*background:              red
+Behavior-Editor*DelWarningW*background:               red
+Behavior-Editor*kb_selection_msg*background:          red
+Behavior-Editor*fr_selection_msg*background:          red
+Behavior-Editor*be_selection_msg*background:          red
+
+#else   !!! MONO: here non-default settings only, please!
+
+#endif
+
+
+!!! EOF

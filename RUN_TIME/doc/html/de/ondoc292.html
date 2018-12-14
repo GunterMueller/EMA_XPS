@@ -1,0 +1,56 @@
+<html><head><title>RELATIONS-OF</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc293.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc291.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>RELATIONS-OF</strong></font></center><p>
+
+<PRE>RELATIONS-OF
+============
+
+Syntax: (relations-of &lt;Rahmen-Specifier&gt;
+                      {[:PART T | NIL | Var]
+                       [:GENERAL T | NIL | Var]}+
+                      [:DIRECT T | NIL | Var]
+                      [:KB &lt;kb&gt;])
+
+Warnung: :PART und :GENERAL d&uuml;rfen gleichzeitig
+         gesetzt werden.
+         Der Schl&uuml;ssel :KB wird noch nicht
+         unterst&uuml;tzt!
+         :PART und :DIRECT sind in Konstruktion!
+         
+Diese Funktion liefert die Namen aller Merkmale 
+und/oder Bestandteile eines Rahmens als Liste. Wollen 
+Sie nur die Merkmale eines Rahmens, setzen Sie 
+':GENERAL' auf T. Wollen Sie nur die Bestandteile
+eines Rahmens, setzen Sie ':PART' auf T. Geben Sie bei 
+':DIRECT' T an, erhalten Sie lediglich alle direkt
+bei einem Rahmen spezifizierten Merkmale und/oder 
+Bestandteile.
+
+Beispiel: &gt;(relations-of 'Hauptstadt :direct T)
+          (REGIERUNGSSITZ)
+          &gt;(relations-of 'Hauptstadt 
+                         :general T :part T)
+          (LAND KLIMA LANDSCHAFT 
+                     ANGEBOTE REGIERUNGSSITZ)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc293.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc291.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- RELATIONS-OF done --!>

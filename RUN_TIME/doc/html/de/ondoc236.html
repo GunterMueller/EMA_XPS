@@ -1,0 +1,52 @@
+<html><head><title>MAKE-BABYLON-PUSH-BUTTON</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc237.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc235.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>MAKE-BABYLON-PUSH-BUTTON</strong></font></center><p>
+
+<PRE>MAKE-BABYLON-PUSH-BUTTON
+========================
+
+Syntax: (make-babylon-push-button &lt;Interface&gt;
+           &lt;WName&gt; &lt;xPos&gt; &lt;yPos&gt; &lt;Breite&gt; &lt;H&ouml;he&gt;
+           &lt;Aufschrift&gt; &lt;Schriftfont&gt; &lt;Farbe&gt; 
+           &amp;Optional &lt;Aktion&gt; &amp;Rest &lt;Arg&gt;)
+
+Diese Funktion definiert einen &quot;Push-Button&quot; f&uuml;r die 
+Oberfl&auml;che. &lt;WName&gt; ist f&uuml;r den Namen des Buttons. 
+&lt;xPos&gt; und &lt;yPos&gt; geben die Position der oberen linken 
+Ecke an. &lt;Breite&gt; und &lt;H&ouml;he&gt; geben die Breite und H&ouml;he 
+des Buttons an. &lt;Aufschrift&gt; ist der Text auf dem
+Button. &lt;Schriftfont&gt; und &lt;Farbe&gt; werden durch Babylon
+v3 nicht unterst&uuml;tzt. &lt;Aktion&gt; beschreibt die Task,
+die bei dr&uuml;cken der Taste gestartet wird. Der er-
+zeugte Push-Button erscheint im Interface.
+
+Beispiel: &gt;(defun make-kb-interface (interface)
+              (add-window-elements
+              interface
+              (list
+              (make-babylon-push-button interface
+              &quot;TASTE1&quot; 400 300 100 50
+              &quot;OPTIONEN&quot; nil nil
+              '(start 'optionen-task interface)))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc237.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc235.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- MAKE-BABYLON-PUSH-BUTTON done --!>

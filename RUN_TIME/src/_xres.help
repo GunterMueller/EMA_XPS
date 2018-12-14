@@ -1,0 +1,86 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.help    Hans Groschwitz        08.12.94   !!
+!!                                                   !!
+!!   Creates the help facility which reads the file  !!
+!!   $XAPPLRESDIR/$LANG/ema-xps-help.txt from which  !!
+!!   is separated into pages using the FF char.      !!
+!!   The page is accessable via a number represen-   !!
+!!   ting the desired page. The information is       !!
+!!   displayed in a specialized PopupDialog, which   !!
+!!   allowes paging. Pressing a Help button anywhere !!
+!!   within EMA-XPS will popup this one instance.    !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+HelpWindow.width:                                550
+HelpWindow.height:                               580
+#ifdef __english
+HelpWindow.title:                                EMA-XPS Help Tool
+HelpWindow.iconName:                             HelpTool
+HelpWindow*quit_button.labelString:              Done
+#else /* deutsch */
+HelpWindow.title:                                EMA-XPS Hilfewerkzeug
+HelpWindow.iconName:                             Hilfewerkzeug
+HelpWindow*quit_button.labelString:              Ende
+HelpWindow*Browse.labelString:                   Finden
+#endif /* english */
+
+! Contains to the HelpTool: Warning, Page Not Found!
+!
+! If HelpWarning is a child of a DialogShell (welcomeBox),
+! its Shell is a DialogShell, too.
+! If it is a child of a TopLevelShell (helpWindow), it has Iconifiers, too.
+!
+!  MainHelp_popup  -->  XmDialogShell
+!  MainHelp        -->  XmMessageBox ?
+!    sorry, all PopupDialogs are XmDialogShells ...
+!    XmDialogShell does not know iconName, only TopLevelShell !
+!
+! WARNING: The resource messageString MUST contain a "%d" here!
+! WARNING: This String must be SINGLE-line-d !!!  (no \n !!!)
+!
+#ifdef __english
+SystemDialogs*HelpWarning.messageString:         The page %d does not exist!
+SystemDialogs*HelpWarning_popup.title:           EMA-XPS Help Tool
+SystemDialogs*HelpWarning.okLabelString:         Done
+#else /* deutsch */
+SystemDialogs*HelpWarning.messageString:         Die Hilfeseite %d existiert nicht!
+SystemDialogs*HelpWarning_popup.title:           EMA-XPS Hilfewerkzeug
+SystemDialogs*HelpWarning.okLabelString:         Ende
+#endif /* english */
+
+#ifdef __english
+SystemDialogs*Browser_popup.title:               EMA-XPS Help Browser
+SystemDialogs*Browser.listLabelString:           Known keywords
+SystemDialogs*Browser.selectionLabelString:      Keyword to find
+SystemDialogs*Browser.okLabelString:             Find
+SystemDialogs*BrowserWarning_popup.title:        Warning!
+SystemDialogs*BrowserWarning*messageString:      Unknown keyword!
+#else /* deutsch */
+SystemDialogs*Browser_popup.title:               EMA-XPS Suchwerkzeug
+SystemDialogs*Browser.listLabelString:           Bekannte Suchbegriffe
+SystemDialogs*Browser.selectionLabelString:      Suchbegriff
+SystemDialogs*Browser.okLabelString:             Finden
+SystemDialogs*BrowserWarning_popup.title:        Warnung!
+SystemDialogs*BrowserWarning*messageString:      Unbekannter Suchbegriff!
+#endif /* english */
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     Color Settings                            !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#ifdef COLOR
+
+HelpWindow*background:                           brown
+SystemDialogs*Browser*background:                brown
+SystemDialogs*HelpWarning*background:            coral
+SystemDialogs*HelpWarning*foreground:            black
+SystemDialogs*Browser*BrowserWarning*background:         coral
+SystemDialogs*Browser*BrowserWarning*foreground:         black
+
+#else /* MONO */
+
+!! here non-default settings only, please!
+
+#endif /* COLOR */
+
+!!! EOF

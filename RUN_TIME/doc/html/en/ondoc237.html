@@ -1,0 +1,52 @@
+<html><head><title>MAKE-BABYLON-GRAPHIC-BUTTON</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc238.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc236.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>MAKE-BABYLON-GRAPHIC-BUTTON</strong></font></center><p>
+
+<PRE>MAKE-BABYLON-GRAPHIC-BUTTON
+===========================
+
+syntax: (make-babylon-graphic-button &lt;interface&gt;
+           &lt;wname&gt; &lt;xpos&gt; &lt;ypos&gt; &lt;width&gt; &lt;height&gt; 
+           &lt;graphic-file&gt; &lt;color&gt; 
+           &amp;optional &lt;action&gt; &amp;rest &lt;args&gt;)
+
+This function defines a graphic-push-button for the 
+window. &lt;wname&gt; is the name of the push-button.
+&lt;xpos&gt; and &lt;ypos&gt; are the positions from the upper
+left corner. &lt;width&gt; and &lt;height&gt; define the width
+and height of the button. &lt;graphic-file&gt; is the name
+of the graphic-file that will be used. &lt;color&gt; is not
+supported by Babylon v3. &lt;action&gt; describes the task,
+that will be started when the button is pressed. The
+defined button will appear in the interface.
+
+example: &gt;(defun make-kb-interface (interface)
+             (add-window-elements
+             interface
+             (list (make-babylon-graphic-button 
+             interface
+             &quot;PSHB1&quot; 400 300 100 50
+             &quot;/bitmaps/horse&quot; nil
+             '(start 'demo-task interface)))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc238.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc236.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- MAKE-BABYLON-GRAPHIC-BUTTON done --!>

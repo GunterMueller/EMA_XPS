@@ -1,0 +1,50 @@
+<html><head><title>UNTELL-INSTANCE-VALUE</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc310.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc308.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>UNTELL-INSTANCE-VALUE</strong></font></center><p>
+
+<PRE>UNTELL-INSTANCE-VALUE
+=====================
+
+syntax: (untell-instance-value 
+                         &lt;evaluates-to relation-name&gt;
+                         &lt;evaluates-to instance-spec&gt;
+                         &lt;lisp-type: T&gt;
+                         [:write-dependents 
+                            {T | NIL | Var}]
+                         [:probe 
+                            {T | NIL | :and-do | Var}])
+
+This function removes an element from the value set 
+of the instance relation. If ':write-dependents' is 
+not set to NIL, then the write-dependents will be 
+informed after the value set is changed.
+The changed value set or NIL, when the element is not 
+included in the value set, will be returned as value.
+
+example: &gt;(untell-instance-value 'offer Paris Louvre)
+         #&lt;set-of OFFER (...)&gt;
+         
+         &gt;(untell-instance-value 'offer Paris Big-Ben)
+         NIL
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc310.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc308.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- UNTELL-INSTANCE-VALUE done --!>

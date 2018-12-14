@@ -1,0 +1,67 @@
+<html><head><title>RETELL-INSTANCE-VALUES</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc306.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc304.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>RETELL-INSTANCE-VALUES</strong></font></center><p>
+
+<PRE>RETELL-INSTANCE-VALUES
+======================
+
+syntax: (retell-instance-values 
+                        &lt;evaluates-to relation-name&gt;
+                        &lt;evaluates-to instance-spec&gt;
+                        {&lt;lisp-type: T&gt; | &lt;set&gt;}
+                           ;; Tell-value
+                        {&lt;set&gt; | _ }
+                           ;; Untell-value
+                        [:write-dependents
+                           {T | NIL | Var}]
+                        [:probe 
+                           {T | NIL | :and-do | Var}])
+
+If elements of the untell-value are included in the 
+value set of the instance relation, then the value 
+will be replaced with the tell-value or with 
+the elements of the tell-value, which are not 
+included yet. Values will be removed without 
+replacing them, when the tell-value is part of the 
+value set. If the untell-value is not included in 
+the value set, then it can not be replaced.
+If '_' is given instead of the untell-value, then the 
+whole value set will be replaced with the tell-
+value. If ':write-dependents' is not set to NIL, then 
+the write-dependents will be informed after the 
+untell-value was replaced.
+The changed value set will be returned, when elements 
+of the untell-value are included, otherwise NIL.
+
+example: &gt;(retell-instance-values 'offer Paris 
+                                  Moulin-Rouge
+                                  {Louvre 
+                                  Centre-Pompidou})
+         #&lt;set-of OFFER (...)&gt;
+
+         &gt;(retell-instance-values 'offer Paris
+                                  {Moulin Rouge} 
+                                  {Centre-Pompidou})
+         NIL
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc306.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc304.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- RETELL-INSTANCE-VALUES done --!>

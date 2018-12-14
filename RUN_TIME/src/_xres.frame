@@ -1,0 +1,157 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.frame   Hans Groschwitz        19.07.95   !!
+!!                 Karsten Vossberg                  !!
+!!                 Klaus Senf                        !!
+!!                                                   !!
+!!   Functions to build the frame-editor.            !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!*** general settings ***
+
+Frame-Editor.height:                              600
+Frame-Editor.width:                               500
+
+Frame-Editor.title:                               Frame-Editor
+Frame-Editor.iconName:                            Frame
+
+!*** language settings ***
+
+Frame-Editor*Help.mnemonic:                       H
+Frame-Editor*on_menu.mnemonic:                    M
+Frame-Editor*on_syntax.mnemonic:                  S
+
+#ifdef __english
+Frame-Editor*Bearbeiten.labelString:              Edit
+Frame-Editor*Bearbeiten.mnemonic:                 E
+Frame-Editor*Laden.labelString:                   Apply this Frame ...
+Frame-Editor*Laden.mnemonic:                      A
+Frame-Editor*Frameloeschen.labelString:           Delete this Frame ...
+Frame-Editor*Frameloeschen.mnemonic:              e
+Frame-Editor*FrameCheckEin.labelString:           Enable Frame-Check
+Frame-Editor*FrameCheckEin.mnemonic:              E
+Frame-Editor*FrameCheckAus.labelString:           Disable Frame-Check
+Frame-Editor*FrameCheckAus.mnemonic:              D
+Frame-Editor*ReChange.labelString:                Undo Changes
+Frame-Editor*ReChange.mnemonic:                   U
+!
+Frame-Editor*Help.labelString:                    Help
+Frame-Editor*on_menu.labelString:                 On Menu ...
+Frame-Editor*on_syntax.labelString:               On Syntax ...
+!
+Frame-Editor*Superframes.labelString:             Super-Frames:
+Frame-Editor*Slots.labelString:                   Slots:
+Frame-Editor*kbase.labelString:                   Knowledge Base:
+Frame-Editor*Frame.labelString:                   Frame:
+Frame-Editor*frame_name.labelString:              (none)
+Frame-Editor*kb_name.labelString:                 (none)
+!
+Frame-Editor*kb_selection_form.dialogTitle:       Choose a Knowledge Base
+Frame-Editor*kb_selection.listLabelString:        Known knowledge bases
+!
+Frame-Editor*kb_selection_msg.dialogTitle:        Incorrect Input
+Frame-Editor*kb_selection_msg*messageString:      Please choose a knowledge base!
+!
+Frame-Editor*fr_selection_form.dialogTitle:       Choose a Frame
+Frame-Editor*fr_selection.listLabelString:        Known frames
+Frame-Editor*fr_selection*selectionLabelString:   Selection / new frame
+!
+Frame-Editor*fr_selection_msg.dialogTitle:        Incorrect Input
+Frame-Editor*fr_selection_msg*messageString:      Please choose a frame!
+!
+Frame-Editor*LoadWarningW_popup.title:            Frame-Apply Confirmation
+Frame-Editor*LoadWarningW*messageString:          \
+ Do you really want to apply this frame? 
+Frame-Editor*LoadWarningW*okLabelString:          Yes
+Frame-Editor*LoadWarningW*cancelLabelString:      No
+!
+Frame-Editor*DelWarningW_popup.title:             Frame-Delete Confirmation
+Frame-Editor*DelWarningW*messageString:           \
+ Do you realy want to delete this frame? 
+Frame-Editor*DelWarningW*okLabelString:           Yes
+Frame-Editor*DelWarningW*cancelLabelString:       No
+!
+Frame-Editor*LISP_Delete_Warnung.dialogTitle:     Warning
+Frame-Editor*LISP_Delete_Warnung*messageString:   \
+ Deleting this frame is impossible, because\n\
+ instances, behaviors or subframe-definitions \n\
+ do exist yet! 
+
+#else /* deutsch */
+Frame-Editor*Bearbeiten.labelString:              Bearbeiten
+Frame-Editor*Bearbeiten.mnemonic:                 B
+Frame-Editor*Laden.labelString:                   Diesen Frame \374bernehmen ...
+Frame-Editor*Laden.mnemonic:                      F
+Frame-Editor*Frameloeschen.labelString:           Diesen Frame l\366schen ...
+Frame-Editor*Frameloeschen.mnemonic:              l
+Frame-Editor*FrameCheckEin.labelString:           Frame-Pr\374fung EIN
+Frame-Editor*FrameCheckEin.mnemonic:              E
+Frame-Editor*FrameCheckAus.labelString:           Frame-Pr\374fung AUS
+Frame-Editor*FrameCheckAus.mnemonic:              A
+Frame-Editor*ReChange.labelString:                \304nderungen zur\374cknehmen
+Frame-Editor*ReChange.mnemonic:                   z
+!
+Frame-Editor*Help.labelString:                    Hilfe
+Frame-Editor*on_menu.labelString:                 zum Men\374 ...
+Frame-Editor*on_syntax.labelString:               zur Syntax ...
+!
+Frame-Editor*Superframes.labelString:             Eltern-Frames:
+Frame-Editor*Slots.labelString:                   Merkmale:
+Frame-Editor*kbase.labelString:                   Wissensbasis:
+Frame-Editor*Frame.labelString:                   Frame:
+Frame-Editor*frame_name.labelString:              (unbestimmt)
+Frame-Editor*kb_name.labelString:                 (unbestimmt)
+!
+Frame-Editor*kb_selection_form.dialogTitle:       Auswahl der Wissensbasis
+Frame-Editor*kb_selection.listLabelString:        Bekannte Wissensbasen
+Frame-Editor*kb_selection.cancelLabelString:      Abbrechen
+!
+Frame-Editor*kb_selection_msg.dialogTitle:        Falsche Eingabe
+Frame-Editor*kb_selection_msg*messageString:      Bitte w\344hlen Sie eine Wissensbasis aus!
+!
+Frame-Editor*fr_selection_form.dialogTitle:       Auswahl eines Frames
+Frame-Editor*fr_selection.listLabelString:        Bekannte Frames
+Frame-Editor*fr_selection*selectionLabelString:   Auswahl / Neuer Frame
+Frame-Editor*fr_selection.cancelLabelString:      Abbrechen
+!
+Frame-Editor*fr_selection_msg.dialogTitle:        Falsche Eingabe
+Frame-Editor*fr_selection_msg*messageString:      Bitte w\344hlen Sie einen Frame aus!
+!
+Frame-Editor*LoadWarningW_popup.title:            Frame-\334bernehmen Best\344tigung
+Frame-Editor*LoadWarningW*messageString:          \
+ Wollen Sie die diesen Frame wirklich \374bernehmen? 
+Frame-Editor*LoadWarningW*okLabelString:          Ja
+Frame-Editor*LoadWarningW*cancelLabelString:      Nein
+!
+Frame-Editor*DelWarningW_popup.title:             Frame-L\366schen Best\344tigung
+Frame-Editor*DelWarningW*messageString:           \
+ Wollen Sie die diesen Frame wirklich l\366schen? 
+Frame-Editor*DelWarningW*okLabelString:           Ja
+Frame-Editor*DelWarningW*cancelLabelString:       Nein
+!
+Frame-Editor*LISP_Delete_Warnung.dialogTitle:     Warnung
+Frame-Editor*LISP_Delete_Warnung*messageString:   \
+ Loeschen des Frames nicht moeglich, da noch \n\
+ Instanzen, Behaviors oder Subframe-Definitionen \n\
+ vorhanden sind! 
+
+#endif
+
+
+!*** color settings ***
+
+#ifdef COLOR
+
+Frame-Editor*background:                           azure
+Frame-Editor*LoadWarningW*background:              red
+Frame-Editor*DelWarningW*background:               red
+Frame-Editor*LISP_Delete_Warnung*background:       red
+Frame-Editor*kb_selection_msg*background:          red
+Frame-Editor*fr_selection_msg*background:          red
+
+#else   !!! MONO: here non-default settings only, please!
+
+#endif
+
+
+!!! EOF

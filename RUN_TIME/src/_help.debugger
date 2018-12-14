@@ -1,0 +1,60 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _help.debugger   Hans Groschwitz     19.07.95   !!
+!!                    Frans Ceelen        18.04.96   !!
+!!                                                   !!
+!!   Simulates a terminal-like window for working    !!
+!!   with the LISP-debugger, called a PAD.           !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#ifdef __english
+>DEBUGGER
+.The Debugger
+.============
+.
+.The debugger tool is a graphic front end for the
+.LISP debugger. It becomes visible, when a runtime
+.error occured, to enable the user entering debugging
+.commands.
+.
+.Via this tool the programmer is able entering LISP 
+.commands manually.
+.
+.It consists of three windows. In the lower window 
+.commands can be entered, which will be buffered in
+.the middle window, until LISP reads them for evalu-
+.ation. 
+.
+.The evaluation of a command may be interrupted via
+.the "Break!" button. Additionally a "Clear" button
+.is available to erase the contents of the output
+.window. Hence the history is not limited in length,
+.very large histories may make execution slow!
+. 
+#else
+>FEHLERWERKZEUG
+.Das Fehlerwerkzeug
+.==================
+.
+.Das Fehlerwerkzeug ist eine grafische Bedienoberfl\344che
+.f\374r den LISP-internen Debugger. Bei Laufzeitfehlern
+.wird es sichtbar, um den Debugger bedienen zu k\366nnen. 
+.
+.Durch das Fehlerwerkzeug kann der Programmierer aber auch
+.LISP-Kommandos von Hand eingeben. 
+.
+.Es besteht aus drei Fenstern. Im unteren Fenster k\366nnen
+.Befehle eingegeben werden, im mittleren Fenster werden 
+.die Befehle gepuffert, bis sie von LISP zur Abarbeitung
+.angenommen werden. Im oberen Fenster wird das Resultat
+.geliefert.
+.
+.Die Ausf\374hrung eines Befehles kann mit der "Unterbrechen"-
+.Taste unterbrochen werden. Zus\344tzlich gibt es eine
+."L\366schen"-Taste, mit der der Inhalt des oberen Fensters
+.gel\366scht werden kann. Da die Historie nicht in ihrer
+.L\344nge begrenzt ist, kann eine \374berlange Historie die
+.Abarbeitung verz\366gern!
+.
+#endif
+
+!!! EOF

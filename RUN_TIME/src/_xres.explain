@@ -1,0 +1,109 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.explain   Hans Groschwitz      08.12.94   !!
+!!                   Karsten Vossberg     20.07.95   !!
+!!                                                   !!
+!!   Interface for graphic explanations when inspec- !!
+!!   ting the success of inferencing at runtime.     !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!*** general settings ***
+
+Explain.height:                               400
+Explain.width:                                550
+
+!*** language settings ***
+
+Explain*Help.mnemonic:                        H
+Explain*on_menu.mnemonic:                     M
+Explain*explain.mnemonic:                     E
+
+#ifdef __english
+Explain.title:                                Explanation Window
+Explain.iconName:                             Explain
+!
+Explain*Help.labelString:                     Help
+Explain*on_menu.labelString:                  on Menu ...
+!
+Explain*explain.labelString:                  Explain
+Explain*clear_button.labelString:             Clear
+Explain*clear_button.mnemonic:                C
+Explain*How.labelString:                      How? ...
+Explain*How.mnemonic:                         H
+Explain*How-All.labelString:                  How-All? ...
+Explain*How-All.mnemonic:                     A
+Explain*Why-Not.labelString:                  Why-Not? ...
+Explain*Why-Not.mnemonic:                     N
+Explain*Inspect_Terms.labelString:            Inspect ...
+Explain*Inspect_Terms.mnemonic:               I
+Explain*Why.labelString:                      Prolog-Why?
+Explain*Why.mnemonic:                         W
+!
+Explain*inspect.labelString:                  View
+Explain*inspect.mnemonic:                     V
+Explain*Print_Rule.labelString:               Rule ...
+Explain*Print_Rule.mnemonic:                  R
+Explain*Show-Facts-All.labelString:           All Facts
+Explain*Show-Facts-All.mnemonic:              A
+Explain*Show-Facts-True.labelString:          True Facts
+Explain*Show-Facts-True.mnemonic:             T
+Explain*Show-Facts-Unprovable.labelString:    Unprovable Facts
+Explain*Show-Facts-Unprovable.mnemonic:       U
+
+#else /* deutsch */
+Explain.title:                                Erkl\344rungsfenster
+Explain.iconName:                             Erkl\344rung
+!
+Explain*Help.labelString:                     Hilfe
+Explain*on_menu.labelString:                  zum Men\374 ...
+!
+Explain*explain.labelString:                  Erkl\344rung
+Explain*clear_button.labelString:             L\366schen
+Explain*clear_button.mnemonic:                L
+Explain*How.labelString:                      Wie? ...
+Explain*How.mnemonic:                         W
+Explain*How-All.labelString:                  Wie-Alle? ...
+Explain*How-All.mnemonic:                     A
+Explain*Why-Not.labelString:                  Warum-Nicht? ...
+Explain*Why-Not.mnemonic:                     N
+Explain*Inspect_Terms.labelString:            Inspiziere ...
+Explain*Inspect_Terms.mnemonic:               I
+Explain*Why.labelString:                      Warum?
+Explain*Why.mnemonic:                         r
+!
+Explain*inspect.labelString:                  Zeigen
+Explain*inspect.mnemonic:                     Z
+Explain*Print_Rule.labelString:               Regel ...
+Explain*Print_Rule.mnemonic:                  R
+Explain*Show-Facts-All.labelString:           Alle Fakten
+Explain*Show-Facts-All.mnemonic:              A
+Explain*Show-Facts-True.labelString:          Wahre Fakten
+Explain*Show-Facts-True.mnemonic:             W
+Explain*Show-Facts-Unprovable.labelString:    Unbeweisbare Fakten
+Explain*Show-Facts-Unprovable.mnemonic:       U
+
+#endif /* english */
+
+
+#ifdef __english
+SystemDialogs*ExplainOneOfMany_popup.title:   Explanation One-Of-Many
+SystemDialogs*ExplainSomeOfMany_popup.title:  Explanation Some-Of-Many
+
+#else /* deutsch */
+SystemDialogs*ExplainOneOfMany_popup.title:   Explanation Eins-Aus-N
+SystemDialogs*ExplainSomeOfMany_popup.title:  Explanation Einige-Aus-N
+
+#endif /* english */
+
+
+!*** color settings ***
+
+#ifdef COLOR
+
+Explain*background:                           wheat
+
+#else   !!! MONO: here non-default settings only, please!
+
+#endif
+
+
+!!! EOF

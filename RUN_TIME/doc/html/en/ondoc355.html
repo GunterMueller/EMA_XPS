@@ -1,0 +1,199 @@
+<html><head><title>DEFINE-RULESET-TASK</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc356.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc354.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-RULESET-TASK</strong></font></center><p>
+
+<PRE>DEFINE-RULESET-TASK
+===================
+
+syntax: (define-ruleset-task &lt;ruleset-task-name&gt;
+           &lt;task-arguments&gt;
+           [:DOCUMENTATION &lt;documentation&gt;]
+           [:EXPLANATION &lt;explanation&gt;]
+           [:SUBTASKS &lt;list-of-subtasks&gt;]
+           :MODE {:SEQUENTIAL |:FORWARD |:BACKWARD}
+           [:CONFLICT-RESOLUTION {NIL| :FIRST
+           MATCH| :OLDEST-MATCH| :NEWEST-MATCH}]
+           ACTIONS
+           {&lt;forward-action&gt; | &lt;sequential-action&gt;|
+           &lt;backward-action&gt; | &lt;task-action&gt;}*)
+
+Warning: The explanation facility is not sup-
+         ported, hence :explanation and :subtasks 
+         are ignored.
+         :CONFLICT-RESOLUTION is not supported yet!
+         Only mode sequential is currently 
+         supported!
+         The key :no-rules currently works 
+         different! 
+
+Every rule, which you define has to belong to a set
+of rules. In this set of rules is defined, in which
+succession the rules will be applied. Three modes
+exist: FORWARD, BACKWARD and SEQUENTIAL. If you choose
+FORWARD then a conflict set will be made, in which
+is defined, which search strategy (first-match,
+newest-match, oldest-match) will be used.
+
+If you choose the sequential mode, then the rules
+will be worked out in the right order. The order
+of the rules is given by the priority of the rules
+or by the order in which they were written down, if no
+priorities exist.
+
+There are different evaluation tactics for the
+sequential-forward-mode:
+
+do-one ==&gt; {nil | :no-rules}
+
+The system will evaluate the first applieable rule
+and returns to the action part of the rule set-task.
+If there is no applieable rule available then
+':no-rules' will be returned, otherwise nil.
+
+do-all ==&gt; {nil | :no-rules}
+
+All rules in the sort order will be checked and
+evaluated. If there is no applieable rule then
+':no-rules' will be returned, otherwise nil.
+
+do-while ==&gt; {:condition-failed | :no-rules}
+
+If the form &lt;condition&gt; is fulfilled, then the
+rules will be checked in the sort order and the
+first applieable rule will be evaluated. This
+will be repeated until the &lt;condition&gt; is not
+fulfilled anymore or until all rules have been
+checked. In the first case ':condition-failed'
+will be returned, otherwise ':no-rules'.
+
+do-until &lt;condition&gt;
+    ==&gt; {:condition-succeeded | :no-rules}
+
+The rules will be checked in the sorting order and
+the first applieable rule will be evaluated. If
+the lisp-form &lt;condition&gt; is not fulfilled yet,
+then it will be repeated until &lt;condition&gt; is
+fulfilled or until all the rules have been checked.
+In the first case ':condition-succeeded' will be
+returned, otherwise ':no-rules'.
+
+
+&lt;forward-action&gt;
+the rules will be tested in the sorting order and
+rules with valid instances will be put in a
+conflict set. A single rule will be choosen
+with a conflict solution and will be evaluated
+for all instances.
+
+The rules will be checked again in sorting order
+after the evaluation of a rule. Rules, which have
+already been evaluated, will be checked again
+if there are new instances. The rules will then be
+evaluated only for these again.
+
+A rule without a logical variable will be
+evaluated only once at most. Rules which have
+already been checked will only be checked again,
+if there is a predicate in the premise part,
+for which a tell, untell or retell was made.
+
+do-exhaustive ==&gt; {nil | :no-rules}
+
+Warning: yet not implemented!
+
+The explained cycle will be repeated, until
+the are no more rules to evaluate. If there
+is no rule to execute, then ':no-rules' will
+be returned, otherwise nil.
+
+do-while &lt;condition&gt; 
+       ==&gt; {condition-failed | :no-rules}
+
+A test will be made before every passage of
+the cycle, whether the lisp-form &lt;condition&gt; is
+fulfilled or not. The evaluation stops, when the 
+&lt;condition&gt; is not fulfilled anymore or when
+all rules are checked. In the first case the feedback
+will be ':condition-failed', otherwise ':no-rules'.
+
+do-until &lt;condition&gt; 
+        ==&gt; {:condition-succeded | :no-rules}
+
+A test will be made after every passage of
+the cycle, whether the lisp-form &lt;condition&gt; is
+fulfilled or not. The evaluation stops, when the
+&lt;condition&gt; is fulfilled or when all rules have been
+checked through. In the first case the feedback will
+be ':condition-succeded', otherwise ':no-rules'.
+
+
+Forms of the conflict-solution:
+
+:first-match
+The first applieable rule will be evaluated.
+
+:newest-match
+The first applieable rule of the last cycle
+will be evaluated.
+
+:oldest-match
+The first applieable rule of the oldest cycle
+will be evaluated.
+
+
+&lt;backward-action&gt;
+
+In backward-action rule sets there only exists one 
+rule-evaluating tactic which tries to verify
+the continuation form.
+
+verify &lt;verify_expr&gt; [:once] {&lt;conti-form&gt;}+
+
+Warning: yet not implemented!
+
+A valid instanciation of &lt;verify_expr&gt; will be
+searched and then the &lt;continuation-form&gt; 
+will be evaluated with this instanciation. If
+':once' is missing, then there will be searched
+for more instanciations.
+VERIFY evaluates the &lt;continuation-form&gt; just like
+'ask'. With this all direct readable instancia-
+tions and all indirect instanciations will
+be generated and the &lt;continuation&gt; forms will
+be executed for every instanciation.
+
+example: &gt;(define-ruleset-task HOLIDAYOFFER
+             (a-client)
+             :documentation 
+                &quot;makes a holiday offer&quot;
+             :explanation (:description
+                ((&quot;makes a holiday offer&quot;)))
+             :mode :SEQUENTIAL
+             actions
+               (kb-format &quot;~%I give you
+               some possible holiday interests&quot;)
+               (do-one)
+               (kb-format 
+                 &quot;~%This is all I know&quot;))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc356.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc354.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-RULESET-TASK done --!>

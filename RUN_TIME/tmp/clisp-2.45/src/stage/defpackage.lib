@@ -1,0 +1,338 @@
+#0Y_ #0Y |CHARSET|::|UTF-8|
+(|COMMON-LISP|::|SETQ| |COMMON-LISP|::|*PACKAGE*|
+ (|SYSTEM|::|%FIND-PACKAGE| "COMMON-LISP"))
+(|COMMON-LISP|::|SETQ| |COMMON-LISP|::|*PACKAGE*|
+ (|SYSTEM|::|%FIND-PACKAGE| "SYSTEM"))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|COMMON-LISP|::|DEFPACKAGE|)
+(|SYSTEM|::|%PUTD| '|COMMON-LISP|::|DEFPACKAGE|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |COMMON-LISP|::|DEFPACKAGE|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|<ENV-ARG>|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|IGNORE| |SYSTEM|::|<ENV-ARG>|))
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 2.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|SYSTEM|::|WHOLE-FORM| |SYSTEM|::|<MACRO-FORM>|)
+       (|SYSTEM|::|PACKNAME|
+        (|COMMON-LISP|::|CADR| . #1=(|SYSTEM|::|<MACRO-FORM>|)))
+       (|SYSTEM|::|OPTIONS| (|COMMON-LISP|::|CDDR| . #1#)))
+      (|COMMON-LISP|::|BLOCK| |COMMON-LISP|::|DEFPACKAGE|
+       (|COMMON-LISP|::|SETQ| |SYSTEM|::|PACKNAME|
+        (|COMMON-LISP|::|STRING| |SYSTEM|::|PACKNAME|))
+       (|COMMON-LISP|::|LET|
+        ((|SYSTEM|::|CASE-SENSITIVE| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|CASE-INVERTED| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|MODERN| :|DEFAULT|))
+        (|COMMON-LISP|::|DOLIST| (|SYSTEM|::|OPTION| |SYSTEM|::|OPTIONS|)
+         (|COMMON-LISP|::|WHEN| (|COMMON-LISP|::|LISTP| |SYSTEM|::|OPTION|)
+          (|COMMON-LISP|::|CASE| (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|)
+           (:|MODERN|
+            (|COMMON-LISP|::|SETQ| |SYSTEM|::|MODERN|
+             (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|))
+            (|COMMON-LISP|::|SETQ| |SYSTEM|::|CASE-INVERTED|
+             (|COMMON-LISP|::|SETQ| |SYSTEM|::|CASE-SENSITIVE|
+              (|COMMON-LISP|::|NOT|
+               (|COMMON-LISP|::|NULL| |SYSTEM|::|MODERN|))))))))
+        (|COMMON-LISP|::|DOLIST| (|SYSTEM|::|OPTION| |SYSTEM|::|OPTIONS|)
+         (|COMMON-LISP|::|WHEN| (|COMMON-LISP|::|LISTP| |SYSTEM|::|OPTION|)
+          (|COMMON-LISP|::|CASE| (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|)
+           (:|CASE-SENSITIVE|
+            (|COMMON-LISP|::|SETQ| |SYSTEM|::|CASE-SENSITIVE|
+             (|COMMON-LISP|::|NOT|
+              (|COMMON-LISP|::|NULL|
+               (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|)))))
+           (:|CASE-INVERTED|
+            (|COMMON-LISP|::|SETQ| |SYSTEM|::|CASE-INVERTED|
+             (|COMMON-LISP|::|NOT|
+              (|COMMON-LISP|::|NULL|
+               (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|))))))))
+        (|COMMON-LISP|::|LET|
+         ((|SYSTEM|::|TO-STRING|
+           (|COMMON-LISP|::|IF| |SYSTEM|::|CASE-INVERTED|
+            #'|CS-COMMON-LISP|::|string| #'|COMMON-LISP|::|STRING|)))
+         (|COMMON-LISP|::|LET|
+          ((|SYSTEM|::|SIZE| |COMMON-LISP|::|NIL|)
+           (|CLOS|::|DOCUMENTATION| |COMMON-LISP|::|NIL|)
+           (|SYSTEM|::|NICKNAME-LIST| '|COMMON-LISP|::|NIL|)
+           (|SYSTEM|::|SHADOW-LIST| '|COMMON-LISP|::|NIL|)
+           (|SYSTEM|::|SHADOWING-LIST| '|COMMON-LISP|::|NIL|)
+           (|SYSTEM|::|USE-LIST| '|COMMON-LISP|::|NIL|)
+           (|SYSTEM|::|USE-DEFAULT| "COMMON-LISP")
+           (|SYSTEM|::|IMPORT-LIST| '|COMMON-LISP|::|NIL|)
+           (|SYSTEM|::|INTERN-LIST| '|COMMON-LISP|::|NIL|)
+           (|SYSTEM|::|SYMNAME-LIST| '|COMMON-LISP|::|NIL|)
+           (|SYSTEM|::|EXPORT-LIST| '|COMMON-LISP|::|NIL|))
+          (|COMMON-LISP|::|FLET|
+           ((|SYSTEM|::|RECORD-SYMNAME| (|SYSTEM|::|NAME|)
+             (|COMMON-LISP|::|IF|
+              (|COMMON-LISP|::|MEMBER| |SYSTEM|::|NAME|
+               |SYSTEM|::|SYMNAME-LIST| :|TEST| #'|COMMON-LISP|::|STRING=|)
+              (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+               |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|NAME|
+               (|SYSTEM|::|TEXT|
+                "~S ~A: the symbol ~A must not be specified more than once")
+               '|COMMON-LISP|::|DEFPACKAGE| |SYSTEM|::|PACKNAME|
+               |SYSTEM|::|NAME|)
+              (|COMMON-LISP|::|PUSH| |SYSTEM|::|NAME|
+               |SYSTEM|::|SYMNAME-LIST|)))
+            (|SYSTEM|::|MODERNIZE| (|SYSTEM|::|NAME|)
+             (|COMMON-LISP|::|LET|
+              ((|SYSTEM|::|PACK|
+                (|COMMON-LISP|::|IF|
+                 (|COMMON-LISP|::|PACKAGEP| |SYSTEM|::|NAME|) |SYSTEM|::|NAME|
+                 (|SYSTEM|::|%FIND-PACKAGE|
+                  (|COMMON-LISP|::|STRING| |SYSTEM|::|NAME|)))))
+              (|COMMON-LISP|::|ECASE| |SYSTEM|::|MODERN|
+               ((|COMMON-LISP|::|T|)
+                (|COMMON-LISP|::|IF|
+                 (|COMMON-LISP|::|EQ| |SYSTEM|::|PACK|
+                  #.(|SYSTEM|::|%FIND-PACKAGE| "COMMON-LISP"))
+                 "CS-COMMON-LISP"
+                 (|COMMON-LISP|::|PACKAGE-NAME| |SYSTEM|::|PACK|)))
+               ((|COMMON-LISP|::|NIL|)
+                (|COMMON-LISP|::|IF|
+                 (|COMMON-LISP|::|EQ| |SYSTEM|::|PACK|
+                  #.(|SYSTEM|::|%FIND-PACKAGE| "CS-COMMON-LISP"))
+                 "COMMON-LISP"
+                 (|COMMON-LISP|::|PACKAGE-NAME| |SYSTEM|::|PACK|)))
+               ((:|DEFAULT|)
+                (|COMMON-LISP|::|PACKAGE-NAME| |SYSTEM|::|PACK|))))))
+           (|COMMON-LISP|::|SETQ| |SYSTEM|::|USE-DEFAULT|
+            (|SYSTEM|::|MODERNIZE| |SYSTEM|::|USE-DEFAULT|))
+           (|COMMON-LISP|::|DOLIST| (|SYSTEM|::|OPTION| |SYSTEM|::|OPTIONS|)
+            (|COMMON-LISP|::|IF| (|COMMON-LISP|::|LISTP| |SYSTEM|::|OPTION|)
+             (|COMMON-LISP|::|IF|
+              (|COMMON-LISP|::|KEYWORDP|
+               (|COMMON-LISP|::|CAR| |SYSTEM|::|OPTION|))
+              (|COMMON-LISP|::|CASE|
+               (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|)
+               (:|SIZE|
+                (|COMMON-LISP|::|IF| |SYSTEM|::|SIZE|
+                 (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                  :|FORM| |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|OPTIONS|
+                  (|SYSTEM|::|TEXT|
+                   "~S ~A: the ~S option must not be given more than once")
+                  '|COMMON-LISP|::|DEFPACKAGE| |SYSTEM|::|PACKNAME| ':|SIZE|)
+                 (|COMMON-LISP|::|SETQ| |SYSTEM|::|SIZE| |COMMON-LISP|::|T|)))
+               (:|DOCUMENTATION|
+                (|COMMON-LISP|::|IF| |CLOS|::|DOCUMENTATION|
+                 (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                  :|FORM| |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|OPTIONS|
+                  (|SYSTEM|::|TEXT|
+                   "~S ~A: the ~S option must not be given more than once")
+                  '|COMMON-LISP|::|DEFPACKAGE| |SYSTEM|::|PACKNAME|
+                  ':|DOCUMENTATION|)
+                 (|COMMON-LISP|::|SETQ| |CLOS|::|DOCUMENTATION|
+                  (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|))))
+               (:|NICKNAMES|
+                (|COMMON-LISP|::|DOLIST|
+                 (|SYSTEM|::|NAME| (|COMMON-LISP|::|REST| |SYSTEM|::|OPTION|))
+                 (|COMMON-LISP|::|PUSH|
+                  (|COMMON-LISP|::|STRING| |SYSTEM|::|NAME|)
+                  |SYSTEM|::|NICKNAME-LIST|)))
+               (:|SHADOW|
+                (|COMMON-LISP|::|DOLIST|
+                 (|SYSTEM|::|NAME| (|COMMON-LISP|::|REST| |SYSTEM|::|OPTION|))
+                 (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAME|
+                  (|COMMON-LISP|::|FUNCALL| |SYSTEM|::|TO-STRING|
+                   |SYSTEM|::|NAME|))
+                 (|COMMON-LISP|::|UNLESS|
+                  (|COMMON-LISP|::|MEMBER| |SYSTEM|::|NAME|
+                   |SYSTEM|::|SHADOW-LIST| :|TEST| #'|COMMON-LISP|::|STRING=|)
+                  (|COMMON-LISP|::|PUSH| |SYSTEM|::|NAME|
+                   |SYSTEM|::|SHADOW-LIST|)
+                  (|SYSTEM|::|RECORD-SYMNAME| |SYSTEM|::|NAME|))))
+               (:|SHADOWING-IMPORT-FROM|
+                (|COMMON-LISP|::|LET|
+                 ((|SYSTEM|::|PACK|
+                   (|SYSTEM|::|MODERNIZE|
+                    (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|))))
+                 (|COMMON-LISP|::|DOLIST|
+                  (|SYSTEM|::|NAME| (|COMMON-LISP|::|CDDR| |SYSTEM|::|OPTION|))
+                  (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAME|
+                   (|COMMON-LISP|::|FUNCALL| |SYSTEM|::|TO-STRING|
+                    |SYSTEM|::|NAME|))
+                  (|COMMON-LISP|::|LET|
+                   ((|SYSTEM|::|NAME+PACK|
+                     (|COMMON-LISP|::|CONS| |SYSTEM|::|NAME|
+                      |SYSTEM|::|PACK|)))
+                   (|COMMON-LISP|::|UNLESS|
+                    (|COMMON-LISP|::|MEMBER| |SYSTEM|::|NAME+PACK|
+                     |SYSTEM|::|SHADOWING-LIST| :|TEST|
+                     #'|COMMON-LISP|::|EQUAL|)
+                    (|COMMON-LISP|::|PUSH| |SYSTEM|::|NAME+PACK|
+                     |SYSTEM|::|SHADOWING-LIST|)
+                    (|SYSTEM|::|RECORD-SYMNAME| |SYSTEM|::|NAME|))))))
+               (:|USE|
+                (|COMMON-LISP|::|DOLIST|
+                 (|SYSTEM|::|NAME| (|COMMON-LISP|::|REST| |SYSTEM|::|OPTION|))
+                 (|COMMON-LISP|::|PUSH|
+                  (|SYSTEM|::|MODERNIZE| |SYSTEM|::|NAME|)
+                  |SYSTEM|::|USE-LIST|))
+                (|COMMON-LISP|::|SETQ| |SYSTEM|::|USE-DEFAULT|
+                 |COMMON-LISP|::|NIL|))
+               (:|IMPORT-FROM|
+                (|COMMON-LISP|::|LET|
+                 ((|SYSTEM|::|PACK|
+                   (|SYSTEM|::|MODERNIZE|
+                    (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|))))
+                 (|COMMON-LISP|::|DOLIST|
+                  (|SYSTEM|::|NAME| (|COMMON-LISP|::|CDDR| |SYSTEM|::|OPTION|))
+                  (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAME|
+                   (|COMMON-LISP|::|FUNCALL| |SYSTEM|::|TO-STRING|
+                    |SYSTEM|::|NAME|))
+                  (|COMMON-LISP|::|LET|
+                   ((|SYSTEM|::|NAME+PACK|
+                     (|COMMON-LISP|::|CONS| |SYSTEM|::|NAME|
+                      |SYSTEM|::|PACK|)))
+                   (|COMMON-LISP|::|UNLESS|
+                    (|COMMON-LISP|::|MEMBER| |SYSTEM|::|NAME+PACK|
+                     |SYSTEM|::|IMPORT-LIST| :|TEST| #'|COMMON-LISP|::|EQUAL|)
+                    (|COMMON-LISP|::|PUSH| |SYSTEM|::|NAME+PACK|
+                     |SYSTEM|::|IMPORT-LIST|)
+                    (|SYSTEM|::|RECORD-SYMNAME| |SYSTEM|::|NAME|))))))
+               (:|INTERN|
+                (|COMMON-LISP|::|DOLIST|
+                 (|SYSTEM|::|NAME| (|COMMON-LISP|::|REST| |SYSTEM|::|OPTION|))
+                 (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAME|
+                  (|COMMON-LISP|::|FUNCALL| |SYSTEM|::|TO-STRING|
+                   |SYSTEM|::|NAME|))
+                 (|COMMON-LISP|::|UNLESS|
+                  (|COMMON-LISP|::|MEMBER| |SYSTEM|::|NAME|
+                   |SYSTEM|::|INTERN-LIST| :|TEST| #'|COMMON-LISP|::|STRING=|)
+                  (|COMMON-LISP|::|PUSH| |SYSTEM|::|NAME|
+                   |SYSTEM|::|INTERN-LIST|)
+                  (|SYSTEM|::|RECORD-SYMNAME| |SYSTEM|::|NAME|))))
+               (:|EXPORT|
+                (|COMMON-LISP|::|DOLIST|
+                 (|SYSTEM|::|NAME| (|COMMON-LISP|::|REST| |SYSTEM|::|OPTION|))
+                 (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAME|
+                  (|COMMON-LISP|::|FUNCALL| |SYSTEM|::|TO-STRING|
+                   |SYSTEM|::|NAME|))
+                 (|COMMON-LISP|::|UNLESS|
+                  (|COMMON-LISP|::|MEMBER| |SYSTEM|::|NAME|
+                   |SYSTEM|::|EXPORT-LIST| :|TEST| #'|COMMON-LISP|::|STRING=|)
+                  (|COMMON-LISP|::|PUSH| |SYSTEM|::|NAME|
+                   |SYSTEM|::|EXPORT-LIST|))))
+               (:|CASE-SENSITIVE|) (:|CASE-INVERTED|) (:|MODERN|)
+               (|COMMON-LISP|::|T|
+                (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                 :|FORM| |SYSTEM|::|WHOLE-FORM| :|DETAIL|
+                 (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|)
+                 (|SYSTEM|::|TEXT| "~S ~A: unknown option ~S")
+                 '|COMMON-LISP|::|DEFPACKAGE| |SYSTEM|::|PACKNAME|
+                 (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|))))
+              (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+               |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|OPTION|
+               (|SYSTEM|::|TEXT| "~S ~A: invalid syntax in ~S option: ~S")
+               '|COMMON-LISP|::|DEFPACKAGE| |SYSTEM|::|PACKNAME|
+               '|COMMON-LISP|::|DEFPACKAGE| |SYSTEM|::|OPTION|))
+             (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+              |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|OPTION|
+              (|SYSTEM|::|TEXT| "~S ~A: not a ~S option: ~S")
+              '|COMMON-LISP|::|DEFPACKAGE| |SYSTEM|::|PACKNAME|
+              '|COMMON-LISP|::|DEFPACKAGE| |SYSTEM|::|OPTION|)))
+           (|COMMON-LISP|::|SETQ| |SYSTEM|::|SYMNAME-LIST|
+            |SYSTEM|::|INTERN-LIST|)
+           (|COMMON-LISP|::|MAPC| #'|SYSTEM|::|RECORD-SYMNAME|
+            |SYSTEM|::|EXPORT-LIST|))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|NICKNAME-LIST|
+           (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|NICKNAME-LIST|))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|SHADOW-LIST|
+           (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|SHADOW-LIST|))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|SHADOWING-LIST|
+           (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|SHADOWING-LIST|))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|USE-LIST|
+           (|COMMON-LISP|::|IF| |SYSTEM|::|USE-DEFAULT|
+            (|COMMON-LISP|::|LIST| |SYSTEM|::|USE-DEFAULT|)
+            (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|USE-LIST|)))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|IMPORT-LIST|
+           (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|IMPORT-LIST|))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|INTERN-LIST|
+           (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|INTERN-LIST|))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|EXPORT-LIST|
+           (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|EXPORT-LIST|))
+          `(|COMMON-LISP|::|EVAL-WHEN|
+            (:|COMPILE-TOPLEVEL| :|LOAD-TOPLEVEL| :|EXECUTE|)
+            (|SYSTEM|::|%IN-PACKAGE| ,|SYSTEM|::|PACKNAME| :|NICKNAMES|
+             ',|SYSTEM|::|NICKNAME-LIST| :|USE| '|COMMON-LISP|::|NIL|
+             :|CASE-SENSITIVE| ,|SYSTEM|::|CASE-SENSITIVE| :|CASE-INVERTED|
+             ,|SYSTEM|::|CASE-INVERTED|)
+            ,@(|COMMON-LISP|::|ECASE| |SYSTEM|::|MODERN|
+               ((|COMMON-LISP|::|T|)
+                `((|COMMON-LISP|::|WHEN|
+                   (|COMMON-LISP|::|FIND| "COMMON-LISP"
+                    (|COMMON-LISP|::|PACKAGE-USE-LIST| ,|SYSTEM|::|PACKNAME|)
+                    :|TEST| #'|COMMON-LISP|::|STRING=| :|KEY|
+                    #'|COMMON-LISP|::|PACKAGE-NAME|)
+                   (|COMMON-LISP|::|UNUSE-PACKAGE| "COMMON-LISP"
+                    ,|SYSTEM|::|PACKNAME|)
+                   (|COMMON-LISP|::|USE-PACKAGE| "CS-COMMON-LISP"
+                    ,|SYSTEM|::|PACKNAME|))))
+               ((|COMMON-LISP|::|NIL|)
+                `((|COMMON-LISP|::|WHEN|
+                   (|COMMON-LISP|::|FIND| "CS-COMMON-LISP"
+                    (|COMMON-LISP|::|PACKAGE-USE-LIST| ,|SYSTEM|::|PACKNAME|)
+                    :|TEST| #'|COMMON-LISP|::|STRING=| :|KEY|
+                    #'|COMMON-LISP|::|PACKAGE-NAME|)
+                   (|COMMON-LISP|::|UNUSE-PACKAGE| "CS-COMMON-LISP"
+                    ,|SYSTEM|::|PACKNAME|)
+                   (|COMMON-LISP|::|USE-PACKAGE| "COMMON-LISP"
+                    ,|SYSTEM|::|PACKNAME|))))
+               ((:|DEFAULT|) '|COMMON-LISP|::|NIL|))
+            ,@(|COMMON-LISP|::|IF| |SYSTEM|::|SHADOW-LIST|
+               `((,(|COMMON-LISP|::|IF| |SYSTEM|::|CASE-INVERTED|
+                    '|CS-COMMON-LISP|::|shadow| '|COMMON-LISP|::|SHADOW|)
+                  ',|SYSTEM|::|SHADOW-LIST| ,|SYSTEM|::|PACKNAME|)))
+            ,@(|COMMON-LISP|::|MAPCAR|
+               #'(|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|PAIR|)
+                  `(|SYSTEM|::|SHADOWING-IMPORT-CERROR|
+                    ,(|COMMON-LISP|::|CAR| |SYSTEM|::|PAIR|)
+                    ,(|COMMON-LISP|::|CDR| |SYSTEM|::|PAIR|)
+                    ,|SYSTEM|::|CASE-INVERTED| ,|SYSTEM|::|PACKNAME|))
+               |SYSTEM|::|SHADOWING-LIST|)
+            ,@(|COMMON-LISP|::|IF| |SYSTEM|::|USE-LIST|
+               `((|COMMON-LISP|::|USE-PACKAGE| ',|SYSTEM|::|USE-LIST|
+                  ,|SYSTEM|::|PACKNAME|)))
+            ,@(|COMMON-LISP|::|MAPCAR|
+               #'(|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|PAIR|)
+                  `(|SYSTEM|::|IMPORT-CERROR|
+                    ,(|COMMON-LISP|::|CAR| |SYSTEM|::|PAIR|)
+                    ,(|COMMON-LISP|::|CDR| |SYSTEM|::|PAIR|)
+                    ,|SYSTEM|::|CASE-INVERTED| ,|SYSTEM|::|PACKNAME|))
+               |SYSTEM|::|IMPORT-LIST|)
+            ,@(|COMMON-LISP|::|MAPCAR|
+               #'(|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|SYMNAME|)
+                  `(,(|COMMON-LISP|::|IF| |SYSTEM|::|CASE-INVERTED|
+                      '|CS-COMMON-LISP|::|intern| '|COMMON-LISP|::|INTERN|)
+                    ,|SYSTEM|::|SYMNAME| ,|SYSTEM|::|PACKNAME|))
+               |SYSTEM|::|INTERN-LIST|)
+            ,@(|COMMON-LISP|::|IF| |SYSTEM|::|EXPORT-LIST|
+               `((|SYSTEM|::|INTERN-EXPORT| ',|SYSTEM|::|EXPORT-LIST|
+                  ,|SYSTEM|::|PACKNAME| ,|SYSTEM|::|CASE-INVERTED|)))
+            ,@(|COMMON-LISP|::|IF| |CLOS|::|DOCUMENTATION|
+               `((|COMMON-LISP|::|SETF|
+                  (|SYSTEM|::|PACKAGE-DOCUMENTATION|
+                   (|COMMON-LISP|::|FIND-PACKAGE| ,|SYSTEM|::|PACKNAME|))
+                  ,|CLOS|::|DOCUMENTATION|)))
+            (|COMMON-LISP|::|FIND-PACKAGE| ,|SYSTEM|::|PACKNAME|))))))))))
+  '(|COMMON-LISP|::|&WHOLE| |SYSTEM|::|WHOLE-FORM| |SYSTEM|::|PACKNAME|
+    |COMMON-LISP|::|&REST| |SYSTEM|::|OPTIONS|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|FIND-SYMBOL-CERROR|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|COMMON-LISP|::|STRING| |SYSTEM|::|PACKNAME| |SYSTEM|::|INVERT|
+    |SYSTEM|::|CALLING-PACKNAME|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|SHADOWING-IMPORT-CERROR|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|COMMON-LISP|::|STRING| |SYSTEM|::|PACKNAME| |SYSTEM|::|INVERT|
+    |SYSTEM|::|CALLING-PACKNAME|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|IMPORT-CERROR|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|COMMON-LISP|::|STRING| |SYSTEM|::|PACKNAME| |SYSTEM|::|INVERT|
+    |SYSTEM|::|CALLING-PACKNAME|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|INTERN-EXPORT|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|STRING-LIST| |SYSTEM|::|PACKNAME| |SYSTEM|::|INVERT|)))

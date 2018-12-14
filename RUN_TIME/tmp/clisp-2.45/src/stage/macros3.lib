@@ -1,0 +1,262 @@
+#0Y_ #0Y |CHARSET|::|UTF-8|
+(|COMMON-LISP|::|SETQ| |COMMON-LISP|::|*PACKAGE*|
+ (|SYSTEM|::|%FIND-PACKAGE| "EXT"))
+(|COMMON-LISP|::|SETQ| |COMMON-LISP|::|*PACKAGE*|
+ (|SYSTEM|::|%FIND-PACKAGE| "SYSTEM"))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|EXT|::|ETHE|)
+(|SYSTEM|::|%PUTD| '|EXT|::|ETHE|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |EXT|::|ETHE|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|<ENV-ARG>|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|IGNORE| |SYSTEM|::|<ENV-ARG>|))
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 3.
+       3.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|SYSTEM|::|TYPESPEC|
+        (|COMMON-LISP|::|CADR| . #1=(|SYSTEM|::|<MACRO-FORM>|)))
+       (|SYSTEM|::|FORM| (|COMMON-LISP|::|CADDR| . #1#)))
+      (|COMMON-LISP|::|BLOCK| |EXT|::|ETHE|
+       (|COMMON-LISP|::|LET|
+        ((|SYSTEM|::|G| (|COMMON-LISP|::|GENSYM| "VALUES-")))
+        `(|COMMON-LISP|::|THE| ,|SYSTEM|::|TYPESPEC|
+          (|COMMON-LISP|::|LET|
+           ((,|SYSTEM|::|G|
+             (|COMMON-LISP|::|MULTIPLE-VALUE-LIST| ,|SYSTEM|::|FORM|)))
+           (|COMMON-LISP|::|IF|
+            (|SYSTEM|::|%THE| ,|SYSTEM|::|G|
+             ',(|SYSTEM|::|TYPE-FOR-DISCRIMINATION| |SYSTEM|::|TYPESPEC|))
+            (|COMMON-LISP|::|VALUES-LIST| ,|SYSTEM|::|G|)
+            (|SYSTEM|::|ERROR-OF-TYPE| '|COMMON-LISP|::|ERROR|
+             (|SYSTEM|::|TEXT|
+              "The form ~S yielded ~:[no values~;~:*~{~S~^ ; ~}~] ,~@\n
+                       that's not of type ~S.")
+             ',|SYSTEM|::|FORM| ,|SYSTEM|::|G| ',|SYSTEM|::|TYPESPEC|))))))))))
+  '(|SYSTEM|::|TYPESPEC| |SYSTEM|::|FORM|)))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|EXT|::|LETF*|)
+(|SYSTEM|::|%PUTD| '|EXT|::|LETF*|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |EXT|::|LETF*|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|ENV|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 2.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|SYSTEM|::|WHOLE-FORM| |SYSTEM|::|<MACRO-FORM>|)
+       (|SYSTEM|::|BINDLIST|
+        (|COMMON-LISP|::|CADR| . #1=(|SYSTEM|::|<MACRO-FORM>|)))
+       (|SYSTEM|::|BODY| (|COMMON-LISP|::|CDDR| . #1#)))
+      (|COMMON-LISP|::|BLOCK| |EXT|::|LETF*|
+       (|COMMON-LISP|::|MULTIPLE-VALUE-BIND|
+        (|SYSTEM|::|BODY-REST| |SYSTEM|::|DECLARATIONS|)
+        (|SYSTEM|::|PARSE-BODY| |SYSTEM|::|BODY|)
+        (|COMMON-LISP|::|LET|
+         ((|COMMON-LISP|::|DECLARE|
+           (|COMMON-LISP|::|IF| |SYSTEM|::|DECLARATIONS|
+            `((|COMMON-LISP|::|DECLARE| ,@|SYSTEM|::|DECLARATIONS|))
+            '|COMMON-LISP|::|NIL|)))
+         (|COMMON-LISP|::|VALUES|
+          (|SYSTEM|::|EXPAND-LETF*| |SYSTEM|::|BINDLIST|
+           |COMMON-LISP|::|DECLARE| |SYSTEM|::|BODY-REST|
+           |SYSTEM|::|WHOLE-FORM| |SYSTEM|::|ENV|)))))))))
+  '(|COMMON-LISP|::|&WHOLE| |SYSTEM|::|WHOLE-FORM| |SYSTEM|::|BINDLIST|
+    |COMMON-LISP|::|&BODY| |SYSTEM|::|BODY| |COMMON-LISP|::|&ENVIRONMENT|
+    |SYSTEM|::|ENV|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|EXPAND-LETF*|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|BINDLIST| |COMMON-LISP|::|DECLARE| |SYSTEM|::|BODY|
+    |SYSTEM|::|WHOLE-FORM| |SYSTEM|::|ENV|)))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|EXT|::|LETF|)
+(|SYSTEM|::|%PUTD| '|EXT|::|LETF|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |EXT|::|LETF|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|ENV|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 2.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|SYSTEM|::|WHOLE-FORM| |SYSTEM|::|<MACRO-FORM>|)
+       (|SYSTEM|::|BINDLIST|
+        (|COMMON-LISP|::|CADR| . #1=(|SYSTEM|::|<MACRO-FORM>|)))
+       (|SYSTEM|::|BODY| (|COMMON-LISP|::|CDDR| . #1#)))
+      (|COMMON-LISP|::|BLOCK| |EXT|::|LETF|
+       (|COMMON-LISP|::|MULTIPLE-VALUE-BIND|
+        (|SYSTEM|::|BODY-REST| |SYSTEM|::|DECLARATIONS|)
+        (|SYSTEM|::|PARSE-BODY| |SYSTEM|::|BODY|)
+        (|COMMON-LISP|::|LET|
+         ((|COMMON-LISP|::|DECLARE|
+           (|COMMON-LISP|::|IF| |SYSTEM|::|DECLARATIONS|
+            `((|COMMON-LISP|::|DECLARE| ,@|SYSTEM|::|DECLARATIONS|))
+            '|COMMON-LISP|::|NIL|))
+          (|SYSTEM|::|LET-LIST| |COMMON-LISP|::|NIL|))
+         (|COMMON-LISP|::|MULTIPLE-VALUE-BIND|
+          (|SYSTEM|::|LET*-LIST| |SYSTEM|::|LET/LET*-LIST|
+           |SYSTEM|::|UWP-STORE1| |SYSTEM|::|UWP-STORE2|)
+          (|SYSTEM|::|EXPAND-LETF| |SYSTEM|::|BINDLIST| |SYSTEM|::|WHOLE-FORM|
+           |SYSTEM|::|ENV|)
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|LET*-LIST|
+           (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|LET*-LIST|))
+          (|COMMON-LISP|::|LOOP|
+           (|COMMON-LISP|::|UNLESS|
+            (|COMMON-LISP|::|AND|
+             (|COMMON-LISP|::|CONSP| |SYSTEM|::|LET*-LIST|)
+             (|COMMON-LISP|::|LET|
+              ((|COMMON-LISP|::|LAST|
+                (|COMMON-LISP|::|CAAR| |SYSTEM|::|LET*-LIST|)))
+              (|COMMON-LISP|::|AND|
+               (|COMMON-LISP|::|SYMBOLP| |COMMON-LISP|::|LAST|)
+               (|COMMON-LISP|::|NULL|
+                (|COMMON-LISP|::|SYMBOL-PACKAGE| |COMMON-LISP|::|LAST|))
+               (|COMMON-LISP|::|DOLIST|
+                (|SYSTEM|::|BIND| |SYSTEM|::|LET/LET*-LIST|
+                 |COMMON-LISP|::|NIL|)
+                (|COMMON-LISP|::|WHEN|
+                 (|COMMON-LISP|::|EQ|
+                  (|COMMON-LISP|::|SECOND| |SYSTEM|::|BIND|)
+                  |COMMON-LISP|::|LAST|)
+                 (|COMMON-LISP|::|PUSH|
+                  (|COMMON-LISP|::|LIST|
+                   (|COMMON-LISP|::|FIRST| |SYSTEM|::|BIND|)
+                   (|COMMON-LISP|::|SECOND|
+                    (|COMMON-LISP|::|CAR| |SYSTEM|::|LET*-LIST|)))
+                  |SYSTEM|::|LET-LIST|)
+                 (|COMMON-LISP|::|SETQ| |SYSTEM|::|LET/LET*-LIST|
+                  (|COMMON-LISP|::|DELETE| |COMMON-LISP|::|LAST|
+                   |SYSTEM|::|LET/LET*-LIST| :|KEY| #'|COMMON-LISP|::|SECOND|
+                   :|TEST| #'|COMMON-LISP|::|EQ| :|COUNT| 1.))
+                 (|COMMON-LISP|::|SETQ| |SYSTEM|::|LET*-LIST|
+                  (|COMMON-LISP|::|CDR| |SYSTEM|::|LET*-LIST|))
+                 (|COMMON-LISP|::|RETURN| |COMMON-LISP|::|T|))))))
+            (|COMMON-LISP|::|RETURN|)))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|LET*-LIST|
+           (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|LET*-LIST|))
+          (|COMMON-LISP|::|LET|
+           ((|SYSTEM|::|BODY| |SYSTEM|::|BODY-REST|)
+            (|SYSTEM|::|1FORM| |COMMON-LISP|::|NIL|))
+           (|COMMON-LISP|::|WHEN| |SYSTEM|::|UWP-STORE1|
+            (|COMMON-LISP|::|UNLESS| |SYSTEM|::|BODY|
+             (|COMMON-LISP|::|SETQ| |SYSTEM|::|BODY| '(|COMMON-LISP|::|NIL|)))
+            (|COMMON-LISP|::|SETQ| |SYSTEM|::|BODY|
+             `((|COMMON-LISP|::|UNWIND-PROTECT|
+                (|COMMON-LISP|::|PROGN| ,@|SYSTEM|::|UWP-STORE1|
+                 ,@|SYSTEM|::|BODY|)
+                ,@|SYSTEM|::|UWP-STORE2|))
+             |SYSTEM|::|1FORM| |COMMON-LISP|::|T|))
+           (|COMMON-LISP|::|WHEN| |SYSTEM|::|LET/LET*-LIST|
+            (|COMMON-LISP|::|SETQ| |SYSTEM|::|BODY|
+             `((|COMMON-LISP|::|LET*| ,|SYSTEM|::|LET/LET*-LIST|
+                ,@|COMMON-LISP|::|DECLARE| ,@|SYSTEM|::|BODY|))
+             |SYSTEM|::|1FORM| |COMMON-LISP|::|T|))
+           (|COMMON-LISP|::|WHEN| |SYSTEM|::|LET-LIST|
+            (|COMMON-LISP|::|SETQ| |SYSTEM|::|BODY|
+             `((|COMMON-LISP|::|LET| ,|SYSTEM|::|LET-LIST|
+                ,@|COMMON-LISP|::|DECLARE| ,@|SYSTEM|::|BODY|))
+             |SYSTEM|::|1FORM| |COMMON-LISP|::|T|))
+           (|COMMON-LISP|::|WHEN| |SYSTEM|::|LET*-LIST|
+            (|COMMON-LISP|::|SETQ| |SYSTEM|::|BODY|
+             `((|EXT|::|LETF*| ,|SYSTEM|::|LET*-LIST|
+                ,@|COMMON-LISP|::|DECLARE| ,@|SYSTEM|::|BODY|))
+             |SYSTEM|::|1FORM| |COMMON-LISP|::|T|))
+           (|COMMON-LISP|::|IF|
+            (|COMMON-LISP|::|AND| |SYSTEM|::|1FORM|
+             (|COMMON-LISP|::|OR|
+              (|COMMON-LISP|::|NULL| |COMMON-LISP|::|DECLARE|)
+              (|COMMON-LISP|::|NOT|
+               (|COMMON-LISP|::|EQ| (|COMMON-LISP|::|CAAR| |SYSTEM|::|BODY|)
+                '|COMMON-LISP|::|UNWIND-PROTECT|))))
+            (|COMMON-LISP|::|CAR| |SYSTEM|::|BODY|)
+            `(|COMMON-LISP|::|LET| |COMMON-LISP|::|NIL|
+              ,@|COMMON-LISP|::|DECLARE|
+              (|COMMON-LISP|::|PROGN| ,@|SYSTEM|::|BODY|))))))))))))
+  '(|COMMON-LISP|::|&WHOLE| |SYSTEM|::|WHOLE-FORM| |SYSTEM|::|BINDLIST|
+    |COMMON-LISP|::|&BODY| |SYSTEM|::|BODY| |COMMON-LISP|::|&ENVIRONMENT|
+    |SYSTEM|::|ENV|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|EXPAND-LETF|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|BINDLIST| |SYSTEM|::|WHOLE-FORM| |SYSTEM|::|ENV|)))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|EXT|::|WITH-COLLECT|)
+(|SYSTEM|::|%PUTD| '|EXT|::|WITH-COLLECT|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |EXT|::|WITH-COLLECT|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|<ENV-ARG>|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|IGNORE| |SYSTEM|::|<ENV-ARG>|))
+    "Evaluate forms, collecting objects into lists.\n
+Within the FORMS, you can use local macros listed among collectors,\n
+they are returned as multiple values.\n
+E.g., (with-collect (c1 c2) (dotimes (i 10) (if (oddp i) (c1 i) (c2 i))))\n
+ ==> (1 3 5 7 9); (0 2 4 6 8) [2 values]\n
+In CLISP, push/nreverse is about 1.25 times as fast as pushing into the\n
+tail, so this macro uses push/nreverse on CLISP and push into the tail\n
+on other lisps (which is 1.5-2 times as fast as push/nreverse there)."
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 2.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((#1=#:|G3081| (|COMMON-LISP|::|CADR| . #2=(|SYSTEM|::|<MACRO-FORM>|)))
+       (#3=#:|G3082|
+        (|COMMON-LISP|::|IF|
+         (|COMMON-LISP|::|NOT| (|EXT|::|PROPER-LIST-P| #1#))
+         (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+          |SYSTEM|::|<MACRO-FORM>| :|DETAIL| #1#
+          (|SYSTEM|::|TEXT| "~S: ~S does not match lambda list element ~:S")
+          '|EXT|::|WITH-COLLECT| #1#
+          '#4=(|COMMON-LISP|::|&REST| |SYSTEM|::|COLLECTORS|))
+         #1#))
+       (|SYSTEM|::|COLLECTORS| #3#)
+       (|SYSTEM|::|FORMS| (|COMMON-LISP|::|CDDR| . #2#)))
+      (|COMMON-LISP|::|BLOCK| |EXT|::|WITH-COLLECT|
+       (|COMMON-LISP|::|LET|
+        ((|SYSTEM|::|RET|
+          (|COMMON-LISP|::|MAPCAR|
+           (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|CC|)
+            (|COMMON-LISP|::|GENSYM|
+             (|COMMON-LISP|::|FORMAT| |COMMON-LISP|::|NIL| "~:@(~s~)-RET-"
+              |SYSTEM|::|CC|)))
+           |SYSTEM|::|COLLECTORS|)))
+        `(|COMMON-LISP|::|LET| (,@|SYSTEM|::|RET|)
+          (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|LIST| ,@|SYSTEM|::|RET|))
+          (|COMMON-LISP|::|MACROLET|
+           ,(|COMMON-LISP|::|MAPCAR|
+             (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|CO| |SYSTEM|::|RE|)
+              `(,|SYSTEM|::|CO| (|SYSTEM|::|FORM|)
+                `(|COMMON-LISP|::|PUSH| ,|SYSTEM|::|FORM| ,',|SYSTEM|::|RE|)))
+             |SYSTEM|::|COLLECTORS| |SYSTEM|::|RET|)
+           ,@|SYSTEM|::|FORMS|
+           (|COMMON-LISP|::|VALUES|
+            ,@(|COMMON-LISP|::|MAPCAR|
+               (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|RE|)
+                `(|SYSTEM|::|LIST-NREVERSE| ,|SYSTEM|::|RE|))
+               |SYSTEM|::|RET|))))))))))
+  '(#4# |COMMON-LISP|::|&BODY| |SYSTEM|::|FORMS|)))
+(|SYSTEM|::|C-DEFUN| '|EXT|::|COMPILED-FILE-P|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|FILE-NAME|)))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|EXT|::|COMPILE-TIME-VALUE|)
+(|SYSTEM|::|%PUTD| '|EXT|::|COMPILE-TIME-VALUE|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |EXT|::|COMPILE-TIME-VALUE|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|<ENV-ARG>|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|IGNORE| |SYSTEM|::|<ENV-ARG>|))
+    "Evaluate the EXPRESSION at compile time, writing the value into the FAS file."
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 2.
+       2.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|SYSTEM|::|EXPRESSION|
+        (|COMMON-LISP|::|CADR| |SYSTEM|::|<MACRO-FORM>|)))
+      (|COMMON-LISP|::|DECLARE|
+       (|COMMON-LISP|::|IGNORE| |SYSTEM|::|EXPRESSION|))
+      (|COMMON-LISP|::|BLOCK| |EXT|::|COMPILE-TIME-VALUE|
+       |COMMON-LISP|::|NIL|)))))
+  '(|SYSTEM|::|EXPRESSION|)))

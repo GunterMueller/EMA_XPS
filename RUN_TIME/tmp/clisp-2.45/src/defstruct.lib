@@ -1,0 +1,981 @@
+#0Y_ #0Y |CHARSET|::|UTF-8|
+(|COMMON-LISP|::|SETQ| |COMMON-LISP|::|*PACKAGE*|
+ (|SYSTEM|::|%FIND-PACKAGE| "SYSTEM"))
+(|SYSTEM|::|C-PROCLAIM-CONSTANT|
+ '|SYSTEM|::|*DEFSTRUCT-DESCRIPTION-TYPE-LOCATION*| '0.)
+(|SYSTEM|::|C-PROCLAIM-CONSTANT|
+ '|SYSTEM|::|*DEFSTRUCT-DESCRIPTION-SIZE-LOCATION*| '1.)
+(|SYSTEM|::|C-PROCLAIM-CONSTANT|
+ '|SYSTEM|::|*DEFSTRUCT-DESCRIPTION-KCONSTRUCTOR-LOCATION*| '2.)
+(|SYSTEM|::|C-PROCLAIM-CONSTANT|
+ '|SYSTEM|::|*DEFSTRUCT-DESCRIPTION-SLOTS-LOCATION*| '3.)
+(|SYSTEM|::|C-PROCLAIM-CONSTANT|
+ '|SYSTEM|::|*DEFSTRUCT-DESCRIPTION-DIRECT-SLOTS-LOCATION*| '4.)
+(|SYSTEM|::|C-PROCLAIM-CONSTANT|
+ '|SYSTEM|::|*DEFSTRUCT-DESCRIPTION-BOA-CONSTRUCTORS-LOCATION*| '5.)
+(|SYSTEM|::|C-PROCLAIM-CONSTANT|
+ '|SYSTEM|::|*DEFSTRUCT-DESCRIPTION-COPIER-LOCATION*| '6.)
+(|SYSTEM|::|C-PROCLAIM-CONSTANT|
+ '|SYSTEM|::|*DEFSTRUCT-DESCRIPTION-PREDICATE-LOCATION*| '7.)
+(|SYSTEM|::|C-PROCLAIM|
+ '(|EXT|::|CONSTANT-INLINE| |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-TYPE-LOCATION*|
+   |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-SIZE-LOCATION*|
+   |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-KCONSTRUCTOR-LOCATION*|
+   |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-SLOTS-LOCATION*|
+   |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-DIRECT-SLOTS-LOCATION*|
+   |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-BOA-CONSTRUCTORS-LOCATION*|
+   |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-COPIER-LOCATION*|
+   |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-PREDICATE-LOCATION*|))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|MAKE-DS-SLOT|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|NAME| |SYSTEM|::|INITARGS| |SYSTEM|::|OFFSET| |SYSTEM|::|INITER|
+    |COMMON-LISP|::|TYPE| |SYSTEM|::|READONLY|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|COPY-<STRUCTURE-EFFECTIVE-SLOT-DEFINITION>|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|SLOT|)))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|SYSTEM|::|DS-REAL-SLOT-P|)
+(|SYSTEM|::|%PUTD| '|SYSTEM|::|DS-REAL-SLOT-P|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |SYSTEM|::|DS-REAL-SLOT-P|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|<ENV-ARG>|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|IGNORE| |SYSTEM|::|<ENV-ARG>|))
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 2.
+       2.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|SYSTEM|::|SLOT| (|COMMON-LISP|::|CADR| |SYSTEM|::|<MACRO-FORM>|)))
+      (|COMMON-LISP|::|BLOCK| |SYSTEM|::|DS-REAL-SLOT-P|
+       `(|COMMON-LISP|::|NOT|
+         (|COMMON-LISP|::|NULL|
+          (|CLOS|::|SLOT-DEFINITION-INITARGS| ,|SYSTEM|::|SLOT|))))))))
+  '(|SYSTEM|::|SLOT|)))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|SYSTEM|::|DS-PSEUDO-SLOT-DEFAULT|)
+(|SYSTEM|::|%PUTD| '|SYSTEM|::|DS-PSEUDO-SLOT-DEFAULT|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |SYSTEM|::|DS-PSEUDO-SLOT-DEFAULT|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|<ENV-ARG>|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|IGNORE| |SYSTEM|::|<ENV-ARG>|))
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 2.
+       2.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|SYSTEM|::|SLOT| (|COMMON-LISP|::|CADR| |SYSTEM|::|<MACRO-FORM>|)))
+      (|COMMON-LISP|::|BLOCK| |SYSTEM|::|DS-PSEUDO-SLOT-DEFAULT|
+       `(|COMMON-LISP|::|FUNCALL|
+         (|CLOS|::|SLOT-DEFINITION-INITFUNCTION| ,|SYSTEM|::|SLOT|)))))))
+  '(|SYSTEM|::|SLOT|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-TYPEP|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|OBJECT| |COMMON-LISP|::|SYMBOL| |SYSTEM|::|DESC|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-TYPEP-EXPANSION|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|OBJFORM| |COMMON-LISP|::|SYMBOL| |SYSTEM|::|DESC|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-CANONICALIZE-TYPE|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|COMMON-LISP|::|SYMBOL|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-MAKE-PRED|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|PREDNAME| |COMMON-LISP|::|TYPE| |SYSTEM|::|NAME|
+    |SYSTEM|::|SLOTLIST| |SYSTEM|::|SIZE|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-ARG-DEFAULT|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|ARG| |SYSTEM|::|SLOT+INITFF|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-MAKE-CONSTRUCTOR-BODY|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|COMMON-LISP|::|TYPE| |SYSTEM|::|NAME| |SYSTEM|::|NAMES| |SYSTEM|::|SIZE|
+    |SYSTEM|::|SLOTLIST| |SYSTEM|::|VARLIST|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-ARG-WITH-DEFAULT|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|ARG| |SYSTEM|::|SLOTLIST|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-MAKE-BOA-CONSTRUCTOR|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|DESCRIPTOR| |COMMON-LISP|::|TYPE| |SYSTEM|::|NAME|
+    |SYSTEM|::|NAMES| |SYSTEM|::|SIZE| |SYSTEM|::|SLOTLIST|
+    |SYSTEM|::|WHOLE-FORM|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-MAKE-KEYWORD-CONSTRUCTOR|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|DESCRIPTOR| |COMMON-LISP|::|TYPE| |SYSTEM|::|NAME|
+    |SYSTEM|::|NAMES| |SYSTEM|::|SIZE| |SYSTEM|::|SLOTLIST|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-MAKE-COPIER|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|COPIERNAME| |SYSTEM|::|NAME| |COMMON-LISP|::|TYPE|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-ACCESSOR-NAME|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|SLOTNAME| |SYSTEM|::|CONCNAME|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-MAKE-READERS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|NAME| |SYSTEM|::|NAMES| |COMMON-LISP|::|TYPE|
+    |SYSTEM|::|CONCNAME| |SYSTEM|::|SLOTLIST|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-MAKE-WRITERS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|NAME| |SYSTEM|::|NAMES| |COMMON-LISP|::|TYPE|
+    |SYSTEM|::|CONCNAME| |SYSTEM|::|SLOTLIST|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|FIND-STRUCTURE-CLASS-SLOT-INITFUNCTION|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|CLASSNAME| |SYSTEM|::|SLOTNAME|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|FIND-STRUCTURE-SLOT-INITFUNCTION|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|NAME| |SYSTEM|::|SLOTNAME|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|DS-INITFUNCTION-FETCHER|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|NAME| |COMMON-LISP|::|TYPE| |SYSTEM|::|SLOTNAME|)))
+(|SYSTEM|::|C-DEFUN| '|CLOS|::|DEFSTRUCT-REMOVE-PRINT-OBJECT-METHOD|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|NAME|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|MAKE-LOAD-FORM-SLOT-LIST|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE|
+  '(|SYSTEM|::|SLOTLIST| |SYSTEM|::|DEFAULT-SLOTS| |SYSTEM|::|DEFAULT-VARS|
+    |SYSTEM|::|MLF|)))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|COMMON-LISP|::|DEFSTRUCT|)
+(|SYSTEM|::|%PUTD| '|COMMON-LISP|::|DEFSTRUCT|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |COMMON-LISP|::|DEFSTRUCT|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|<ENV-ARG>|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|IGNORE| |SYSTEM|::|<ENV-ARG>|))
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 2.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|SYSTEM|::|WHOLE-FORM| |SYSTEM|::|<MACRO-FORM>|)
+       (|SYSTEM|::|NAME-AND-OPTIONS|
+        (|COMMON-LISP|::|CADR| . #1=(|SYSTEM|::|<MACRO-FORM>|)))
+       (|SYSTEM|::|DOCSTRING-AND-SLOTARGS| (|COMMON-LISP|::|CDDR| . #1#)))
+      (|COMMON-LISP|::|BLOCK| |COMMON-LISP|::|DEFSTRUCT|
+       (|COMMON-LISP|::|LET|
+        ((|SYSTEM|::|NAME| |SYSTEM|::|NAME-AND-OPTIONS|)
+         (|SYSTEM|::|OPTIONS| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|CONC-NAME-OPTION| |COMMON-LISP|::|T|)
+         (|SYSTEM|::|CONSTRUCTOR-OPTION-LIST| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|KEYWORD-CONSTRUCTOR| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|BOA-CONSTRUCTORS| '|COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|COPIER-OPTION| |COMMON-LISP|::|T|)
+         (|SYSTEM|::|PREDICATE-OPTION| 0.)
+         (|SYSTEM|::|INCLUDE-OPTION| |COMMON-LISP|::|NIL|) |SYSTEM|::|NAMES|
+         |SYSTEM|::|NAMESFORM| (|SYSTEM|::|NAMESBINDING| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|PRINT-OBJECT-OPTION| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|TYPE-OPTION| |COMMON-LISP|::|T|)
+         (|SYSTEM|::|NAMED-OPTION| 0.) (|SYSTEM|::|INITIAL-OFFSET-OPTION| 0.)
+         (|SYSTEM|::|INITIAL-OFFSET| 0.)
+         (|SYSTEM|::|DOCSTRING| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|SLOTARGS| |SYSTEM|::|DOCSTRING-AND-SLOTARGS|)
+         (|SYSTEM|::|DIRECTSLOTLIST| |COMMON-LISP|::|NIL|) |SYSTEM|::|SIZE|
+         (|SYSTEM|::|INCLUDE-SKIP| 0.) (|SYSTEM|::|INHERITED-SLOT-COUNT| 0.)
+         (|SYSTEM|::|SLOTLIST| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|SLOTDEFAULTVARS| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|SLOTDEFAULTFUNS| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|SLOTDEFAULTSLOTS| |COMMON-LISP|::|NIL|)
+         (|SYSTEM|::|SLOTDEFAULTDIRECTSLOTS| |COMMON-LISP|::|NIL|)
+         |SYSTEM|::|CONSTRUCTOR-FORMS|)
+        (|COMMON-LISP|::|WHEN|
+         (|COMMON-LISP|::|LISTP| |SYSTEM|::|NAME-AND-OPTIONS|)
+         (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAME|
+          (|COMMON-LISP|::|FIRST| |SYSTEM|::|NAME-AND-OPTIONS|))
+         (|COMMON-LISP|::|SETQ| |SYSTEM|::|OPTIONS|
+          (|COMMON-LISP|::|REST| |SYSTEM|::|NAME-AND-OPTIONS|)))
+        (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|SYMBOLP| |SYSTEM|::|NAME|)
+         (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+          |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|NAME|
+          (|SYSTEM|::|TEXT| "~S: invalid syntax for name and options: ~S")
+          '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME-AND-OPTIONS|))
+        (|COMMON-LISP|::|DOLIST| (|SYSTEM|::|OPTION| |SYSTEM|::|OPTIONS|)
+         (|COMMON-LISP|::|WHEN| (|COMMON-LISP|::|KEYWORDP| |SYSTEM|::|OPTION|)
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|OPTION|
+           (|COMMON-LISP|::|LIST| |SYSTEM|::|OPTION|)))
+         (|COMMON-LISP|::|IF| (|COMMON-LISP|::|LISTP| |SYSTEM|::|OPTION|)
+          (|COMMON-LISP|::|IF|
+           (|COMMON-LISP|::|KEYWORDP|
+            (|COMMON-LISP|::|CAR| |SYSTEM|::|OPTION|))
+           (|COMMON-LISP|::|CASE| (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|)
+            (:|CONC-NAME|
+             (|COMMON-LISP|::|SETQ| |SYSTEM|::|CONC-NAME-OPTION|
+              (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|)))
+            (:|CONSTRUCTOR|
+             (|COMMON-LISP|::|IF|
+              (|COMMON-LISP|::|ATOM| (|COMMON-LISP|::|CDR| |SYSTEM|::|OPTION|))
+              (|COMMON-LISP|::|PUSH|
+               (|SYSTEM|::|CONCAT-PNAMES| "MAKE-" |SYSTEM|::|NAME|)
+               |SYSTEM|::|CONSTRUCTOR-OPTION-LIST|)
+              (|COMMON-LISP|::|LET|
+               ((|SYSTEM|::|ARG| (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|)))
+               (|COMMON-LISP|::|SETQ| |SYSTEM|::|ARG|
+                (|SYSTEM|::|CHECK-SYMBOL| |SYSTEM|::|ARG|
+                 '|COMMON-LISP|::|DEFSTRUCT|))
+               (|COMMON-LISP|::|PUSH|
+                (|COMMON-LISP|::|IF|
+                 (|COMMON-LISP|::|ATOM|
+                  (|COMMON-LISP|::|CDDR| |SYSTEM|::|OPTION|))
+                 |SYSTEM|::|ARG|
+                 (|COMMON-LISP|::|IF|
+                  (|COMMON-LISP|::|NOT|
+                   (|COMMON-LISP|::|LISTP|
+                    (|COMMON-LISP|::|THIRD| |SYSTEM|::|OPTION|)))
+                  (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                   :|FORM| |SYSTEM|::|WHOLE-FORM| :|DETAIL|
+                   (|COMMON-LISP|::|THIRD| |SYSTEM|::|OPTION|)
+                   (|SYSTEM|::|TEXT|
+                    "~S ~S: argument list should be a list: ~S")
+                   '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+                   (|COMMON-LISP|::|THIRD| |SYSTEM|::|OPTION|))
+                  (|COMMON-LISP|::|REST| |SYSTEM|::|OPTION|)))
+                |SYSTEM|::|CONSTRUCTOR-OPTION-LIST|))))
+            (:|COPIER|
+             (|COMMON-LISP|::|WHEN|
+              (|COMMON-LISP|::|CONSP|
+               (|COMMON-LISP|::|CDR| |SYSTEM|::|OPTION|))
+              (|COMMON-LISP|::|LET|
+               ((|SYSTEM|::|ARG| (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|)))
+               (|COMMON-LISP|::|SETQ| |SYSTEM|::|ARG|
+                (|SYSTEM|::|CHECK-SYMBOL| |SYSTEM|::|ARG|
+                 '|COMMON-LISP|::|DEFSTRUCT|))
+               (|COMMON-LISP|::|SETQ| |SYSTEM|::|COPIER-OPTION|
+                |SYSTEM|::|ARG|))))
+            (:|PREDICATE|
+             (|COMMON-LISP|::|WHEN|
+              (|COMMON-LISP|::|CONSP|
+               (|COMMON-LISP|::|CDR| |SYSTEM|::|OPTION|))
+              (|COMMON-LISP|::|LET|
+               ((|SYSTEM|::|ARG| (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|)))
+               (|COMMON-LISP|::|SETQ| |SYSTEM|::|ARG|
+                (|SYSTEM|::|CHECK-SYMBOL| |SYSTEM|::|ARG|
+                 '|COMMON-LISP|::|DEFSTRUCT|))
+               (|COMMON-LISP|::|SETQ| |SYSTEM|::|PREDICATE-OPTION|
+                |SYSTEM|::|ARG|))))
+            ((:|INCLUDE| :|INHERIT|)
+             (|COMMON-LISP|::|IF|
+              (|COMMON-LISP|::|NULL| |SYSTEM|::|INCLUDE-OPTION|)
+              (|COMMON-LISP|::|SETQ| |SYSTEM|::|INCLUDE-OPTION|
+               |SYSTEM|::|OPTION|)
+              (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+               |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|OPTIONS|
+               (|SYSTEM|::|TEXT|
+                "~S ~S: At most one :INCLUDE argument may be specified: ~S")
+               '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+               |SYSTEM|::|OPTIONS|)))
+            ((:|PRINT-FUNCTION| :|PRINT-OBJECT|)
+             (|COMMON-LISP|::|IF|
+              (|COMMON-LISP|::|NULL| (|COMMON-LISP|::|CDR| |SYSTEM|::|OPTION|))
+              (|COMMON-LISP|::|SETQ| |SYSTEM|::|PRINT-OBJECT-OPTION|
+               '(|SYSTEM|::|PRINT-STRUCTURE| |SYSTEM|::|STRUCT|
+                 |COMMON-LISP|::|STREAM|))
+              (|COMMON-LISP|::|LET|
+               ((|SYSTEM|::|ARG| (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|)))
+               (|COMMON-LISP|::|WHEN|
+                (|COMMON-LISP|::|AND| (|COMMON-LISP|::|CONSP| |SYSTEM|::|ARG|)
+                 (|COMMON-LISP|::|EQ| (|COMMON-LISP|::|FIRST| |SYSTEM|::|ARG|)
+                  '|COMMON-LISP|::|FUNCTION|))
+                (|COMMON-LISP|::|WARN|
+                 (|SYSTEM|::|TEXT|
+                  "~S: Use of ~S implicitly applies FUNCTION.~@\n
+                                     Therefore using ~S instead of ~S.")
+                 '|COMMON-LISP|::|DEFSTRUCT|
+                 (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|)
+                 (|COMMON-LISP|::|SECOND| |SYSTEM|::|ARG|) |SYSTEM|::|ARG|)
+                (|COMMON-LISP|::|SETQ| |SYSTEM|::|ARG|
+                 (|COMMON-LISP|::|SECOND| |SYSTEM|::|ARG|)))
+               (|COMMON-LISP|::|SETQ| |SYSTEM|::|PRINT-OBJECT-OPTION|
+                `(,|SYSTEM|::|ARG| |SYSTEM|::|STRUCT| |COMMON-LISP|::|STREAM|
+                  ,@(|COMMON-LISP|::|IF|
+                     (|COMMON-LISP|::|EQ|
+                      (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|)
+                      ':|PRINT-FUNCTION|)
+                     '(|SYSTEM|::|*PRIN-LEVEL*|) '|COMMON-LISP|::|NIL|))))))
+            (:|TYPE|
+             (|COMMON-LISP|::|SETQ| |SYSTEM|::|TYPE-OPTION|
+              (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|)))
+            (:|NAMED|
+             (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAMED-OPTION|
+              |COMMON-LISP|::|T|))
+            (:|INITIAL-OFFSET|
+             (|COMMON-LISP|::|SETQ| |SYSTEM|::|INITIAL-OFFSET-OPTION|
+              (|COMMON-LISP|::|OR| (|COMMON-LISP|::|SECOND| |SYSTEM|::|OPTION|)
+               0.)))
+            (|COMMON-LISP|::|T|
+             (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+              |SYSTEM|::|WHOLE-FORM| :|DETAIL|
+              (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|)
+              (|SYSTEM|::|TEXT| "~S ~S: unknown option ~S")
+              '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+              (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|))))
+           (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+            |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|OPTION|
+            (|SYSTEM|::|TEXT| "~S ~S: invalid syntax in ~S option: ~S")
+            '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+            '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|OPTION|))
+          (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+           |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|OPTION|
+           (|SYSTEM|::|TEXT| "~S ~S: not a ~S option: ~S")
+           '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+           '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|OPTION|)))
+        (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAMED-OPTION|
+         (|COMMON-LISP|::|OR|
+          (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION| '|COMMON-LISP|::|T|)
+          (|COMMON-LISP|::|EQ| |SYSTEM|::|NAMED-OPTION| '|COMMON-LISP|::|T|)))
+        (|COMMON-LISP|::|IF| |SYSTEM|::|NAMED-OPTION|
+         (|COMMON-LISP|::|WHEN|
+          (|COMMON-LISP|::|EQL| |SYSTEM|::|PREDICATE-OPTION| 0.)
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|PREDICATE-OPTION|
+           (|SYSTEM|::|CONCAT-PNAMES| |SYSTEM|::|NAME| "-P")))
+         (|COMMON-LISP|::|IF|
+          (|COMMON-LISP|::|OR|
+           (|COMMON-LISP|::|EQL| |SYSTEM|::|PREDICATE-OPTION| 0.)
+           (|COMMON-LISP|::|EQ| |SYSTEM|::|PREDICATE-OPTION|
+            '|COMMON-LISP|::|NIL|))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|PREDICATE-OPTION|
+           '|COMMON-LISP|::|NIL|)
+          (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+           |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|PREDICATE-OPTION|
+           (|SYSTEM|::|TEXT| "~S ~S: There is no ~S for unnamed structures.")
+           '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME| :|PREDICATE|)))
+        (|COMMON-LISP|::|WHEN|
+         (|COMMON-LISP|::|EQ| |SYSTEM|::|CONC-NAME-OPTION| '|COMMON-LISP|::|T|)
+         (|COMMON-LISP|::|SETQ| |SYSTEM|::|CONC-NAME-OPTION|
+          (|EXT|::|STRING-CONCAT| (|COMMON-LISP|::|STRING| |SYSTEM|::|NAME|)
+           "-")))
+        (|COMMON-LISP|::|IF| |SYSTEM|::|CONSTRUCTOR-OPTION-LIST|
+         (|COMMON-LISP|::|SETQ| |SYSTEM|::|CONSTRUCTOR-OPTION-LIST|
+          (|COMMON-LISP|::|REMOVE| '|COMMON-LISP|::|NIL|
+           |SYSTEM|::|CONSTRUCTOR-OPTION-LIST|))
+         (|COMMON-LISP|::|SETQ| |SYSTEM|::|CONSTRUCTOR-OPTION-LIST|
+          (|COMMON-LISP|::|LIST|
+           (|SYSTEM|::|CONCAT-PNAMES| "MAKE-" |SYSTEM|::|NAME|))))
+        (|COMMON-LISP|::|IF|
+         (|COMMON-LISP|::|EQ| |SYSTEM|::|COPIER-OPTION| '|COMMON-LISP|::|T|)
+         (|COMMON-LISP|::|SETQ| |SYSTEM|::|COPIER-OPTION|
+          (|SYSTEM|::|CONCAT-PNAMES| "COPY-" |SYSTEM|::|NAME|)))
+        (|COMMON-LISP|::|UNLESS|
+         (|COMMON-LISP|::|OR|
+          (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION| '|COMMON-LISP|::|T|)
+          (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION|
+           '|COMMON-LISP|::|VECTOR|)
+          (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION| '|COMMON-LISP|::|LIST|)
+          (|COMMON-LISP|::|AND|
+           (|COMMON-LISP|::|CONSP| |SYSTEM|::|TYPE-OPTION|)
+           (|COMMON-LISP|::|EQ|
+            (|COMMON-LISP|::|FIRST| |SYSTEM|::|TYPE-OPTION|)
+            '|COMMON-LISP|::|VECTOR|)))
+         (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+          |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|TYPE-OPTION|
+          (|SYSTEM|::|TEXT| "~S ~S: invalid :TYPE option ~S")
+          '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+          |SYSTEM|::|TYPE-OPTION|))
+        (|COMMON-LISP|::|UNLESS|
+         (|COMMON-LISP|::|AND|
+          (|COMMON-LISP|::|INTEGERP| |SYSTEM|::|INITIAL-OFFSET-OPTION|)
+          (|COMMON-LISP|::|>=| |SYSTEM|::|INITIAL-OFFSET-OPTION| 0.))
+         (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+          |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|INITIAL-OFFSET-OPTION|
+          (|SYSTEM|::|TEXT|
+           "~S ~S: The :INITIAL-OFFSET must be a nonnegative integer, not ~S")
+          '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+          |SYSTEM|::|INITIAL-OFFSET-OPTION|))
+        (|COMMON-LISP|::|WHEN|
+         (|COMMON-LISP|::|AND|
+          (|COMMON-LISP|::|PLUSP| |SYSTEM|::|INITIAL-OFFSET-OPTION|)
+          (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION| '|COMMON-LISP|::|T|))
+         (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+          |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|OPTIONS|
+          (|SYSTEM|::|TEXT|
+           "~S ~S: :INITIAL-OFFSET must not be specified without :TYPE : ~S")
+          '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME| |SYSTEM|::|OPTIONS|))
+        (|COMMON-LISP|::|WHEN|
+         (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION| '|COMMON-LISP|::|T|)
+         (|COMMON-LISP|::|SETQ| |SYSTEM|::|INCLUDE-SKIP| 1.))
+        (|COMMON-LISP|::|WHEN|
+         (|COMMON-LISP|::|STRINGP|
+          (|COMMON-LISP|::|FIRST| |SYSTEM|::|DOCSTRING-AND-SLOTARGS|))
+         (|COMMON-LISP|::|SETQ| |SYSTEM|::|DOCSTRING|
+          (|COMMON-LISP|::|FIRST| |SYSTEM|::|DOCSTRING-AND-SLOTARGS|))
+         (|COMMON-LISP|::|SETQ| |SYSTEM|::|SLOTARGS|
+          (|COMMON-LISP|::|REST| |SYSTEM|::|DOCSTRING-AND-SLOTARGS|)))
+        (|COMMON-LISP|::|IF| |SYSTEM|::|INCLUDE-OPTION|
+         (|COMMON-LISP|::|LET*|
+          ((|SYSTEM|::|OPTION|
+            (|COMMON-LISP|::|REST| |SYSTEM|::|INCLUDE-OPTION|))
+           (|SYSTEM|::|SUBNAME| (|COMMON-LISP|::|FIRST| |SYSTEM|::|OPTION|))
+           (|SYSTEM|::|INCL-CLASS|
+            (|COMMON-LISP|::|GET| |SYSTEM|::|SUBNAME| '|CLOS|::|CLOSCLASS|))
+           (|SYSTEM|::|INCL-DESC|
+            (|COMMON-LISP|::|GET| |SYSTEM|::|SUBNAME|
+             '|SYSTEM|::|DEFSTRUCT-DESCRIPTION|)))
+          (|COMMON-LISP|::|UNLESS|
+           (|CLOS|::|DEFINED-CLASS-P| |SYSTEM|::|INCL-CLASS|)
+           (|COMMON-LISP|::|SETQ| |SYSTEM|::|INCL-CLASS| |COMMON-LISP|::|NIL|))
+          (|COMMON-LISP|::|WHEN|
+           (|COMMON-LISP|::|AND| (|COMMON-LISP|::|NULL| |SYSTEM|::|INCL-CLASS|)
+            (|COMMON-LISP|::|NULL| |SYSTEM|::|INCL-DESC|))
+           (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+            |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|SUBNAME|
+            (|SYSTEM|::|TEXT|
+             "~S ~S: included structure ~S has not been defined.")
+            '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME| |SYSTEM|::|SUBNAME|))
+          (|COMMON-LISP|::|WHEN|
+           (|COMMON-LISP|::|AND| |SYSTEM|::|INCL-CLASS|
+            (|COMMON-LISP|::|NOT|
+             (|CLOS|::|STRUCTURE-CLASS-P| |SYSTEM|::|INCL-CLASS|)))
+           (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+            |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|SUBNAME|
+            (|SYSTEM|::|TEXT|
+             "~S ~S: included structure ~S is not a structure type.")
+            '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME| |SYSTEM|::|SUBNAME|))
+          (|COMMON-LISP|::|WHEN| |SYSTEM|::|INCL-CLASS|
+           (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAMES|
+            (|COMMON-LISP|::|CONS| |SYSTEM|::|NAME|
+             (|CLOS|::|CLASS-NAMES| |SYSTEM|::|INCL-CLASS|)))
+           (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAMESBINDING|
+            (|COMMON-LISP|::|LIST|
+             (|COMMON-LISP|::|LIST|
+              (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAMESFORM|
+               (|COMMON-LISP|::|GENSYM|))
+              `(|COMMON-LISP|::|CONS| ',|SYSTEM|::|NAME|
+                (|CLOS|::|CLASS-NAMES|
+                 (|COMMON-LISP|::|GET| ',|SYSTEM|::|SUBNAME|
+                  '|CLOS|::|CLOSCLASS|)))))))
+          (|COMMON-LISP|::|UNLESS|
+           (|COMMON-LISP|::|EQUALP|
+            (|COMMON-LISP|::|IF| |SYSTEM|::|INCL-CLASS| '|COMMON-LISP|::|T|
+             (|COMMON-LISP|::|SVREF| |SYSTEM|::|INCL-DESC|
+              |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-TYPE-LOCATION*|))
+            |SYSTEM|::|TYPE-OPTION|)
+           (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+            |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|SUBNAME|
+            (|SYSTEM|::|TEXT|
+             "~S ~S: included structure ~S must be of the same type ~S.")
+            '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME| |SYSTEM|::|SUBNAME|
+            |SYSTEM|::|TYPE-OPTION|))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|SLOTLIST|
+           (|COMMON-LISP|::|NREVERSE|
+            (|COMMON-LISP|::|MAPCAR|
+             #'(|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|SLOT|)
+                (|COMMON-LISP|::|CONS|
+                 (|SYSTEM|::|COPY-<STRUCTURE-EFFECTIVE-SLOT-DEFINITION>|
+                  |SYSTEM|::|SLOT|)
+                 (|SYSTEM|::|DS-INITFUNCTION-FETCHER| |SYSTEM|::|SUBNAME|
+                  |SYSTEM|::|TYPE-OPTION|
+                  (|CLOS|::|SLOT-DEFINITION-NAME| |SYSTEM|::|SLOT|))))
+             (|COMMON-LISP|::|IF| |SYSTEM|::|INCL-CLASS|
+              (|CLOS|::|CLASS-SLOTS| |SYSTEM|::|INCL-CLASS|)
+              (|COMMON-LISP|::|SVREF| |SYSTEM|::|INCL-DESC|
+               |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-SLOTS-LOCATION*|)))))
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|INCLUDE-SKIP|
+           (|COMMON-LISP|::|IF| |SYSTEM|::|INCL-CLASS|
+            (|CLOS|::|CLASS-INSTANCE-SIZE| |SYSTEM|::|INCL-CLASS|)
+            (|COMMON-LISP|::|SVREF| |SYSTEM|::|INCL-DESC|
+             |SYSTEM|::|*DEFSTRUCT-DESCRIPTION-SIZE-LOCATION*|)))
+          (|COMMON-LISP|::|WHEN| |SYSTEM|::|SLOTLIST|
+           (|COMMON-LISP|::|ASSERT|
+            (|COMMON-LISP|::|>| |SYSTEM|::|INCLUDE-SKIP|
+             (|CLOS|::|SLOT-DEFINITION-LOCATION|
+              (|COMMON-LISP|::|CAR|
+               (|COMMON-LISP|::|FIRST| |SYSTEM|::|SLOTLIST|))))))
+          (|COMMON-LISP|::|DOLIST|
+           (|SYSTEM|::|SLOTARG| (|COMMON-LISP|::|REST| |SYSTEM|::|OPTION|))
+           (|COMMON-LISP|::|LET*|
+            ((|SYSTEM|::|SLOTNAME|
+              (|COMMON-LISP|::|IF| (|COMMON-LISP|::|ATOM| |SYSTEM|::|SLOTARG|)
+               |SYSTEM|::|SLOTARG|
+               (|COMMON-LISP|::|FIRST| |SYSTEM|::|SLOTARG|)))
+             (|SYSTEM|::|SLOT+INITFF|
+              (|COMMON-LISP|::|FIND| |SYSTEM|::|SLOTNAME| |SYSTEM|::|SLOTLIST|
+               :|KEY|
+               #'(|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|SLOT+INITFF|)
+                  (|CLOS|::|SLOT-DEFINITION-NAME|
+                   (|COMMON-LISP|::|CAR| |SYSTEM|::|SLOT+INITFF|)))
+               :|TEST| #'|COMMON-LISP|::|EQ|)))
+            (|COMMON-LISP|::|WHEN|
+             (|COMMON-LISP|::|NULL| |SYSTEM|::|SLOT+INITFF|)
+             (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+              |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|SLOTNAME|
+              (|SYSTEM|::|TEXT|
+               "~S ~S: included structure ~S has no component with name ~S.")
+              '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME| |SYSTEM|::|SUBNAME|
+              |SYSTEM|::|SLOTNAME|))
+            (|COMMON-LISP|::|LET|
+             ((|SYSTEM|::|SLOT|
+               (|COMMON-LISP|::|CAR| |SYSTEM|::|SLOT+INITFF|)))
+             (|COMMON-LISP|::|IF| (|COMMON-LISP|::|ATOM| |SYSTEM|::|SLOTARG|)
+              (|COMMON-LISP|::|PROGN|
+               (|COMMON-LISP|::|SETF|
+                (|CLOS|::|SLOT-DEFINITION-INHERITABLE-INITER| |SYSTEM|::|SLOT|)
+                (|COMMON-LISP|::|CONS| '|COMMON-LISP|::|NIL|
+                 (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION|
+                  '|COMMON-LISP|::|NIL|)))
+               (|COMMON-LISP|::|SETF|
+                (|COMMON-LISP|::|CDR| |SYSTEM|::|SLOT+INITFF|)
+                `(|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION|
+                  |COMMON-LISP|::|NIL|)))
+              (|COMMON-LISP|::|PROGN|
+               (|COMMON-LISP|::|LET|
+                ((|SYSTEM|::|INITFORM|
+                  (|COMMON-LISP|::|SECOND| |SYSTEM|::|SLOTARG|)))
+                (|COMMON-LISP|::|IF|
+                 (|COMMON-LISP|::|CONSTANTP| |SYSTEM|::|INITFORM|)
+                 (|COMMON-LISP|::|PROGN|
+                  (|COMMON-LISP|::|SETF|
+                   (|CLOS|::|SLOT-DEFINITION-INHERITABLE-INITER|
+                    |SYSTEM|::|SLOT|)
+                   (|COMMON-LISP|::|CONS| |SYSTEM|::|INITFORM|
+                    (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION|
+                     (|COMMON-LISP|::|EVAL| |SYSTEM|::|INITFORM|))))
+                  (|COMMON-LISP|::|SETF|
+                   (|COMMON-LISP|::|CDR| |SYSTEM|::|SLOT+INITFF|)
+                   `(|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION|
+                     ,|SYSTEM|::|INITFORM|)))
+                 (|COMMON-LISP|::|PROGN|
+                  (|COMMON-LISP|::|SETF|
+                   (|CLOS|::|SLOT-DEFINITION-INHERITABLE-INITER|
+                    |SYSTEM|::|SLOT|)
+                   (|COMMON-LISP|::|CONS| |SYSTEM|::|INITFORM|
+                    |COMMON-LISP|::|NIL|))
+                  (|COMMON-LISP|::|SETF|
+                   (|COMMON-LISP|::|CDR| |SYSTEM|::|SLOT+INITFF|)
+                   `(|COMMON-LISP|::|FUNCTION|
+                     ,(|SYSTEM|::|CONCAT-PNAMES| "DEFAULT-"
+                       |SYSTEM|::|SLOTNAME|)
+                     (|COMMON-LISP|::|LAMBDA| |COMMON-LISP|::|NIL|
+                      ,|SYSTEM|::|INITFORM|))))))
+               (|COMMON-LISP|::|DO|
+                ((|SYSTEM|::|SLOT-ARGLISTR|
+                  (|COMMON-LISP|::|CDDR| |SYSTEM|::|SLOTARG|)
+                  (|COMMON-LISP|::|CDDR| |SYSTEM|::|SLOT-ARGLISTR|)))
+                ((|COMMON-LISP|::|ENDP| |SYSTEM|::|SLOT-ARGLISTR|))
+                (|COMMON-LISP|::|LET|
+                 ((|SYSTEM|::|SLOT-KEYWORD|
+                   (|COMMON-LISP|::|FIRST| |SYSTEM|::|SLOT-ARGLISTR|))
+                  (|SYSTEM|::|SLOT-KEY-VALUE|
+                   (|COMMON-LISP|::|SECOND| |SYSTEM|::|SLOT-ARGLISTR|)))
+                 (|COMMON-LISP|::|COND|
+                  ((|COMMON-LISP|::|EQ| |SYSTEM|::|SLOT-KEYWORD| ':|READ-ONLY|)
+                   (|COMMON-LISP|::|IF| |SYSTEM|::|SLOT-KEY-VALUE|
+                    (|COMMON-LISP|::|SETF|
+                     (|CLOS|::|STRUCTURE-EFFECTIVE-SLOT-DEFINITION-READONLY|
+                      |SYSTEM|::|SLOT|)
+                     |COMMON-LISP|::|T|)
+                    (|COMMON-LISP|::|IF|
+                     (|CLOS|::|STRUCTURE-EFFECTIVE-SLOT-DEFINITION-READONLY|
+                      |SYSTEM|::|SLOT|)
+                     (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                      :|FORM| |SYSTEM|::|WHOLE-FORM| :|DETAIL|
+                      |SYSTEM|::|SUBNAME|
+                      (|SYSTEM|::|TEXT|
+                       "~S ~S: The READ-ONLY slot ~S of the included structure ~S must remain READ-ONLY in ~S.")
+                      '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+                      |SYSTEM|::|SLOTNAME| |SYSTEM|::|SUBNAME|
+                      |SYSTEM|::|NAME|)
+                     (|COMMON-LISP|::|SETF|
+                      (|CLOS|::|STRUCTURE-EFFECTIVE-SLOT-DEFINITION-READONLY|
+                       |SYSTEM|::|SLOT|)
+                      |COMMON-LISP|::|NIL|))))
+                  ((|COMMON-LISP|::|EQ| |SYSTEM|::|SLOT-KEYWORD| ':|TYPE|)
+                   (|COMMON-LISP|::|UNLESS|
+                    (|COMMON-LISP|::|SUBTYPEP|
+                     (|SYSTEM|::|TYPE-FOR-DISCRIMINATION|
+                      |SYSTEM|::|SLOT-KEY-VALUE|)
+                     (|SYSTEM|::|TYPE-FOR-DISCRIMINATION|
+                      (|CLOS|::|SLOT-DEFINITION-TYPE| |SYSTEM|::|SLOT|)))
+                    (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                     :|FORM| |SYSTEM|::|WHOLE-FORM| :|DETAIL|
+                     |SYSTEM|::|SUBNAME|
+                     (|SYSTEM|::|TEXT|
+                      "~S ~S: The type ~S of slot ~S should be a subtype of the type defined for the included strucure ~S, namely ~S.")
+                     '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+                     |SYSTEM|::|SLOT-KEY-VALUE| |SYSTEM|::|SLOTNAME|
+                     |SYSTEM|::|SUBNAME|
+                     (|CLOS|::|SLOT-DEFINITION-TYPE| |SYSTEM|::|SLOT|)))
+                   (|COMMON-LISP|::|SETF|
+                    (|CLOS|::|SLOT-DEFINITION-TYPE| |SYSTEM|::|SLOT|)
+                    |SYSTEM|::|SLOT-KEY-VALUE|))
+                  (|COMMON-LISP|::|T|
+                   (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                    :|FORM| |SYSTEM|::|WHOLE-FORM| :|DETAIL|
+                    |SYSTEM|::|SLOT-KEYWORD|
+                    (|SYSTEM|::|TEXT| "~S ~S: ~S is not a slot option.")
+                    '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+                    |SYSTEM|::|SLOT-KEYWORD|)))))))
+             (|COMMON-LISP|::|PUSH|
+              (|COMMON-LISP|::|CONS|
+               (|CLOS|::|MAKE-INSTANCE-<STRUCTURE-DIRECT-SLOT-DEFINITION>|
+                |CLOS|::|<STRUCTURE-DIRECT-SLOT-DEFINITION>| :|NAME|
+                |SYSTEM|::|SLOTNAME| :|INITFORM|
+                (|CLOS|::|SLOT-DEFINITION-INITFORM| |SYSTEM|::|SLOT|)
+                :|INITFUNCTION|
+                (|CLOS|::|SLOT-DEFINITION-INITFUNCTION| |SYSTEM|::|SLOT|)
+                :|INITARGS|
+                (|CLOS|::|SLOT-DEFINITION-INITARGS| |SYSTEM|::|SLOT|) :|TYPE|
+                (|CLOS|::|SLOT-DEFINITION-TYPE| |SYSTEM|::|SLOT|)
+                '|CLOS|::|INHERITABLE-INITER|
+                (|CLOS|::|SLOT-DEFINITION-INHERITABLE-INITER| |SYSTEM|::|SLOT|)
+                :|READERS| '|COMMON-LISP|::|NIL| :|WRITERS|
+                '|COMMON-LISP|::|NIL|)
+               (|COMMON-LISP|::|CDR| |SYSTEM|::|SLOT+INITFF|))
+              |SYSTEM|::|DIRECTSLOTLIST|))))
+          (|COMMON-LISP|::|DOLIST|
+           (|SYSTEM|::|SLOT+INITFF| |SYSTEM|::|SLOTLIST|)
+           (|COMMON-LISP|::|LET*|
+            ((|SYSTEM|::|SLOT| (|COMMON-LISP|::|CAR| |SYSTEM|::|SLOT+INITFF|))
+             (|SYSTEM|::|INITFUNCTION|
+              (|CLOS|::|SLOT-DEFINITION-INITFUNCTION| |SYSTEM|::|SLOT|)))
+            (|COMMON-LISP|::|UNLESS|
+             (|COMMON-LISP|::|OR|
+              (|COMMON-LISP|::|NULL| |SYSTEM|::|INITFUNCTION|)
+              (|SYSTEM|::|CONSTANT-INITFUNCTION-P| |SYSTEM|::|INITFUNCTION|))
+             (|COMMON-LISP|::|LET|
+              ((|COMMON-LISP|::|VARIABLE| (|COMMON-LISP|::|GENSYM|)))
+              (|COMMON-LISP|::|PUSH|
+               (|COMMON-LISP|::|CDR| |SYSTEM|::|SLOT+INITFF|)
+               |SYSTEM|::|SLOTDEFAULTFUNS|)
+              (|COMMON-LISP|::|PUSH| |COMMON-LISP|::|VARIABLE|
+               |SYSTEM|::|SLOTDEFAULTVARS|)
+              (|COMMON-LISP|::|PUSH| |SYSTEM|::|SLOT+INITFF|
+               |SYSTEM|::|SLOTDEFAULTSLOTS|)
+              (|COMMON-LISP|::|PUSH| |COMMON-LISP|::|NIL|
+               |SYSTEM|::|SLOTDEFAULTDIRECTSLOTS|)
+              (|COMMON-LISP|::|SETF|
+               (|COMMON-LISP|::|CDR| |SYSTEM|::|SLOT+INITFF|)
+               |COMMON-LISP|::|VARIABLE|)))))
+          (|COMMON-LISP|::|WHEN|
+           (|COMMON-LISP|::|EQ|
+            (|COMMON-LISP|::|FIRST| |SYSTEM|::|INCLUDE-OPTION|) ':|INHERIT|)
+           (|COMMON-LISP|::|SETQ| |SYSTEM|::|INHERITED-SLOT-COUNT|
+            (|COMMON-LISP|::|LENGTH| |SYSTEM|::|SLOTLIST|))))
+         (|COMMON-LISP|::|IF|
+          (|COMMON-LISP|::|EQ| |SYSTEM|::|NAME|
+           '|COMMON-LISP|::|STRUCTURE-OBJECT|)
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAMES|
+           (|COMMON-LISP|::|LIST| |SYSTEM|::|NAME|) |SYSTEM|::|NAMESFORM|
+           `',|SYSTEM|::|NAMES|)
+          (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAMES|
+           (|COMMON-LISP|::|CONS| |SYSTEM|::|NAME|
+            (|CLOS|::|CLASS-NAMES|
+             (|COMMON-LISP|::|GET| '|COMMON-LISP|::|STRUCTURE-OBJECT|
+              '|CLOS|::|CLOSCLASS|)))
+           |SYSTEM|::|NAMESBINDING|
+           (|COMMON-LISP|::|LIST|
+            (|COMMON-LISP|::|LIST|
+             (|COMMON-LISP|::|SETQ| |SYSTEM|::|NAMESFORM|
+              (|COMMON-LISP|::|GENSYM|))
+             `(|COMMON-LISP|::|CONS| ',|SYSTEM|::|NAME|
+               (|CLOS|::|CLASS-NAMES|
+                (|COMMON-LISP|::|GET| '|COMMON-LISP|::|STRUCTURE-OBJECT|
+                 '|CLOS|::|CLOSCLASS|))))))))
+        (|COMMON-LISP|::|WHEN|
+         (|COMMON-LISP|::|AND| |SYSTEM|::|NAMED-OPTION|
+          (|COMMON-LISP|::|CONSP| |SYSTEM|::|TYPE-OPTION|)
+          (|COMMON-LISP|::|NOT|
+           (|COMMON-LISP|::|TYPEP| |SYSTEM|::|NAMES|
+            (|SYSTEM|::|TYPE-FOR-DISCRIMINATION|
+             (|COMMON-LISP|::|SECOND| |SYSTEM|::|TYPE-OPTION|)))))
+         (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+          |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|TYPE-OPTION|
+          (|SYSTEM|::|TEXT|
+           "~S ~S: structure of type ~S cannot hold the name.")
+          '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+          |SYSTEM|::|TYPE-OPTION|))
+        (|COMMON-LISP|::|SETQ| |SYSTEM|::|INITIAL-OFFSET|
+         (|COMMON-LISP|::|+| |SYSTEM|::|INCLUDE-SKIP|
+          |SYSTEM|::|INITIAL-OFFSET-OPTION|))
+        (|COMMON-LISP|::|UNLESS|
+         (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION| '|COMMON-LISP|::|T|)
+         (|COMMON-LISP|::|WHEN| |SYSTEM|::|NAMED-OPTION|
+          (|COMMON-LISP|::|PUSH|
+           (|COMMON-LISP|::|CONS|
+            (|SYSTEM|::|MAKE-DS-SLOT| |COMMON-LISP|::|NIL|
+             '|COMMON-LISP|::|NIL| |SYSTEM|::|INITIAL-OFFSET|
+             (|COMMON-LISP|::|CONS| `',|SYSTEM|::|NAME|
+              (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| |SYSTEM|::|NAME|))
+             '|COMMON-LISP|::|SYMBOL| |COMMON-LISP|::|T|)
+            `(|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| ',|SYSTEM|::|NAME|))
+           |SYSTEM|::|SLOTLIST|)
+          (|COMMON-LISP|::|INCF| |SYSTEM|::|INITIAL-OFFSET|)))
+        (|COMMON-LISP|::|LET| ((|SYSTEM|::|OFFSET| |SYSTEM|::|INITIAL-OFFSET|))
+         (|COMMON-LISP|::|DOLIST| (|SYSTEM|::|SLOTARG| |SYSTEM|::|SLOTARGS|)
+          (|COMMON-LISP|::|LET|
+           (|SYSTEM|::|SLOTNAME| |SYSTEM|::|INITFORM| |SYSTEM|::|INITFUNCTION|
+            |SYSTEM|::|INITFUNCTIONFORM|)
+           (|COMMON-LISP|::|IF| (|COMMON-LISP|::|ATOM| |SYSTEM|::|SLOTARG|)
+            (|COMMON-LISP|::|SETQ| |SYSTEM|::|SLOTNAME| |SYSTEM|::|SLOTARG|
+             |SYSTEM|::|INITFORM| |COMMON-LISP|::|NIL|)
+            (|COMMON-LISP|::|SETQ| |SYSTEM|::|SLOTNAME|
+             (|COMMON-LISP|::|FIRST| |SYSTEM|::|SLOTARG|) |SYSTEM|::|INITFORM|
+             (|COMMON-LISP|::|SECOND| |SYSTEM|::|SLOTARG|)))
+           (|COMMON-LISP|::|WHEN|
+            (|COMMON-LISP|::|FIND|
+             (|COMMON-LISP|::|SYMBOL-NAME| |SYSTEM|::|SLOTNAME|)
+             |SYSTEM|::|SLOTLIST| :|TEST|
+             #'(|COMMON-LISP|::|LAMBDA|
+                (|SYSTEM|::|NAME| |SYSTEM|::|SLOT+INITFF|)
+                (|COMMON-LISP|::|LET|
+                 ((|SYSTEM|::|SLOT|
+                   (|COMMON-LISP|::|CAR| |SYSTEM|::|SLOT+INITFF|)))
+                 (|COMMON-LISP|::|AND|
+                  (|COMMON-LISP|::|OR|
+                   (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION|
+                    '|COMMON-LISP|::|T|)
+                   (|SYSTEM|::|DS-REAL-SLOT-P| |SYSTEM|::|SLOT|))
+                  (|COMMON-LISP|::|STRING=|
+                   (|CLOS|::|SLOT-DEFINITION-NAME| |SYSTEM|::|SLOT|)
+                   |SYSTEM|::|NAME|)))))
+            (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+             |SYSTEM|::|WHOLE-FORM| :|DETAIL| |SYSTEM|::|SLOTNAME|
+             (|SYSTEM|::|TEXT|
+              "~S ~S: There may be only one slot with the name ~S.")
+             '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+             |SYSTEM|::|SLOTNAME|))
+           (|COMMON-LISP|::|LET|
+            ((|COMMON-LISP|::|TYPE| |COMMON-LISP|::|T|)
+             (|SYSTEM|::|READ-ONLY| |COMMON-LISP|::|NIL|))
+            (|COMMON-LISP|::|WHEN| (|COMMON-LISP|::|CONSP| |SYSTEM|::|SLOTARG|)
+             (|COMMON-LISP|::|DO|
+              ((|SYSTEM|::|SLOT-ARGLISTR|
+                (|COMMON-LISP|::|CDDR| |SYSTEM|::|SLOTARG|)
+                (|COMMON-LISP|::|CDDR| |SYSTEM|::|SLOT-ARGLISTR|)))
+              ((|COMMON-LISP|::|ENDP| |SYSTEM|::|SLOT-ARGLISTR|))
+              (|COMMON-LISP|::|LET|
+               ((|SYSTEM|::|SLOT-KEYWORD|
+                 (|COMMON-LISP|::|FIRST| |SYSTEM|::|SLOT-ARGLISTR|))
+                (|SYSTEM|::|SLOT-KEY-VALUE|
+                 (|COMMON-LISP|::|SECOND| |SYSTEM|::|SLOT-ARGLISTR|)))
+               (|COMMON-LISP|::|COND|
+                ((|COMMON-LISP|::|EQ| |SYSTEM|::|SLOT-KEYWORD| ':|READ-ONLY|)
+                 (|COMMON-LISP|::|SETQ| |SYSTEM|::|READ-ONLY|
+                  (|COMMON-LISP|::|IF| |SYSTEM|::|SLOT-KEY-VALUE|
+                   |COMMON-LISP|::|T| |COMMON-LISP|::|NIL|)))
+                ((|COMMON-LISP|::|EQ| |SYSTEM|::|SLOT-KEYWORD| ':|TYPE|)
+                 (|COMMON-LISP|::|SETQ| |COMMON-LISP|::|TYPE|
+                  |SYSTEM|::|SLOT-KEY-VALUE|))
+                (|COMMON-LISP|::|T|
+                 (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR|
+                  :|FORM| |SYSTEM|::|WHOLE-FORM| :|DETAIL|
+                  |SYSTEM|::|SLOT-KEYWORD|
+                  (|SYSTEM|::|TEXT| "~S ~S: ~S is not a slot option.")
+                  '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+                  |SYSTEM|::|SLOT-KEYWORD|))))))
+            (|COMMON-LISP|::|IF|
+             (|COMMON-LISP|::|CONSTANTP| |SYSTEM|::|INITFORM|)
+             (|COMMON-LISP|::|SETQ| |SYSTEM|::|INITFUNCTION|
+              (|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION|
+               (|COMMON-LISP|::|EVAL| |SYSTEM|::|INITFORM|))
+              |SYSTEM|::|INITFUNCTIONFORM|
+              `(|SYSTEM|::|MAKE-CONSTANT-INITFUNCTION| ,|SYSTEM|::|INITFORM|))
+             (|COMMON-LISP|::|LET|
+              ((|COMMON-LISP|::|VARIABLE| (|COMMON-LISP|::|GENSYM|)))
+              (|COMMON-LISP|::|PUSH|
+               `(|COMMON-LISP|::|FUNCTION|
+                 ,(|SYSTEM|::|CONCAT-PNAMES| "DEFAULT-" |SYSTEM|::|SLOTNAME|)
+                 (|COMMON-LISP|::|LAMBDA| |COMMON-LISP|::|NIL|
+                  ,|SYSTEM|::|INITFORM|))
+               |SYSTEM|::|SLOTDEFAULTFUNS|)
+              (|COMMON-LISP|::|PUSH| |COMMON-LISP|::|VARIABLE|
+               |SYSTEM|::|SLOTDEFAULTVARS|)
+              (|COMMON-LISP|::|SETQ| |SYSTEM|::|INITFUNCTION|
+               |COMMON-LISP|::|NIL| |SYSTEM|::|INITFUNCTIONFORM|
+               |COMMON-LISP|::|VARIABLE|)))
+            (|COMMON-LISP|::|LET|
+             ((|SYSTEM|::|INITER|
+               (|COMMON-LISP|::|CONS| |SYSTEM|::|INITFORM|
+                |SYSTEM|::|INITFUNCTION|))
+              (|SYSTEM|::|INITARGS|
+               (|COMMON-LISP|::|LIST|
+                (|SYSTEM|::|SYMBOL-TO-KEYWORD| |SYSTEM|::|SLOTNAME|)))
+              (|SYSTEM|::|ACCESSORNAME|
+               (|SYSTEM|::|DS-ACCESSOR-NAME| |SYSTEM|::|SLOTNAME|
+                |SYSTEM|::|CONC-NAME-OPTION|)))
+             (|COMMON-LISP|::|WHEN|
+              (|COMMON-LISP|::|EQ| |SYSTEM|::|PREDICATE-OPTION|
+               |SYSTEM|::|ACCESSORNAME|)
+              (|COMMON-LISP|::|WARN|
+               (|SYSTEM|::|TEXT|
+                "~S ~S: Slot ~S accessor will shadow the predicate ~S.")
+               '|COMMON-LISP|::|DEFSTRUCT| |SYSTEM|::|NAME|
+               |SYSTEM|::|SLOTNAME| |SYSTEM|::|PREDICATE-OPTION|)
+              (|COMMON-LISP|::|SETQ| |SYSTEM|::|PREDICATE-OPTION|
+               |COMMON-LISP|::|NIL|))
+             (|COMMON-LISP|::|PUSH|
+              (|COMMON-LISP|::|CONS|
+               (|CLOS|::|MAKE-INSTANCE-<STRUCTURE-DIRECT-SLOT-DEFINITION>|
+                |CLOS|::|<STRUCTURE-DIRECT-SLOT-DEFINITION>| :|NAME|
+                |SYSTEM|::|SLOTNAME| :|INITFORM| |SYSTEM|::|INITFORM|
+                :|INITFUNCTION| |SYSTEM|::|INITFUNCTION| :|INITARGS|
+                |SYSTEM|::|INITARGS| :|TYPE| |COMMON-LISP|::|TYPE|
+                '|CLOS|::|INHERITABLE-INITER| |SYSTEM|::|INITER| :|WRITERS|
+                (|COMMON-LISP|::|IF| |SYSTEM|::|READ-ONLY|
+                 '|COMMON-LISP|::|NIL|
+                 (|COMMON-LISP|::|LIST|
+                  `(|COMMON-LISP|::|SETF| ,|SYSTEM|::|ACCESSORNAME|)))
+                :|READERS| (|COMMON-LISP|::|LIST| |SYSTEM|::|ACCESSORNAME|))
+               |SYSTEM|::|INITFUNCTIONFORM|)
+              |SYSTEM|::|DIRECTSLOTLIST|)
+             (|COMMON-LISP|::|PUSH|
+              (|COMMON-LISP|::|CONS|
+               (|SYSTEM|::|MAKE-DS-SLOT| |SYSTEM|::|SLOTNAME|
+                |SYSTEM|::|INITARGS| |SYSTEM|::|OFFSET| |SYSTEM|::|INITER|
+                |COMMON-LISP|::|TYPE| |SYSTEM|::|READ-ONLY|)
+               |SYSTEM|::|INITFUNCTIONFORM|)
+              |SYSTEM|::|SLOTLIST|)
+             (|COMMON-LISP|::|UNLESS|
+              (|COMMON-LISP|::|CONSTANTP| |SYSTEM|::|INITFORM|)
+              (|COMMON-LISP|::|PUSH|
+               (|COMMON-LISP|::|CAR| |SYSTEM|::|SLOTLIST|)
+               |SYSTEM|::|SLOTDEFAULTSLOTS|)
+              (|COMMON-LISP|::|PUSH|
+               (|COMMON-LISP|::|CAR| |SYSTEM|::|DIRECTSLOTLIST|)
+               |SYSTEM|::|SLOTDEFAULTDIRECTSLOTS|)))))
+          (|COMMON-LISP|::|INCF| |SYSTEM|::|OFFSET|))
+         (|COMMON-LISP|::|SETQ| |SYSTEM|::|SIZE| |SYSTEM|::|OFFSET|))
+        (|COMMON-LISP|::|SETQ| |SYSTEM|::|SLOTLIST|
+         (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|SLOTLIST|))
+        (|COMMON-LISP|::|SETQ| |SYSTEM|::|DIRECTSLOTLIST|
+         (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|DIRECTSLOTLIST|))
+        (|COMMON-LISP|::|SETQ| |SYSTEM|::|SLOTDEFAULTFUNS|
+         (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|SLOTDEFAULTFUNS|))
+        (|COMMON-LISP|::|SETQ| |SYSTEM|::|SLOTDEFAULTVARS|
+         (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|SLOTDEFAULTVARS|))
+        (|COMMON-LISP|::|SETQ| |SYSTEM|::|SLOTDEFAULTSLOTS|
+         (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|SLOTDEFAULTSLOTS|))
+        (|COMMON-LISP|::|SETQ| |SYSTEM|::|SLOTDEFAULTDIRECTSLOTS|
+         (|COMMON-LISP|::|NREVERSE| |SYSTEM|::|SLOTDEFAULTDIRECTSLOTS|))
+        (|COMMON-LISP|::|SETQ| |SYSTEM|::|CONSTRUCTOR-FORMS|
+         (|COMMON-LISP|::|MAPCAR|
+          #'(|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|CONSTRUCTOR-OPTION|)
+             (|COMMON-LISP|::|IF|
+              (|COMMON-LISP|::|CONSP| |SYSTEM|::|CONSTRUCTOR-OPTION|)
+              (|SYSTEM|::|DS-MAKE-BOA-CONSTRUCTOR|
+               |SYSTEM|::|CONSTRUCTOR-OPTION| |SYSTEM|::|TYPE-OPTION|
+               |SYSTEM|::|NAME| |SYSTEM|::|NAMESFORM| |SYSTEM|::|SIZE|
+               |SYSTEM|::|SLOTLIST| |SYSTEM|::|WHOLE-FORM|)
+              (|COMMON-LISP|::|PROGN|
+               (|COMMON-LISP|::|WHEN|
+                (|COMMON-LISP|::|NULL| |SYSTEM|::|KEYWORD-CONSTRUCTOR|)
+                (|COMMON-LISP|::|SETQ| |SYSTEM|::|KEYWORD-CONSTRUCTOR|
+                 |SYSTEM|::|CONSTRUCTOR-OPTION|))
+               (|SYSTEM|::|DS-MAKE-KEYWORD-CONSTRUCTOR|
+                |SYSTEM|::|CONSTRUCTOR-OPTION| |SYSTEM|::|TYPE-OPTION|
+                |SYSTEM|::|NAME| |SYSTEM|::|NAMESFORM| |SYSTEM|::|SIZE|
+                |SYSTEM|::|SLOTLIST|))))
+          |SYSTEM|::|CONSTRUCTOR-OPTION-LIST|))
+        (|COMMON-LISP|::|SETQ| |SYSTEM|::|BOA-CONSTRUCTORS|
+         (|COMMON-LISP|::|MAPCAN|
+          #'(|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|CONSTRUCTOR-OPTION|)
+             (|COMMON-LISP|::|WHEN|
+              (|COMMON-LISP|::|CONSP| |SYSTEM|::|CONSTRUCTOR-OPTION|)
+              (|COMMON-LISP|::|LIST|
+               (|COMMON-LISP|::|FIRST| |SYSTEM|::|CONSTRUCTOR-OPTION|))))
+          |SYSTEM|::|CONSTRUCTOR-OPTION-LIST|))
+        (|COMMON-LISP|::|MAPC|
+         #'(|COMMON-LISP|::|LAMBDA|
+            (|SYSTEM|::|SLOT+INITFF| |SYSTEM|::|DIRECTSLOT+INITFF|)
+            (|COMMON-LISP|::|LET*|
+             ((|SYSTEM|::|SLOT| (|COMMON-LISP|::|CAR| |SYSTEM|::|SLOT+INITFF|))
+              (|SYSTEM|::|INITFUNCTIONFORM|
+               (|SYSTEM|::|DS-INITFUNCTION-FETCHER| |SYSTEM|::|NAME|
+                |SYSTEM|::|TYPE-OPTION|
+                (|CLOS|::|SLOT-DEFINITION-NAME| |SYSTEM|::|SLOT|))))
+             (|COMMON-LISP|::|SETF|
+              (|COMMON-LISP|::|CDR| |SYSTEM|::|SLOT+INITFF|)
+              |SYSTEM|::|INITFUNCTIONFORM|)
+             (|COMMON-LISP|::|WHEN| |SYSTEM|::|DIRECTSLOT+INITFF|
+              (|COMMON-LISP|::|SETF|
+               (|COMMON-LISP|::|CDR| |SYSTEM|::|DIRECTSLOT+INITFF|)
+               |SYSTEM|::|INITFUNCTIONFORM|))))
+         |SYSTEM|::|SLOTDEFAULTSLOTS| |SYSTEM|::|SLOTDEFAULTDIRECTSLOTS|)
+        `(|COMMON-LISP|::|EVAL-WHEN|
+          (|COMMON-LISP|::|LOAD| |COMMON-LISP|::|COMPILE|
+           |COMMON-LISP|::|EVAL|)
+          (|COMMON-LISP|::|LET| |COMMON-LISP|::|NIL|
+           (|COMMON-LISP|::|LET|
+            ,(|COMMON-LISP|::|APPEND| |SYSTEM|::|NAMESBINDING|
+              (|COMMON-LISP|::|MAPCAR| #'|COMMON-LISP|::|LIST|
+               |SYSTEM|::|SLOTDEFAULTVARS| |SYSTEM|::|SLOTDEFAULTFUNS|))
+            (|SYSTEM|::|STRUCTURE-UNDEFINE-ACCESSORIES| ',|SYSTEM|::|NAME|)
+            ,(|COMMON-LISP|::|IF|
+              (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION| '|COMMON-LISP|::|T|)
+              `(|COMMON-LISP|::|REMPROP| ',|SYSTEM|::|NAME|
+                '|SYSTEM|::|DEFSTRUCT-DESCRIPTION|)
+              `(|SYSTEM|::|%PUT| ',|SYSTEM|::|NAME|
+                '|SYSTEM|::|DEFSTRUCT-DESCRIPTION|
+                (|COMMON-LISP|::|VECTOR| ',|SYSTEM|::|TYPE-OPTION|
+                 ,|SYSTEM|::|SIZE| ',|SYSTEM|::|KEYWORD-CONSTRUCTOR|
+                 (|COMMON-LISP|::|LIST|
+                  ,@(|SYSTEM|::|MAKE-LOAD-FORM-SLOT-LIST| |SYSTEM|::|SLOTLIST|
+                     |SYSTEM|::|SLOTDEFAULTSLOTS| |SYSTEM|::|SLOTDEFAULTVARS|
+                     '|CLOS|::|MAKE-LOAD-FORM-<STRUCTURE-EFFECTIVE-SLOT-DEFINITION>|))
+                 (|COMMON-LISP|::|LIST|
+                  ,@(|SYSTEM|::|MAKE-LOAD-FORM-SLOT-LIST|
+                     |SYSTEM|::|DIRECTSLOTLIST|
+                     |SYSTEM|::|SLOTDEFAULTDIRECTSLOTS|
+                     |SYSTEM|::|SLOTDEFAULTVARS|
+                     '|CLOS|::|MAKE-LOAD-FORM-<STRUCTURE-DIRECT-SLOT-DEFINITION>|))
+                 ',|SYSTEM|::|BOA-CONSTRUCTORS| ',|SYSTEM|::|COPIER-OPTION|
+                 ',|SYSTEM|::|PREDICATE-OPTION|)))
+            ,(|COMMON-LISP|::|IF|
+              (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION| '|COMMON-LISP|::|T|)
+              `(|CLOS|::|DEFINE-STRUCTURE-CLASS| ',|SYSTEM|::|NAME|
+                ,|SYSTEM|::|NAMESFORM| ',|SYSTEM|::|KEYWORD-CONSTRUCTOR|
+                ',|SYSTEM|::|BOA-CONSTRUCTORS| ',|SYSTEM|::|COPIER-OPTION|
+                ',|SYSTEM|::|PREDICATE-OPTION|
+                (|COMMON-LISP|::|LIST|
+                 ,@(|SYSTEM|::|MAKE-LOAD-FORM-SLOT-LIST| |SYSTEM|::|SLOTLIST|
+                    |SYSTEM|::|SLOTDEFAULTSLOTS| |SYSTEM|::|SLOTDEFAULTVARS|
+                    '|CLOS|::|MAKE-LOAD-FORM-<STRUCTURE-EFFECTIVE-SLOT-DEFINITION>|))
+                (|COMMON-LISP|::|LIST|
+                 ,@(|SYSTEM|::|MAKE-LOAD-FORM-SLOT-LIST|
+                    |SYSTEM|::|DIRECTSLOTLIST|
+                    |SYSTEM|::|SLOTDEFAULTDIRECTSLOTS|
+                    |SYSTEM|::|SLOTDEFAULTVARS|
+                    '|CLOS|::|MAKE-LOAD-FORM-<STRUCTURE-DIRECT-SLOT-DEFINITION>|)))
+              `(|CLOS|::|UNDEFINE-STRUCTURE-CLASS| ',|SYSTEM|::|NAME|))
+            ,@|SYSTEM|::|CONSTRUCTOR-FORMS|)
+           ,@(|COMMON-LISP|::|IF|
+              (|COMMON-LISP|::|AND| |SYSTEM|::|NAMED-OPTION|
+               |SYSTEM|::|PREDICATE-OPTION|)
+              (|SYSTEM|::|DS-MAKE-PRED| |SYSTEM|::|PREDICATE-OPTION|
+               |SYSTEM|::|TYPE-OPTION| |SYSTEM|::|NAME| |SYSTEM|::|SLOTLIST|
+               |SYSTEM|::|SIZE|))
+           ,@(|COMMON-LISP|::|IF| |SYSTEM|::|COPIER-OPTION|
+              (|SYSTEM|::|DS-MAKE-COPIER| |SYSTEM|::|COPIER-OPTION|
+               |SYSTEM|::|NAME| |SYSTEM|::|TYPE-OPTION|))
+           ,@(|COMMON-LISP|::|LET|
+              ((|SYSTEM|::|DIRECTSLOTLIST|
+                (|COMMON-LISP|::|NTHCDR| |SYSTEM|::|INHERITED-SLOT-COUNT|
+                 |SYSTEM|::|SLOTLIST|)))
+              `(,@(|SYSTEM|::|DS-MAKE-READERS| |SYSTEM|::|NAME|
+                   |SYSTEM|::|NAMES| |SYSTEM|::|TYPE-OPTION|
+                   |SYSTEM|::|CONC-NAME-OPTION| |SYSTEM|::|DIRECTSLOTLIST|)
+                ,@(|SYSTEM|::|DS-MAKE-WRITERS| |SYSTEM|::|NAME|
+                   |SYSTEM|::|NAMES| |SYSTEM|::|TYPE-OPTION|
+                   |SYSTEM|::|CONC-NAME-OPTION| |SYSTEM|::|DIRECTSLOTLIST|)))
+           (|SYSTEM|::|%SET-DOCUMENTATION| ',|SYSTEM|::|NAME|
+            '|COMMON-LISP|::|TYPE| ,|SYSTEM|::|DOCSTRING|)
+           ,@(|COMMON-LISP|::|WHEN|
+              (|COMMON-LISP|::|EQ| |SYSTEM|::|TYPE-OPTION| '|COMMON-LISP|::|T|)
+              (|COMMON-LISP|::|LIST|
+               (|COMMON-LISP|::|IF| |SYSTEM|::|PRINT-OBJECT-OPTION|
+                `(|CLOS|::|DEFMETHOD| |CLOS|::|PRINT-OBJECT|
+                  ((|SYSTEM|::|STRUCT| ,|SYSTEM|::|NAME|)
+                   |COMMON-LISP|::|STREAM|)
+                  (|COMMON-LISP|::|PROGN| ,|SYSTEM|::|PRINT-OBJECT-OPTION|))
+                `(|CLOS|::|DEFSTRUCT-REMOVE-PRINT-OBJECT-METHOD|
+                  ',|SYSTEM|::|NAME|))))
+           ',|SYSTEM|::|NAME|))))))))
+  '(|COMMON-LISP|::|&WHOLE| |SYSTEM|::|WHOLE-FORM| |SYSTEM|::|NAME-AND-OPTIONS|
+    . |SYSTEM|::|DOCSTRING-AND-SLOTARGS|)))
+(|SYSTEM|::|C-DEFUN| '|EXT|::|STRUCTURE-SLOTS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|NAME|)))
+(|SYSTEM|::|C-DEFUN| '|EXT|::|STRUCTURE-DIRECT-SLOTS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|NAME|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|STRUCTURE-INSTANCE-SIZE|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|NAME|)))
+(|SYSTEM|::|C-DEFUN| '|EXT|::|STRUCTURE-KEYWORD-CONSTRUCTOR|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|NAME|)))
+(|SYSTEM|::|C-DEFUN| '|EXT|::|STRUCTURE-BOA-CONSTRUCTORS|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|NAME|)))
+(|SYSTEM|::|C-DEFUN| '|EXT|::|STRUCTURE-COPIER|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|NAME|)))
+(|SYSTEM|::|C-DEFUN| '|EXT|::|STRUCTURE-PREDICATE|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|NAME|)))
+(|SYSTEM|::|C-DEFUN| '|SYSTEM|::|STRUCTURE-UNDEFINE-ACCESSORIES|
+ (|SYSTEM|::|LAMBDA-LIST-TO-SIGNATURE| '(|SYSTEM|::|NAME|)))

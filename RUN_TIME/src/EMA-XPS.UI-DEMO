@@ -1,0 +1,261 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! --------------------! RESOURCES FOR TOOLS -------------------------- !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Welcome*XmRowColumn*XmList*fontList: *-helvetica-bold-r-normal--14-*
+Welcome*XmRowColumn*XmText*fontList: *-helvetica-bold-r-normal--14-*
+Welcome*XmRowColumn*XmRowColumn*XmPushButton*fontList: *-helvetica-bold-r-normal--14-*
+
+Session.XmRowColumn*fontList: *-helvetica-bold-r-normal--14-*
+
+!! direkt von BABYLON uebernommen!
+Session*work_form*highlightThickness: 0
+Session*work_form*XmScrolledWindow*spacing: 0
+Session*work_form*XmScrollBar*width: 10
+Session*work_form*XmScrollBar*height: 10
+Session*work_form*XmScrollBar*shadowThickness: 2
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#ifdef COLOR            ! COLOR RESOURCES FOR TOOLS
+
+!!! Menueleiste ...
+Session.XmRowColumn.background: orange1
+!!! Eintraege in die Menuleiste ...
+Session*XmCascadeButton*background: orange1
+!!! heruntergeklappte Menues ...
+Session.XmRowColumn*background: orange1
+!!! Voreinstellung fuer alle Pushbuttons ...
+Session*XmPushButton*background: orange1
+
+!!! Hintergrundfarbe der Texte in den Popups des Userinterfaces:
+Welcome*XmRowColumn*XmList*background: orange1
+Welcome*XmRowColumn*XmText*background: orange1
+
+!!! Hintergrundfarbe des UIs
+Session*background: wheat
+
+!!! Hintergrundfarben der Popups des UIs
+Welcome*background: wheat
+Welcome*XmRowColumn*background: wheat
+Welcome*XmRowColumn*XmRowColumn*background: wheat
+
+!!! Hintergrundfarbe der Pushbuttons der Popups des UIs
+! --> Buttons in den Popups sind Gadgets und die haben keine eigenen fg und bg colors !
+!
+!Welcome*XmRowColumn*XmRowColumn*XmPushButton*background: coral
+
+#else                   ! MONOCHROME setup
+
+!!! Menueleiste ...
+Session.XmRowColumn.background: white
+!!! Eintraege in die Menuleiste ...
+Session*XmCascadeButton*background: white
+!!! heruntergeklappte Menues ...
+Session.XmRowColumn*background: white
+!!! Voreinstellung fuer alle Pushbuttons ...
+Session*XmPushButton*background: white
+
+!!! Hintergrundfarbe der Texte in den Popups des Userinterfaces:
+EMAXPS.Welcome*XmRowColumn*XmList*background: white
+EMAXPS.Welcome*XmRowColumn*XmText*background: white
+
+!!! Hintergrundfarbe des UIs
+Session*background: white
+
+!!! Hintergrundfarben der Popups des UIs
+EMAXPS.Welcome*background: white
+EMAXPS.Welcome*XmRowColumn*background: white
+EMAXPS.Welcome*XmRowColumn*XmRowColumn*background: white
+
+!!! Hintergrundfarbe der Pushbuttons der Popups des UIs
+!EMAXPS.Welcome*XmRowColumn*XmRowColumn*XmPushButton*background: white
+
+#endif                  ! COLOR/MONOCHROME
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! --------------------! RESOURCES FOR WIDGETS DEFINED IN IF-FILE ----- !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Session*logo-text-1.fontList: *-bitstream-charter-medium-i-normal--25-*
+Session*logo-text-2.fontList: *-bitstream-charter-medium-i-normal--25-*
+Session*logo-text-3.fontList: *-bitstream-charter-medium-i-normal--14-*
+Session*logo-text-4.fontList: *-bitstream-charter-medium-i-normal--14-*
+Session*logo-text-5.fontList: *-bitstream-charter-medium-i-normal--14-*
+
+Session*hilfe-text-unten*fontList: *-clean-medium-r-normal-*-16-*
+Session*hilfe-text-links*fontList: *-clean-medium-r-normal-*-16-*
+Session*hilfe-text-oben*fontList:  *-clean-medium-r-normal-*-16-*
+Session*hilfe-text-gross*fontList: *-clean-medium-r-normal-*-16-*
+
+Session*dekade-1*fontList: *-helvetica-bold-r-normal--17-*
+Session*dekade-2*fontList: *-helvetica-bold-r-normal--17-*
+Session*dekade-3*fontList: *-helvetica-bold-r-normal--17-*
+
+Session*next.fontList: *-helvetica-medium-r-normal--20-*
+Session*hilfe.fontList: *-helvetica-bold-r-normal--25-*
+Session*hilfe-beenden.fontList: *-helvetica-medium-r-normal--24-*
+
+Session*headline.fontList: *-bitstream-charter-medium-i-normal--25-*
+Session*headline.background: black
+Session*headline.foreground: white
+
+Session*slot-1.fontList: *-helvetica-bold-r-normal--14-*
+Session*slot-2.fontList: *-helvetica-bold-r-normal--14-*
+Session*slot-3.fontList: *-helvetica-bold-r-normal--14-*
+Session*slot-4.fontList: *-helvetica-bold-r-normal--14-*
+Session*slot-5.fontList: *-helvetica-bold-r-normal--14-*
+Session*slot-6.fontList: *-helvetica-bold-r-normal--14-*
+Session*slot-7.fontList: *-helvetica-bold-r-normal--14-*
+Session*slot-8.fontList: *-helvetica-bold-r-normal--14-*
+Session*slot-9.fontList: *-helvetica-bold-r-normal--14-*
+Session*slot-10.fontList: *-helvetica-bold-r-normal--14-*
+Session*slot-1*alignment: ALIGNMENT_BEGINNING
+Session*slot-2*alignment: ALIGNMENT_BEGINNING
+Session*slot-3*alignment: ALIGNMENT_BEGINNING
+Session*slot-4*alignment: ALIGNMENT_BEGINNING
+Session*slot-5*alignment: ALIGNMENT_BEGINNING
+Session*slot-6*alignment: ALIGNMENT_BEGINNING
+Session*slot-7*alignment: ALIGNMENT_BEGINNING
+Session*slot-8*alignment: ALIGNMENT_BEGINNING
+Session*slot-9*alignment: ALIGNMENT_BEGINNING
+Session*slot-10*alignment: ALIGNMENT_BEGINNING
+
+Session*wert-1.fontList: *-helvetica-bold-r-normal--14-*
+Session*wert-2.fontList: *-helvetica-bold-r-normal--14-*
+Session*wert-3.fontList: *-helvetica-bold-r-normal--14-*
+Session*wert-4.fontList: *-helvetica-bold-r-normal--14-*
+Session*wert-5.fontList: *-helvetica-bold-r-normal--14-*
+Session*wert-6.fontList: *-helvetica-bold-r-normal--14-*
+Session*wert-7.fontList: *-helvetica-bold-r-normal--14-*
+Session*wert-8.fontList: *-helvetica-bold-r-normal--14-*
+Session*wert-9.fontList: *-helvetica-bold-r-normal--14-*
+Session*wert-10.fontList: *-helvetica-bold-r-normal--14-*
+Session*wert-1*alignment: ALIGNMENT_END
+Session*wert-2*alignment: ALIGNMENT_END
+Session*wert-3*alignment: ALIGNMENT_END
+Session*wert-4*alignment: ALIGNMENT_END
+Session*wert-5*alignment: ALIGNMENT_END
+Session*wert-6*alignment: ALIGNMENT_END
+Session*wert-7*alignment: ALIGNMENT_END
+Session*wert-8*alignment: ALIGNMENT_END
+Session*wert-9*alignment: ALIGNMENT_END
+Session*wert-10*alignment: ALIGNMENT_END
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#ifdef COLOR            ! COLOR RESOURCES FOR WIDGETS DEFINED IN IF-FILE
+
+Session*logo-bild*background: wheat
+
+Session*logo-text-1*background: wheat
+Session*logo-text-2*background: wheat
+Session*logo-text-3*background: wheat
+Session*logo-text-4*background: wheat
+Session*logo-text-5*background: wheat
+
+Session*hilfe-bild-gross*background: wheat
+Session*hilfe-bild-links*background: wheat
+Session*hilfe-bild-rechts*background: wheat
+
+Session*hilfe-text-unten*background: wheat
+Session*hilfe-text-links*background: wheat
+Session*hilfe-text-oben*background: wheat
+Session*hilfe-text-gross*background: wheat
+
+Session*next.background: coral
+Session*hilfe-beenden.background: coral
+Session*hilfe.background: coral
+
+Session*slot-1*background: black
+Session*slot-2*background: black
+Session*slot-3*background: black
+Session*slot-4*background: black
+Session*slot-5*background: black
+Session*slot-6*background: black
+Session*slot-7*background: black
+Session*slot-8*background: black
+Session*slot-9*background: black
+Session*slot-10*background: black
+
+Session*slot-1*foreground: wheat
+Session*slot-2*foreground: wheat
+Session*slot-3*foreground: wheat
+Session*slot-4*foreground: wheat
+Session*slot-5*foreground: wheat
+Session*slot-6*foreground: wheat
+Session*slot-7*foreground: wheat
+Session*slot-8*foreground: wheat
+Session*slot-9*foreground: wheat
+Session*slot-10*foreground: wheat
+
+Session*wert-1*background: wheat
+Session*wert-2*background: wheat
+Session*wert-3*background: wheat
+Session*wert-4*background: wheat
+Session*wert-5*background: wheat
+Session*wert-6*background: wheat
+Session*wert-7*background: wheat
+Session*wert-8*background: wheat
+Session*wert-9*background: wheat
+Session*wert-10*background: wheat
+
+#else                   ! MONOCHROME setup
+
+Session*logo-bild*background: white
+
+Session*logo-text-1*background: white
+Session*logo-text-2*background: white
+Session*logo-text-3*background: white
+Session*logo-text-4*background: white
+Session*logo-text-5*background: white
+
+Session*hilfe-bild-gross*background: white
+Session*hilfe-bild-links*background: white
+Session*hilfe-bild-rechts*background: white
+
+Session*hilfe-text-unten*background: white
+Session*hilfe-text-links*background: white
+Session*hilfe-text-oben*background: white
+Session*hilfe-text-gross*background: white
+
+Session*next.background: white
+Session*hilfe-beenden.background: white
+Session*hilfe.background: white
+
+Session*slot-1*background: black
+Session*slot-2*background: black
+Session*slot-3*background: black
+Session*slot-4*background: black
+Session*slot-5*background: black
+Session*slot-6*background: black
+Session*slot-7*background: black
+Session*slot-8*background: black
+Session*slot-9*background: black
+Session*slot-10*background: black
+
+Session*slot-1*foreground: white
+Session*slot-2*foreground: white
+Session*slot-3*foreground: white
+Session*slot-4*foreground: white
+Session*slot-5*foreground: white
+Session*slot-6*foreground: white
+Session*slot-7*foreground: white
+Session*slot-8*foreground: white
+Session*slot-9*foreground: white
+Session*slot-10*foreground: white
+
+Session*wert-1*background: white
+Session*wert-2*background: white
+Session*wert-3*background: white
+Session*wert-4*background: white
+Session*wert-5*background: white
+Session*wert-6*background: white
+Session*wert-7*background: white
+Session*wert-8*background: white
+Session*wert-9*background: white
+Session*wert-10*background: white
+
+#endif                  ! COLOR/MONOCHROME
+
+!!! -------------------------------------------------------------------------

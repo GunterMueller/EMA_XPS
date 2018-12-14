@@ -1,0 +1,219 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.expd    Hans Groschwitz        12.09.96   !!
+!!                 Karsten Vossberg                  !!
+!!                                                   !!
+!!   C-FrontEnds of LISP functions for control of    !!
+!!   Popups for the Explanation facility of EMA-XPS  !!
+!!                                                   !!
+!!   See uid.x for details!                          !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+#ifdef __english
+SystemDialogs*ExpdOneOfMany_popup.title:   One-Of-Many
+SystemDialogs*ExpdOneOfMany_popup*listLabelString:  \
+Choose a rule set\
+|\
+What are you looking for?\
+|\
+Choose a rule:\
+|\
+How - which fact?\
+|\
+Choose a first element to match\
+|\
+There are %s terms in the rule %s\n\
+Which one do you want to inspect?\
+|\
+Choose one of the slots:
+
+#else /* deutsch */
+SystemDialogs*ExpdOneOfMany_popup.title:   Eins-Aus-N
+SystemDialogs*ExpdOneOfMany_popup*listLabelString:  \
+W\344hlen Sie einen Regelsatz aus\
+|\
+Wonach suchen Sie?\
+|\
+W\344hlen Sie eine Regel aus\
+|\
+Wie - Welcher Fakt?\
+|\
+Pr\374fen Sie ein erstes Element auf \334bereinstimmung\
+|\
+Es gibt %s Terme in der Regel %s. \n\
+Welchen wollen Sie inspizieren?\
+|\
+W\344hlen Sie ein Merkmal (Slot):
+
+#endif /* english */
+
+
+
+#ifdef __english
+SystemDialogs*ExpdOneOfMany2_popup.title:  Match-Type
+SystemDialogs*ExpdOneOfMany2_popup*listLabelString:  \
+What match-type do you want for term-selection?\
+|\
+Find all terms\
+|\
+Match first element\
+|\
+Match second element\
+|\
+Match first and second element
+
+#else /* deutsch */
+SystemDialogs*ExpdOneOfMany2_popup.title:  Art der \334bereinstimmung
+SystemDialogs*ExpdOneOfMany2_popup*listLabelString:  \
+Welcher \334bereinstimmungstyp soll f\374r \n\
+die Termauswahl verwendet werden?\
+|\
+Finde alle Terme\
+|\
+\334bereinstimmung im ersten Element\
+|\
+\334bereinstimmung im zweiten Element\
+|\
+\334bereinstimmung im ersten und zweiten
+
+#endif /* english */
+
+
+
+#ifdef __english
+SystemDialogs*ExpdSomeOfMany_popup.title:  Some-Of-Many
+SystemDialogs*ExpdSomeOfMany_popup*listLabelString:  \
+Choose a rule\
+|\
+Below you find the rules which use this term \n\
+%s. \n\
+Choose the rules to display:
+
+#else /* deutsch */
+SystemDialogs*ExpdSomeOfMany_popup.title:  Einige-Aus-N
+SystemDialogs*ExpdSomeOfMany_popup*listLabelString:  \
+W\344hlen Sie eine Regel aus\
+|\
+Liste der Regeln, die den Term \n\
+%s \n\
+verwenden. Welche Regeln sollen dargestellt werden?
+
+#endif /* english */
+
+
+
+#ifdef __english
+SystemDialogs*EXPD_Dummy_Label.labelString: \
+ruleset %s\
+|\
+rule    %s\
+|\
+*** print rule ***\
+|\
+IF   %s\
+|\
+THEN %s\
+|\
+*** print true facts ***\
+|\
+*** print unprovable facts ***\
+|\
+*** print all facts ***\
+|\
+No results\
+|\
+*** PROLOG how: ***\
+|\
+*** 10:UNUSED ***\
+|\
+*** inspect terme ***\
+|\
+*** RULE why: ***\
+|\
+*** RULE why not: ***\
+|\
+*** RULE why all: ***\
+|\
+Result:\
+|\
+Subgoal: %s\
+|\
+Goal: %s\
+|\
+To prove: %s\
+|\
+with clause: %s %s %s\
+|\
+Goal reached\
+|\
+There are no unprovable facts!\
+|\
+There are no facts!\
+|\
+There are no true facts!
+
+#else /* deutsch */
+SystemDialogs*EXPD_Dummy_Label.labelString: \
+Regelmenge %s\
+|\
+Regelname  %s\
+|\
+*** schreibe Regel ***\
+|\
+WENN %s\
+|\
+DANN %s\
+|\
+*** schreibe wahre Fakten ***\
+|\
+*** schreibe nicht pr\374fbare Fakten ***\
+|\
+*** schreibe alle Fakten ***\
+|\
+Keine Ergebnisse\
+|\
+*** PROLOG Warum: (Erkl\344rung zum Kontext) ***\
+|\
+*** 10:UNUSED ***\
+|\
+*** inspiziere Terme ***\
+|\
+*** REGEL Wie:  ***\
+|\
+*** REGEL Warum nicht: ***\
+|\
+*** REGEL Wie alle: ***\
+|\
+Resultat:\
+|\
+Teilziel: %s\
+|\
+Ziel: %s\
+|\
+Zu pr\374fen: %s\
+|\
+mit Klausel: %s %s %s\
+|\
+Ziel erreicht\
+|\
+Es gibt keine nicht pr\374fbaren Fakten!\
+|\
+Es gibt keine Fakten!\
+|\
+Es gibt keine wahren Fakten!
+
+#endif /* english */
+
+
+
+
+#ifdef COLOR
+
+#else /* MONO */
+
+#endif /* COLOR */
+
+
+
+!!! EOF

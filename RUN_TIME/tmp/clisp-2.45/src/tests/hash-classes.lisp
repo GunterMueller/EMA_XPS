@@ -1,0 +1,1 @@
+../../tests/hash-classes.lisp

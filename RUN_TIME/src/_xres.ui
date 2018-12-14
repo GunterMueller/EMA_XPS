@@ -1,0 +1,77 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   ui.c          Hans Groschwitz        20.11.94   !!
+!!                 Michael Block                     !!
+!!                                                   !!
+!!   C-FrontEnds of LISP functions for control of    !!
+!!   User Interface (Session Screen)                 !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!! Default Width and Height of SimpleSessionScreen:
+Session.width:                                   610
+Session.height:                                  410
+!! Resources to simulate B3 style:
+Session*work_form*highlightThickness:            0
+Session*work_form*XmScrolledWindow*spacing:      0
+Session*work_form*XmScrollBar*width:             10
+Session*work_form*XmScrollBar*height:            10
+Session*work_form*XmScrollBar*shadowThickness:   2
+
+#ifdef __english
+Session.title:                                   Session Screen
+Session*session_menu_button.labelString:         Session
+Session*session_menu_button.mnemonic:            S
+Session*break_button.labelString:                Break!
+Session*break_button.mnemonic:                   B
+Session*rerun_button.labelString:                Rerun
+Session*rerun_button.mnemonic:                   R
+Session*end_button.labelString:                  End
+Session*end_button.mnemonic:                     E
+Session*grid_on_button.labelString:              Grid on
+Session*grid_on_button.mnemonic:                 G
+Session*grid_off_button.labelString:             Grid off
+Session*grid_off_button.mnemonic:                G
+Session*help_menu_button.labelString:            Help
+Session*help_menu_button.mnemonic:               H
+Session*on_menu_button.labelString:              on Menue ...
+Session*on_menu_button.mnemonic:                 M
+#else /* deutsch */
+Session.title:                                   Sitzungsfenster
+Session*session_menu_button.labelString:         Sitzung
+Session*session_menu_button.mnemonic:            S
+Session*break_button.labelString:                Unterbrechen!
+Session*break_button.mnemonic:                   U
+Session*rerun_button.labelString:                Neustart
+Session*rerun_button.mnemonic:                   N
+Session*end_button.labelString:                  Ende
+Session*end_button.mnemonic:                     E
+Session*grid_on_button.labelString:              Raster an
+Session*grid_on_button.mnemonic:                 R
+Session*grid_off_button.labelString:             Raster aus
+Session*grid_off_button.mnemonic:                R
+Session*help_menu_button.labelString:            Hilfe
+Session*help_menu_button.mnemonic:               H
+Session*on_menu_button.labelString:              zum Men\374 ...
+Session*on_menu_button.mnemonic:                 M
+#endif /* english */
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     Color Settings                            !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#ifdef COLOR
+
+Session*background:                              wheat
+Session*foreground:                              black
+!! Simulate B3 style MenuPane:
+Session.XmRowColumn*background:                  orange
+Session*XmCascadeButton*background:              orange
+!! Default for all Pushbuttons:
+Session*XmPushButton.background:                 orange
+
+#else /* MONO */
+
+!! here non-default settings only, please!
+
+#endif /* COLOR */
+
+!!! EOF

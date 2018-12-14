@@ -1,0 +1,138 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.constraint Hans Groschwitz     19.07.95   !!
+!!                    Karsten Vossberg               !!
+!!                    Klaus Senf                     !!
+!!                                                   !!
+!!   Functions to build the constraint-editor.       !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!*** general settings ***
+
+Constraint-Editor.height:                                600
+Constraint-Editor.width:                                 500
+
+Constraint-Editor.title:                                 Constraint-Editor
+Constraint-Editor.iconName:                              Constraint
+
+Constraint-Editor*Help.mnemonic:                         H
+Constraint-Editor*on_menu.mnemonic:                      M
+Constraint-Editor*on_syntax.mnemonic:                    S
+
+!*** language settings ***
+
+#ifdef __english
+Constraint-Editor*Help.labelString:                      Help
+Constraint-Editor*on_menu.labelString:                   On Menu ...
+Constraint-Editor*on_syntax.labelString:                 On Syntax ...
+!
+Constraint-Editor*Bearbeiten.labelString:                Edit
+Constraint-Editor*Bearbeiten.mnemonic:                   E
+Constraint-Editor*Laden.labelString:                     Apply this Constraint ...
+Constraint-Editor*Laden.mnemonic:                        A
+Constraint-Editor*Loeschen.labelString:                  Delete this Constraint ...
+Constraint-Editor*Loeschen.mnemonic:                     D
+Constraint-Editor*ReChange.labelString:                  Undo Changes
+Constraint-Editor*ReChange.mnemonic:                     U
+!
+Constraint-Editor*kbase.labelString:                     Knowledge Base:
+Constraint-Editor*Constraint.labelString:                Constraint:
+Constraint-Editor*Variablen.labelString:                 Interface-Variables:
+Constraint-Editor*Relation.labelString:                  Relation:
+Constraint-Editor*Aktivierungsbedingung.labelString:     Condition:
+Constraint-Editor*c_name.labelString:                    (none)
+Constraint-Editor*c_kb_name.labelString:                 (none)
+!
+Constraint-Editor*c_kb_selection_form.dialogTitle:       Choose a Knowledge Base
+Constraint-Editor*c_kb_selection.listLabelString:        Known knowledge bases
+!
+Constraint-Editor*c_kb_selection_msg.dialogTitle:        Incorrect Input
+Constraint-Editor*c_kb_selection_msg*messageString:      Please choose a knowledge base!
+!
+Constraint-Editor*c_co_selection_form.dialogTitle:       Choose a Constraint
+Constraint-Editor*c_co_selection.listLabelString:        Known constraints
+Constraint-Editor*c_co_selection*selectionLabelString:   Selection / new constraint
+!
+Constraint-Editor*c_co_selection_msg.dialogTitle:        Incorrect Input
+Constraint-Editor*c_co_selection_msg*messageString:      Please choose a constraint!
+!
+Constraint-Editor*c_LoadWarningW_popup.title:            Constraint-Apply Confirmation
+Constraint-Editor*c_LoadWarningW*messageString:          \
+ Do you really want to apply this constraint?
+Constraint-Editor*c_LoadWarningW*okLabelString:          Yes
+Constraint-Editor*c_LoadWarningW*cancelLabelString:      No
+!
+Constraint-Editor*c_DelWarningW_popup.title:             Constraint-Delete Confirmation
+Constraint-Editor*c_DelWarningW*messageString:           \
+ Do you really want to delete this constraint?
+Constraint-Editor*c_DelWarningW*okLabelString:           Yes
+Constraint-Editor*c_DelWarningW*cancelLabelString:       No
+
+#else /* deutsch */
+Constraint-Editor*Help.labelString:                      Hilfe
+Constraint-Editor*on_menu.labelString:                   zum Men\374 ...
+Constraint-Editor*on_syntax.labelString:                 zur Syntax ...
+!
+Constraint-Editor*Bearbeiten.labelString:                Bearbeiten
+Constraint-Editor*Bearbeiten.mnemonic:                   B
+Constraint-Editor*Laden.labelString:                     Diesen Constraint \374bernehmen ...
+Constraint-Editor*Laden.mnemonic:                        C
+Constraint-Editor*Loeschen.labelString:                  Diesen Constraint l\366schen ...
+Constraint-Editor*Loeschen.mnemonic:                     l
+Constraint-Editor*ReChange.labelString:                  \304nderungen zur\374cknehmen
+Constraint-Editor*ReChange.mnemonic:                     z
+!
+Constraint-Editor*kbase.labelString:                     Wissensbasis:
+Constraint-Editor*Constraint.labelString:                Constraint:
+Constraint-Editor*Variablen.labelString:                 Interface-Variablen:
+Constraint-Editor*Relation.labelString:                  Beziehung:
+Constraint-Editor*Aktivierungsbedingung.labelString:     Aktivierungsbedingung:
+Constraint-Editor*c_name.labelString:                    (unbestimmt)
+Constraint-Editor*c_kb_name.labelString:                 (unbestimmt)
+!
+Constraint-Editor*c_kb_selection_form.dialogTitle:       Auswahl der Wissensbasis
+Constraint-Editor*c_kb_selection.listLabelString:        Bekannte Wissensbasen
+Constraint-Editor*c_kb_selection.cancelLabelString:      Abbrechen
+!
+Constraint-Editor*c_kb_selection_msg.dialogTitle:        Falsche Eingabe
+Constraint-Editor*c_kb_selection_msg*messageString:      Bitte w\344hlen Sie eine Wissensbasis aus!
+!
+Constraint-Editor*c_co_selection_form.dialogTitle:       Auswahl eines Constraints
+Constraint-Editor*c_co_selection.listLabelString:        Bekannte Constraints
+Constraint-Editor*c_co_selection*selectionLabelString:   Auswahl / Neuer Constraint
+Constraint-Editor*c_co_selection.cancelLabelString:      Abbrechen
+!
+Constraint-Editor*c_co_selection_msg.dialogTitle:        Falsche Eingabe                        
+Constraint-Editor*c_co_selection_msg*messageString:      Bitte w\344hlen Sie ein Constraint aus!
+!
+Constraint-Editor*c_LoadWarningW_popup.title:            Constraint-\334bernehmen Best\344tigung
+Constraint-Editor*c_LoadWarningW*messageString:          \
+ Wollen Sie diesen Constraint wirklich \374bernehmen?
+Constraint-Editor*c_LoadWarningW*okLabelString:          Ja
+Constraint-Editor*c_LoadWarningW*cancelLabelString:      Nein
+!
+Constraint-Editor*c_DelWarningW_popup.title:             Constraint-L\366schen Best\344tigung
+Constraint-Editor*c_DelWarningW*messageString:           \
+ Wollen Sie diesen Constraint wirklich l\366schen?
+Constraint-Editor*c_DelWarningW*okLabelString:           Ja
+Constraint-Editor*c_DelWarningW*cancelLabelString:       Nein
+
+#endif
+
+
+!*** color settings ***
+
+#ifdef COLOR
+
+Constraint-Editor*background:                            azure
+Constraint-Editor*c_LoadWarningW*background:             red
+Constraint-Editor*c_DelWarningW*background:              red
+Constraint-Editor*c_kb_selection_msg*background:         red
+Constraint-Editor*c_co_selection_msg*background:         red
+
+#else   !!! MONO: here non-default settings only, please!
+
+#endif
+
+
+!!! EOF

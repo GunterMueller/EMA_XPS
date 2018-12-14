@@ -1,0 +1,188 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _help.main    Hans Groschwitz        03.06.96   !!
+!!                                                   !!
+!!   Usage of the EMA-XPS main screen and its menu   !!
+!!   pane.                                           !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!
+! no heading FF necessary in front of
+! page 0 (the MasterHelpPage) !!
+!
+! HELP_MAIN_MENU
+#ifdef __english
+>MAIN-MENU
+.The Main Menu
+.=============
+.
+.The main menu appears at the end of the boot phase.
+.All necessary operations will be introduced from its
+.menu pane.
+.
+.The File menu:
+.
+.- Statistics ...
+.       Displays the number of different knowledge base
+.       constructs containted within the current KB.
+.- New ...
+.       Creates a new KB and makes it current.
+.- Load ...
+.       Loads a new KB from a EMA-XPS or babylon3 stylus
+.       file and makes it current. babylon3 KBs are
+.       translated into EMA-XPS style during loading.
+.       WARNING: Babylon2 KB files can NOT be read cor-
+.                rectly!
+.- Save ...
+.       Saves the current KB in EMA-XPS KB file format
+.       using its current file name. This operation is
+.       unavailable with newly created KBs.
+.- Save As ...
+.       Stores the current KB in EMA-XPS KB file format
+.       using another file name. 
+.- Close
+.       Removes the current KB from the list of KBs
+.       known to the inference engine.
+.- 1 ... 9 [>] KNOWLEDGEBASENAME [!!#]
+.       Displays all knowledge bases, currently known
+.       to the inference engine. the current KB is mar-
+.       ked by a '>' sign.
+.       When a knowledge base has been changed, a sharp
+.       sign "#" behind the name of that KB in the
+.       [File] menu displays differences between the
+.       version stored in the file and the version of
+.       the KB within the LISP world.
+.       When the string "!!" is displayed, Changes
+.       within the knowledge editors are marked, which
+.       differ from the contents of the LISP world.
+.       Those changes do not take effect to session runs
+.       or rewriting to KB files, yet!
+.- Quit
+.       Exits EMA-XPS.
+.
+.The Edit menu:
+.- Frame ...
+.- Instance ...
+.- Behavior ...
+.- Rule ...
+.- Prolog ...
+.- Constraint ...
+.- Constraint Net ...
+.- Restriction ...
+.- Task ...
+.- Miscelaneous ...
+.       As soon as a current KB exists, the graphic
+.       knowledge editors are available. More infor-
+.       mation concerning the editors is available at
+.       the help page "introducing the editors".
+.
+.The Session menu:
+.- Run
+.       Starts a session with the current KB.
+.- Debugger ...
+.       Displays the debugger front end. It appears
+.       automatically when runtime errors occur.
+.- Explanation Window ...
+.       Displays the explanation window. It appears
+.       automatically as a reaction to explanation
+.       requests from within the KB.
+.- Tracer ...
+.       Enables outputting of tracing information at
+.       session runtime.
+.
+.The runtime version of EMA-XPS does not offer the
+.menu "Edit" and the button "Tracer" in the "Session"
+.menu.
+.
+#else
+>HAUPTMEN\334
+.Das Hauptmen\374
+.=============
+.
+.Das Hauptmen\374 erscheint nach Abschlu\337 der Bootphase. 
+.Von ihm aus lassen sich alle Operationen einleiten. Es
+.besitzt an aktiven Elementen nur eine Men\374zeile.
+.
+.Das Datei-Men\374:
+.
+.- Statistik ...
+.       Zeigt die Anzahl der unterschiedlichen Wissens-
+.       konstrukte der aktuellen Wissensbasis an.
+.- Neu ...
+.       Kreiert eine neue Wissensbasis und macht sie zur
+.       aktuellen.
+.- Laden ...
+.       L\344dt eine neue Wissensbasis aus einer EMA-XPS
+.       oder babylon3 Datei ein und macht sie zur aktu-
+.       ellen. babylon3 Wissensbasisdateien werden da-
+.       bei zuerst in das EMA-XPS Format \374bersetzt.
+.       HINWEIS: Babylon2 Wissensbasisdateien k\366nnen
+.                NICHT korrekt eingelesen werden!
+.- Speichern ...
+.       Speichert die aktuelle Wissensbasis im EMA-XPS
+.       Wissensbasisdateiformat unter ihrem aktuellen
+.       Dasteinamen ab. Diese Funktion steht nicht f\374r
+.       neu angelegte Wissensbasen zur Verf\374gung.
+.- Speichern Als ...
+.       Speichert die aktuelle Wissensbasis im EMA-XPS
+.       Wissensbasisdateiformat unter einem anderen
+.       Dateinamen ab.
+.- Schlie\337en
+.       Macht die aktuelle Wissensbasis der Inferenzma-
+.       schine unbekannt.
+.- 1 ... 9 [>] WISSENSBASISNAME [!!#]
+.       Zeigt alle Wissensbasen an, die der Inferenzma-
+.       schine gerade bekannt sind. Die aktuelle ist mit
+.       einem '>' markiert. 
+.       Wenn eine Wissensbasis veraendert worden ist,
+.       dann zeigt ein "#" hinter dem Wissensbasisnamen
+.       an, da\337 zwischen der Version in der Datei und
+.       der Version der Wissensbasis in der LISP-Welt
+.       ein Unterschied besteht.
+.       Wird ein "!!" angezeigt, steht dies f\374r \304nde-
+.       rungen in den Wissenseditoren, die noch nicht in
+.       die LISP-Welt \374bernommen worden sind (und damit
+.       noch keine Auswirkungen auf den n\344chsten Sit-
+.       zungsverlauf haben, b.z.w. in einer Datei ge-
+.       speichert werden k\366nnen)!
+.- Beenden
+.       Beendet EMA-XPS.
+.
+.Das Bearbeiten-Men\374:
+.- Frame ...
+.- Instanz ...
+.- Behavior ...
+.- Regel ...
+.- Prolog ...
+.- Constraint ...
+.- Constraint-Netz ...
+.- Restriktion ...
+.- Task ...
+.- Sonstiges ...
+.       Sobald es eine aktuelle Wissensbasis gibt, sind
+.       die grafischen Wissenseditoren freigeschaltet.
+.       N\344heres dazu in der Hilfe zu den Editoren.
+.
+.Das Sitzung-Men\374:
+.- Start
+.       Beginnt eine Sitzung der aktuellen Wissensbasis.
+.- Fehlerwerkzeug ...
+.       Macht das Fehlerwerkzeug sichtbar. Bei Laufzeit-
+.       fehlern erscheint es von selbst.
+.- Erkl\344rungsfenster ...
+.       Macht das Erkl\344rungsfenster sichtbar. Bei
+.       Erkl\344rungsanfragen aus der Wissensbasis heraus
+.       erscheint es von selbst.
+.- Tracer ...
+.       Erm\366glicht die Ausgabe von Trace-Informationen
+.       zur Sitzungslaufzeit.
+.
+.In der Laufzeitversion von EMA-XPS stehen das Men\374
+."Editieren" und der Men\374punkt "Tracer" im Men\374
+."Sitzung" nicht zur Verf\374gung.
+.
+#endif
+
+!
+! no trailing FF necessary at the end of the last page !!
+!
+!!! EOF

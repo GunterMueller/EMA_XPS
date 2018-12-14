@@ -1,0 +1,43 @@
+<html><head><title>SET-TO-LIST</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc325.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc323.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>SET-TO-LIST</strong></font></center><p>
+
+<PRE>SET-TO-LIST
+===========
+
+syntax: (set-to-list &lt;evaluates-to &lt;set-of A (...)&gt;&gt;
+                     [:EXTRACT-FN
+                        &lt;lisp-type: function&gt;])
+
+        ==&gt; List with the extracted elements
+
+This function extracts elements from the set with
+the extraction function.
+
+example: &gt;(list-to-set '(2 &quot;house&quot; 3 4 &quot;window&quot; 5))
+         #&lt;set-of T (...)&gt;
+      
+         &gt;(set-to-list * :EXTRACT-FN #'stringp)
+         (&quot;house&quot; &quot;window&quot;)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc325.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc323.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- SET-TO-LIST done --!>

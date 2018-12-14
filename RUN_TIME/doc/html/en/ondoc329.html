@@ -1,0 +1,86 @@
+<html><head><title>ASK</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc330.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc328.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>ASK</strong></font></center><p>
+
+<PRE>ASK
+===
+
+Syntax: (ask &lt;predication&gt; [:once]
+             &lt;bql-continuation&gt;)
+
+This function makes inquiries at the knowledge
+base. The if- and then-part of a rule correspond
+in the meaning to an ASK inquiry and its
+&lt;bql-continuation&gt;. A call of ASK similar to the
+execution of a rule. The &lt;predication&gt; is equi-
+valent to the IF-part, the &lt;bql-continuation&gt;
+is the THEN-part. The &lt;bql-continuation&gt; will be
+evaluated only, if the &lt;predication&gt; is valid
+at least once.
+
+The &lt;predication&gt; kann look like
+  [&lt;framename&gt; &lt;instance&gt;]
+or
+  [&lt;relation-name&gt; &lt;instance&gt; &lt;value&gt;]
+It can be bound with logical
+operators like  [and ...  or  [or ...  .
+
+&lt;instance&gt; and &lt;value&gt; can contain a
+logical variable, that can be recognised
+because of its underline (example: _a-computer).
+The corresponding contents will be searched in
+the knowledge base and will be bound to the
+variable.
+
+&lt;bql-continuation&gt; consists of babylon-expres-
+sions, that may contain logical variables, so 
+far these are used in &lt;predication&gt;. the
+&lt;bql-continuation&gt; will be repeated until there
+are no more different contents for the logical
+variable. The contents are the same, when
+the values of the logical variable are EQUAL.
+
+[:once] means that the continuation will only
+be executed once. The function ASK will be 
+stopped, after it has found the first occupied
+part of the predication.
+
+ASK always returns NIL.
+
+Example: &gt;(ask
+           [or 
+            [options SIEMENS-NIXDORF _options]
+            [options WANG _options]]
+           (kb-format &quot;~% ~A&quot;
+           (name-of _options)))
+         1GB-HARDDISK
+         16MB-RAM
+         850MB-HARDDISK
+         QUAD-SPEED-CDROM
+         NIL
+ 
+See the HAS-PART Predication and the operators
+ELEMENT-OF and MATCH, too, whose return-values
+are useable only from within ASK.
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc330.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc328.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- ASK done --!>

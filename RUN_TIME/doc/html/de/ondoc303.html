@@ -1,0 +1,53 @@
+<html><head><title>IS-INSTANCE-VALUE</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc304.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc302.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>IS-INSTANCE-VALUE</strong></font></center><p>
+
+<PRE>IS-INSTANCE-VALUE
+=================
+
+Syntax: (is-instance-value 
+                        &lt;evaluates-to Relationsname&gt;
+                        &lt;evaluates-to Instanz-Spec&gt;
+                        &lt;Lisp-Typ: T&gt;
+                        [:read-dependents
+                            {T | NIL | Var}]
+                        [:if-undetermined
+                            {T | NIL | Var}])
+
+Diese Funktion pr&uuml;ft, ob ein bestimmter Wert in 
+der Wertemenge der Instanzrelation enthalten ist.
+Ist der Schalter ':if-undetermined' ungleich NIL, 
+wird bei noch unbestimmten Relationswert eine 
+eventuell vorhandene if-undetermined Aktion vor dem 
+lesenden Zugriff angestossen. Ist der Schalter 
+':read-dependents' ungleich NIL, werden nach dem 
+lesenden Zugriff eventuell vorhandene read-dependents
+informiert.
+
+Beispiel: &gt;(is-instance-value 'ort louvre Berlin)
+          NIL
+ 
+          &gt;(is-instance-value 'ort louvre Paris)
+          #&lt;Hauptstadt Paris&gt;
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc304.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc302.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- IS-INSTANCE-VALUE done --!>

@@ -1,0 +1,86 @@
+<html><head><title>DEFINE-CONSTRAINT-PATTERN</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc354.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc352.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-CONSTRAINT-PATTERN</strong></font></center><p>
+
+<PRE>DEFINE-CONSTRAINT-PATTERN
+=========================
+
+syntax: (define-constraint-pattern &lt;Name&gt;
+           (&lt;log-Var&gt;+)
+           [:DOCUMENTATION &lt;Dokumentation&gt;]
+           [:EXPLANATION &lt;Erkl&auml;rung&gt;]
+           RULES
+           (known (&lt;log-Var&gt;+)
+           and-if &lt;Komplexe-Pr&auml;dikation&gt;
+           then {:INCONSISTENT | &lt;Assign-Form&gt;+})
+
+Warnung: Der Erkl&auml;rungseintrag wird durch 
+         EMA-XPS nicht unterst&uuml;tzt, d.h.
+         :documentation und :explanation
+         werden ignoriert.
+
+Das Constraint-Pattern bildet ein sogenanntes Muster
+f&uuml;r die Definition der Constraints. Was in einem
+Constraint-Pattern definiert wurde, kann f&uuml;r jedes
+einzelne Constraint abgearbeitet werden.
+Die KNOWN-Klausel bestimmt, welche der logischen
+Variablen gebunden sein m&uuml;ssen, damit die Regel
+zutrifft. Sie ist f&uuml;r jede Regel obligatorisch.
+Die if-Bedingung ist nicht obligatorisch, f&uuml;r sie
+gelten die Konventionen der BQL. Im Pr&auml;missenteil
+der Regel d&uuml;rfen neben den als bekannt deklarierten
+Parametern zus&auml;tzliche logische Variablen auf-
+treten, aber keine Parameter, die nicht als bekannt
+deklariert sind. Lediglich die erste g&uuml;ltige
+Instanziierung der Regelpr&auml;misse wird ermittelt.
+Wenn ein Verhalten :inconsistent ist, wird das Con-
+straint abgebrochen.
+Die &lt;assign-Form&gt; weist der genannten Variablen einen
+Wert zu. Diese darf jedoch nicht als bekannt dekla-
+riert sein.
+Zus&auml;tzlich zu einem Constraint-Pattern m&uuml;ssen Sie
+noch die einzelnen Constraints definieren, f&uuml;r die
+dieses Verhalten zutreffen soll.
+
+Beispiel: &gt;(define-constraint-pattern
+             berechne-reale-kosten)
+             (_reale-Kosten _Landes-Wuensche)
+             :documentation &quot;Berechnet die 
+             entstehenden Kosten f&uuml;r den Kunden
+             bei Besuch der L&auml;nder
+             _Landes-Wuensche.&quot;
+             RULES
+             (KNOWN (_Landes-Wuensche)
+             THEN (is _reale-Kosten (berechne-kosten-
+             der-kunde _Landes-Wuensche))))
+          &gt;(define-constraint berechne-kosten-fuer-
+             kunden
+             OF berechne-reale-kosten
+             FOR-EACH (ein-kunde (instances-of
+             'Kunde)))
+             WITH
+             [entstehende-Kosten ein-Kunde
+             _reale-Kosten]
+             [ziele ein-Kunde _Landes-Wuensche])
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc354.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc352.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-CONSTRAINT-PATTERN done --!>

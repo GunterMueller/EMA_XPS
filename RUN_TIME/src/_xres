@@ -1,0 +1,411 @@
+#ifdef __never
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!      master file for all Xresource files      !!
+!!                                               !!
+!!  well known switches are COLOR and __english  !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+!! Linux: gnu-cpp cannot handle the single quote sign!
+! Hence here a post-processor is converting Backquotes
+! into Quotes!
+!
+#endif
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     EMA-XPS    Hans Groschwitz     03.11.94   !!
+!!                                               !!
+!!     X-Resource-File                           !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+#ifdef __english
+!
+!! Linux: Xserver needs -fp 75,100,misc to know fontsize 34!
+!
+#else
+!
+!! Linux: der Xserver benoetigt alle Fonts, um auch die 
+!! Fontgroesse 34 zu kennen!
+!
+! WARNUNG: Werte fuer iconName und title ab \128 werden NICHT
+!   umgesetzt! diese muessen bereits umgesetzt sein ==>
+!   ein weiteres Skript ist notwendig!
+!
+! ae = \344            Ae = \304
+! oe = \366            Oe = \326
+! ue = \374            Ue = \334
+! sz = \337     Paragraph = \247
+!
+#endif
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     Global Font Settings                      !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!! WARNING: font "variable" may differ per Xserver!
+!!
+*fontList:                             *-helvetica-bold-r-normal--12-*-iso8859-1
+
+!! Per Default all (multi-line) Text widgets should use a
+!! MONOspaced (not proportional) font!
+!!
+*XmText.fontList:                      -misc-fixed-medium-r-normal--14-*-iso8859-1
+
+!! INFO: Popup dialogs use (single-line) XmTextFields only!
+!! and should use the variable font...
+!! The only exception is the Debugger INPUT field:
+!!
+Debugger*XmTextField.fontList:         -misc-fixed-medium-r-normal--14-*-iso8859-1
+
+!! The Help Tool should be more highlighted ...
+!!
+HelpWindow*XmText.fontList: -b&h-lucidatypewriter-bold-r-normal-sans-14-*-iso8859-1
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     Global Placements                         !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!! place the MainMenu in the top left corner:
+!       MainMenu.x and MainMenu.y are ignored by mwm!
+!       MainMenu.width and MainMenu.height do work!
+MainMenu.geometry:                               +0+0
+
+!! The SystemDialogs and SessionDialogs are
+!! centered in the screen. This is hardcoded!
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     Text Settings                             !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!### Main Menu ###
+MainMenu.title:                                  EMA-XPS v2.1.6
+MainMenu.iconName:                               EMA-XPS
+#ifdef __english
+MainMenu.XmForm*File.mnemonic:                   F
+MainMenu.XmForm*Edit.mnemonic:                   E
+MainMenu.XmForm*Session.mnemonic:                S
+MainMenu.XmForm*Help.mnemonic:                   H
+#else /* deutsch */
+MainMenu.XmForm*File.labelString:                Datei
+MainMenu.XmForm*File.mnemonic:                   D
+MainMenu.XmForm*Edit.labelString:                Bearbeiten
+MainMenu.XmForm*Edit.mnemonic:                   B
+MainMenu.XmForm*Session.labelString:             Sitzung
+MainMenu.XmForm*Session.mnemonic:                S
+MainMenu.XmForm*Help.labelString:                Hilfe
+MainMenu.XmForm*Help.mnemonic:                   H
+#endif /* english */
+!
+#ifdef __english
+MainMenu.XmForm*FileStatistics.labelString:      Statistics ...
+MainMenu.XmForm*FileNew.labelString:             New ...
+MainMenu.XmForm*FileLoad.labelString:            Load ...
+MainMenu.XmForm*FileSave.labelString:            Save
+MainMenu.XmForm*FileSaveAs.labelString:          Save As ...
+MainMenu.XmForm*FileClose.labelString:           Close
+MainMenu.XmForm*FileClose.mnemonic:              C
+MainMenu.XmForm*FileEnd.labelString:             Quit
+MainMenu.XmForm*FileEnd.mnemonic:                Q
+#else /* deutsch */
+MainMenu.XmForm*FileStatistics.labelString:      Statistik ...
+MainMenu.XmForm*FileNew.labelString:             Neu ...
+MainMenu.XmForm*FileLoad.labelString:            Laden ...
+MainMenu.XmForm*FileSave.labelString:            Speichern
+MainMenu.XmForm*FileSaveAs.labelString:          Speichern Als ...
+MainMenu.XmForm*FileClose.labelString:           Schlie\337en
+MainMenu.XmForm*FileClose.mnemonic:              c
+MainMenu.XmForm*FileEnd.labelString:             Beenden
+MainMenu.XmForm*FileEnd.mnemonic:                e
+#endif /* english */
+MainMenu.XmForm*FileStatistics.mnemonic:         t
+MainMenu.XmForm*FileNew.mnemonic:                N
+MainMenu.XmForm*FileLoad.mnemonic:               L
+MainMenu.XmForm*FileSave.mnemonic:               S
+MainMenu.XmForm*FileSaveAs.mnemonic:             A
+!
+#ifdef __english
+MainMenu.XmForm*Instance.labelString:            Instance ...
+MainMenu.XmForm*Rule.labelString:                Rule ...
+MainMenu.XmForm*Constraint.labelString:          Constraint ...
+MainMenu.XmForm*ConstraintNet.labelString:       Constraint Net ...
+MainMenu.XmForm*Restriction.labelString:         Restriction ...
+MainMenu.XmForm*Misc.labelString:                Miscelaneous ...
+MainMenu.XmForm*Misc.mnemonic:                   M
+#else /* deutsch */
+MainMenu.XmForm*Instance.labelString:            Instanz ...
+MainMenu.XmForm*Rule.labelString:                Regel ...
+MainMenu.XmForm*Constraint.labelString:          Constraint ...
+MainMenu.XmForm*ConstraintNet.labelString:       Constraint-Netz ...
+MainMenu.XmForm*Restriction.labelString:         Restriktion ...
+MainMenu.XmForm*Misc.labelString:                Sonstiges ...
+MainMenu.XmForm*Misc.mnemonic:                   S
+#endif /* english */
+MainMenu.XmForm*Frame.labelString:               Frame ...
+MainMenu.XmForm*Frame.mnemonic:                  F
+MainMenu.XmForm*Instance.mnemonic:               I
+MainMenu.XmForm*Behavior.labelString:            Behavior ...
+MainMenu.XmForm*Behavior.mnemonic:               B
+MainMenu.XmForm*Rule.mnemonic:                   R
+MainMenu.XmForm*Prolog.labelString:              Prolog ...
+MainMenu.XmForm*Prolog.mnemonic:                 P
+MainMenu.XmForm*Constraint.mnemonic:             C
+MainMenu.XmForm*ConstraintNet.mnemonic:          N
+MainMenu.XmForm*Restriction.mnemonic:            e
+MainMenu.XmForm*Task.labelString:                Task ...
+MainMenu.XmForm*Task.mnemonic:                   T
+!
+#ifdef __english
+MainMenu.XmForm*SessionRun.labelString:          Run
+MainMenu.XmForm*SessionRun.mnemonic:             R
+MainMenu.XmForm*ShowPad.labelString:             Debugger ...
+MainMenu.XmForm*ShowPad.mnemonic:                D
+MainMenu.XmForm*ShowExplain.labelString:         Explanation Window ...
+MainMenu.XmForm*ShowTrace.labelString:           Tracer ...
+#else /* deutsch */
+MainMenu.XmForm*SessionRun.labelString:          Start
+MainMenu.XmForm*SessionRun.mnemonic:             S
+MainMenu.XmForm*ShowPad.labelString:             Fehlerwerkzeug ...
+MainMenu.XmForm*ShowPad.mnemonic:                F
+MainMenu.XmForm*ShowExplain.labelString:         Erkl\344rungsfenster ...
+MainMenu.XmForm*ShowTrace.labelString:           Tracer ...
+#endif /* english */
+MainMenu.XmForm*ShowExplain.mnemonic:            E
+MainMenu.XmForm*ShowTrace.mnemonic:              T
+!
+#ifdef __english
+MainMenu.XmForm*HelpOnMenu.labelString:          On Menu ...
+MainMenu.XmForm*HelpOnEmaxps.labelString:        On EMA-XPS ...
+MainMenu.XmForm*HelpOnRefs.labelString:          On References ...
+MainMenu.XmForm*HelpOnRefs.mnemonic:             R
+MainMenu.XmForm*HelpOnProjects.labelString:      On Projects ...
+MainMenu.XmForm*HelpOnDebugger.labelString:      On Debugger ...
+MainMenu.XmForm*HelpOnDebugger.mnemonic:         D
+MainMenu.XmForm*HelpOnEditors.labelString:       On Editors ...
+#else /* deutsch */
+MainMenu.XmForm*HelpOnMenu.labelString:          zum Men\374 ...
+MainMenu.XmForm*HelpOnEmaxps.labelString:        zu EMA-XPS ...
+MainMenu.XmForm*HelpOnRefs.labelString:          zur Literatur ...
+MainMenu.XmForm*HelpOnRefs.mnemonic:             L
+MainMenu.XmForm*HelpOnProjects.labelString:      zu Projekten ...
+MainMenu.XmForm*HelpOnDebugger.labelString:      zum Fehlerwerkzeug ...
+MainMenu.XmForm*HelpOnDebugger.mnemonic:         F
+MainMenu.XmForm*HelpOnEditors.labelString:       zu den Editoren ...
+#endif /* english */
+MainMenu.XmForm*HelpOnMenu.mnemonic:             M
+MainMenu.XmForm*HelpOnEmaxps.mnemonic:           X
+MainMenu.XmForm*HelpOnProjects.mnemonic:         P
+MainMenu.XmForm*HelpOnEditors.mnemonic:          E
+
+
+!### Welcoming Screen ###
+SystemDialogs*Welcome*Label.fontList:                  *-helvetica-bold-*--34-*
+SystemDialogs*Welcome*Label.marginWidth:               50
+#ifdef __english
+SystemDialogs*Welcome*Label.labelString:               \
+Welcome to the World of\n\
+EMA Laboratory`s\n\
+Expert System Shell\n\
+*** EMA-XPS v2.1.6 ***
+#else /* deutsch */
+SystemDialogs*Welcome*Label.labelString:               \
+Willkommen in der Welt\n\
+der Expertensystem-Schale des\n\
+EMA Labors\n\
+*** EMA-XPS v2.1.6 ***
+#endif /* english */
+
+
+!### Main Quit ###
+SystemDialogs*MainQuit*fontList:                       *-Helvetica-Bold-R-Normal--14-*
+#ifdef __english
+SystemDialogs.MainQuit_popup.title:                    Confirm Aborting EMA-XPS
+SystemDialogs*MainQuit*messageString:                  \
+ Do You really want to quit EMA-XPS? \n\
+ \n\
+ There are UNSAVED changes to some of the currently \n\
+ loaded knowledge base(s), which would be LOST! 
+#else /* deutsch */
+SystemDialogs.MainQuit_popup*okLabelString:            Ja
+SystemDialogs.MainQuit_popup*cancelLabelString:        Nein
+SystemDialogs.MainQuit_popup.title:                    EMA-XPS Abbrechen Best\344tigung
+SystemDialogs*MainQuit*messageString:                  \
+ Wollen Sie wirklich EMA-XPS beenden? \n\
+ \n\
+ Einige der derzeit geladenen Wissensbasen sind \n\
+ ver\344ndert, aber NICHT gesichert worden. \n\
+ Diese \304nderungen w\374rden VERLOREN gehen! 
+#endif /* english */
+
+
+!### Main Close ###
+SystemDialogs*MainClose*fontList:                      *-Helvetica-Bold-R-Normal--14-*
+#ifdef __english
+SystemDialogs.MainClose_popup.title:                   Confirm Close-Current-KB
+SystemDialogs*MainClose*messageString:                 \
+ Do You really want to CLOSE the current knowledge base? \n\
+ \n\
+ There are UNSAVED changes to it, which would be LOST! 
+#else /* deutsch */
+SystemDialogs.MainClose_popup*okLabelString:           Ja
+SystemDialogs.MainClose_popup*cancelLabelString:       Nein
+SystemDialogs.MainClose_popup.title:                   Wissensbasis-Schlie\337en Best\344tigung
+SystemDialogs*MainClose*messageString:                 \
+ Wollen Sie wirklich die aktuelle Wissensbasis SCHLIE\337EN? \n\
+ \n\
+ Die Wissensbasis ist verr\344ndert, aber NICHT gesichert worden. \n\
+ Diese \304nderungen w\374rden VERLOREN gehen! 
+#endif /* english */
+
+
+!### File Load ###
+#ifdef __english
+SystemDialogs*FileLoadSB_popup*title:                  Load knowledge base
+#else /* deutsch */
+SystemDialogs*FileLoadSB_popup*title:                  Wissensbasis laden
+SystemDialogs*FileLoadSB_popup*dirListLabelString:     Verzeichnisse
+SystemDialogs*FileLoadSB_popup*fileListLabelString:    Dateien
+SystemDialogs*FileLoadSB_popup*selectionLabelString:   Auswahl
+SystemDialogs*FileLoadSB_popup*cancelLabelString:      Abbruch
+#endif /* english */
+
+
+!### File SaveAs ###
+#ifdef __english
+SystemDialogs*FileSaveAsSB_popup.title:                Save knowledge base as
+SystemDialogs*FileSaveAsSB_popup*helpLabelString:      Preferences
+SystemDialogs*save_prefs_popup*title:                  Preferences
+SystemDialogs*save_prefs*prefs_fformat.labelString:    Save in file format:
+#else /* deutsch */
+SystemDialogs*FileSaveAsSB_popup.title:                Wissensbasis speichern unter
+SystemDialogs*FileSaveAsSB_popup*dirListLabelString:   Verzeichnisse
+SystemDialogs*FileSaveAsSB_popup*fileListLabelString:  Dateien
+SystemDialogs*FileSaveAsSB_popup*selectionLabelString: Auswahl
+SystemDialogs*FileSaveAsSB_popup*cancelLabelString:    Abbruch
+SystemDialogs*FileSaveAsSB_popup*helpLabelString:      Pr\344ferenzen
+SystemDialogs*save_prefs_popup.title:                  Pr\344ferenzen
+SystemDialogs*save_prefs*readable.labelString:         klartext
+SystemDialogs*save_prefs*compiled.labelString:         kompiliert
+SystemDialogs*save_prefs*prefs_fformat.labelString:    Dateiformat beim Speichern:
+#endif /* english */
+
+
+#ifdef COLOR
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     Color Settings                            !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!### General Settings ###
+*background:                                           wheat
+*highlightColor:                                       red
+
+!! specializes Settings for System Popups
+SystemDialogs*background:                              wheat
+MainMenu*background:                                   wheat
+
+!### Main Menu ###
+MainMenu.XmForm.Logo.foreground:                       yellow
+MainMenu.XmForm.Logo.background:                       brown
+
+!### Welcoming Screen ###
+SystemDialogs*Welcome*Logo.foreground:                 yellow
+SystemDialogs*Welcome*Logo.background:                 brown
+SystemDialogs*Welcome*Label.foreground:                IndianRed
+SystemDialogs*Welcome*Label.background:                wheat
+
+!### Main Quit ###
+SystemDialogs*MainQuit*background:                     coral
+SystemDialogs*MainQuit*foreground:                     black
+
+!### Main Close ###
+SystemDialogs*MainClose*background:                    coral
+SystemDialogs*MainClose*foreground:                    black
+
+
+#else /* MONO */
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     MonoChrome Settings                       !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!### General Settings ###
+*foreground:                                           black
+*background:                                           white
+
+!! here non-default settings only, please!
+
+!### Main Menu ###
+MainMenu.XmForm.XmPushButton.foreground:               white
+MainMenu.XmForm.XmPushButton.background:               black
+
+!### Welcoming Screen ###
+SystemDialogs*Welcome*XmPushButton.foreground:         white
+SystemDialogs*Welcome*XmPushButton.background:         black
+
+!!!!!!!!!!!!!!!
+#endif /* COLOR */
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     Imported XResources for                   !!
+!!     * System-Popups                           !!
+!!     * Help Window                             !!
+!!     * Debugger PAD                            !!
+!!     * Explanation Window                      !!
+!!     * User Interface Dialogs                  !!
+!!     * Session screen                          !!
+!!                                               !!
+!!  (Blank lines between the #include-s to       !!
+!!  grant including by the pre-processor.        !!
+!!  In case of incomplete last lines the         !!
+!!  #include is no more placed leftmost. Then    !!
+!!  cpp will FAIL to understand this directive.) !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#include "_xres.sysd"
+
+#include "_xres.help"
+
+#include "_xres.debugger"
+
+#include "_xres.explain"
+
+#include "_xres.expd"
+
+#include "_xres.uid"
+
+#include "_xres.ui"
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     Imported XResources for Editors           !!
+!!     * 10 Editors                              !!
+!!     * the Tracer                              !!
+!!                                               !!
+!!     (used by full version only!)              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#include "_xres.frame"
+
+#include "_xres.instance"
+
+#include "_xres.behavior"
+
+#include "_xres.rule"
+
+#include "_xres.prolog"
+
+#include "_xres.constraint"
+
+#include "_xres.csnet"
+
+#include "_xres.restriction"
+
+#include "_xres.task"
+
+#include "_xres.misc"
+
+
+#include "_xres.trace"
+
+!!! EOF

@@ -1,0 +1,201 @@
+<html><head><title>BABYLON-LISP</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc023.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>BABYLON-LISP</strong></font></center><p>
+
+<PRE>babylon-LISP
+============
+
+Die hybride Schale babylon3 stellt nur einen Teil des
+Sprachumfangs von CommonLISP bereit. Unter EMA-XPS
+steht zwar der gesamte CommonLISP Sprachumfang zur
+Verf&uuml;gung, die Verwendung von hier nicht dokumen-
+tierten Befehlen sollte aber mit Vorsicht gehandhabt
+werden. Speziell auf die Nutzung von Arrays (Feldern)
+sollte verzichtet werden, um nicht mit den emulierten
+babylon3 SETs in Konflikt zu geraten. 
+
+Im folgenden sind die *erlaubten* BabylonLISP Kommandos
+beschrieben, die gelegentlich von ihren CommonLISP Pen-
+dants in der Syntax geringf&uuml;gig abweichen k&ouml;nnen!
+
+Die Organisation dieses Kapitels ist angelehnt an
+die des Kapitels 9 der babylon3 Dokumentation.
+
+
+
+Der Rest dieser Seite behandelt die unterschiedlichen
+Datentypen, die unter babylon LISP genutzt werden
+k&ouml;nnen:
+
+
+ZAHLEN
+======
+
+In Common Lisp werden vier Arten von Zahlen unter-
+schieden: Ganze Zahlen (Integers), Br&uuml;che (Ratios),
+Gleitkommazahlen (Floating-Point-Numbers) und komplexe
+Zahlen (Complex Numbers).
+
+
+GANZE ZAHLEN
+------------
+
+Syntax: &lt;Vorzeichen&gt;&lt;Zahl&gt;
+
+Die ganzen Zahlen d&uuml;rfen ein Vorzeichen haben und
+haben normalerweise die Basis 10. Diese darf jedoch
+beliebig im Bereich zwischen 2 und 36 liegen.
+
+Syntax: #&lt;Basis&gt;R&lt;Vorzeichen&gt;&lt;Zahl&gt;
+
+F&uuml;r bin&auml;re, oktale und hexadezimale Zahlen gibt es
+spezielle Schreibweisen:
+
+Syntax: #B&lt;Vorzeichen&gt;&lt;Zahl&gt;
+        #O&lt;Vorzeichen&gt;&lt;Zahl&gt;
+        #X&lt;Vorzeichen&gt;&lt;Zahl&gt;
+
+Beispiele:     3
+              +5
+              -4
+              #2R1011 ; dezimal  11, Basis 2.
+              #B-1011 ; dezimal -11, Bin&auml;rschreibw.
+              #O325   ; dezimal 213, Oktalschreibw.
+              #XD4    ; dezimal 212, Hexadezimal-
+					 schreibweise.
+
+
+BR&Uuml;CHE
+------
+
+Syntax: &lt;Vorzeichen&gt;&lt;Zahl&gt;/&lt;Zahl&gt;
+
+In Common Lisp k&ouml;nnen Br&uuml;che (rationale Zahlen) aus
+zwei ganzen Zahlen dargestellt werden. Diese d&uuml;rfen
+auch ein Vorzeichen haben. Der Nenner eines Bruches
+darf nicht Null sein und falls der Bruch ungek&uuml;rzt
+sein sollte, wird er intern in eine gek&uuml;rzte Form
+umgewandelt. Eine Basis&auml;nderung ist auch hier m&ouml;g-
+lich. Die Basiszahl gilt dann aber f&uuml;r Z&auml;hler und
+Nenner.
+
+Syntax:        #&lt;Basis&gt;R&lt;Vorzeichen&gt;&lt;Zahl&gt;/&lt;Zahl&gt;
+               #B&lt;Vorzeichen&gt;&lt;Zahl&gt;/&lt;Zahl&gt;
+               #O&lt;Vorzeichen&gt;&lt;Zahl&gt;/&lt;Zahl&gt;
+               #X&lt;Vorzeichen&gt;&lt;Zahl&gt;/&lt;Zahl&gt;
+
+Beispiele:      3/2
+               -1/3
+
+               &gt;(/ 4 6)
+               2/3	; interne Umwandlung!
+
+               #B11/10 ; dezimal 3/2, Bin&auml;rschr.
+
+
+GLEITKOMMAZAHLEN
+----------------
+
+Syntax: &lt;Vorz.&gt;&lt;Zahl&gt;.&lt;Zahl&gt;&lt;Format&gt;&lt;Vorz.&gt;&lt;Exp.&gt;
+
+Gleitkommazahlen d&uuml;rfen ein Vorzeichen haben und
+k&ouml;nnen entweder als Dezimalbruch oder in einer
+exponentiellen Form geschrieben werden. Gleitkomma-
+zahlen k&ouml;nnen mit unterschiedlichen Genauigkeiten,
+abh&auml;ngig von der Implementation, bearbeitet werden.
+Die Buchstaben e, s, f, d und l geben das Format an:
+
+e: Format ist nicht vorgegeben
+s: Short-Format:
+          (Min. Genauigkeit 13 Bits, Min. Exp. 5 Bits)
+f: Single-Format:
+          (Min. Genauigkeit 24 Bits, Min. Exp. 8 Bits)
+d: Double-Format:
+          (Min. Genauigkeit 50 Bits, Min. Exp. 8 Bits)
+l: Long-Format:
+          (Min. Genauigkeit 50 Bits, Min. Exp. 8 Bits)
+
+Beispiele:      0.0 	; Null in Standard-Format
+                0E0 	; auch Null in Standard-Format
+                2.123
+                1.62E+19
+                16.2E+18
+                -13.4
+                3.1415927
+                     ; Pi in Standard-Format
+                3.1416s0
+                     ; Pi in Short-Format
+                3.1415927
+                     ; Pi in Single-Format
+                3.141592653589793d0
+                     ; Pi in Double-Format
+                3.1415926535897932385L0
+                     ; Pi in Long-Format
+
+
+KOMPLEXE ZAHLEN
+---------------
+
+Syntax: #C(&lt;Realteil&gt; &lt;Imagin&auml;rteil&gt;)
+
+Komplexe Zahlen werden in karthetischer Form repre-
+sentiert mit einem Real- und Imagin&auml;rteil. Der Real-
+und Imagin&auml;rteil m&uuml;ssen nicht-komplexe Zahlen sein
+und werden intern, falls sie von unterschiedlichem Typ
+sind, umgewandelt.
+
+Beispiele:     #C(3.0s1 1.5s-1)
+               #C(1 -2)
+               #C(2/3 2.0)  ; wird intern als 
+               #C(0 1)         #C(0.6666667 2.0)
+                                dargestellt
+
+
+ZEICHEN
+=======
+
+Syntax: #\&lt;Zeichen&gt;
+
+In Common Lisp sind alle ASCII-Zeichen (0 - 255) als
+Zeichenobjekte verwendbar. Zeichenobjekte werten zu
+sich selbst aus. Zeichen mit gleichem ASCII-Wert sind
+meistens EQ (Abh&auml;ngig von der Implementation).
+
+Beispiel:      &gt;#\A
+               #\A
+
+
+ZEICHENKETTEN
+=============
+
+Syntax: &quot;&lt;Zeichenkette&gt;&quot;
+
+Zeichenketten sind spezielle Vektoren, deren Elemente
+Zeichen sind. Zeichenkettenoperationen  arbeiten
+grunds&auml;tzlich nur auf dem aktiven Teil einer
+Zeichenkette (also vor dem F&uuml;llstandzeiger).
+Zeichenketten sind in Anf&uuml;hrungszeichen einge-
+schlossen.
+
+Beispiel:      &gt;&quot;hallo&quot;
+               &quot;hallo&quot;
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc023.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- BABYLON-LISP done --!>

@@ -1,0 +1,918 @@
+(|SYSTEM|::|VERSION| '(20080430.))
+#0Y_ #0Y |CHARSET|::|UTF-8|
+#Y(#:|1 3 (IN-PACKAGE "SYSTEM")-1|
+   #17Y(00 00 00 00 00 00 00 00 20 01 DA 31 F6 0F 01 19 01)
+   ("SYSTEM" |COMMON-LISP|::|*PACKAGE*|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|4 6 (EXPORT '(*APROPOS-MATCHER* *APROPOS-DO-MORE*) "CUSTOM")-2|
+   #16Y(00 00 00 00 00 00 00 00 20 01 DA DB 31 E6 19 01)
+   ((|CUSTOM|::|*APROPOS-MATCHER*| |CUSTOM|::|*APROPOS-DO-MORE*|) "CUSTOM")
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|7 7 (RE-EXPORT "CUSTOM" "EXT")-3|
+   #16Y(00 00 00 00 00 00 00 00 20 01 DA DB 31 F7 19 01) ("CUSTOM" "EXT")
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|9 17 (DEFVAR *APROPOS-MATCHER* NIL ...)-4|
+   #30Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A DB DC DD
+        2D 03 04 C6 19 01)
+   ((|COMMON-LISP|::|SPECIAL| |CUSTOM|::|*APROPOS-MATCHER*|)
+    |CUSTOM|::|*APROPOS-MATCHER*| |COMMON-LISP|::|VARIABLE|
+    "A function of one argument, a pattern (a string),\n
+returning a new function of one argument, a symbol name (also a string),\n
+which returns non-NIL when the symbol name matches the pattern\n
+for the purposes of APROPOS.\n
+When this variable is NIL, SEARCH is used."
+    |SYSTEM|::|%SET-DOCUMENTATION|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|19 35 (DEFUN APROPOS-LIST (STRING &OPTIONAL #) ...)-5|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|COMMON-LISP|::|APROPOS-LIST| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|COMMON-LISP|::|APROPOS-LIST|
+       #87Y(00 00 00 00 01 00 01 00 26 08 00 2B 01 7F 03 00 00 3D 02 9D 2B 02
+            00 0B 00 00 0E 00 1C 22 0B 00 01 1C 28 AC 2C 02 01 14 92 04 26 AC
+            31 F5 68 01 00 64 38 05 C8 F9 72 70 DE DF 38 02 32 82 19 06 14 68
+            02 00 36 01 0B 00 01 1D 58 AC 2C 01 01 1B 56 AC B1 31 F3 1B 57)
+       (|CUSTOM|::|*APROPOS-MATCHER*|
+        #Y(|COMMON-LISP|::|APROPOS-LIST-1|
+           #32Y(00 00 00 00 01 00 00 00 20 02 69 00 02 AE 72 A6 36 01 1F 0A AD
+                07 00 01 5D 0C 00 01 19 02 19 02)
+           (|COMMON-LISP|::|NIL|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        #Y(|COMMON-LISP|::|APROPOS-LIST-2|
+           #32Y(00 00 00 00 01 00 00 00 20 02 69 01 01 AE 38 04 31 48 1F 0A AD
+                07 00 01 5D 0C 00 01 19 02 19 02)
+           (|COMMON-LISP|::|NIL|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        #.#'|COMMON-LISP|::|EQ| #.#'|COMMON-LISP|::|STRING<|
+        #.#'|COMMON-LISP|::|SYMBOL-NAME|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|COMMON-LISP|::|STRING| |COMMON-LISP|::|&OPTIONAL|
+        (|COMMON-LISP|::|PACKAGE| |COMMON-LISP|::|NIL|))
+       |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|37 40 (DEFVAR *APROPOS-DO-MORE* NIL ...)-6|
+   #30Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A DB DC DD
+        2D 03 04 C6 19 01)
+   ((|COMMON-LISP|::|SPECIAL| |CUSTOM|::|*APROPOS-DO-MORE*|)
+    |CUSTOM|::|*APROPOS-DO-MORE*| |COMMON-LISP|::|VARIABLE|
+    "Print values of the symbols in `apropos'.\n
+It can be a list of :FUNCTION, :VARIABLE, :TYPE, :CLASS\n
+to print the corresponding values, or T for all of them."
+    |SYSTEM|::|%SET-DOCUMENTATION|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|42 43 (DEFUN APROPOS-DO-MORE (WHAT) ...)-7|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|SYSTEM|::|APROPOS-DO-MORE| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|SYSTEM|::|APROPOS-DO-MORE|
+       #25Y(00 00 00 00 01 00 00 00 20 02 6B 00 02 5A 1E 07 AD 6B 00 31 AD 19
+            02 19 02)
+       (|CUSTOM|::|*APROPOS-DO-MORE*|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|45 73 (DEFUN APROPOS (STRING &OPTIONAL #) ...)-8|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|COMMON-LISP|::|APROPOS| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|COMMON-LISP|::|APROPOS|
+       #208Y(00 00 00 00 01 00 01 00 26 08 3D 01 AE AE 70 00 63 1B 80 B2 CF 1B
+             80 48 87 01 00 DB 6B 02 AE 33 02 15 AC 8D 58 19 DD 38 03 31 95 AC
+             6F 04 38 03 31 95 DF 89 06 09 E1 6B 02 AE 71 56 33 02 15 AC 8F 5A
+             0C DD 38 03 31 95 E2 6F 09 38 03 31 95 AC 8D 57 21 DD 38 03 31 95
+             AC 38 01 8C 66 FF B5 D0 14 6F 09 38 03 31 95 E6 89 06 09 E7 6B 02
+             AE 71 55 33 02 15 AC E8 38 01 8E 9E 06 AC E9 38 01 32 9E 14 93 00
+             17 DD 38 03 31 95 EA 6F 09 38 03 31 95 EB 89 06 07 EC 6B 02 AE 33
+             02 15 16 01 AC ED 38 01 72 9E 93 00 17 DD 38 03 31 95 EE 6F 09 38
+             03 31 95 EF 89 06 07 F0 6B 02 AE 33 02 15 16 01 38 01 31 99 83 01
+             AD 8D 9F FF 4D 16 02 3E 19 03)
+       (|COMMON-LISP|::|APROPOS-LIST|
+        #Y(|COMMON-LISP|::|APROPOS-1|
+           #37Y(00 00 00 00 02 00 00 00 21 18 AF 31 98 AF 2F 00 10 01 B1 B3 31
+                8D 11 AF 2F 02 AF 01 02 DD 63 2D 05 04 9E 19 04)
+           (|SYSTEM|::|STREAM-START-S-EXPRESSION|
+            |COMMON-LISP|::|*PRINT-RIGHT-MARGIN*|
+            |SYSTEM|::|STREAM-END-S-EXPRESSION| 40.
+            |SYSTEM|::|FORMAT-TABULATE|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        |COMMON-LISP|::|*STANDARD-OUTPUT*| "   " |SYSTEM|::|FBOUND-STRING|
+        :|FUNCTION| |SYSTEM|::|APROPOS-DO-MORE|
+        #Y(|COMMON-LISP|::|APROPOS-2|
+           #36Y(00 00 00 00 02 00 00 00 21 18 DA B0 38 02 31 95 AF 2F 01 10 02
+                B1 B3 31 8D 11 AF 2F 03 DE B0 31 94 9E 19 04)
+           (" [" |SYSTEM|::|STREAM-START-S-EXPRESSION|
+            |COMMON-LISP|::|*PRINT-RIGHT-MARGIN*|
+            |SYSTEM|::|STREAM-END-S-EXPRESSION| #\])
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        "symbol-macro" |SYSTEM|::|TEXT| "constant" "variable" :|VARIABLE|
+        #Y(|COMMON-LISP|::|APROPOS-3|
+           #36Y(00 00 00 00 02 00 00 00 21 18 DA B0 38 02 31 95 AF 2F 01 10 02
+                B1 B3 31 8D 11 AF 2F 03 DE B0 31 94 9E 19 04)
+           (" [" |SYSTEM|::|STREAM-START-S-EXPRESSION|
+            |COMMON-LISP|::|*PRINT-RIGHT-MARGIN*|
+            |SYSTEM|::|STREAM-END-S-EXPRESSION| #\])
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        |SYSTEM|::|TYPE-SYMBOL| |SYSTEM|::|DEFSTRUCT-DESCRIPTION| "type"
+        :|TYPE|
+        #Y(|COMMON-LISP|::|APROPOS-4|
+           #36Y(00 00 00 00 02 00 00 00 21 18 DA B0 38 02 31 95 AF 2F 01 10 02
+                B1 B3 31 8D 11 AF 2F 03 DE B0 31 94 9E 19 04)
+           (" [" |SYSTEM|::|STREAM-START-S-EXPRESSION|
+            |COMMON-LISP|::|*PRINT-RIGHT-MARGIN*|
+            |SYSTEM|::|STREAM-END-S-EXPRESSION| #\])
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        |CLOS|::|CLOSCLASS| "class" :|CLASS|
+        #Y(|COMMON-LISP|::|APROPOS-5|
+           #36Y(00 00 00 00 02 00 00 00 21 18 DA B0 38 02 31 95 AF 2F 01 10 02
+                B1 B3 31 8D 11 AF 2F 03 DE B0 31 94 9E 19 04)
+           (" [" |SYSTEM|::|STREAM-START-S-EXPRESSION|
+            |COMMON-LISP|::|*PRINT-RIGHT-MARGIN*|
+            |SYSTEM|::|STREAM-END-S-EXPRESSION| #\])
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|COMMON-LISP|::|STRING| |COMMON-LISP|::|&OPTIONAL|
+        (|COMMON-LISP|::|PACKAGE| |COMMON-LISP|::|NIL|))
+       |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|75 79 (DEFVAR *DESCRIBE-NESTING*)-9|
+   #16Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 C6 19 01)
+   ((|COMMON-LISP|::|SPECIAL| |SYSTEM|::|*DESCRIBE-NESTING*|)
+    |SYSTEM|::|*DESCRIBE-NESTING*|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|81 82 (DEFVAR *DESCRIBE-DONE*)-10|
+   #16Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 C6 19 01)
+   ((|COMMON-LISP|::|SPECIAL| |SYSTEM|::|*DESCRIBE-DONE*|)
+    |SYSTEM|::|*DESCRIBE-DONE*|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|84 102 (DEFUN DESCRIBE-SLOTTED-OBJECT (OBJECT STREAM) ...)-11|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|SYSTEM|::|DESCRIBE-SLOTTED-OBJECT| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|SYSTEM|::|DESCRIBE-SLOTTED-OBJECT|
+       #151Y(00 00 00 00 02 00 00 00 20 03 AE 6F 00 92 00 0B AE 31 97 AE E7 6F
+             07 30 08 19 04 DB AD 73 00 16 63 DC 6B 03 DE DF B1 73 00 16 38 05
+             72 66 73 03 37 B1 31 97 B1 E0 6F 07 30 08 AF AF 1B 37 16 02 1B 3F
+             B5 E4 B8 B0 72 52 2D 03 08 B6 AE 72 52 B2 38 03 80 C5 05 16 02 1B
+             18 94 01 B5 E3 6B 03 AF B4 2D 05 08 B6 AE 8E 54 59 B5 E5 6F 07 30
+             08 16 02 83 01 83 00 AD 8C 9F 45 94 01 AD 8D 9F 5A 16 03 AD 72 64
+             63 1B 09 87 01 00 14 B4 30 0C 83 01 AD 8D 9F 73 00 19 09)
+       (|CLOS|::|SLOT-NAMES| #.#'|COMMON-LISP|::|WRITE-TO-STRING| 4.
+        |CUSTOM|::|*PRINT-INDENT-LISTS*| #.#'|COMMON-LISP|::|MAX|
+        #.#'|COMMON-LISP|::|LENGTH| "Slots:" |SYSTEM|::|TEXT|
+        |COMMON-LISP|::|FORMAT|
+        #Y(|SYSTEM|::|DESCRIBE-SLOTTED-OBJECT-1|
+           #42Y(00 00 00 00 04 00 00 00 21 1A B1 31 97 B1 01 02 B3 DA 2D 05 01
+                DC B2 38 02 31 95 AF B2 31 90 B1 01 02 B1 63 2D 05 01 9E 19 06)
+           (0. |SYSTEM|::|FORMAT-TABULATE| "  ")
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        #Y(|SYSTEM|::|DESCRIBE-SLOTTED-OBJECT-2|
+           #32Y(00 00 00 00 02 00 00 00 21 18 DA B0 38 02 31 95 AF 2F 01 10 02
+                B1 B3 31 8D 11 AF 2F 03 9E 19 04)
+           ("=  " |SYSTEM|::|STREAM-START-S-EXPRESSION|
+            |COMMON-LISP|::|*PRINT-RIGHT-MARGIN*|
+            |SYSTEM|::|STREAM-END-S-EXPRESSION|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        "unbound" |COMMON-LISP|::|DESCRIBE| "No slots.")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|104 110 (DEFUN LAUNCH-DOC (OBJ TYPE STREAM ...) ...)-12|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|SYSTEM|::|LAUNCH-DOC| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|SYSTEM|::|LAUNCH-DOC|
+       #48Y(00 00 00 00 05 00 00 00 20 06 6B 00 32 AC 1F 1E B1 B1 70 01 9D 1F
+            15 0E 02 1C 09 B0 B0 B0 AF 2D 04 05 19 07 AC DD B2 2D 03 04 19 07
+            19 07 19 06)
+       (|SYSTEM|::|*DESCRIBE-NESTING*| |CLOS|::|DOCUMENTATION|
+        |CUSTOM|::|*BROWSER*| :|OUT| |EXT|::|BROWSE-URL|
+        |COMMON-LISP|::|FORMAT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|112 112 (DEFVAR *SQUEEZE-STRING-MAX* 100)-13|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB DC 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |SYSTEM|::|*SQUEEZE-STRING-MAX*|)
+    |SYSTEM|::|*SQUEEZE-STRING-MAX*| 100.)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|113 113 (DEFVAR *SQUEEZE-STRING-SECTION* 10)-14|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB DC 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |SYSTEM|::|*SQUEEZE-STRING-SECTION*|)
+    |SYSTEM|::|*SQUEEZE-STRING-SECTION*| 10.)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|113 123 (DEFUN SQUEEZE-STRING (STRING &KEY # ...) ...)-15|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|SYSTEM|::|SQUEEZE-STRING| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|SYSTEM|::|SQUEEZE-STRING|
+       #111Y(00 00 00 00 01 00 00 00 A0 1C 02 00 00 00 3B 02 02 C7 FA 3B 01 04
+             AF 81 62 01 AF 72 62 AF 8E AC 39 C9 14 AF AE 90 01 2F 34 CB 14 6B
+             07 AF 90 01 32 2E 6B 07 B1 B3 73 01 38 90 01 32 26 AD B3 B3 B4 6B
+             08 73 02 37 72 60 E3 B5 B4 6B 08 73 01 38 38 01 72 60 B0 33 05 13
+             19 07 C8 1B 45 CA 1B 4A A3 19 07 AD B3 B3 B3 72 60 AE 33 03 13 19
+             07)
+       (:|START| :|END| 0. "" "..." "" "..." |SYSTEM|::|*SQUEEZE-STRING-MAX*|
+        |SYSTEM|::|*SQUEEZE-STRING-SECTION*| "...")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16|
+   #1124Y(00 00 00 00 00 00 00 00 20 01 DA DB 38 01 8F 9E 03 DA 2F 02 DA DD DA
+          6F 04 2D 03 05 6B 06 99 07 DA E2 AF E3 E4 E5 E6 E7 6B 0E 63 7B 01 99
+          0F AE EA 63 E3 EB EC ED EE 64 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64
+          F1 B9 BB F2 03 19 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA
+          63 E3 F5 EC F6 EE F7 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB
+          65 1E 03 1F 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3
+          65 20 EC 65 21 EE 65 22 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9
+          BB 65 23 03 24 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63
+          E3 65 25 EC 65 26 EE 65 27 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1
+          B9 BB 65 28 03 29 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA
+          63 E3 65 2A EC 65 2B EE 65 2C 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64
+          F1 B9 BB 65 2D 03 2E 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE
+          EA 63 E3 65 2F EC 65 30 EE 65 31 38 02 72 3A EF 38 02 72 3A 7B 02 F0
+          64 F1 B9 BB 00 2B 01 7F 10 00 00 AC 6D 32 01 03 33 5D F8 30 1A 37 0D
+          16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3 65 34 EC 65 35 EE 65 36 38
+          02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB 65 37 03 38 7A 30 1A 37
+          0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3 65 39 EC 65 3A EE 65 3B
+          38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB 65 3C 03 3D 7A 30 1A
+          37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3 65 3E EC 65 3F EE 65
+          40 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB 65 41 03 42 7A 30
+          1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3 65 43 EC 65 44 EE
+          65 45 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB 65 46 03 47 7A
+          30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3 65 48 EC 65 49
+          EE 65 4A 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB 65 4B 03 4C
+          7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3 65 4D EC 65
+          4E EE 65 4F 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB 65 50 03
+          51 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3 65 52 EC
+          65 53 EE EF 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB 65 54 03
+          55 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3 65 56 EC
+          65 57 EE 65 58 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB 65 59
+          03 5A 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3 65 5B
+          EC 65 5C EE 65 5D 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB 65
+          5E 03 5F 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3 65
+          60 EC 65 61 EE 65 62 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9 BB
+          65 63 03 64 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63 E3
+          65 65 EC 65 66 EE 65 67 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1 B9
+          BB 65 68 03 69 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA 63
+          E3 65 6A EC 65 6B EE 65 6C 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64 F1
+          B9 BB 65 6D 03 6E 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE EA
+          63 E3 65 6F EC 65 70 EE 65 71 38 02 72 3A EF 38 02 72 3A 7B 02 F0 64
+          F1 B9 BB 65 72 03 73 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F AE
+          EA 63 E3 65 74 EC 65 75 EE 65 76 38 02 72 3A EF 38 02 72 3A 7B 02 F0
+          64 F1 B9 BB 65 77 03 78 7A 30 1A 37 0D 16 01 F8 6B 0E 63 7B 01 99 0F
+          AE EA 63 E3 65 79 EC 65 7A EE 65 7B 38 02 72 3A EF 38 02 72 3A 7B 02
+          F0 64 F1 B9 BB 65 7C 03 7D 7A 30 1A 37 0D 16 01 F8 7B 15 01 02 B8 6F
+          7E 1B 24 AF 38 01 80 A9 03 14 AD 31 B8 16 02 1B 14 94 00 94 00 9E 5C
+          5C 78 76 00 7B 02 A1 21 63 9D FC FB 16 02 83 00 AC 8D 9F 66 16 01 9E
+          16 01 F8 65 7F 6B 0E 65 80 80 BA 65 80 81 DA 6E 03 80 82 65 80 83 63
+          6E 03 80 84 65 80 85 63 65 80 86 63 7B 08 33 02 23 9B 09 02)
+   (|CLOS|::|DESCRIBE-OBJECT| |SYSTEM|::|TRACED-DEFINITION|
+    |SYSTEM|::|UNTRACE1| |CLOS|::|DEFGENERIC| |SYSTEM|::|FBOUND-STRING|
+    |SYSTEM|::|CHECK-REDEFINITION| |CLOS|::|<STANDARD-GENERIC-FUNCTION>|
+    |CLOS|::|ENSURE-GENERIC-FUNCTION| :|GENERIC-FUNCTION-CLASS| :|LAMBDA-LIST|
+    (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|) :|ARGUMENT-PRECEDENCE-ORDER|
+    (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|) |CLOS|::|METHODS|
+    |CLOS|::|<STANDARD-METHOD>| |CLOS|::|MAKE-METHOD-INSTANCE| :|QUALIFIERS|
+    (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|) |CLOS|::|SIGNATURE|
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    :|SPECIALIZERS| |COMMON-LISP|::|STREAM| |CLOS|::|FROM-DEFGENERIC|
+    |CLOS|::|BACKPOINTER|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-1|
+       #422Y(00 00 00 00 02 00 00 00 20 03 AE 72 38 9D 26 00 81 86 AE C6 1B 81
+             7A AE C9 1B 81 75 AE DF 6F 02 B1 72 F0 B2 72 F1 2D 04 03 19 04 AE
+             CB 1B 81 61 AE CC 1B 81 5C AE CD 1B 81 57 AE CE 1B 81 52 AE E4 6F
+             02 30 03 AF 72 58 72 48 AF AD 30 0B AF 31 97 AF E6 6F 02 E7 E8 E9
+             B1 7B 02 7B 02 7B 02 61 01 1B 80 53 AE D5 1B 81 28 AE D6 1B 81 23
+             B0 ED 6F 02 AF 2D 03 03 AD B1 30 14 19 06 AF 2F 12 42 02 92 00 6A
+             B0 03 15 1B 80 D9 AF 03 17 1B 24 AF 6F 16 92 00 75 AF 03 18 1B 26
+             AF 03 1A 1B 14 AF 6F 19 92 00 75 AF 03 1B 1B 16 AF 6F 1C 93 00 0D
+             AF 03 1D 14 6F 02 9F 14 2D 03 03 19 05 AF 03 1E 14 6F 02 30 03 19
+             05 B1 03 20 1B 2A AF 2F 1F 42 03 92 00 73 B1 03 21 1B 2A B1 03 23
+             1B 18 AF 2F 22 42 03 92 00 73 B1 03 24 1B 18 AF 2F 25 42 03 93 00
+             0D B1 03 26 14 6F 02 B0 B0 2D 04 03 19 07 B1 03 27 14 6F 02 30 03
+             19 07 AF 6F 28 B0 6F 29 B0 65 2A 6F 02 AF 2D 03 03 9E 26 2B 34 B0
+             65 2C 6F 02 03 2D 1B 19 B0 65 2E 6F 02 03 2D 1B 10 B0 65 2F 6F 02
+             03 30 1B 07 B0 65 31 6F 02 03 32 14 2D 03 03 93 00 1A B0 65 38 6F
+             02 AE 2D 03 03 19 06 AD 65 33 65 34 70 35 65 36 2D 03 37 92 00 66
+             B0 03 39 14 6F 02 30 03 19 06 AE 65 3A 6F 02 B1 6F 3B 65 3C 73 02
+             40 2D 03 03 19 04 AE 65 3D 6F 02 30 03 AE B0 30 3E 19 04 AE 03 3F
+             1B 03 AE 03 40 14 6F 02 30 03 19 04 AC 65 41 65 42 70 35 65 43 2D
+             03 37 19 04)
+       (#S(|COMMON-LISP|::|HASH-TABLE| :|TEST| |EXT|::|STABLEHASH-EQ|
+           (|EXT|::|ADDRESS| . 382.) (|SYSTEM|::|SYSTEM-INTERNAL| . 377.)
+           (|SYSTEM|::|FRAME-POINTER| . 364.) (|SYSTEM|::|READ-LABEL| . 346.)
+           (|EXT|::|WEAK-ALIST| . 250.) (|EXT|::|WEAK-OR-MAPPING| . 219.)
+           (|EXT|::|WEAK-AND-MAPPING| . 206.) (|EXT|::|WEAK-MAPPING| . 188.)
+           (|EXT|::|WEAK-OR-RELATION| . 154.)
+           (|EXT|::|WEAK-AND-RELATION| . 143.) (|EXT|::|WEAK-LIST| . 127.)
+           (|EXT|::|WEAK-POINTER| . 108.) (|EXT|::|ENCODING| . 89.)
+           (|EXT|::|FUNCTION-MACRO| . 84.) (|SYSTEM|::|MACRO| . 47.)
+           (|EXT|::|GLOBAL-SYMBOL-MACRO| . 42.) (|EXT|::|SYMBOL-MACRO| . 37.)
+           (|EXT|::|LOAD-TIME-EVAL| . 32.) (|EXT|::|SPECIAL-OPERATOR| . 27.)
+           (|COMMON-LISP|::|BYTE| . 12.) (|SOCKET|::|SOCKET-SERVER| . 7.)
+           (|EXT|::|FOREIGN-POINTER| . 2.))
+        "a foreign pointer." |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT|
+        "a server socket accepting connections."
+        "a byte specifier, denoting the ~S bits starting at bit position ~S of an integer."
+        "a special form handler." "a load-time evaluation promise."
+        "a symbol macro handler." "a global symbol macro handler."
+        "a macro expander." |SYSTEM|::|DESCRIBE-ARGLIST|
+        "For more information, evaluate ~{~S~^ or ~}."
+        |COMMON-LISP|::|DISASSEMBLE| |COMMON-LISP|::|MACRO-FUNCTION|
+        |COMMON-LISP|::|QUOTE| "a function with alternative macro expander."
+        "an encoding." |EXT|::|WEAK-POINTER-VALUE|
+        "a GC-invisible pointer to ~S." |COMMON-LISP|::|DESCRIBE|
+        "a GC-invisible pointer to a now defunct object."
+        |EXT|::|WEAK-LIST-LIST|
+        "a list of GC-invisible pointers to ~{~S~^, ~}."
+        "a list of GC-invisible pointers, all defunct by now."
+        |EXT|::|WEAK-AND-RELATION-LIST|
+        "a weak \"and\" relation between ~{~S~^, ~}."
+        "a weak \"and\" relation, no longer referring to its objects."
+        |EXT|::|WEAK-OR-RELATION-LIST|
+        "a weak \"or\" relation between ~{~S~^, ~}."
+        "a weak \"or\" relation, all elements defunct by now."
+        |EXT|::|WEAK-MAPPING-PAIR| "a weak association from ~S to ~S."
+        "a weak association, the key value being defunct by now."
+        |EXT|::|WEAK-AND-MAPPING-PAIR| "a weak \"and\" mapping from ~:S to ~S."
+        "a weak \"and\" mapping, some key value being defunct by now."
+        |EXT|::|WEAK-OR-MAPPING-PAIR| "a weak \"or\" mapping from ~:S to ~S."
+        "a weak \"or\" mapping, all keys being defunct by now."
+        |EXT|::|WEAK-ALIST-TYPE| |EXT|::|WEAK-ALIST-CONTENTS|
+        "a weak association list, of type ~S "
+        #S(|COMMON-LISP|::|HASH-TABLE| :|TEST| |EXT|::|STABLEHASH-EQ|
+           (:|KEY-OR-VALUE| . 28.) (:|KEY-AND-VALUE| . 19.) (:|VALUE| . 10.)
+           (:|KEY| . 1.))
+        "(i.e. a list of ~S key/value pairs)" |EXT|::|WEAK-MAPPING|
+        "(i.e. a list of ~S value/key pairs)"
+        "(i.e. a list of (key . value) pairs each combined into a ~S)"
+        |EXT|::|WEAK-AND-RELATION|
+        "(i.e. a list of (key . value) pairs each combined into a ~S)"
+        |EXT|::|WEAK-OR-RELATION| |COMMON-LISP|::|TYPE|
+        (:|KEY| :|VALUE| :|KEY-AND-VALUE| :|KEY-OR-VALUE|)
+        |SYSTEM|::|CASE-ERROR-STRING|
+        (|COMMON-LISP|::|MEMBER| :|KEY| :|VALUE| :|KEY-AND-VALUE|
+         :|KEY-OR-VALUE|)
+        |SYSTEM|::|ETYPECASE-FAILED| ", containing ~S."
+        ", no longer referring to any pairs."
+        "a label used for resolving #~D# references during READ."
+        |SYSTEM|::|ADDRESS-OF|
+        #.(|COMMON-LISP|::|ASH| |COMMON-LISP|::|MOST-POSITIVE-FIXNUM| -1.)
+        "a pointer into the stack. It points to:" |SYSTEM|::|DESCRIBE-FRAME|
+        "a special-purpose object." "a machine address."
+        (|COMMON-LISP|::|TYPE-OF| |SYSTEM|::|OBJ|)
+        (|EXT|::|FOREIGN-POINTER| |SOCKET|::|SOCKET-SERVER|
+         |COMMON-LISP|::|BYTE| |EXT|::|SPECIAL-OPERATOR|
+         |EXT|::|LOAD-TIME-EVAL| |EXT|::|SYMBOL-MACRO|
+         |EXT|::|GLOBAL-SYMBOL-MACRO| |SYSTEM|::|MACRO| |EXT|::|FUNCTION-MACRO|
+         |EXT|::|ENCODING| |EXT|::|WEAK-POINTER| |EXT|::|WEAK-LIST|
+         |EXT|::|WEAK-AND-RELATION| |EXT|::|WEAK-OR-RELATION|
+         |EXT|::|WEAK-MAPPING| |EXT|::|WEAK-AND-MAPPING|
+         |EXT|::|WEAK-OR-MAPPING| |EXT|::|WEAK-ALIST| |SYSTEM|::|READ-LABEL|
+         |SYSTEM|::|FRAME-POINTER| |SYSTEM|::|SYSTEM-INTERNAL|
+         |EXT|::|ADDRESS|)
+        (|COMMON-LISP|::|MEMBER| |EXT|::|FOREIGN-POINTER|
+         |SOCKET|::|SOCKET-SERVER| |COMMON-LISP|::|BYTE|
+         |EXT|::|SPECIAL-OPERATOR| |EXT|::|LOAD-TIME-EVAL|
+         |EXT|::|SYMBOL-MACRO| |EXT|::|GLOBAL-SYMBOL-MACRO| |SYSTEM|::|MACRO|
+         |EXT|::|FUNCTION-MACRO| |EXT|::|ENCODING| |EXT|::|WEAK-POINTER|
+         |EXT|::|WEAK-LIST| |EXT|::|WEAK-AND-RELATION|
+         |EXT|::|WEAK-OR-RELATION| |EXT|::|WEAK-MAPPING|
+         |EXT|::|WEAK-AND-MAPPING| |EXT|::|WEAK-OR-MAPPING| |EXT|::|WEAK-ALIST|
+         |SYSTEM|::|READ-LABEL| |SYSTEM|::|FRAME-POINTER|
+         |SYSTEM|::|SYSTEM-INTERNAL| |EXT|::|ADDRESS|))
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) |CLOS|::|METHOD-FUNCTION-INITARGS|
+    (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|STANDARD-OBJECT|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-2|
+       #26Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 B0 72 39 2D 03 02 AE AE
+            30 03 19 03)
+       ("an instance of the CLOS class ~S." |SYSTEM|::|TEXT|
+        |COMMON-LISP|::|FORMAT| |SYSTEM|::|DESCRIBE-SLOTTED-OBJECT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |CLOS|::|FUNCALLABLE-STANDARD-OBJECT|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-3|
+       #26Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 B0 72 39 2D 03 02 AE AE
+            30 03 19 03)
+       ("an instance of the CLOS class ~S, can be used as a function."
+        |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT|
+        |SYSTEM|::|DESCRIBE-SLOTTED-OBJECT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|STRUCTURE-OBJECT|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-4|
+       #51Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 B0 72 38 2D 03 02 AE DD
+            32 40 79 38 01 71 B2 93 00 0B AE 31 97 AE DE 6F 01 AE 2D 03 02 16
+            01 AE AE 30 05 19 03)
+       ("a structure of type ~S." |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT| 0.
+        "As such, it is also a structure of type ~{~S~^, ~}."
+        |SYSTEM|::|DESCRIBE-SLOTTED-OBJECT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|CONS|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-5|
+       #68Y(00 00 00 00 02 00 00 00 20 03 AE 2F 00 42 02 93 01 2A 92 00 0F AF
+            CC 14 6F 03 AF 2D 03 04 19 05 AF C7 1B 73 AD DB 90 01 32 76 AF DF
+            6F 03 30 04 94 04 B0 30 06 95 04 B0 30 06 19 05 AF E2 6F 03 30 04
+            19 05)
+       (|EXT|::|LIST-LENGTH-DOTTED| 1. "a dotted list of length ~S."
+        |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT| "a cons."
+        |COMMON-LISP|::|DESCRIBE| "a list of length ~S." "a cyclic list.")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|NULL|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-6|
+       #36Y(00 00 00 00 03 00 00 00 20 04 AD DB 6F 02 30 03 92 03 0A 69 00 01
+            AF AF 2D 03 04 19 04 14 AF AF 36 02 19 04)
+       (|COMMON-LISP|::|NIL| "the empty list, " |SYSTEM|::|TEXT|
+        |COMMON-LISP|::|FORMAT| |CLOS|::|%NO-NEXT-METHOD|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|NIL|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|SYMBOL|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-7|
+       #567Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 B0 2D 03 02 AE 72 A4 01
+             02 92 02 1E B0 DE 6F 01 30 02 63 02 10 05 00 10 06 92 09 1F 00 10
+             08 BB 31 92 11 14 71 E0 63 1B 80 7D B0 DD 6F 01 B0 2D 03 02 AE AE
+             38 03 80 C5 01 1B 57 10 07 1B 60 B0 D5 1B 12 B0 D6 1B 0E B1 38 01
+             8C 66 72 B1 38 01 8C 02 70 B0 D7 14 6F 01 30 02 B0 ED 6F 01 B3 71
+             55 2D 03 02 B1 71 55 AE 38 03 80 C5 01 1B 80 8C B0 F0 6F 01 30 02
+             B1 38 01 8D 5F 80 A6 B0 F1 6F 01 30 02 1B 80 9D B0 F2 6F 01 B3 6B
+             19 03 1A 1B 80 89 87 01 00 10 07 BE 31 92 11 14 AF 38 04 8D 35 03
+             AC 84 09 83 01 AD 8D 9F 67 16 03 12 02 93 00 14 B1 E3 6F 01 AE 72
+             62 E4 B0 73 00 16 E5 38 03 72 82 2D 04 02 16 01 B1 8F A8 06 B0 E6
+             6F 01 30 02 B1 8F 5A 15 B0 E7 6F 01 B3 38 01 71 61 2D 03 02 E8 E9
+             B3 7B 02 7B 02 84 00 B1 8C 57 FF 57 B1 38 01 8D 02 06 B0 EE 6F 01
+             30 02 B1 8D 58 3F B0 EF 6F 01 30 02 B1 8C 59 FF 65 A2 5E 14 8E 2F
+             FF 74 B0 F5 6F 01 B3 6B 19 03 1A 14 38 02 71 C8 2D 03 02 B1 F6 38
+             01 72 9E 93 00 08 B1 F7 6F 01 AE 2D 03 02 16 01 A2 5E 14 AE 38 03
+             80 C5 01 B1 65 1E 38 01 8E 9E 10 B1 65 1F 38 01 8E 9E 08 B1 65 20
+             38 01 8F 9E 1B B0 65 21 6F 01 30 02 B1 65 20 38 01 8F 9E 0C 65 22
+             E9 B3 7B 02 03 23 5D 7A 84 00 B1 65 24 38 01 72 9E 8F 3D 07 B0 65
+             25 6F 01 30 02 B1 8F A5 30 63 B2 72 A5 93 00 0B 94 00 84 01 9D 5C
+             5C F8 92 00 75 AD 32 64 16 01 F8 B1 65 26 6F 01 AE 72 62 AF 2D 04
+             02 16 01 65 27 E9 B3 7B 02 7B 02 84 00 B0 65 28 6F 01 30 02 65 29
+             63 1B 21 87 01 00 B3 AD 70 2A 93 00 13 B3 31 97 B3 65 2B 6F 01 AF
+             2D 03 02 B3 31 97 AC B4 31 90 16 01 83 01 AD 8D 9F 5B 16 02 B1 65
+             2C B2 65 2D 6F 01 65 2E 2D 05 2F B1 65 30 B2 65 31 6F 01 65 32 2D
+             05 2F 93 00 0C B0 31 97 B0 65 33 6F 01 AE 2D 03 02 AD 72 64 63 1B
+             09 87 01 00 14 B3 30 34 83 01 AD 8D 9F 73 00 19 08)
+       ("the symbol ~S, " |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT| "lies in ~S"
+        "is uninterned" |COMMON-LISP|::|*PRINT-ESCAPE*|
+        |COMMON-LISP|::|*PRINT-READABLY*| |COMMON-LISP|::|*PACKAGE*|
+        |COMMON-LISP|::|*PRINT-GENSYM*|
+        ", is accessible in ~:d package~:p ~{~A~^, ~}"
+        #.#'|COMMON-LISP|::|PACKAGE-NAME| #.#'|COMMON-LISP|::|STRING<|
+        ", is a keyword" ", symbol-macro expanding to: ~S"
+        |COMMON-LISP|::|MACROEXPAND-1| |COMMON-LISP|::|QUOTE| ", a constant"
+        ", a variable declared SPECIAL" ", a variable" ", value: ~s"
+        ", an unbound variable declared SPECIAL" ", names "
+        "a special operator" " with macro definition"
+        "a~:[~; deprecated~] function" |SYSTEM|::|*DEPRECATED-FUNCTIONS-ALIST*|
+        #.#'|COMMON-LISP|::|EQ| "a~:[~; deprecated~] macro"
+        |SYSTEM|::|DEPRECATED| " (use ~S instead)" |SYSTEM|::|TYPE-SYMBOL|
+        |SYSTEM|::|DEFSTRUCT-DESCRIPTION| |SYSTEM|::|DEFTYPE-EXPANDER|
+        ", names a type" |EXT|::|TYPE-EXPAND| (|COMMON-LISP|::|T|)
+        |CLOS|::|CLOSCLASS| ", names a class"
+        ", has ~:D propert~@:P ~{~S~^, ~}" |COMMON-LISP|::|SYMBOL-PLIST| "."
+        (|COMMON-LISP|::|COMPILER-MACRO| |COMMON-LISP|::|SETF|
+         |COMMON-LISP|::|STRUCTURE| |COMMON-LISP|::|TYPE|
+         |COMMON-LISP|::|VARIABLE| |COMMON-LISP|::|FUNCTION|)
+        |CLOS|::|DOCUMENTATION| "Documentation as a ~A:" |EXT|::|CLHS|
+        "~%~A Documentation is at~% ~S" :|ANSI-CL| |SYSTEM|::|LAUNCH-DOC|
+        |SYSTEM|::|IMPNOTES| "~%~A Documentation is at~% ~S" :|CLISP|
+        "For more information, evaluate ~{~S~^ or ~}."
+        |COMMON-LISP|::|DESCRIBE|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|INTEGER|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-8|
+       #25Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 B0 72 EE B1 72 1F 2D 04
+            02 19 03)
+       ("an integer, uses ~S bit~:P, is represented as a ~:[bignum~;fixnum~]."
+        |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|RATIO|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-9|
+       #18Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 30 02 19 03)
+       ("a rational, not integral number." |SYSTEM|::|TEXT|
+        |COMMON-LISP|::|FORMAT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|FLOAT|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-10|
+       #27Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 B0 38 01 72 DC B1 72 38
+            2D 04 02 19 03)
+       ("a float with ~S bits of mantissa (~(~A~))." |SYSTEM|::|TEXT|
+        |COMMON-LISP|::|FORMAT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|COMPLEX|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-11|
+       #85Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 30 02 AE 72 E0 AF 72 E1
+            AC 8E AC 19 AD 8F AC 20 AF DF 6F 01 9F 14 72 AE 2D 03 02 1B 20 AF
+            DD 6F 01 30 02 1B 18 AD 8E AC 74 AF DE 6F 01 A0 1B 65 AF E0 6F 01
+            AF 72 AE AF 72 AE 2D 04 02 16 02 AD E1 6F 01 30 02 19 03)
+       ("a complex number " |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT|
+        "at the origin" "on the ~:[posi~;nega~]tive real axis"
+        "on the ~:[posi~;nega~]tive imaginary axis"
+        "in the ~:[~:[first~;fourth~]~;~:[second~;third~]~] quadrant"
+        " of the Gaussian number plane.")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|CHARACTER|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-12|
+       #80Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 30 02 AD DD 6F 01 30 02
+            AE 6F 04 AE 31 97 92 00 24 AE E0 6F 01 30 02 16 01 AD 31 97 AD E1
+            6F 01 B0 71 20 2D 03 02 AE 8C 1F 15 AD 31 97 AD E2 6F 01 30 02 19
+            03 AE DF 6F 01 AE 2D 03 02 1B 58 00 19 03)
+       ("a character" |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT| "."
+        |SYSTEM|::|UNICODE-ATTRIBUTES| "Unicode name: ~A"
+        "It is not defined by the Unicode standard."
+        "It is a ~:[non-~;~]printable character." "Its use is non-portable.")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-13|
+       #85Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 B0 8F 93 03 B0 2F 02 14
+            B1 8F 94 03 B1 2F 02 14 2D 04 03 AE 32 92 1F 2D AE 2F 04 42 03 93
+            01 03 92 00 0C B0 E3 6F 01 B0 6F 08 2D 03 03 19 06 B0 DF 6F 01 B0
+            E0 B1 E1 B2 6E 05 08 B0 B0 B6 72 8E 2D 06 03 19 06 19 03)
+       ("a~:[~:[ closed ~;n output-~]~;~:[n input-~;n input/output-~]~]stream."
+        |SYSTEM|::|TEXT| |COMMON-LISP|::|OPEN-STREAM-P| |COMMON-LISP|::|FORMAT|
+        |SYSTEM|::|STRING-STREAM-STRING|
+        " It reads from ~S from ~:D to ~:D at ~:D." :|START| :|END|
+        |SYSTEM|::|SQUEEZE-STRING| " It appends to ~S.")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|PACKAGE|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-14|
+       #292Y(00 00 00 00 02 00 00 00 20 03 AE 8D DA 81 0C AD DA 6F 01 B0 71 DA
+             2D 03 02 AE 71 DB 93 00 0B AE DD 6F 01 AE 72 62 AF 2D 04 02 16 01
+             AD DE 6F 01 30 02 AE 71 DD AF 71 DE AF 31 97 AF DF 6F 01 30 02 93
+             01 0F AF E0 6F 01 AF 72 62 E1 B1 73 00 16 2D 04 02 00 2B 02 00 0B
+             00 00 CD 0B 00 01 AC 6D 09 01 B2 31 F4 B0 E4 6F 01 68 02 01 2D 03
+             02 6B 0B 8F AC 10 B0 E6 6F 01 68 02 00 E7 E8 38 02 72 82 2D 03 02
+             16 01 92 00 80 4A AF EA 6F 01 30 02 AF EB 6F 01 30 02 B0 6F 12 B1
+             6F 13 EE 71 D9 B0 71 AD EF 71 D9 B1 71 AD 92 03 07 92 02 04 93 00
+             80 58 93 03 06 93 02 03 93 01 2B B3 31 97 B3 F1 6F 01 30 02 92 03
+             2F 93 02 34 B3 03 1B 14 6F 01 30 02 1B 36 AF E9 6F 01 AE 72 62 E1
+             B0 73 00 16 2D 04 02 1B FF AA B3 31 97 B3 03 16 1B 5F B3 F2 6F 01
+             03 19 1B 0E 92 02 75 B3 03 1A 1B 4F B3 F6 6F 01 03 1D 14 71 D9 2D
+             03 02 16 06 AE 65 1E AF 65 1F 6F 01 65 20 2D 05 21 19 03 AD 65 22
+             6F 01 30 02 19 03)
+       ("the package named ~A" |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT|
+        ". It has ~:D nickname~:P ~{~A~^, ~}" "." "It "
+        "imports the external symbols of ~:D package~:P ~{~A~^, ~} and "
+        #.#'|COMMON-LISP|::|PACKAGE-NAME| 0.
+        #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-14-1|
+           #29Y(00 00 00 00 01 00 00 00 20 02 AD 07 00 01 5D 0C 00 01 69 00 02
+                32 B1 0C 00 02 00 19 02)
+           (|COMMON-LISP|::|NIL|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        "exports ~[no symbols~:;~:*~:D symbol~:P~]"
+        |SYSTEM|::|*DESCRIBE-NESTING*| "~{ ~S~^,~}"
+        #.#'|COMMON-LISP|::|STRING<| #.#'|COMMON-LISP|::|SYMBOL-NAME|
+        " to ~:D package~:P ~{~A~^, ~}" ", but no package uses these exports"
+        "." |EXT|::|PACKAGE-CASE-INVERTED-P| |EXT|::|PACKAGE-CASE-SENSITIVE-P|
+        "COMMON-LISP" "CS-COMMON-LISP" "It is a modern case-sensitive package."
+        "ATTENTION: "
+        "It is a modern case-sensitive package, but uses the symbols from the traditional ~S!"
+        "COMMON-LISP" "It is case-inverted, but not case-sensitive!"
+        "It is case-sensitive, but not case-inverted!"
+        "It is a traditional ANSI CL compatible package, but uses the symbols from the modern ~S!"
+        "CS-COMMON-LISP" |SYSTEM|::|IMPNOTES| "~%~A Documentation is at~% ~S"
+        :|CLISP| |SYSTEM|::|LAUNCH-DOC| "a deleted package.")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|HASH-TABLE|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-15|
+       #26Y(00 00 00 00 02 00 00 00 20 03 AE 71 73 AE DA 6F 01 B1 6F 02 AF 2D
+            04 03 19 04)
+       ("an ~S hash table with ~[no entries~:;~:*~:D entr~@:P~]."
+        |SYSTEM|::|TEXT| |COMMON-LISP|::|HASH-TABLE-TEST|
+        |COMMON-LISP|::|FORMAT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|READTABLE|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-16|
+       #26Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 B0 38 02 71 78 72 15 2D
+            03 02 19 03)
+       ("~:[a~;the Common Lisp~] readtable." |SYSTEM|::|TEXT|
+        |COMMON-LISP|::|FORMAT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|PATHNAME|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-17|
+       #156Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 B0 72 2D 01 02 DC B4 38
+             01 71 FA B5 38 01 71 FB B6 38 01 71 FC B7 38 01 71 FD B8 38 01 71
+             FE B9 71 FF 7B 06 1B 80 50 16 02 1B 80 59 00 1B 3B B1 38 01 80 A9
+             05 14 AD 31 B8 16 03 1B 36 94 01 93 00 6A AC 24 03 66 38 02 72 8F
+             AC 31 97 AE AD 31 90 DE AD 38 02 31 95 AC 2F 05 10 06 B0 B0 31 8D
+             11 AC 2F 07 AC 81 90 00 61 01 14 A3 21 41 9D FE FD 16 03 83 01 83
+             00 AD 8C 9F FF AB 94 01 AD 8D 9F FF BA 16 03 9E 16 01 F8 2D 04 08
+             19 03)
+       ("a ~:[~;portable ~]pathname~:[.~;~:*, with the following components:~{~A~}~]"
+        |SYSTEM|::|TEXT|
+        (:|HOST| :|DEVICE| :|DIRECTORY| :|NAME| :|TYPE| :|VERSION|)
+        :|UNSPECIFIC| " = " |SYSTEM|::|STREAM-START-S-EXPRESSION|
+        |COMMON-LISP|::|*PRINT-RIGHT-MARGIN*|
+        |SYSTEM|::|STREAM-END-S-EXPRESSION| |COMMON-LISP|::|FORMAT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|RANDOM-STATE|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-18|
+       #18Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 30 02 19 03)
+       ("a random-state." |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|ARRAY|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-19|
+       #148Y(00 00 00 00 02 00 00 00 20 03 AE 71 07 AF 71 06 AF DA 6F 01 B2 72
+             32 B0 2D 04 02 AD 25 03 06 AF DE 6F 01 30 02 AC 02 22 0C 93 00 80
+             44 AF E0 6F 01 AE 2D 03 02 B0 8D 0B 06 AF E1 6F 01 30 02 AD 8F AD
+             18 AF E2 6F 01 B2 71 09 2D 03 02 B0 8D 17 0A AF E3 6F 01 B2 71 18
+             2D 03 02 B0 8F 19 2D 93 00 2A B0 2F 0A 42 03 B2 E5 6F 01 AF AF A3
+             26 0C 14 DF 6F 01 B0 38 02 31 95 1B FF B9 D2 1B 07 D3 1B 04 D4 1B
+             01 00 14 2D 05 02 16 03 AF EA 6F 01 30 02 19 05)
+       ("a~:[~; simple~] ~A dimensional array" |SYSTEM|::|TEXT|
+        |COMMON-LISP|::|FORMAT| 1. " (vector)" " with no storage" " of ~As"
+        ", adjustable" ", of size ~{~S~^ x ~}"
+        " and current length (fill-pointer) ~S" |SYSTEM|::|STRING-INFO|
+        " (a~:[~;n immutable~] ~:[~;reallocated ~]~A string)"
+        #S(|COMMON-LISP|::|HASH-TABLE| :|TEST| |EXT|::|STABLEHASH-EQ|
+           (32. . 18.) (16. . 15.) (8. . 12.))
+        "ISO-8859-1" "UCS-2" "UCS-4" ".")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |CLOS|::|GENERIC-FUNCTION|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-20|
+       #157Y(00 00 00 00 02 00 00 00 20 03 AD DA 6F 01 30 02 AE 88 03 0D AD 31
+             97 AD DE 6F 01 B0 6F 05 2D 03 02 AE 6F 06 6F 07 AC 24 08 0B AE 31
+             97 AE E3 6F 01 AE 2D 03 02 16 01 AE 6F 0A AE 31 97 92 00 08 AE EB
+             6F 01 30 02 19 04 AE E5 6F 01 30 02 AF 6F 0A 63 1B 80 40 87 01 00
+             B0 E6 AE 6F 0D 63 B0 6F 0E 1B 23 AC 2F 10 1B 17 94 00 AC AC 2F 0F
+             F8 14 8F 3D 0B AC 6F 10 63 38 01 72 3A 9E 22 65 9D F8 84 02 16 01
+             83 00 AC 8D 9F 5E 16 01 AC 80 B1 00 2D 04 02 83 01 AD 8D 9F FF BB
+             00 19 06)
+       ("a generic function." |SYSTEM|::|TEXT| |COMMON-LISP|::|FORMAT|
+        |CLOS|::|GENERIC-FUNCTION-UNDETERMINEDP| "Argument list: ~:S"
+        |CLOS|::|GENERIC-FUNCTION-LAMBDA-LIST|
+        |CLOS|::|GENERIC-FUNCTION-METHOD-COMBINATION|
+        |CLOS|::|METHOD-COMBINATION-NAME| |CLOS|::|STANDARD|
+        "Method combination: ~S" |CLOS|::|GENERIC-FUNCTION-METHODS| "Methods:"
+        #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-20-1|
+           #61Y(00 00 00 00 03 00 00 00 21 19 DA B1 38 02 31 95 AF 1B 14 B1 2F
+                01 10 02 94 03 83 04 B5 31 8D 11 B1 2F 03 DE B2 31 94 AC 8D 9F
+                68 16 01 B0 2F 01 10 02 B1 B4 31 8D 11 B0 2F 03 9E 19 05)
+           ("\n
+  "
+            |SYSTEM|::|STREAM-START-S-EXPRESSION|
+            |COMMON-LISP|::|*PRINT-RIGHT-MARGIN*|
+            |SYSTEM|::|STREAM-END-S-EXPRESSION| #\Space)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        |CLOS|::|METHOD-QUALIFIERS| |CLOS|::|METHOD-SPECIALIZERS|
+        |CLOS|::|SPECIALIZER-PRETTY| |CLOS|::|CLASS-NAME| "No methods.")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) (|SYSTEM|::|OBJ| |COMMON-LISP|::|STREAM|)
+    #(2. 0. |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+      |COMMON-LISP|::|NIL|)
+    |COMMON-LISP|::|FUNCTION|
+    #Y(#:|125 574 (DEFGENERIC DESCRIBE-OBJECT (OBJ STREAM) ...)-16-21|
+       #129Y(00 00 00 00 02 00 00 00 20 03 AE 72 38 AC 25 00 80 60 AF 71 01 AF
+             92 01 26 C8 14 6F 02 30 04 AF B1 30 05 AF B1 30 06 B0 6F 07 AC 8F
+             18 06 AC 38 01 8C 5F 0E AC 8D 58 11 E4 9E 14 61 02 1B 0B C6 1B 58
+             E2 E3 AE 61 02 1B 71 00 14 9D 1F 12 B1 31 97 B1 E5 6F 02 E6 AF 7B
+             02 7B 01 2D 03 04 19 07 19 07 AE E7 6F 02 30 04 AE B0 30 05 AE B0
+             30 06 19 04 AC 24 0A 6C AC E8 E9 70 10 EB 2D 03 12 19 04)
+       (|COMMON-LISP|::|COMPILED-FUNCTION| "a built-in system function."
+        |SYSTEM|::|TEXT| "a compiled function." |COMMON-LISP|::|FORMAT|
+        |SYSTEM|::|DESCRIBE-ARGLIST| |SYSTEM|::|DESCRIBE-DOCUMENTATION|
+        |SYSTEM|::|FUNCTION-NAME| |COMMON-LISP|::|MACRO-FUNCTION|
+        |COMMON-LISP|::|QUOTE| |COMMON-LISP|::|FUNCTION|
+        "For more information, evaluate ~{~S~^ or ~}."
+        |COMMON-LISP|::|DISASSEMBLE| "an interpreted function."
+        (|COMMON-LISP|::|TYPE-OF| |SYSTEM|::|OBJ|)
+        (|COMMON-LISP|::|COMPILED-FUNCTION| |COMMON-LISP|::|FUNCTION|)
+        |SYSTEM|::|CASE-ERROR-STRING|
+        (|COMMON-LISP|::|MEMBER| |COMMON-LISP|::|COMPILED-FUNCTION|
+         |COMMON-LISP|::|FUNCTION|)
+        |SYSTEM|::|ETYPECASE-FAILED|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+    (|COMMON-LISP|::|T|) |CLOS|::|CLASS-DEFAULT-INITARGS| :|METHOD-CLASS|
+    :|METHOD-COMBINATION| :|NAME| |CLOS|::|MAKE-GENERIC-FUNCTION-PROTOTYPE|
+    |CLOS|::|STANDARD| |CLOS|::|FIND-METHOD-COMBINATION| :|DOCUMENTATION|
+    :|DECLARATIONS|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|576 597 (DEFUN DESCRIBE1 (OBJ STREAM) ...)-17|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|SYSTEM|::|DESCRIBE1| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|SYSTEM|::|DESCRIBE1|
+       #144Y(00 00 00 00 02 00 00 00 20 03 AE 0E 00 1C 02 0E 01 14 70 02 AE 31
+             98 AE 31 97 AF 6B 03 8C AD 35 AF 8F 18 06 AF E3 38 01 32 9E 14 B0
+             0E 03 5D 0F 03 AF 2F 04 10 00 B2 E4 6F 06 B2 2D 03 07 B2 2F 08 11
+             B0 B0 30 0B AF 31 98 92 00 1C 16 01 16 01 AD 31 9A 19 03 AE 2F 04
+             10 00 B1 DF 6F 06 B1 2D 03 07 B1 2F 08 11 1B 66 AF 31 97 AF E6 6F
+             06 30 07 AC 1B 0E B0 E7 94 02 A0 5C 78 2D 04 07 9D 5C 5C F8 AC 8D
+             9F 6E 16 01 AF 31 98 16 01 1B FF BE)
+       (|COMMON-LISP|::|*PRINT-RIGHT-MARGIN*| |SYSTEM|::|*PRIN-LINELENGTH*|
+        |SYSTEM|::|WRITE-TO-SHORT-STRING| |SYSTEM|::|*DESCRIBE-DONE*|
+        |SYSTEM|::|STREAM-START-S-EXPRESSION| "~A [see above]" |SYSTEM|::|TEXT|
+        |COMMON-LISP|::|FORMAT| |SYSTEM|::|STREAM-END-S-EXPRESSION|
+        |SYSTEM|::|DOC| "~A is " |CLOS|::|DESCRIBE-OBJECT| "Documentation:"
+        #Y(|SYSTEM|::|DESCRIBE1-1|
+           #48Y(00 00 00 00 03 00 00 00 21 19 B0 31 98 B0 2F 00 10 01 B2 B4 31
+                8D 11 B0 2F 02 DD B1 38 02 31 95 B0 2F 00 10 01 B1 B4 31 8D 11
+                B0 2F 02 9E 19 05)
+           (|SYSTEM|::|STREAM-START-S-EXPRESSION|
+            |COMMON-LISP|::|*PRINT-RIGHT-MARGIN*|
+            |SYSTEM|::|STREAM-END-S-EXPRESSION| ":\n")
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|599 602 (DEFCLASS DESCRIBE-STREAM (FILL-STREAM) ...)-18|
+   #46Y(00 00 00 00 00 00 00 00 20 01 6B 00 99 01 DC DD DE 7B 01 DF 63 E0 B3 E1
+        E2 63 E3 63 E4 64 7B 06 33 02 23 37 07 16 01 DC 38 02 32 3A 19 01)
+   (|CLOS|::|<STANDARD-CLASS>| |CLOS|::|ENSURE-CLASS|
+    |SYSTEM|::|DESCRIBE-STREAM| :|DIRECT-SUPERCLASSES| |EXT|::|FILL-STREAM|
+    :|DIRECT-SLOTS| :|METACLASS| (:|FIXED-SLOT-LOCATIONS| |COMMON-LISP|::|NIL|)
+    :|DIRECT-DEFAULT-INITARGS| :|DOCUMENTATION| :|GENERIC-ACCESSORS|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|604 623 (DEFUN DESCRIBE (OBJ &OPTIONAL STREAM) ...)-19|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|COMMON-LISP|::|DESCRIBE| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|COMMON-LISP|::|DESCRIBE|
+       #92Y(00 00 00 00 01 00 01 00 20 08 3D 01 AD DA 8E 3C 25 93 01 80 42 AD
+            02 23 03 0E 08 F9 02 10 09 CF 10 01 00 10 0B B7 E6 E7 B9 E8 DB 6E
+            05 0F 30 06 11 12 02 3E 19 03 AD 31 9B 6B 01 32 B1 10 01 0E 02 1C
+            02 0E 03 14 6B 04 73 01 38 DF 33 01 35 10 02 B4 B4 30 06 1B 5A 0E
+            07 F9 1B 40)
+       (#.(|CLOS|::|FIND-CLASS| '|SYSTEM|::|DESCRIBE-STREAM|)
+        |SYSTEM|::|*DESCRIBE-NESTING*| |COMMON-LISP|::|*PRINT-RIGHT-MARGIN*|
+        |SYSTEM|::|*PRIN-LINELENGTH*| |CUSTOM|::|*PRINT-INDENT-LISTS*| 1.
+        |SYSTEM|::|DESCRIBE1| |COMMON-LISP|::|*STANDARD-OUTPUT*|
+        |COMMON-LISP|::|*TERMINAL-IO*| |COMMON-LISP|::|*PRINT-CIRCLE*| 0.
+        |SYSTEM|::|*DESCRIBE-DONE*| |SYSTEM|::|DESCRIBE-STREAM| :|STREAM|
+        :|TEXT-INDENT| |CLOS|::|MAKE-INSTANCE|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|625 642 (DEFUN ARGLIST (FUNC) ...)-20|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|EXT|::|ARGLIST| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|EXT|::|ARGLIST|
+       #82Y(00 00 00 00 01 00 00 00 20 02 AD 8F 18 0A AD 8D 58 06 9E 5E 14 8E
+            57 1E AD DB 81 3B 01 14 DC 8E 3C 1B AD 8C 01 09 AD 8F 3F 1F AD 2F
+            06 1E 21 AD 6F 04 2F 05 19 02 9E 5E 14 2F 00 19 02 AD 2F 03 19 02
+            AD E1 32 40 5B 19 02 AD 8E 1C 75 00 19 02 19 02)
+       (|SYSTEM|::|MACRO-LAMBDA-LIST| |COMMON-LISP|::|FUNCTION|
+        #.(|CLOS|::|FIND-CLASS| '|CLOS|::|GENERIC-FUNCTION|)
+        |CLOS|::|GENERIC-FUNCTION-LAMBDA-LIST| |SYSTEM|::|GET-SIGNATURE|
+        |SYSTEM|::|SIG-TO-LIST| |SYSTEM|::|CLOSURE-LAMBDA-LIST| 1.)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|642 648 (DEFUN DESCRIBE-ARGLIST (STREAM FUNCTION) ...)-21|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|SYSTEM|::|DESCRIBE-ARGLIST| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|SYSTEM|::|DESCRIBE-ARGLIST|
+       #82Y(02 00 01 00 02 00 00 00 20 03 00 2B 01 7F 02 00 00 AF 31 97 AF DA
+            6F 01 9F 2B 01 00 0B 00 00 4B 02 21 B0 AF 6D 03 02 B1 6D 04 01 57
+            05 B0 36 00 16 06 1B 17 58 67 00 00 01 76 00 AD 36 01 18 02 01 19
+            02 68 04 00 AC 31 93 16 01 4D F8 2D 03 06 19 04)
+       ("Argument list: ~:S" |SYSTEM|::|TEXT| #(|COMMON-LISP|::|NIL|)
+        #Y(|SYSTEM|::|DESCRIBE-ARGLIST-1|
+           #18Y(00 00 00 00 00 00 00 00 20 01 2A 14 DB 2C 02 02 19 01)
+           (|COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+            #Y(|SYSTEM|::|DESCRIBE-ARGLIST-1-1|
+               #17Y(00 00 00 00 01 00 00 00 20 02 9E 0C 00 01 4E 01 00)
+               (|COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|)
+               (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+           (|COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|))
+        #Y(|SYSTEM|::|DESCRIBE-ARGLIST-2|
+           #17Y(00 00 00 00 00 00 00 00 20 01 69 01 01 2F 01 19 01)
+           (|COMMON-LISP|::|NIL| |EXT|::|ARGLIST|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        (#(|COMMON-LISP|::|ERROR| 42.) 1. . 1.) |COMMON-LISP|::|FORMAT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|650 654 (DEFUN DESCRIBE-DOCUMENTATION (STREAM FUNCTION) ...)-22|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|SYSTEM|::|DESCRIBE-DOCUMENTATION| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|SYSTEM|::|DESCRIBE-DOCUMENTATION|
+       #31Y(00 00 00 00 02 00 00 00 20 03 AD 6F 00 9D 1F 0D AF 31 97 AF DB 6F
+            02 AE 2D 03 03 19 04 19 04)
+       (|CLOS|::|FUNCTION-DOCUMENTATION| "Documentation: ~A" |SYSTEM|::|TEXT|
+        |COMMON-LISP|::|FORMAT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|656 668 (DEFUN CLISP-DATA-FILE (NAME) ...)-23|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|SYSTEM|::|CLISP-DATA-FILE| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|SYSTEM|::|CLISP-DATA-FILE|
+       #61Y(00 00 00 00 01 00 00 00 20 02 64 63 38 08 DA DB 61 02 FB 72 05 9F
+            10 02 1B 0D DE DF E0 63 E1 6F 08 E3 B6 E4 2D 08 0B B3 B0 2E 03 14
+            38 02 72 03 38 02 81 03 04 14 8F 08 61 A1 11 19 05)
+       (:|RELATIVE| "data" |CUSTOM|::|*MERGE-PATHNAMES-ANSI*|
+        |SYSTEM|::|LIB-DIRECTORY| (|CUSTOM|::|*LIB-DIRECTORY*|) (1.)
+        #Y(|SYSTEM|::|CLISP-DATA-FILE-1|
+           #15Y(00 00 00 00 01 00 00 00 20 02 AD 2F 00 19 02)
+           (|SYSTEM|::|SET-LIB-DIRECTORY|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        "~S: file ~S does not exist - adjust ~S" |SYSTEM|::|TEXT|
+        |SYSTEM|::|CLISP-DATA-FILE| |CUSTOM|::|*LIB-DIRECTORY*|
+        |SYSTEM|::|ASSERT-FAILED|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|670 806 (PROGN (DEFUN UNICODE-ATTRIBUTES-LINE # ...) (DEFUN UNICODE-ATTRIBUTES # ...))-24-1|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C 3E 19 01)
+   (|SYSTEM|::|UNICODE-ATTRIBUTES-LINE| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|SYSTEM|::|UNICODE-ATTRIBUTES-LINE|
+       #395Y(03 00 01 00 01 00 00 00 20 02 00 2B 01 DA 6F 01 DC DD 38 04 C9 F9
+             32 0B 0B 00 00 53 81 5D CA 45 AF 6D 06 01 68 04 00 E1 32 9A 68 04
+             00 38 01 72 9A E2 AD E3 72 CE 72 B1 1B 80 44 9D F9 16 01 1B 3E 00
+             16 01 1B 81 1C EC 38 02 72 8F AC 01 02 ED EE 01 02 C3 2D 08 15 AC
+             81 90 00 B2 B2 03 16 1B 80 CD AD AD 73 02 37 E5 72 EC 68 08 00 AD
+             E3 73 02 39 32 9A A1 74 B7 90 01 32 40 9D FA 16 01 AC AE 73 01 38
+             E4 91 01 2F 59 68 07 00 AE E3 73 02 39 32 9A B5 8F AD 09 68 07 00
+             01 02 38 01 31 82 68 07 00 01 02 38 01 71 82 93 00 FF 94 E6 AD 38
+             06 72 7A AD 38 04 A2 FA D2 F9 71 8A AE AE 71 31 25 0C 80 90 AE 96
+             02 71 31 25 0E 80 87 AE 96 02 E6 B1 38 06 B7 81 B1 04 8E 7A 03 B0
+             32 62 14 72 60 AC 72 62 AE BB 91 01 2F 13 AC E9 91 01 34 0D AD EA
+             EB AF 73 02 37 38 03 8C 35 FF 4A AE BB 91 01 34 80 4E AC F1 91 01
+             34 80 47 AD F2 F0 AF 73 02 37 38 03 8D 35 3B EC 38 02 72 8F AC 01
+             02 ED EE 01 02 C3 2D 08 15 AC 81 90 00 B2 B2 03 19 14 B4 B2 73 03
+             37 72 60 B3 B3 B1 73 02 37 38 01 72 60 33 03 26 16 05 1B 1B 9F 16
+             03 1B 16 16 03 1B FF 4E 16 02 AC B9 90 01 2F 6E AC B9 91 01 32 6D
+             00 16 03 16 04 41 08 00 00 02 00 1D 03 14 2F 1A 46 54 08 00 00 00
+             00 1D 0F 1B 07 08 00 00 00 00 1D 06 14 F5 64 2D 03 1A 55 19 03)
+       ("UnicodeDataFull.txt" |SYSTEM|::|CLISP-DATA-FILE| :|INPUT|
+        |COMMON-LISP|::|CHARACTER| |CHARSET|::|ASCII|
+        #.#'|COMMON-LISP|::|VALUES|
+        #Y(|SYSTEM|::|UNICODE-ATTRIBUTES-LINE-CODE-AT-POS|
+           #164Y(00 00 00 00 00 00 00 00 20 01 69 00 01 01 02 38 01 8D 82 80 8C
+                 69 00 01 01 02 38 01 71 83 69 00 01 01 02 38 01 71 83 69 00 01
+                 01 02 38 01 71 83 69 00 01 01 02 38 01 71 83 93 03 80 61 93 02
+                 80 5D 93 01 80 59 93 00 80 55 69 00 01 01 02 38 01 71 83 93 00
+                 38 14 DB 8D 26 33 69 00 01 01 02 38 01 71 83 93 00 05 14 DB 8C
+                 26 12 B1 B1 B1 B1 B1 7B 05 DC 72 3B 38 04 C6 F9 31 8A 19 07 B1
+                 B1 B1 B1 B1 B1 7B 06 DC 72 3B 38 04 C6 1B 6B B0 B0 B0 B0 7B 04
+                 DC 72 3B 38 04 C6 F9 31 8A 19 06 C8 19 05 C8 19 01)
+           (|COMMON-LISP|::|NIL| 16. |COMMON-LISP|::|STRING| 16777216.)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        :|END| 0. 1024. 1. -1. #\; 16. #\< 8. ", First>" -8.
+        |COMMON-LISP|::|STRING| 4. #\0 |SYSTEM|::|DO-FORMAT-HEXADECIMAL| -7. 7.
+        ", Last>" -6. |COMMON-LISP|::|CLOSE| :|ABORT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|670 806 (PROGN (DEFUN UNICODE-ATTRIBUTES-LINE # ...) (DEFUN UNICODE-ATTRIBUTES # ...))-24-2|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|SYSTEM|::|UNICODE-ATTRIBUTES| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|SYSTEM|::|UNICODE-ATTRIBUTES|
+       #170Y(00 00 00 00 01 00 00 00 20 02 AD 71 28 6F 00 9D 1F 80 95 01 03 C6
+             FA 1B 04 AD 81 B1 02 DC B0 38 06 A7 FC 81 7A 01 AF AF 92 03 03 B1
+             32 62 14 72 60 84 00 92 01 63 AC 31 B1 16 02 F8 1B 05 DE 6F 05 2F
+             06 94 00 38 04 C8 F9 71 8A B0 71 28 91 01 2F 6C 63 AD E1 E2 72 60
+             1B 12 00 1B 08 94 00 AC E3 8E 14 76 9D 14 84 02 16 01 83 00 AC 8D
+             9F 6D 16 01 AC 80 B1 00 63 AE E2 E4 72 60 1B 1A 00 1B 10 94 00 AC
+             E3 8E 14 76 AC 38 04 C8 F9 71 8A 31 29 14 84 02 16 01 83 00 AC 8D
+             9F 65 16 01 AC 80 B1 00 33 02 23 44 19 04 19 03)
+       (|SYSTEM|::|UNICODE-ATTRIBUTES-LINE| 0. #\; 16.
+        (|COMMON-LISP|::|=|
+         (|COMMON-LISP|::|PARSE-INTEGER|
+          (|COMMON-LISP|::|NTH| 0. |SYSTEM|::|PIECES|) :|RADIX| 16.)
+         (|COMMON-LISP|::|CHAR-CODE| |SYSTEM|::|CH|))
+        |SYSTEM|::|ASSERT-ERROR-STRING| |SYSTEM|::|SIMPLE-ASSERT-FAILED| 1. 12.
+        "" 15.)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))

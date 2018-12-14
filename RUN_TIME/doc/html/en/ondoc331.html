@@ -1,0 +1,73 @@
+<html><head><title>[</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc332.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc330.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>[</strong></font></center><p>
+
+<PRE>[
+=
+
+Syntax: ($PRED &lt;predication&gt;)  or  [&lt;predication&gt;]
+
+with: &lt;predication&gt; ::=
+           {&lt;compound-predication&gt; |
+           &lt;simple-predication&gt; |
+           (match &lt;bql-variable&gt;
+           {bab-lisp-expr. |
+           &lt;bql-variable&gt;} |
+           (element-of &lt;bql-variable&gt;
+           {&lt;bab-lisp-expr.&gt; |
+           &lt;bql-variable&gt;} |
+           &lt;lisp-type: T&gt;}
+
+PREDICATIONS are expressions about the knowledge
+in the knowledge base. They are
+characterized with brackets. A simple predication
+consists of a name and one or two arguments. If the
+predication has only one argument than it is
+called a one-argument predication, otherwise a
+two-argument predication. If predications are
+combined, the resulting construct is called a
+compound predication.
+
+A ONE-ARGUMENT-PREDICATION describes a frame-instance
+relation.
+
+A TWO-ARGUMENT-PREDICATION describes a relation
+between an instance and a value and is used
+in connection with tell, untell and retell.
+
+A COMPOUND-PREDICATION is a set of SIMPLE PREDICATIONs
+bound with [AND, [OR or [NOT.
+
+The expressions of the predications will be
+dealt with from the left to the right.
+
+Example: &gt;(ask [city _city]
+             (kb-format &quot;~% ~A&quot; _city))
+         #&lt;CAPITAL-CITY PARIS&gt;
+         #&lt;CITY WUPPERTAL&gt;
+         #&lt;CAPITAL-CITY LONDON&gt;
+         #&lt;CITY DEN-HAAG&gt;
+         #&lt;CAPITAL-CITY AMSTERDAM&gt;
+         NIL
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc332.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc330.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- [ done --!>

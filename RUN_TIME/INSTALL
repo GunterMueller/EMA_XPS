@@ -1,0 +1,579 @@
+ENGLISH:                        (DEUTSCHe Version siehe weiter unten!)
+
+   ==============================================================
+                 Installing a binary distribution of
+         the hybrid graphic expert system shell EMA-XPS v2
+   ==============================================================
+
+
+Today OSF/Motif ships with most commercial UNIX platforms. Furthermore, 
+the gcc and CLISP have been ported to most of those platforms. Only 
+SunOS and free OSes like Linux and FreeBSD require buying Motif. Hence 
+offering binary distributions has been proved not to be necessary in 
+most cases. 
+Currently I have access to a Sparc10 under SunOS 4.1.3 and two i486 PCs 
+under Linux 1.2 and 2.0 incl. Motif 1.2/2.0 developing environments.
+Hence I am able to offer binary distributions with *static* bound Motif 
+libraries AT A HIGHER EXPENSE of disk space (about 12 MB!) to keep 
+EMA-XPS volunteers' budgets low!
+Note to Linux-ers: If you have ELF kernels do not forget building it
+*with* AOUT support included! Otherwise EMA-XPS won't be runnable!
+
+Perform the following steps for the default installation in
+/usr/EMA-XPS/... :
+
+1) cd /usr
+
+2) Get the proper site archive file (using netscape ?)
+     http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/<site>.tar.gz
+   with <site> being one of the following:
+     LinuxAOUT
+     SunOS
+   Now the file /usr/<site>.tar.gz should exist on your box :)
+
+3) gunzip <site>.tar.gz
+   tar xvf <site>.tar
+
+If you'd like to choose another place for the EMA-XPS tree, install
+it at that location and do the following steps instead:
+
+1a) cd /<location>             ### e.g. /usr/local or $HOME/.
+
+2a) see (2) and (3)
+
+3a) EMA-XPS/bin/patches `pwd`/EMA-XPS  
+
+EMA-XPS supports german and english language (using Xresources). Currently 
+german is default. You may choose to fix english language or use NLS 
+settings of your site. To change this, do:
+
+4) vi EMA-XPS/bin/xps ; vi EMA-XPS/bin/rxps
+
+Edit your preferred command interpreter's boot script and add PATH 
+and MANPATH settings:
+
+5) cd ; vi .cshrc   # or .bashrc :)
+     add /usr/EMA-XPS/bin to $PATH       ### or /<location>/EMA-XPS/...
+     and /usr/EMA-XPS/man to $MANPATH
+
+6) exec csh   # or bash ...
+
+EMA-XPS consists of two separate UNIX processes. It is activated by running 
+'xps' for a complete version including knowledge editing facilities and a 
+tracer, or 'rxps' for a runtime only version. The option '-bw' may be used 
+for black and white only color settings. 
+
+7) (r)xps [-bw]       # run EMA-XPS ... try F1 key for help ... good luck!
+                      # If nothing else works ... read the MAN page :)
+
+
+
+   ==============================================================
+                Installing OpenMotif 2.3.0 before
+         building EMA-XPS v2 from the source distribution 
+   ==============================================================
+
+
+The GNU licenced emulation library Lesstif v0.94 is no 100% working replacement 
+for Motif yet, although the GNU licencing model would be preferrable. 
+To prepare your computer for building EMA-XPS, you first have to DEINSTALL
+Lesstif completely!
+Next you will download a source tarball of OpenMotif. For convenience only (!)
+I have included the file openmotif-2.3.0.tar.gz in the mirror subdirectory
+of the source tarball or EMA-XPS.
+PLEASE READ THE OpenMotif COPYRIGHT CAREFULLY!
+(Btw: I got best results using this version ;-)
+
+In a Linux environment you will simply do these 3 steps:
+	./configure
+	make
+	make install # as root?!
+an everything is fine.
+
+In a Cygwin environment (I tried a current distribution as of Nov 2008)
+you first have to deinstall Lesstif (including the header files!)
+THIS IS VERY IMPORTANT!
+
+Next you will do the following steps:
+	LIBS="-Wl,--enable-auto-import -liconv" ./configure
+	make
+	make install # as admin...?!
+
+There will be warnings about failing weak declarations and a libtool warning, that
+disallows unresolved symbols in shared objects.
+As a result the sample/demo programs like earth fail to run!
+This is not, what we would wish, but our goal is not, to make the complete Motif run.
+We only want EMA-XPS running. See src/xorg-lib-libXt_sharedlib.c for details.
+
+Now we are done and will enter the next stage:
+
+
+
+   ==============================================================
+                Installing the source distribution of
+         the hybrid graphic expert system shell EMA-XPS v2
+   ==============================================================
+
+
+EMA-XPS is based on Babylon v2.3. This XPS shell is shipped with CLtL1 
+conform sources. The enhancements of EMA-XPS are written conform, too,
+except the *debugger-hook* extension of CLtL2. Therefore any CLtL2 LISP
+interpreter should work in addition to the PREFERRED CLISP. See the 
+file util/PORTING, if you do not use CLISP or if you try installation
+on an OS not already tested by me! Additionally the C sources are 
+developed ANSI conform. But tested only with GCC (see util/PORTING)! 
+Your site must have installed a Motif 1.2 or 2.0 developer version 
+(libs and includes). The OS dependencies should be primarly concerned 
+with pseudo TTY initialization. See the file main.c of the XTERM sources 
+for help!
+
+IMPORTANT:
+   If you do not work under SunOS or Linux, you must modify the scripts
+   util/cc_X11 and util/ld_X11 !
+
+For sure the use of GNU configure would improve this task. Please FEEL
+FREE to set it up  ;-)
+
+
+1) If not yet present, preferrably install the GNU CC. I have used v2.5.8 
+   for SunOS 4.1.3 and v2.6.3 for Linux 1.2.1.
+
+
+2) If you choose not to use CLISP, you should read the hints carefully.
+   I have added system dependent stuff to main.cl for AllegroCL 4.1, but
+   did not optimize automatic generation of the images here in the Makefile.
+   You will have to do it of your own :-(
+   I preferred the use of CLISP version 1996-05-30 without patches *AND*
+   without any readline extension (!!)
+
+   ftp://ma2s2.mathematik.uni-karlsruhe.de/pub/lisp/clisp/source/clispsrc.tar.z
+   mirror:
+   http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/clispsrc.tgz
+
+   Place the archive file e.g. in $HOME to unpack it.
+
+   Build CLISP without any extensions:
+      gunzip clispsrc.tar.z             ## gunzip clispsrc.tgz  (!)
+      tar xvf clispsrc.tar
+      cd clisp-1996-05-30
+
+   Follow the hints in unix/INSTALL:
+      ./configure
+      cd src
+      ./makemake --disable-nls --with-noreadline \
+                 --with-dynamic-ffi > makefile
+      make config.lsp
+      vi config.lsp       ## optional: edit site-names
+      make                ## ignore lots of gcc's warnings ...
+      ## ... and be patient, while compiler.lsp is loaded,
+      ##                                   your box IS alive ;-)
+      make check          ## optional
+      make install        ## recommended, but not required for EMA-XPS
+
+   If you haven't got the necessay permissions to `make install', do:
+      cat >/tmp/clisp <</
+      #!/bin/sh
+      exec `pwd`/lisp.run -q -M `pwd`/lispinit.mem "\$@"
+      /
+      chmod 755 /tmp/clisp
+      mv /tmp/clisp $HOME/bin   ## or any other location in your $PATH
+
+
+3) Install the XPS shell Babylon-2.3 (Its sources have been changed,
+   so the version 2.2 won't work!).
+
+   ftp://ftp.gmd.de/GMD/ai-research/Software/Babylon/Babylon-2.3.tar.Z
+   mirror:
+   http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/babylo23.tgz
+
+   IMPORTANT: If you want to use Babylon without EMA-XPS, too, unpack/
+      install it at its *FINAL* position. The source tree may not be
+      removed completely, pathnames to it will be hardcoded into the
+      babylon image! EMA-XPS is not using those add-ons, therefore
+      those pathnames will never be used.
+
+   Place the archive file e.g. in $HOME to unpack it.
+
+   Build the Babylon-2.3 image in your (new) CLISP environment:
+      uncompress Babylon-2.3.tar.Z      ## gunzip babylo23.tgz  (!)
+      tar xvf babylo23.tar
+      cd Babylon-2.3
+
+   Follow the hints in README:
+      vi make.cl        ## edit make.cl and make-sun.cl: input the
+      vi make-sun.cl    ## current(=final!) location of the source tree.
+      clisp
+      (load "make.cl")  ## ignore warning on *DEFAULT-DIALOG-STREAM*
+      (in-package "BABYLON")
+      (make-babylon-image)             ## builds ./babylon.mem
+      (lisp::exit)      ## or ^D
+
+   Now you should make a starter for this expert system shell:
+      cd $HOME/bin      ## or whatever
+      #cp clisp bablisp ## better start with <bab-path>/src/bablisp !
+      vi bablisp        ## edit: -M <bab-path>/babylon.mem
+
+
+--------------------------------------------------------------------
+4) Install the sources of EMA-XPS v2.x.x. Typically the source tree
+   is located in $HOME/ema-xps/...
+   Note to Linux-ers: If you have ELF kernel/gcc and *not* an ELF Version
+   of libXm.a, you *must* set up an complete AOUT environment first: kernel
+   AOUT support on, AOUT version of gcc, and a complete set of AOUT libs!
+
+   http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/emaxps.tar.gz
+
+   Place the archive file (e.g.) in $HOME to unpack it.
+
+   Now the tree of the binary distribution will be generated under
+   ema-xps/EMA-XPS/.
+       gunzip emaxps.tar.gz
+       tar xvf emaxps.tar
+       cd ema-xps
+
+       cp $HOME/bin/bablisp src    ## or location you choosed before
+
+   IMPORTANT:
+   (1) If you are using clisp, but lisp.run is not located in
+       /usr/local/lib/lisp, edit `bin/Makefile'!
+   (2) If you are not using clisp, you will have to modify
+       `bin/Makefile', `src/emalisp', and `src/remalisp'!
+
+       make
+
+
+5) EMA-XPS supports german and english language (using Xresources).
+   Currently german is default. You may choose to fix english language
+   or use NLS settings of your site. To change this, do:
+
+   vi bin/xps ; vi bin/rxps
+
+
+6) Edit your preferred command interpreter's boot script and add
+   PATH and MANPATH settings:
+
+   cd ; vi .cshrc   # or .bashrc :)
+   ## add $HOME/ema-xps/EMA-XPS/bin to $PATH    ### or the chosen
+   ## and $HOME/ema-xps/EMA-XPS/man to $MANPATH ### location!
+
+   exec csh   # or bash ...
+
+
+7) EMA-XPS consists of 2 separate UNIX processes (see the file README for
+   details), which is activated by running `xps' for a complete version
+   including knowledge editing facilities and a tracer, or `rxps' for a
+   runtime only version. The option `-bw' may be used for black and white
+   only color settings. 
+
+   (r)xps [-bw]       # run EMA-XPS
+
+
+8) If you are planning to build a statically bound binary distribution
+   or you simply want to place it in /usr ... do:
+
+   (cd src;make static)
+   su
+   make install     ## installs to /usr/EMA-XPS per default
+
+
+Good Luck!
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+DEUTSCH:
+
+   ==============================================================
+         Installationshinweise fuer eine Binaerdistribution
+   der hybriden grafischen Expertensystemschale EMA-XPS Version 2
+   ==============================================================
+
+
+Heutzutage werden die meisten kaeuflich zu erwerbenden UNIX-Derivate 
+mit der OSF/Motif Fensterbibliothek ausgeliefert. Nur bei SunOS und 
+freien Betriebssystemen wie Linux und FreeBSD muss Motif separat 
+beschafft werden. Daher ist in den meisten Faellen die Bereitstellung 
+von Binaerdistributionen nicht notwendig.
+Derzeit habe ich Zugang zu einer Sparc10 unter SunOS 4.1.3 sowie zu 
+i486 PCs unter Linux 1.2 und 2.0 sowie Motif 1.2/2.0 Entwicklungsum-
+gebungen. Daher bin ich in der Lage, Binaerdistributionen mit *statisch* 
+gebundenen Motif-Bibliotheken BEI EINEM HOHEN BEDARF an Festplattenplatz 
+(etwa 12 MB!) bereitstellen zu koennen, um die Budgets von EMA-XPS 
+Testern nicht zu strapazieren!
+Hinweis fuer Linux-ers: Wenn Sie ueber einen ELF-Kernel verfuegen, ist
+bei dessen Erzeugung *umbedingt* die AOUT Unterstuetzung einzuschliessen!
+Andernfalls kann EMA-XPS nicht gestartet werden!
+
+Um die Standardinstallation im Verzeichnis /usr/EMA-XPS/... durch-
+zufuehren, sind die folgenden Schritte notwendig:
+
+1) cd /usr
+
+2) Holen Sie sich das geeignete Archiv (mittels Netscape ?)
+     http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/<site>.tar.gz
+   wobei <site> durch eines der folgenden zu ersetzen ist:
+     LinuxAOUT
+     SunOS
+   Nun sollte die Datei /usr/<site>.tar.gz in ihrem Rechner existieren :)
+
+3) gunzip <site>.tar.gz
+   tar xvf <site>.tar
+
+Falls der EMA-XPS Dateibaum an anderer Stelle platziert werden soll,
+installieren Sie ihn von diesem Ort aus wie folgt:
+
+1a) cd /<location>             ### z.B. /usr/local oder $HOME/.
+
+2a) see (2) and (3)
+
+3a) EMA-XPS/bin/patches `pwd`/EMA-XPS  
+
+EMA-XPS unterstuetzt die deutsche sowie die englische Sprache (ueber    
+Xresourcen). Derzeit ist deutsch voreingestellt. Dies kann wie
+folgt geaendert werden:
+
+4) vi EMA-XPS/bin/xps ; vi EMA-XPS/bin/rxps
+
+Editieren Sie das Bootskript ihres bevorzugten Kommandozeileninterpreters,
+ergaenzen Sie die PATH und MANPATH Environmentvariablen:
+
+5) cd ; vi .cshrc   # oder .bashrc :)
+     add /usr/EMA-XPS/bin to $PATH       ### oder /<location>/EMA-XPS/...
+     and /usr/EMA-XPS/man to $MANPATH
+
+6) exec csh   # oder bash ...
+
+EMA-XPS besteht aus zwei separaten UNIX-Prozessen. Es wird aktiviert durch
+Ausfuehrung von 'xps' fuer eine Vollversion inklusive Wissenseditoren und
+einem Tracer oder durch 'rxps' fuer eine reine Laufzeitumgebung. die Option
+'-bw' erzwingt eine rein schwarz/weisse Praesentation.
+
+7) (r)xps [-bw]       # EMA-XPS starten ... F1-Taste fuer Hilfe ... viel Erfolg!
+                      # Falls nichts anderes hilft ... MANual-Seite lesen :)
+
+
+
+   ==============================================================
+    Installationshinweise fuer OpenMotif 2.3.0 zur Vorbereitung 
+     einer EMA-XPS v2 Installation aus einer Sourcedistribution
+   ==============================================================
+
+
+die GNU lizensierte Emulationsbibliothek Lesstif v0.94 ist derzeit noch kein 
+100%-iger Ersatz fr Motif, obwohl das GNU Lizenzmodell es bevorzugen wuerde.
+Um Ihren PC auf die Installation von EMA-XPS vorzubereiten, muessen Sie daher 
+zuerst Lesstif komplett DEINSTALLIEREN!
+Als Naechstes werden Sie einen Quelltext-Tarball von OpenMotif herunterladen. 
+Aus Gruenden der Bequemlichkeit (!) habe ich die Datei openmotif-2.3.0.tar.gz 
+im Unterverzeichnis mirror des Quelltext-Tarballs von EMA-XPS bereitgestellt.
+BITTE LESEN SIE DAS OpenMotif COPYRIGHT SEHR GENAU!
+(Nur am Rande: Mit dieser Version ahtte ich beste Ergebnisse erzielt ;-)
+
+In einer Linux-Umgebung sind nur diese 3 Standardschritte notwendig:
+	./configure
+	make
+	make install # as root?!
+und schon ist alles so, wie gewuenscht.
+
+In einer Cygwin-Umgebung (ich habe mit einem Distributionsstand von Nov. 2008 
+gearbeitet) muessen Sie zuerst Lesstif deinstallieren (einschliesslich der 
+Header-Dateien !)
+DIES IST SEHR WICHTIG!
+
+Als naechstes sind diese Schritte notwendig:
+	LIBS="-Wl,--enable-auto-import -liconv" ./configure
+	make
+	make install # as admin...?!
+
+Sie werden Warnungsmeldungen erhalten bezueglich nicht unterstuetzter 
+weak declarations sowie eine libtool Warnung, die darauf hinweist, dass 
+unresolved symbols in shared objects nicht zulaessig sind. 
+Dies hat zur Folge, dass die Beispiel-/Demosprogramme wie earth nicht laufen!
+Wenngleich dies nicht das ist, was man sich erwuenscht haette, bitte ich 
+zu bedenken, dass es hier auch nicht Ziel ist, Motif komplett lauffaehig zu 
+bekommen.
+Nur EMA-XPS soll ablauffaehig werden. Details dazu finden Sie in der Datei 
+src/xorg-lib-libXt_sharedlib.c.
+
+Darauf aufbauend kann nun der naechste Schritt angegangen werden:
+
+
+
+   ==============================================================
+          Installationshinweise fuer die Sourcedistribution
+   der hybriden grafischen Expertensystemschale EMA-XPS Version 2
+   ==============================================================
+
+
+EMA-XPS basiert auf Babylon v2.3. Dieses ist CLtL1 kompatibel programmiert
+worden. Dies betrifft auch die Erweiterungen, mit Ausnahme der CLtL2
+*debugger-hook* Erweiterung. Daher sollte neben dem von uns verwendeten
+CommonLISP Interpreter CLISP auch zumindest jeder CLtL2 kompatible
+Interpreter verwendet werden koennen. In util/PORTING stehen Tips fuer den
+Einsatz anderer LISP-Interpreter, sowie das Vorgehen bei Betriebssystemen,
+unter denen ich noch nicht getestet habe! Weiterhin sind die C-Quellen 
+ANSI-C konform entwickelt worden. Getestet wurde aber nur mit dem GCC (siehe   
+util/PORTING)! Ebenfalls muss eine Entwicklerversion von Motif 1.2 oder 2.0 
+(Libs und Includes) vorhanden sein. Die Betriebssystemabhaengigkeiten 
+beschraenken sich in erster Linie auf die PseudoTTY-Initialisierung. Hierzu 
+hilft die Datei main.c der XTERM Quellen !!!
+
+WICHTIG:
+   Wenn Sie weder unter Linux noch unter SunOS arbeiten, sollten sie die
+   Skripte util/cc_X11 und util/ld_X11 anpassen !!!
+
+Sicherlich wuerde hier das GNU configure die gesamte Installation
+erleichtern. ES MUSS NUR GEMACHT WERDEN  ;-)
+
+
+1) Falls nicht auf Ihrem System vorhanden, sollten Sie sich den
+   gcc in seiner neuesten Version installieren.
+   Ich habe mit gcc Version 2.6.3 unter Linux 1.2.1 und gcc Version 2.5.8
+   unter SunOS 4.1.3 gearbeitet.
+
+
+2) Falls Sie sich entschieden haben, nicht mit CLISP zu arbeiten, sollten
+   Sie die nachfolgenden Hinweise genau studieren. Ich habe interpreter-
+   abhaengigen Code fuer AllegroCL 4.1 in main.cl ergaenzt. Die automatische
+   Erzeugung der LISP-Images wird in diesem Makefile aber nicht optimal
+   unterstuetzt. Diese werden Sie selbst anpassen muessen :-(
+   Ich bevorzuge die CLISP-Version 1996-05-30 ohne Patches *UND* ohne
+   jegliche readline Erweiterungen (!!)
+
+   ftp://ma2s2.mathematik.uni-karlsruhe.de/pub/lisp/clisp/source/clispsrc.tar.z
+   mirror:
+   http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/clispsrc.tgz
+
+   Legen sie die Archivdatei z.B. in $HOME ab, um sie zu entpacken.
+
+   Erzeugen Sie CLISP ohne jegliche Ergaenzungen:
+      gunzip clispsrc.tar.z             ## gunzip clispsrc.tgz  (!)
+      tar xvf clispsrc.tar
+      cd clisp-1996-05-30
+
+   Gehen Sie entsprechend den Hinweisen in unix/INSTALL vor:
+      ./configure
+      cd src
+      ./makemake --disable-nls --with-noreadline \
+                 --with-dynamic-ffi > makefile
+      make config.lsp
+      vi config.lsp       ## optional: editierbar: site-names
+      make                ## Haufenweise gcc Wernungen ... einfach ignorieren
+      ## ... und beim Laden von compiler.lsp nicht ungeduldig werden,
+      ##                                   Ihre Kiste IST in Ordnung ;-)
+      make check          ## optional
+      make install        ## empfohlen, aber nicht notwendig fuer EMA-XPS
+
+   Falls Sie nicht die notwendigen Rechte haben, ein `make install'
+   auszufuehren, gehen Sie wie folgt vor:
+      cat >/tmp/clisp <</
+      #!/bin/sh
+      exec wd/lisp.run -q -M wd/lispinit.mem "\$@"
+      /
+      chmod 755 /tmp/clisp
+      mv /tmp/clisp $HOME/bin   ## oder eine andere Stelle in Ihrem $PATH
+
+
+3) Installieren Sie die textorientierte Expertensystemschale Babylon-2.3 (die
+   Quelltexte sind so veraendert, dass die Version 2.2 nicht funktioniert!).
+
+   ftp://ftp.gmd.de/GMD/ai-research/Software/Babylon/Babylon-2.3.tar.Z
+   mirror:
+   http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/babylo23.tgz
+
+   WICHTIG: Falls Sie Babylon auch ohne EMA-XPS nutzen wollen, sollten Sie
+      es an der Stelle auspacken, an der Quelltextbaum *ENDGUELTIG* bleiben
+      wird! Dieser darf dann naemlich nicht komplett geloescht werden. Der
+      absolute Pfad dorthin wird im LISP-Image festgeschrieben! EMA-XPS
+      verwendet keine Babylonfunktionalitaet, die dies benoetigt. Daher wer-
+      den diese Pfadangaben spaeter nicht mehr abgefragt.
+
+   Legen sie die Archivdatei z.B. in $HOME ab, um sie zu entpacken.
+
+   Erzeugen Sie das Babylon-2.3 Image unter Ihrer (neuen) CLISP-Umgebung:
+      uncompress Babylon-2.3.tar.Z      ## gunzip babylo23.tgz  (!)
+      tar xvf babylo23.tar
+      cd Babylon-2.3
+
+   Gehen Sie entsprechend den Hinweisen in README vor:
+      vi make.cl        ## editiere make.cl und make-sun.cl: gebe die aktu-
+      vi make-sun.cl    ## elle(=endgueltige!) Lage des Quelltextbaums ein.
+      clisp
+      (load "make.cl")  ## ignoriere die Warnung zu *DEFAULT-DIALOG-STREAM*
+      (in-package "BABYLON")
+      (make-babylon-image)             ## erstelt ./babylon.mem
+      (lisp::exit)      ## oder ^D
+
+   Erzeugen Sie sich ein Startup-Skript fuer diese Expertensystemschale:
+      cd $HOME/bin      ## or wo immer es abgelegt worden ist
+      #cp clisp bablisp ## Besser mit <bab-path>/src/bablisp beginnen !
+      vi bablisp        ## editiere: -M <bab-path>/babylon.mem
+
+
+--------------------------------------------------------------------
+4) Installieren Sie den Quelltextbaum von EMA-XPS v2.x.x. Typischerweise wird
+   der Baum in $HOME/ema-xps/... beginnen.
+   Hinweis fuer Linux-ers: Wenn Sie ueber einen ELF kernel/gcc verfuegen, 
+   aber *nur* ueber eine ELF Version der libXm.a, *muessen* Sie zuerst eine
+   komplette AOUT Umgebung schaffen: Kernel AOUT Unterstuetzung an, eine AOUT-
+   Version des gcc, and alle notwendigen AOUT Versionen der Bibliotheken!
+
+   http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/emaxps.tar.gz
+
+   Legen sie die Archivdatei (z.B.) in $HOME ab, um sie zu entpacken.
+
+   Jetzt wird der Baum der Binaerdistribution in ema-xps/EMA-XPS/. angelegt:
+       gunzip emaxps.tar.gz
+       tar xvf emaxps.tar
+       cd ema-xps
+
+       cp $HOME/bin/bablisp src    ## oder die bevorzugte Stelle
+
+   WICHTIG:
+   (1) Wenn sie zwar CLISP verwenden, lisp.run aber nicht in /usr/local/lib/lisp
+       liegt, ist das `bin/Makefile' zu editieren!
+   (2) Falls Sie nicht CLISP nutzen, werden Sie `bin/Makefile', `src/emalisp'
+       und `src/remalisp' anpassen muessen!
+
+       make
+
+
+5) EMA-XPS unterstuetzt die deutsche sowie die englische Sprache (ueber  
+   Xresourcen). Derzeit ist deutsch voreingestellt. Dies kann wie
+   folgt geaendert werden:
+
+   vi EMA-XPS/bin/xps ; vi EMA-XPS/bin/rxps
+
+
+6) Editieren sie die Boot-Dateien Ihres bevorzugten Kommandozeileninterpreters
+   und ergaenzen die PATH und MANPATH Variable:
+
+   cd ; vi .cshrc   # oder .bashrc :)
+   ## $PATH ergaenzen um $HOME/ema-xps/EMA-XPS/bin   ### oder den gewaehlten
+   ## und $MANPATH um    $HOME/ema-xps/EMA-XPS/man   ### Standort!
+
+   exec csh   # oder bash ...
+
+
+7) EMA-XPS besteht aus zwei separaten UNIX-Prozessen (naeheres hierzu in der
+   Datei README). Es wird aktiviert durch Ausfuehrung von 'xps' fuer eine
+   Vollversion inklusive Wissenseditoren und einem Tracer oder durch 'rxps'
+   fuer eine reine Laufzeitumgebung. die Option '-bw' erzwingt eine rein
+   schwarz/weisse Praesentation.
+
+   (r)xps [-bw]       # zum Starten von EMA-XPS
+
+
+8) Falls Sie eine statisch gebundene Binaerdistribution erstellen wollen
+   oder einfach nur unter /usr global installieren wollen:
+
+   (cd src;make static)
+   su
+   make install     ## installiert per default unter /usr/EMA-XPS
+
+
+Viel Erfolg!
+
+
+
++++ EOF +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

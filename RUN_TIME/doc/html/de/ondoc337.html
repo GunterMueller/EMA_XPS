@@ -1,0 +1,51 @@
+<html><head><title>MATCH</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc338.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc336.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>MATCH</strong></font></center><p>
+
+<PRE>MATCH
+=====
+
+Syntax: (match &lt;bql-Variable&gt;
+           {&lt;babylon-lisp-Ausdruck&gt; |
+            &lt;bql-Variable&gt;})
+
+Der Operator MATCH kann wie die anderen Pr&auml;di-
+kationen Bindungen f&uuml;r Variablen generieren.
+Die Berechnungen d&uuml;rfen nur mit instanziierten
+Variablenwerten und innerhalb des Operators ASK
+aufgerufen werden. Sinnvoll ist meist nur der
+Einsatz innerhalb einer Pr&auml;misse. MATCH liefert
+keinen definierten Wert zur&uuml;ck.
+
+Beispiel: &gt;(ask [and (match _a '(a b c))
+                 (equal _a '(a b c))]
+                 (kb-format &quot;~A&quot; _a))
+          (A B C)
+          NIL
+
+MATCH bindet die Liste (A B C) einmal an die
+Variable _a!
+
+See ELEMENT-OF, too.
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc338.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc336.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- MATCH done --!>

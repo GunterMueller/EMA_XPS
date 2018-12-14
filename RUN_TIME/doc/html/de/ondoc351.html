@@ -1,0 +1,88 @@
+<html><head><title>DEFINE-BEHAVIOR</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc352.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc350.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-BEHAVIOR</strong></font></center><p>
+
+<PRE>DEFINE-BEHAVIOR
+===============
+
+Syntax: (define-behavior &lt;Behavior-Name&gt;
+           {:PRIMARY | :BEFORE | :AFTER}
+           &lt;Behavior-spezialisierte-Lambda-Liste&gt;
+           [:DOCUMENTATION &lt;Dokumentation&gt;]
+           [:EXPLANATION &lt;Erkl&auml;rung&gt;]
+           &lt;Behavior-Rumpf&gt;)
+
+Warnung: Der Erkl&auml;rungseintrag wird durch 
+         EMA-XPS nicht unterst&uuml;tzt, d.h.
+         :documentation und :explanation
+         werden ignoriert.
+
+DEFINE-BEHAVIOR definiert ein Behavior. Ein Behavior
+besteht aus einem Namen, der das Behavior n&auml;her be-
+zeichnet, einem &lt;qualifier&gt;, der angibt, ob es sich
+um ein zentrales Behavior oder ein Erg&auml;nzungs-
+behavior handelt, einer Lambda-Liste, mit der die
+Parameter des Verhaltens festgelegt werden und
+schlie&szlig;lich dem Behavior-Rumpf, in dem angegeben
+wird, was das Behavior tun soll. Dokumentation und
+Erkl&auml;rung sind optional.
+Au&szlig;erdem gibt es noch die besonderen Behaviors
+NOTIFY-READ-DEPENDENT und NOTIFY-WRITE-DEPENDENT,die
+Sie immer erstellen m&uuml;ssen, wenn Sie eine Lese-
+oder Schreibeabh&auml;ngigkeit durchf&uuml;hren wollen.
+Folgende Syntax ist zu beachten:
+
+syntax: (define-behavior notify-read-dependent
+           :primary
+           ((&lt;Platzhalter f&uuml;r Empf&auml;nger Rahmen-Typ&gt;
+           (&lt;Platzhalter f&uuml;r Sender Rahmen-Typ&gt;)
+           Relations-Name Wert)
+           &lt;Behavior-Rumpf&gt;)
+
+Der &lt;qualifier&gt; kann entweder :before, :after oder
+:primary sein. :primary bezeichnet immer das
+zentrale Behavior, w&auml;hrend :before und :after
+Erg&auml;nzungen sind, die vor bzw. nach der zentralen
+Methode ausgef&uuml;hrt werden.
+
+Die &lt;Lambda-Liste&gt; erlaubt folgende Eintr&auml;ge:
+Der erste Eintrag der spezialisierten Lambda-Liste
+mu&szlig; ein Paar (&lt;Variablenname&gt; &lt;Rahmen-Typ&gt;) sein.
+
+Die weiteren positionalen Parameter k&ouml;nnen durch
+(&lt;Variablenname&gt; &lt;Rahmen-Name&gt;) beschrieben werden.
+
+In den Behavior-Argument-Listen kann auch ein Rest-
+Argument angegeben werden. Dies geschieht in der
+Form:
+
+(define-behavior &lt;Behavior-Name&gt; &lt;qualifier&gt;
+      ((Arg-1 &lt;Rahmen-Name&gt;) &amp;rest Arg-liste)...)
+
+Beispiel: &gt;(define-behavior kunde-zufrieden
+            :primary ((ein-kunde Kunde)
+                      (ein-angebot Angebot))
+            (kb-confirm &quot;Sind Sie mit dem Angebot
+            ~A zufrieden?&quot; ein-angebot))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc352.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc350.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-BEHAVIOR done --!>

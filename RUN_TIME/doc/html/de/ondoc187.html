@@ -1,0 +1,41 @@
+<html><head><title>SUBST-IF</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc188.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc186.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>SUBST-IF</strong></font></center><p>
+
+<PRE>SUBST-IF
+========
+
+Syntax: (subst-if &lt;neu&gt; &lt;Pr&auml;dikat&gt;
+             &lt;Baum&gt;)                 ; Common Lisp
+        (tree-substitute-if &lt;neu&gt; &lt;Pr&auml;dikat&gt;
+             &lt;Baum&gt;)                 ; Babylon Lisp
+
+Diese Funktion tauscht die Elemente, die das richtige
+Pr&auml;dikat haben, gegen neue. Sie bearbeitet nicht
+nur die Liste &lt;Baum&gt;, sondern auch alle Listen, die
+in &lt;Baum&gt; enthalten sind.
+
+Beispiel:   &gt;(subst-if 'c #'numberp '(a b 1 (1 b a)))
+            (A B C (C B A))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc188.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc186.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- SUBST-IF done --!>

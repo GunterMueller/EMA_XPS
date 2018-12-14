@@ -1,0 +1,91 @@
+<html><head><title>DEFINE-RULE</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc355.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc353.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-RULE</strong></font></center><p>
+
+<PRE>DEFINE-RULE
+===========
+
+syntax: (define-rule &lt;Regel-Name&gt;
+                  &lt;Regelmenge-Task-Name&gt;
+           [:DOCUMENTATION &lt;Dokumentation&gt;]
+           [:EXPLANATION &lt;Erkl&auml;rung&gt;]
+           [:PRIORITY &lt;Lisp-Typ: ganze-Zahl&gt;]
+           IF &lt;Regel-Pr&auml;misse&gt;
+           {THEN | THEN-ONCE} &lt;Regel-Konklusion&gt;+)
+
+Warnung: Der Erkl&auml;rungseintrag wird durch 
+         EMA-XPS nicht unterst&uuml;tzt, d.h.
+         :documentation und :explanation
+         werden ignoriert.
+         Die Priorit&auml;t wird hier ignoriert,
+         Beim Laden einer babylon3 WB werden hoch-
+         priorisierte Regeln vor niedriger priori-
+         sierten in der Regelmenge einsortiert!
+
+Die oben angegebene Definitionsform beschreibt die 
+genaue Syntax zum Erstellen einer Regel.
+&lt;Regel-Name&gt; ist dabei der Regelname, &lt;Regelmenge-
+Task-Name&gt; der Name der Regelmenge, der die neue
+Regel zugeordnet werden soll und dann folgen die
+optionalen Schl&uuml;sselw&ouml;rter :documentation,
+:explanation und :priority, schlie&szlig;lich die Regel
+in der nat&uuml;rlichen Notation:
+        if &lt;linke-Seite&gt; then &lt;rechte-Seite&gt;
+oder
+        if &lt;linke-Seite&gt; then-once &lt;rechte-Seite&gt;
+
+Die Priorit&auml;t ist eine ganze Zahl. Wenn mehrere
+Regeln eine g&uuml;ltige Instanziierung haben und die
+Regelauswertung durch die Priorit&auml;t gesteuert
+werden soll, wird diejenige Regel zuerst aus-
+gef&uuml;hrt, die die h&ouml;chste Priorit&auml;tsnummer hat.
+
+In der Regelpr&auml;misse k&ouml;nnen Sie samtliche BQL-
+Ausdr&uuml;cke und Lisp-Ausdr&uuml;cke verwenden, sofern
+diese keine Seiteneffekte auf die Wissensbasis
+haben.
+
+In der Regelkonklusion k&ouml;nnen Sie samtliche
+BQL-Ausdr&uuml;cke und Lisp-Ausdr&uuml;cke verwenden.
+Hier werden Sie im allgemeinen mit tell oder
+retell die Wissensbasis ver&auml;ndern.
+
+Beispiel: &gt;(define-rule URLAUBSAUSWAHL
+              URLAUBSANGEBOT
+              :documentation &quot;W&auml;hlt eine Stadt aus&quot;
+              :explanation ((&quot;Diese Regel soll
+                 eine Stadt bestimmen&quot;))
+              :priority 1
+              IF
+              [and [urlaubsinteresse ein-kunde _x]
+                [laender _land]
+                (kunde-zufrieden ein-kunde _land)
+                [staedte _land _stadt]
+                [angebote _stadt _angebot]
+                (is-of-frame _angebot _x)]
+              THEN
+              (kb-format &quot;~%Besuchen Sie ~: (~A~)
+                in ~: (~A~).&quot;
+              (name-of _angebot) (name-of _stadt)))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc355.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc353.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-RULE done --!>

@@ -1,0 +1,59 @@
+<html><head><title>LIST-TO-SET</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc322.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc320.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>LIST-TO-SET</strong></font></center><p>
+
+<PRE>LIST-TO-SET
+===========
+
+Syntax: (list-to-set &lt;evaluates-to Liste&gt;
+                     [:TYPE &lt;evaluates-to Typ-Name&gt;]
+                     [:TEST &lt;Lisp-Typ: Funktion&gt;])
+
+        ==&gt; #&lt;set-of X (...)&gt;
+
+Diese Funktion erzeugt eine Menge mit den 
+angegebenen Elementen.
+
+Warnung: Eine Typ-Pr&uuml;fung kann einen Fehler
+         verursachen!
+
+Beispiel: &gt;(list-to-set
+             (list Paris Dortmund Bruessel 
+                     Bonn Berlin))
+          #&lt;set-of T (...)&gt;
+      
+          &gt;(setf *staedte*
+            (list-to-set
+               (list Paris Dortmund Bruessel 
+                     Bonn Berlin)
+               :TYPE 'STADT))
+          #&lt;set-of STADT (...)&gt;
+
+          &gt;(setf *hauptstaedte*
+            (list-to-set
+               (list Paris Dortmund Bruessel 
+                     Bonn Berlin)
+               :TYPE 'HAUPTSTADT))
+          #&lt;set-of HAUPTSTADT (...)&gt;
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc322.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc320.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- LIST-TO-SET done --!>

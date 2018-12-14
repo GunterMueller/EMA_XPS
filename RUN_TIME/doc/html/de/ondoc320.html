@@ -1,0 +1,51 @@
+<html><head><title>IS-UNDETERMINED-SET</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc321.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc319.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>IS-UNDETERMINED-SET</strong></font></center><p>
+
+<PRE>IS-UNDETERMINED-SET
+===================
+
+Syntax: (is-undetermined-set &lt;evaluates-to Menge&gt;)
+
+        ==&gt; T | NIL
+
+Diese Funktion pr&uuml;ft nach, ob es sich bei der 
+angegebenen Menge um eine unbestimmte leere Menge 
+handelt.
+
+Warnung: LENGTH arbeitet mit Vektoren UND Listen!
+
+Beispiel: &gt;(difference-of-set *hauptstaedte* 
+                              *staedte*)
+          #&lt;set-of T()&gt;
+         
+          &gt;(is-undetermined-set *)
+          NIL
+
+          &gt;(is-undetermined-set
+               (ask-instance-values 'landschaft 
+                                    Paris))
+          T  ; d.h. die Menge ist unbestimmt 
+               und leer!
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc321.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc319.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- IS-UNDETERMINED-SET done --!>

@@ -1,0 +1,72 @@
+   ==============================================================
+                          Hints on PORTING
+         the hybrid graphic expert system shell EMA-XPS v2
+   ==============================================================
+
+
+Section I: Using Allegro CL 4.1 inspite of CLISP:
+==========
+
+You might be unnecessarily rich and wish to use the Allegro CL 4.1 
+CommonLISP interpreter inspite of the public domain product CLISP:
+
+1) Take a running Allegro CL 4.1 image (e.g. 'cl41') from a dark, deep corner
+   of your hard disc, and create the Babylon-2.3 image according to the
+   Babylon-2.3/README. Next edit
+      src/bablisp
+   to make it run: place the absolute
+   path to this image (verify that it runs :)
+
+2) Since Allegro does not have a lisp.run starter, change the commentations
+   in the appropriate lines of
+      bin/Makefile
+   comment out the CLISP command line, and uncomment the Allegro line (note:
+   the lines are fine, only modify the comments :)
+
+3) edit src/emalisp and src/remalisp analogous...
+
+4) run (make) now... that should be all
+
+
+Section II: Gcc is unavailable, the X11 includes or libs are mislocated:
+===========
+
+Since I did not have the time to set up GNU configure, I worked around
+using the batches (sorry: shell scripts for users of real operating systems)
+
+   util/cc_X11: where are the X11 and Xm includes located?
+
+   util/ld_X11: where are the X11 and Xm *.a/*.so libs located?
+                (note: this may differ, when Motif 1.2/2.0 is available on your site!)
+                Furthermore different libs might be needed, if building binary
+                distributions using static bindings (preferably done when your
+                OS is *not* shipped with Motif included e.g. Linux, SunOS, FreeBSD)
+
+                I've been testing Linux 1.2 (AOUT) *and* Linux 2.0 (ELF) with
+                Metrolink Motif 2.0, SunOS with Motif 2.0, the remaining OSes
+                under test have had Motif 1.2.4.
+
+Those scripts might fail, if you are using environments not already tested
+by me :(     ### THIS NEED NOT BE ERRONEOUS! ###
+
+In cases mentioned in the headline, feel free to modify those two skripts
+to fit your needs. 
+
+In later releases I might succeed in offering some kind of util/configure
+which does those simple checkings.
+
+
+Section III: OSes with different initialization of PTY/TTY pairs:
+============
+
+You might want to have a look at my notes on porting to IRIX in Porting.log
+IRIX sets up /dev/ttyqNNN and /dev/pts/NNN pairs with NNN=[0;120]
+
+In such cases looking into src/color-xterm-x11r6_main.c, which is the main.c
+of the X11R6 version of xterm, may help.
+
+In cases where your OS does not inherit the ioctl() settings from the
+calling xterm/(shell), will might adopt the HP-UX (hpux) solution.
+
+
++++ EOF +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

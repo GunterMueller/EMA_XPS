@@ -1,0 +1,203 @@
+<html><head><title>BABYLON-QUERY-LANGUAGE</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc329.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc327.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>BABYLON-QUERY-LANGUAGE</strong></font></center><p>
+
+<PRE>Babylon Query Language (BQL)
+============================
+
+Die folgenden Seiten befassen sich mit einer in
+babylon3 eingebrachten Erweiterung des Leistungs-
+umfangs der von der GMD realisierten hybriden    
+Schale Babylon2, der Babylon Query Language (BQL).
+Durch sie soll ein Zugriff auf das Faktenwissen   
+erm&ouml;glicht werden, wie er von Datenbankanwendungen
+her bekannt ist.
+
+Der gesamte Leistungsumfang der BQL ist unter EMA-
+XPS nachgebildet worden. auf die einf&uuml;hrenden
+Seiten zur WISSENSVERARBEITUNG und SETs sei verwie-
+sen.
+
+Die Organisation dieses Kapitels ist angelehnt an
+die des Kapitels 2 der babylon3 Dokumentation.   
+
+
+
+Im weiteren folgen die Begriffsbestimmungen, die
+im Zusammenhang mit der BQL Verwendung finden:
+
+
+BQL-EXPRESSION
+==============
+
+Syntax: &lt;bql-Ausdruck&gt; ::=
+               {&lt;ask-Ausdruck&gt; |
+                &lt;tell-Ausdruck&gt; |
+                &lt;untell-Ausdruck&gt; |
+                &lt;retell-Ausdruck&gt;}
+
+ASK, TELL, UNTELL und RETELL sind BQL-Ausdr&uuml;cke, mit 
+denen man Wissen aus der Wissensbasis abfragen kann
+bzw. die Wissensbasis ver&auml;ndern kann.
+
+
+
+EINFACHE-PR&Auml;DIKATION
+=====================
+
+Syntax: [&lt;Frame-Name&gt; {Instanz | &lt;bql-Variable&gt;]
+        [&lt;Relations-Name&gt; {Instanz | &lt;bql-Variable&gt;}
+            {Wert | &lt;bql-Variable&gt;}]
+
+Eine einfache Pr&auml;dikation kann einstellig oder zwei-
+stellig sein. Eine einstellige Pr&auml;dikation
+beschreibt eine Frame-Instanz Beziehung. Eine
+zweistellige Pr&auml;dikation beschreibt eine Instanz-
+Wert Beziehung.
+Dabei ist unerheblich, ob eine Bestandteil- oder eine
+Merkmal-Relation zwischen der Instanz und den Werten
+besteht. In Verbindung mit TELL, UNTELL oder RETELL
+wird die zweistellige Pr&auml;dikation verwendet. In Ver-
+bindung mit ASK kann die Pr&auml;dikation einstellig
+oder zweistellig sein.
+
+Die Ausdr&uuml;cke in der Pr&auml;dikation werden in babylon
+von links nach rechts abgearbeitet. Dieses Verhalten
+ist aber als quasi-parallel zu betrachten.
+
+
+
+COMPOUND-PREDICATION
+====================
+
+Compound-predications sind Pr&auml;dikationen, die
+mit AND, OR oder NOT verkn&uuml;pft sind ([and...;
+[or...; [not...).
+Sie d&uuml;rfen nur innerhalb von bql-Ausdr&uuml;cken
+oder Regeln benutzt werden. Warnung:
+nicht zu verwechseln mit '(and...'.
+
+
+
+BQL-VARIABLE
+============
+
+Syntax: &lt;logische Variable&gt; ::=
+            &lt;Lisp-Typ: Symbol&gt;
+
+Eine logische Variable ist eine Variable mit
+einem Unterstrich, die in allen bql-
+Ausdr&uuml;cken stehen kann. Sie wird sequentiell
+an die Werte gebunden, die in der Wissensbasis
+gefunden werden.
+
+Beispiel: &gt;(ask [Computer _x]
+             (kb-format &quot;~% Es steht folgender
+             Computer zur Verf&uuml;gung: ~% ~A&quot;
+             (name-of _x)))
+          Es steht folgender Computer
+                  zur Verf&uuml;gung:
+          SIEMENS-NIXDORF
+          Es steht folgender Computer
+                  zur Verf&uuml;gung:
+          WANG
+          NIL
+
+
+
+BABYLON-VARIABLE
+================
+
+Syntax: &lt;babylon-variable&gt;
+
+Eine babylon-Variable ist eine Variable ohne
+Unterstrich und wird als Platzhalter benutzt.
+
+Beispiel: &gt;(define-behavior ausstattung
+            :primary ((ein-computer computer)
+                      (eine-option optionen))
+            :documentation &quot; &quot;
+            :explanation nil
+            (kb-confirm &quot;W&uuml;rden Sie gerne eine
+              ~: (~A~) in Ihrem Computer haben?&quot;
+              (name-of eine-option)))
+          =&gt;
+          #&lt;Behavior-Method AUSSTATTUNG
+                           (COMPUTER OPTIONEN)&gt;
+
+In diesem Beispiel sind &quot;ein-computer&quot; und 
+&quot;eine-option&quot; babylon-Variablen.
+
+
+
+LISP-TYP
+========
+
+Syntax: &lt;Lisp-Typ: T&gt;
+
+Dies kann ein beliebiger Lisp-Ausdruck sein
+oder babylon-Ausdruck, der sich wie ein Lisp-
+Aufruf verh&auml;lt und einen definierten R&uuml;ckgabe-
+wert besitzt. Ein Lisp-Ausdruck kann sein: eine
+Zahl, eine Zeichenkette, ein Symbol, eine Liste
+oder ein Funktionsaufruf.
+
+
+
+CONTINUATION
+============
+
+Syntax: &lt;bql-continuation&gt; ::=
+             {&lt;Lisp-Typ::=T&gt; ...}
+
+Die &lt;continuation&gt; kann nur zusammen mit einem
+ASK-Ausdruck vergleichbar dem DANN-Teil einer Regel 
+benutzt werden. Sie besteht aus babylon-
+Ausdr&uuml;cken, die logische Variablen enthalten
+d&uuml;rfen, sofern diese auch in der zugeh&ouml;rigen
+Pr&auml;dikation auftreten. Die &lt;continuation&gt;
+wird wiederholt, bis keine unterschiedlichen
+Belegungen f&uuml;r die logischen Variablen mehr
+existieren.
+
+
+
+BQL-ANONYMUS
+============
+
+Syntax: &lt;anonyme Variable&gt; ::= _
+
+Die anonyme Variable ist nur durch einen
+Unterstrich gekennzeichnet und kann zusammen
+mit den Funktionen RETELL und UNTELL benutzt
+werden. Diese Variable kann anstelle eines
+Wertes gesetzt werden. Sie kann auch eine
+Menge von Werten vertreten. Die anonyme
+Variable hat keine Belegung.
+
+Beispiel: &gt;(untell [Optionen Computer _])
+
+&uuml;berf&uuml;hrt die Relation &quot;Optionen&quot; f&uuml;r die
+Instanz &quot;Computer&quot; in den Zustand unbestimmt.
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc329.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc327.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- BABYLON-QUERY-LANGUAGE done --!>

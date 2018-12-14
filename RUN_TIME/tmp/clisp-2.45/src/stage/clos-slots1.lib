@@ -1,0 +1,156 @@
+#0Y_ #0Y |CHARSET|::|UTF-8|
+(|COMMON-LISP|::|SETQ| |COMMON-LISP|::|*PACKAGE*|
+ (|SYSTEM|::|%FIND-PACKAGE| "CLOS"))
+(|COMMON-LISP|::|LET| |COMMON-LISP|::|NIL|
+ (|COMMON-LISP|::|REMPROP| '|CLOS|::|SLOT-VALUE| '|SYSTEM|::|DEFSTRUCT-WRITER|)
+ (|SYSTEM|::|CHECK-REDEFINITION| '|CLOS|::|SLOT-VALUE|
+  '|COMMON-LISP|::|DEFSETF|
+  (|COMMON-LISP|::|AND|
+   (|COMMON-LISP|::|GET| '|CLOS|::|SLOT-VALUE| '|SYSTEM|::|SETF-EXPANDER|)
+   (|SYSTEM|::|TEXT| "SETF expander")))
+ (|SYSTEM|::|%PUT| '|CLOS|::|SLOT-VALUE| '|SYSTEM|::|SETF-EXPANDER|
+  '|CLOS|::|SET-SLOT-VALUE|)
+ (|SYSTEM|::|%SET-DOCUMENTATION| '|CLOS|::|SLOT-VALUE| '|COMMON-LISP|::|SETF|
+  |COMMON-LISP|::|NIL|)
+ '|CLOS|::|SLOT-VALUE|)
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|CLOS|::|WITH-SLOTS|)
+(|SYSTEM|::|%PUTD| '|CLOS|::|WITH-SLOTS|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |CLOS|::|WITH-SLOTS|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|<ENV-ARG>|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|IGNORE| |SYSTEM|::|<ENV-ARG>|))
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 3.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|CLOS|::|WHOLE-FORM| |SYSTEM|::|<MACRO-FORM>|)
+       (|CLOS|::|SLOT-ENTRIES|
+        (|COMMON-LISP|::|CADR| . #1=(|SYSTEM|::|<MACRO-FORM>|)))
+       (|CLOS|::|INSTANCE-FORM| (|COMMON-LISP|::|CADDR| . #1#))
+       (|CLOS|::|BODY| (|COMMON-LISP|::|CDDDR| . #1#)))
+      (|COMMON-LISP|::|BLOCK| |CLOS|::|WITH-SLOTS|
+       (|COMMON-LISP|::|LET|
+        ((|CLOS|::|VARS| '|COMMON-LISP|::|NIL|)
+         (|CLOS|::|SLOTS| '|COMMON-LISP|::|NIL|))
+        (|COMMON-LISP|::|UNLESS|
+         (|COMMON-LISP|::|LISTP| |CLOS|::|SLOT-ENTRIES|)
+         (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+          |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|SLOT-ENTRIES|
+          (|SYSTEM|::|TEXT| "~S: not a list of slots: ~S")
+          '|CLOS|::|WITH-SLOTS| |CLOS|::|SLOT-ENTRIES|))
+        (|COMMON-LISP|::|DOLIST| (|CLOS|::|SLOT| |CLOS|::|SLOT-ENTRIES|)
+         (|COMMON-LISP|::|LET| ((|CLOS|::|VAR| |CLOS|::|SLOT|))
+          (|COMMON-LISP|::|WHEN| (|COMMON-LISP|::|CONSP| |CLOS|::|SLOT|)
+           (|COMMON-LISP|::|UNLESS|
+            (|COMMON-LISP|::|EQL| (|COMMON-LISP|::|LENGTH| |CLOS|::|SLOT|) 2.)
+            (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+             |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|SLOT|
+             (|SYSTEM|::|TEXT|
+              "~S: invalid slot and variable specification ~S")
+             '|CLOS|::|WITH-SLOTS| |CLOS|::|SLOT|))
+           (|COMMON-LISP|::|SETQ| |CLOS|::|VAR|
+            (|COMMON-LISP|::|FIRST| |CLOS|::|SLOT|) |CLOS|::|SLOT|
+            (|COMMON-LISP|::|SECOND| |CLOS|::|SLOT|))
+           (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|SYMBOLP| |CLOS|::|VAR|)
+            (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+             |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|VAR|
+             (|SYSTEM|::|TEXT| "~S: variable ~S should be a symbol")
+             '|CLOS|::|WITH-SLOTS| |CLOS|::|VAR|)))
+          (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|SYMBOLP| |CLOS|::|SLOT|)
+           (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+            |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|SLOT|
+            (|SYSTEM|::|TEXT| "~S: slot name ~S should be a symbol")
+            '|CLOS|::|WITH-SLOTS| |CLOS|::|SLOT|))
+          (|COMMON-LISP|::|PUSH| |CLOS|::|VAR| |CLOS|::|VARS|)
+          (|COMMON-LISP|::|PUSH| |CLOS|::|SLOT| |CLOS|::|SLOTS|)))
+        (|COMMON-LISP|::|MULTIPLE-VALUE-BIND|
+         (|CLOS|::|BODY-REST| |CLOS|::|DECLARATIONS|)
+         (|SYSTEM|::|PARSE-BODY| |CLOS|::|BODY|)
+         (|COMMON-LISP|::|LET|
+          ((|CLOS|::|INSTANCE-VAR| (|COMMON-LISP|::|GENSYM|)))
+          `(|COMMON-LISP|::|LET|
+            ((,|CLOS|::|INSTANCE-VAR| ,|CLOS|::|INSTANCE-FORM|))
+            (|COMMON-LISP|::|SYMBOL-MACROLET|
+             ,(|COMMON-LISP|::|MAPCAR|
+               #'(|COMMON-LISP|::|LAMBDA| (|CLOS|::|VAR| |CLOS|::|SLOT|)
+                  `(,|CLOS|::|VAR|
+                    (|CLOS|::|SLOT-VALUE| ,|CLOS|::|INSTANCE-VAR|
+                     ',|CLOS|::|SLOT|)))
+               (|COMMON-LISP|::|NREVERSE| |CLOS|::|VARS|)
+               (|COMMON-LISP|::|NREVERSE| |CLOS|::|SLOTS|))
+             ,@(|COMMON-LISP|::|IF| |CLOS|::|DECLARATIONS|
+                `((|COMMON-LISP|::|DECLARE| ,@|CLOS|::|DECLARATIONS|)))
+             ,@|CLOS|::|BODY-REST|))))))))))
+  '(|COMMON-LISP|::|&WHOLE| |CLOS|::|WHOLE-FORM| |CLOS|::|SLOT-ENTRIES|
+    |CLOS|::|INSTANCE-FORM| |COMMON-LISP|::|&BODY| |CLOS|::|BODY|)))
+(|SYSTEM|::|REMOVE-OLD-DEFINITIONS| '|CLOS|::|WITH-ACCESSORS|)
+(|SYSTEM|::|%PUTD| '|CLOS|::|WITH-ACCESSORS|
+ (|SYSTEM|::|MAKE-MACRO|
+  (|COMMON-LISP|::|FUNCTION| |CLOS|::|WITH-ACCESSORS|
+   (|COMMON-LISP|::|LAMBDA| (|SYSTEM|::|<MACRO-FORM>| |SYSTEM|::|<ENV-ARG>|)
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|CONS| |SYSTEM|::|<MACRO-FORM>|))
+    (|COMMON-LISP|::|DECLARE| (|COMMON-LISP|::|IGNORE| |SYSTEM|::|<ENV-ARG>|))
+    (|COMMON-LISP|::|IF|
+     (|COMMON-LISP|::|NOT|
+      (|SYSTEM|::|PROPER-LIST-LENGTH-IN-BOUNDS-P| |SYSTEM|::|<MACRO-FORM>| 3.))
+     (|SYSTEM|::|MACRO-CALL-ERROR| |SYSTEM|::|<MACRO-FORM>|)
+     (|COMMON-LISP|::|LET*|
+      ((|CLOS|::|WHOLE-FORM| |SYSTEM|::|<MACRO-FORM>|)
+       (|CLOS|::|SLOT-ENTRIES|
+        (|COMMON-LISP|::|CADR| . #1=(|SYSTEM|::|<MACRO-FORM>|)))
+       (|CLOS|::|INSTANCE-FORM| (|COMMON-LISP|::|CADDR| . #1#))
+       (|CLOS|::|BODY| (|COMMON-LISP|::|CDDDR| . #1#)))
+      (|COMMON-LISP|::|BLOCK| |CLOS|::|WITH-ACCESSORS|
+       (|COMMON-LISP|::|UNLESS| (|COMMON-LISP|::|LISTP| |CLOS|::|SLOT-ENTRIES|)
+        (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+         |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|SLOT-ENTRIES|
+         (|SYSTEM|::|TEXT| "~S: not a list of slots: ~S")
+         '|CLOS|::|WITH-ACCESSORS| |CLOS|::|SLOT-ENTRIES|))
+       (|COMMON-LISP|::|DOLIST| (|CLOS|::|SLOT-ENTRY| |CLOS|::|SLOT-ENTRIES|)
+        (|COMMON-LISP|::|UNLESS|
+         (|COMMON-LISP|::|AND| (|COMMON-LISP|::|CONSP| |CLOS|::|SLOT-ENTRY|)
+          (|COMMON-LISP|::|EQL| (|COMMON-LISP|::|LENGTH| |CLOS|::|SLOT-ENTRY|)
+           2.))
+         (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+          |CLOS|::|WHOLE-FORM| :|DETAIL| |CLOS|::|SLOT-ENTRY|
+          (|SYSTEM|::|TEXT| "~S: invalid slot and accessor specification ~S")
+          '|CLOS|::|WITH-ACCESSORS| |CLOS|::|SLOT-ENTRY|))
+        (|COMMON-LISP|::|UNLESS|
+         (|COMMON-LISP|::|SYMBOLP|
+          (|COMMON-LISP|::|FIRST| |CLOS|::|SLOT-ENTRY|))
+         (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+          |CLOS|::|WHOLE-FORM| :|DETAIL|
+          (|COMMON-LISP|::|FIRST| |CLOS|::|SLOT-ENTRY|)
+          (|SYSTEM|::|TEXT| "~S: variable ~S should be a symbol")
+          '|CLOS|::|WITH-ACCESSORS|
+          (|COMMON-LISP|::|FIRST| |CLOS|::|SLOT-ENTRY|)))
+        (|COMMON-LISP|::|UNLESS|
+         (|COMMON-LISP|::|SYMBOLP|
+          (|COMMON-LISP|::|SECOND| |CLOS|::|SLOT-ENTRY|))
+         (|SYSTEM|::|ERROR-OF-TYPE| '|EXT|::|SOURCE-PROGRAM-ERROR| :|FORM|
+          |CLOS|::|WHOLE-FORM| :|DETAIL|
+          (|COMMON-LISP|::|SECOND| |CLOS|::|SLOT-ENTRY|)
+          (|SYSTEM|::|TEXT| "~S: accessor name ~S should be a symbol")
+          '|CLOS|::|WITH-ACCESSORS|
+          (|COMMON-LISP|::|SECOND| |CLOS|::|SLOT-ENTRY|))))
+       (|COMMON-LISP|::|MULTIPLE-VALUE-BIND|
+        (|CLOS|::|BODY-REST| |CLOS|::|DECLARATIONS|)
+        (|SYSTEM|::|PARSE-BODY| |CLOS|::|BODY|)
+        (|COMMON-LISP|::|LET|
+         ((|CLOS|::|INSTANCE-VAR| (|COMMON-LISP|::|GENSYM|)))
+         `(|COMMON-LISP|::|LET|
+           ((,|CLOS|::|INSTANCE-VAR| ,|CLOS|::|INSTANCE-FORM|))
+           (|COMMON-LISP|::|SYMBOL-MACROLET|
+            ,(|COMMON-LISP|::|MAPCAR|
+              #'(|COMMON-LISP|::|LAMBDA| (|CLOS|::|SLOT-ENTRY|)
+                 `(,(|COMMON-LISP|::|FIRST| |CLOS|::|SLOT-ENTRY|)
+                   (,(|COMMON-LISP|::|SECOND| |CLOS|::|SLOT-ENTRY|)
+                    ,|CLOS|::|INSTANCE-VAR|)))
+              |CLOS|::|SLOT-ENTRIES|)
+            ,@(|COMMON-LISP|::|IF| |CLOS|::|DECLARATIONS|
+               `((|COMMON-LISP|::|DECLARE| ,@|CLOS|::|DECLARATIONS|)))
+            ,@|CLOS|::|BODY-REST|)))))))))
+  '(|COMMON-LISP|::|&WHOLE| |CLOS|::|WHOLE-FORM| |CLOS|::|SLOT-ENTRIES|
+    |CLOS|::|INSTANCE-FORM| |COMMON-LISP|::|&BODY| |CLOS|::|BODY|)))

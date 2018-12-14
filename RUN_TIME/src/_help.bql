@@ -1,0 +1,1381 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!    Babylon Query Language documentation file  !!
+!!    for the Help Utility                       !!
+!!                                               !!
+!!    help-cv converts "\nFF\n" to "\n\f\n" and  !!
+!!    outputs only lines beginning with a ".".   !!
+!!    This DOT is not transfered !!              !!
+!!                                               !!
+!!    The ">" works like "." but should be the   !!
+!!    first printed line of a topic. It is used  !!
+!!    as the BROWSE-keyword!                     !!
+!!                                               !!
+!!    The well known switch is __english         !!
+!!                                               !!
+!!    ======================================     !!
+!!                                               !!
+!!    WARNING: because of a flaw in GNU cpp you  !!
+!!    only should use backquotes in spite of     !!
+!!    quotes!                                    !!
+!!                                               !! 
+!!         ae = \344            Ae = \304        !!
+!!         oe = \366            Oe = \326        !!
+!!         ue = \374            Ue = \334        !!   
+!!         sz = \337     Paragraph = \247        !!
+!!                                               !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!
+! no heading FF allowed in front of the first page !!
+! ---------------------------------------------------
+!
+
+>BABYLON-QUERY-LANGUAGE
+.Babylon Query Language (BQL)
+.============================
+.
+#ifdef __english
+.The following pages concentrate on a babylon3
+.extension to GMD`s hybrid shell Babylon2, the
+.Babylon Query Language (BQL). It is intended to
+.offer access to facts via queries in a way
+.database applications use.
+.
+.EMA-XPS offers a complete emulation of the BQL.
+.See the introducing pages on KNOWLEDGE-HANDLING
+.and SETs.
+.
+.The organisation of this capter is close to
+.chapter 2 of the babylon3 documentation.   
+.
+.
+.
+.The rest of this page introduces the notation
+.of the BQL:
+#else
+
+.Die folgenden Seiten befassen sich mit einer in
+.babylon3 eingebrachten Erweiterung des Leistungs-
+.umfangs der von der GMD realisierten hybriden    
+.Schale Babylon2, der Babylon Query Language (BQL).
+.Durch sie soll ein Zugriff auf das Faktenwissen   
+.erm\366glicht werden, wie er von Datenbankanwendungen
+.her bekannt ist.
+.
+.Der gesamte Leistungsumfang der BQL ist unter EMA-
+.XPS nachgebildet worden. auf die einf\374hrenden
+.Seiten zur WISSENSVERARBEITUNG und SETs sei verwie-
+.sen.
+.
+.Die Organisation dieses Kapitels ist angelehnt an
+.die des Kapitels 2 der babylon3 Dokumentation.   
+.
+.
+.
+.Im weiteren folgen die Begriffsbestimmungen, die
+.im Zusammenhang mit der BQL Verwendung finden:
+#endif
+.
+.
+.BQL-EXPRESSION
+.==============
+#ifdef __english
+.
+.Syntax: <bql-expression> ::=
+.               {<ask-expression> | 
+.                <tell-expression> |
+.                <untell-expression> |
+.                <retell-expression>}
+.
+.ASK, TELL, UNTELL and RETELL are bql-expressions, with 
+.which you can question or change the knowledge base.
+.
+#else
+.
+.Syntax: <bql-Ausdruck> ::=
+.               {<ask-Ausdruck> |
+.                <tell-Ausdruck> |
+.                <untell-Ausdruck> |
+.                <retell-Ausdruck>}
+.
+.ASK, TELL, UNTELL und RETELL sind BQL-Ausdr\374cke, mit 
+.denen man Wissen aus der Wissensbasis abfragen kann
+.bzw. die Wissensbasis ver\344ndern kann.
+.
+#endif
+.
+.
+#ifdef __english
+.SIMPLE-PREDICATION
+.==================
+.
+.Syntax: [<framename> {instance | <bql-variable>]
+.        [<relation-name> {instance | <bql-variable>}
+.            {value | <bql-variable>}]
+.
+.A simple predication can be a one-argument-predication
+.or a two-argument-predication. A one-argument predica-
+.tion describes a frame-instance relation. A two-argu-
+.ment predication describes an instance-value relation.
+.It is insignificant, if a part- or a characteristic-
+.relation between the instance and the values exists.
+.The two-argument-predication is used in connection
+.with TELL, UNTELL and RETELL. In connection with
+.ASK, the predication can be a one-argument- or
+.a two-argument-predication.
+.
+.The expressions in the predication will be worked
+.out from the left to the right, but should be regarded
+.as quasi-parallel.
+.
+#else
+.EINFACHE-PR\304DIKATION
+.=====================
+.
+.Syntax: [<Frame-Name> {Instanz | <bql-Variable>]
+.        [<Relations-Name> {Instanz | <bql-Variable>}
+.            {Wert | <bql-Variable>}]
+.
+.Eine einfache Pr\344dikation kann einstellig oder zwei-
+.stellig sein. Eine einstellige Pr\344dikation
+.beschreibt eine Frame-Instanz Beziehung. Eine
+.zweistellige Pr\344dikation beschreibt eine Instanz-
+.Wert Beziehung.
+.Dabei ist unerheblich, ob eine Bestandteil- oder eine
+.Merkmal-Relation zwischen der Instanz und den Werten
+.besteht. In Verbindung mit TELL, UNTELL oder RETELL
+.wird die zweistellige Pr\344dikation verwendet. In Ver-
+.bindung mit ASK kann die Pr\344dikation einstellig
+.oder zweistellig sein.
+.
+.Die Ausdr\374cke in der Pr\344dikation werden in babylon
+.von links nach rechts abgearbeitet. Dieses Verhalten
+.ist aber als quasi-parallel zu betrachten.
+.
+#endif
+.
+.
+.COMPOUND-PREDICATION
+.====================
+#ifdef __english
+.
+.Compound-predications are predications that
+.are bound with AND, OR or NOT ([and... ; 
+.[or... ; [not...).
+.they may only be used in bql-expressions or
+.with rules. Warning: do not use `(and...` for
+.mistake.
+.
+#else
+.
+.Compound-predications sind Pr\344dikationen, die
+.mit AND, OR oder NOT verkn\374pft sind ([and...;
+.[or...; [not...).
+.Sie d\374rfen nur innerhalb von bql-Ausdr\374cken
+.oder Regeln benutzt werden. Warnung:
+.nicht zu verwechseln mit `(and...`.
+.
+#endif
+.
+.
+.BQL-VARIABLE
+.============
+#ifdef __english
+.
+.Syntax: <bql-variable> ::= <lisp-type: symbol>
+.
+.A bql-variable is a variable with an under-
+.line, that can be used in every bql-expression.
+.It will sequentially be bound to the values
+.which are found in the knowledge base.
+.
+.Example: >(ask [computer _x]
+.            (kb-format "~% the base of 
+.            knowledge contains the following
+.            computer: ~% ~A" (name-of _x)))
+.         the base of knowledge contains the
+.                  following computer:
+.         SIEMENS-NIXDORF
+.         the base of knowledge contains the
+.                  following computer:
+.         WANG
+.         NIL
+.
+#else
+.
+.Syntax: <logische Variable> ::=
+.            <Lisp-Typ: Symbol>
+.
+.Eine logische Variable ist eine Variable mit
+.einem Unterstrich, die in allen bql-
+.Ausdr\374cken stehen kann. Sie wird sequentiell
+.an die Werte gebunden, die in der Wissensbasis
+.gefunden werden.
+.
+.Beispiel: >(ask [Computer _x]
+.             (kb-format "~% Es steht folgender
+.             Computer zur Verf\374gung: ~% ~A"
+.             (name-of _x)))
+.          Es steht folgender Computer
+.                  zur Verf\374gung:
+.          SIEMENS-NIXDORF
+.          Es steht folgender Computer
+.                  zur Verf\374gung:
+.          WANG
+.          NIL
+.
+#endif
+.
+.
+.BABYLON-VARIABLE
+.================
+#ifdef __english
+.
+.Syntax: <babylon-variable>
+.
+.A babylon-variable is a variable without an
+.underline and is used as a placeholder.
+.
+.Example: >(define-behavior equipment
+.           :primary ((a-computer computer)
+.                     (an-option options))
+.           :documentation " "
+.           :explanation nil
+.           (kb-confirm "Would you like to
+.             have ~: (~A~) in your computer?"
+.             (name-of an-option)))
+.         =>        
+.         #<Behavior-Method EQUIPMENT
+.                          (COMPUTER OPTIONS)>
+.
+.In this example a-computer and an-option are
+.babylon variables.
+.
+#else
+.
+.Syntax: <babylon-variable>
+.
+.Eine babylon-Variable ist eine Variable ohne
+.Unterstrich und wird als Platzhalter benutzt.
+.
+.Beispiel: >(define-behavior ausstattung
+.            :primary ((ein-computer computer)
+.                      (eine-option optionen))
+.            :documentation " "
+.            :explanation nil
+.            (kb-confirm "W\374rden Sie gerne eine
+.              ~: (~A~) in Ihrem Computer haben?"
+.              (name-of eine-option)))
+.          =>
+.          #<Behavior-Method AUSSTATTUNG
+.                           (COMPUTER OPTIONEN)>
+.
+.In diesem Beispiel sind "ein-computer" und 
+."eine-option" babylon-Variablen.
+.
+#endif
+.
+.
+#ifdef __english
+.LISP-TYPE
+.=========
+.
+.Syntax: <lisp-type: T>
+.
+.This can be any lisp-expression or babylon-
+.expression, that has the same behaviour like
+.a lisp-expression and returns a defined value.
+.A lisp-expression can be: a number, a string,
+.a symbol, a list or a functioncall.
+.
+#else
+.LISP-TYP
+.========
+.
+.Syntax: <Lisp-Typ: T>
+.
+.Dies kann ein beliebiger Lisp-Ausdruck sein
+.oder babylon-Ausdruck, der sich wie ein Lisp-
+.Aufruf verh\344lt und einen definierten R\374ckgabe-
+.wert besitzt. Ein Lisp-Ausdruck kann sein: eine
+.Zahl, eine Zeichenkette, ein Symbol, eine Liste
+.oder ein Funktionsaufruf.
+.
+#endif
+.
+.
+.CONTINUATION
+.============
+#ifdef __english
+.
+.Syntax: <bql-continuation> ::= 
+.             {<lisp-type::=T> ...}
+.
+.The continuation can only be used together
+.with the ASK-expression similarly the THEN-part
+.of a rule. It consists of babylon-expressions,
+.which may contain logical variables sofar these
+.are used in the corresponding predication.
+.The continuation will be repeated until no
+.further bindings of logical variables may be
+.achieved.
+.
+#else
+.
+.Syntax: <bql-continuation> ::=
+.             {<Lisp-Typ::=T> ...}
+.
+.Die <continuation> kann nur zusammen mit einem
+.ASK-Ausdruck vergleichbar dem DANN-Teil einer Regel 
+.benutzt werden. Sie besteht aus babylon-
+.Ausdr\374cken, die logische Variablen enthalten
+.d\374rfen, sofern diese auch in der zugeh\366rigen
+.Pr\344dikation auftreten. Die <continuation>
+.wird wiederholt, bis keine unterschiedlichen
+.Belegungen f\374r die logischen Variablen mehr
+.existieren.
+.
+#endif
+.
+.
+.BQL-ANONYMUS
+.============
+#ifdef __english
+.
+.Syntax: <bql-anonymus> ::= _
+.
+.The anonymus variable is only characterized by
+.an underline and can be used together with
+.the functions RETELL and UNTELL. This variable
+.can be used instead of a value. It can 
+.represent a quantity of values too. The
+.anonymus variable has no content.
+.
+.Example: >(untell [options computer _])
+.         T
+.brings the relation options for the
+.instance computer in the condition "indefinite".
+.
+#else
+.
+.Syntax: <anonyme Variable> ::= _
+.
+.Die anonyme Variable ist nur durch einen
+.Unterstrich gekennzeichnet und kann zusammen
+.mit den Funktionen RETELL und UNTELL benutzt
+.werden. Diese Variable kann anstelle eines
+.Wertes gesetzt werden. Sie kann auch eine
+.Menge von Werten vertreten. Die anonyme
+.Variable hat keine Belegung.
+.
+.Beispiel: >(untell [Optionen Computer _])
+.
+.\374berf\374hrt die Relation "Optionen" f\374r die
+.Instanz "Computer" in den Zustand unbestimmt.
+.
+#endif
+
+! -----------------------------------------------------
+
+FF
+
+>ASK
+.ASK
+.===
+#ifdef __english
+.
+.Syntax: (ask <predication> [:once]
+.             <bql-continuation>)
+.
+.This function makes inquiries at the knowledge
+.base. The if- and then-part of a rule correspond
+.in the meaning to an ASK inquiry and its
+.<bql-continuation>. A call of ASK similar to the
+.execution of a rule. The <predication> is equi-
+.valent to the IF-part, the <bql-continuation>
+.is the THEN-part. The <bql-continuation> will be
+.evaluated only, if the <predication> is valid
+.at least once.
+.
+.The <predication> kann look like
+.  [<framename> <instance>]
+.or
+.  [<relation-name> <instance> <value>]
+.It can be bound with logical
+.operators like  [and ...  or  [or ...  .
+.
+.<instance> and <value> can contain a
+.logical variable, that can be recognised
+.because of its underline (example: _a-computer).
+.The corresponding contents will be searched in
+.the knowledge base and will be bound to the
+.variable.
+.
+.<bql-continuation> consists of babylon-expres-
+.sions, that may contain logical variables, so 
+.far these are used in <predication>. the
+.<bql-continuation> will be repeated until there
+.are no more different contents for the logical
+.variable. The contents are the same, when
+.the values of the logical variable are EQUAL.
+.
+.[:once] means that the continuation will only
+.be executed once. The function ASK will be 
+.stopped, after it has found the first occupied
+.part of the predication.
+.
+.ASK always returns NIL.
+.
+.Example: >(ask
+.           [or 
+.            [options SIEMENS-NIXDORF _options]
+.            [options WANG _options]]
+.           (kb-format "~% ~A"
+.           (name-of _options)))
+.         1GB-HARDDISK
+.         16MB-RAM
+.         850MB-HARDDISK
+.         QUAD-SPEED-CDROM
+.         NIL
+. 
+.See the HAS-PART Predication and the operators
+.ELEMENT-OF and MATCH, too, whose return-values
+.are useable only from within ASK.
+.
+#else
+.
+.Syntax: (ask <Pr\344dikation> [:once]
+.             <bql-continuation>)
+.
+.Diese Funktion stellt Anfragen an die Wissens-
+.basis. Der WENN- und DANN-Teil einer Regel 
+.entsprechen in ihrer Bedeutung einer ASK-
+.Anfrage und deren <bql-continuation>. Ein ASK
+.ist \344hnlich einer Regelausf\374hrung. Die
+.<Pr\344dikation> entspricht dem WENN-Teil, die
+.<bql-continuation> dem DANN-Teil. Letztere
+.kommt nur zur Ausf\374hrung, falls erstere
+.wenigstens einmal erf\374llbar ist.
+.
+.Die <Pr\344dikation> kann wie folgt aussehen
+.  [<Framename> <Instanz>],
+.oder
+.  [<Relationsname> <Instanz> <Wert>]
+.Sie kann durch logische Operatoren
+.wie  [and ...  oder  [or ...  verkn\374pft
+.werden.
+.
+.<Instanz> und <Wert> k\366nnen eine logische
+.Variable enthalten, die durch einen Unter-
+.strich am Namensanfang (z.B.: _ein-computer)
+.erkannt werden kann. Die entsprechende Bele-
+.gung wird in der Wissensbasis gesucht und an
+.der Variablen gebunden.
+.
+.<bql-continuation> besteht aus babylon-Aus-
+.dr\374cken, die logische Variablen enthalten
+.d\374rfen, sofern sie in <Pr\344dikation> benutzt
+.werden. Die <bql-continuation> wird wiederholt
+.bis keine unterschiedliche Belegungen f\374r die
+.logische Variable mehr existieren. Die Be-
+.legungen sind gleich, wenn die Werte der
+.logischen Variable EQUAL sind.
+.
+.[:once] bedeutet das die continuation nur ein-
+.mal ausgef\374hrt wird. Die Funktion ASK wird
+.anhalten, nachdem sie die erste Belegung in der
+.Pr\344dikation gefunden hat.
+.
+.ASK liefert immer NIL.
+.
+.Beispiel: >(ask
+.            [or
+.             [Optionen SIEMENS-NIXDORF _option]
+.             [Optionen WANG _option]]
+.            (kb-format "~% ~A"
+.            (name-of _option)))
+.          1GB-FESTPLATTE
+.          16MB-RAM
+.          850MB-FESTPLATTE
+.          QUAD-SPEED-CDROM
+.          NIL
+.
+.Siehe auch die HAS-PART Pr\344dikation, sowie die
+.Operatoren ELEMENT-OF und MATCH, deren R\374ckgabe-
+.werte nur im Zusammenhang mit ASK sinnvoll sind.
+.
+#endif
+
+FF
+
+>$PRED
+.$PRED
+.=====
+#ifdef __english
+.
+.Syntax: ($PRED <predication>)  or  [<predication>]
+.
+.with: <predication> ::=
+.           {<compound-predication> |
+.           <simple-predication> |
+.           (match <bql-variable>
+.           {bab-lisp-expr. |
+.           <bql-variable>} |
+.           (element-of <bql-variable>
+.           {<bab-lisp-expr.> |
+.           <bql-variable>} |
+.           <lisp-type: T>}
+.
+.PREDICATIONS are statements about the knowledge
+.in the knowledge base. They are
+.characterized with brackets. A simple-predication
+.consists of a name and one or two arguments. If the
+.predication only has one argument, then it is
+.called a one-argument predication, otherwise a
+.two-argument predication. If predications are
+.combined, the resulting construct is called a
+.compound predication.
+.
+.A ONE-ARGUMENT-PREDICATION describes a frame-instance
+.relation.
+.
+.A TWO-ARGUMENT-PREDICATION describes a relation
+.between an instance and a value and is used
+.in connection with tell, untell and retell.
+.
+.A COMPOUND-PREDICATION is a set of SIMPLE PREDICATIONs
+.bound with [AND, [OR or [NOT.
+.
+.The expressions of the predications will be
+.worked out from left to right.
+.
+.Example: >(ask [city _city]
+.             (kb-format "~% ~A" _city))
+.         #<CAPITAL-CITY PARIS>
+.         #<CITY WUPPERTAL>
+.         #<CAPITAL-CITY LONDON>
+.         #<CITY DEN-HAAG>
+.         #<CAPITAL-CITY AMSTERDAM>
+.         NIL
+.
+
+#else
+.
+.Syntax: ($PRED <Pr\344dikation>)  oder  [<Pr\344dikation>]
+.
+.wobei: <Pr\344dikation> ::=  
+.           {<compound-Pr\344dikation> |
+.           <einfache-Pr\344dikation> |
+.           (match <bql-Variable>
+.           {bab-lisp-Ausdr. |
+.           <bql-Variable>} |
+.           (element-of <bql-Variable>
+.           {<bab-lisp-Ausdr.> |
+.           <bql-Variable>} |
+.           <Lisp-Typ: T>}
+.
+.PR\304DIKATIONEN sind Aussagen \374ber das Wissen in
+.der Wissensbasis. Sie werden durch eckige Klammern
+.gekennzeichnet. Eine EINFACHE-PR\304DIKATION besteht
+.in der Regel aus einem Namen und einem oder zwei
+.Argumenten. Hat die Pr\344dikation nur ein Argument, so
+.wird sie einstellig genannt. Hat sie zwei Argumente, 
+.dann wird sie zweistellig genannt. Werden mehrere Pr\344-
+.dikationen verkn\374pft, spricht man von einer
+.COMPOUND-PR\304DIKATION.
+.
+.COMPOUND-PR\304DIKATIONEN sind mit [AND, [OR oder
+.[NOT verkn\374pft.
+.
+.Eine einstellige Pr\344dikation beschreibt eine
+.Frame-Instanz Beziehung.
+.
+.Eine zweistellige Pr\344dikation beschreibt eine
+.Beziehung zwischen einer Instanz und einem Wert.
+.
+.Die Ausdr\374cke der Pr\344dikation werden von links
+.nach rechts abgearbeitet.
+.
+.Beispiel: >(ask [stadt _stadt]
+.             (kb-format "~% ~A" _stadt))
+.         #<HAUPTSTADT PARIS>
+.         #<STADT WUPPERTAL>
+.         #<HAUPTSTADT LONDON>
+.         #<STADT DEN-HAAG>
+.         #<HAUPTSTADT AMSTERDAM>
+.         NIL
+.
+#endif
+
+FF
+
+>[
+.[
+.=
+.
+#ifdef __english
+.Syntax: ($PRED <predication>)  or  [<predication>]
+.
+.with: <predication> ::=
+.           {<compound-predication> |
+.           <simple-predication> |
+.           (match <bql-variable>
+.           {bab-lisp-expr. |
+.           <bql-variable>} |
+.           (element-of <bql-variable>
+.           {<bab-lisp-expr.> |
+.           <bql-variable>} |
+.           <lisp-type: T>}
+.
+.PREDICATIONS are expressions about the knowledge
+.in the knowledge base. They are
+.characterized with brackets. A simple predication
+.consists of a name and one or two arguments. If the
+.predication has only one argument than it is
+.called a one-argument predication, otherwise a
+.two-argument predication. If predications are
+.combined, the resulting construct is called a
+.compound predication.
+.
+.A ONE-ARGUMENT-PREDICATION describes a frame-instance
+.relation.
+.
+.A TWO-ARGUMENT-PREDICATION describes a relation
+.between an instance and a value and is used
+.in connection with tell, untell and retell.
+.
+.A COMPOUND-PREDICATION is a set of SIMPLE PREDICATIONs
+.bound with [AND, [OR or [NOT.
+.
+.The expressions of the predications will be
+.dealt with from the left to the right.
+.
+.Example: >(ask [city _city]
+.             (kb-format "~% ~A" _city))
+.         #<CAPITAL-CITY PARIS>
+.         #<CITY WUPPERTAL>
+.         #<CAPITAL-CITY LONDON>
+.         #<CITY DEN-HAAG>
+.         #<CAPITAL-CITY AMSTERDAM>
+.         NIL
+.
+
+#else
+.Syntax: ($PRED <Pr\344dikation>)  oder  [<Pr\344dikation>]
+.
+.wobei: <Pr\344dikation> ::=
+.           {<compound-Pr\344dikation> |
+.           <einfache-Pr\344dikation> |
+.           (match <bql-Variable>
+.           {bab-lisp-Ausdr. |
+.           <bql-Variable>} |
+.           (element-of <bql-Variable>
+.           {<bab-lisp-Ausdr.> |
+.           <bql-Variable>} |
+.           <Lisp-Typ: T>}
+.
+.PR\304DIKATIONEN sind Aussagen \374ber das Wissen in
+.der Wissensbasis. Sie werden durch eckige Klammern
+.gekennzeichnet. Eine EINFACHE-PR\304DIKATION besteht
+.in der Regel aus einem Namen und einem oder zwei
+.Argumenten. Hat die Pr\344dikation nur ein Argument, dann
+.wird sie einstellig genannt. Hat sie zwei Argumente, 
+.dann wird sie zweistellig genannt. Werden mehrere Pr\344-
+.dikationen verkn\374pft, so spricht man von einer
+.COMPOUND-PR\304DIKATION.
+.
+.COMPOUND-PR\304DIKATIONEN sind mit [AND, [OR oder
+.[NOT verkn\374pft.
+.
+.Eine einstellige Pr\344dikation beschreibt eine
+.Frame-Instanz Beziehung.
+.
+.Eine zweistellige Pr\344dikation beschreibt eine
+.Beziehung zwischen einer Instanz und einem Wert.
+.
+.Die Ausdr\374cke der Pr\344dikation werden von links
+.nach rechts abgearbeitet.
+.
+.Beispiel: >(ask [stadt _stadt]
+.             (kb-format "~% ~A" _stadt))
+.         #<HAUPTSTADT PARIS>
+.         #<STADT WUPPERTAL>
+.         #<HAUPTSTADT LONDON>
+.         #<STADT DEN-HAAG>
+.         #<HAUPTSTADT AMSTERDAM>
+.         NIL
+.
+#endif
+
+! ---------------------------------------------------
+
+FF
+  
+>[AND
+.[AND
+.====
+#ifdef __english
+.
+.Syntax: (ask [and {<predication> ...}] <continu.>)
+.
+.WARNING: [AND should be used only WITHIN an ASK!
+.
+.This function is a compound predication. It tries
+.to evaluate each predication in sequential order.
+.If the evaluation of a predication is successful,
+.i.e. a non empty set of bindings of BQL-variables
+.remains, the next predication will be evaluated.
+.When a predication fails, further evaluation is
+.omitted and ASK returns immediately.
+.
+.LISP expressions can be used within [AND, too. They
+.have to comply with the same conditions. A return-
+.value of NIL is interpreted a failure, all non-NIL
+.values express success.
+.
+.Only when this function evaluates successfully, the
+.`continuation` is executed, otherwise it won`t.
+.
+.The function will be used, when the range of validity
+.of a BQL variable has to be specified, or when the
+.continuation of an ASK only will be executed in
+.classic sense of the function AND, when the predica-
+.tions of the function [AND were evaluated successful.
+.
+.The function [AND does not provide a useful
+.return value.
+.
+.Example: >(ask
+.           [and
+             [computer _a-computer]
+.            [options _a-computer _an-option]]
+.           (kb-format "~% the computer ~A
+.             has the following options: ~% ~A"
+.            (name-of _a-computer)
+.            (name-of _an-option)))
+.          the computer SIEMENS-NIXDORF has the
+.            following options:
+.          1GB-HARDDISK
+.          the computer SIEMENS-NIXDORF has the
+.            following options:
+.          16MB-RAM
+.          the computer WANG has the following
+.            options:
+.          850MB-HARDDISK
+.          the computer WANG has the following
+.            options:
+.          QUAD-SPEED-CDROM
+.         NIL
+.
+#else
+.
+.Syntax: (ask [and {<Pr\344dikation> ...}] <Continu.>)
+.
+.HINWEIS: [AND nur INNERHALB von ASK verwenden!
+.
+.Diese Funktion ist eine Compound-Pr\344dikation. Sie 
+.versucht nacheinander, die einzelnen Pr\344dikationen
+.auszuwerten. Ist die Auswertung einer Pr\344dikation
+.erfolgreich, d.h. verbleibt eine nicht leere Menge von
+.Zuweisungen an BQL-Variablen, wird die n\344chste Pr\344di-
+.kation ausgewertet. Sobald eine Auswertung nicht er-
+.folgreich ist, wird die weitere Abarbeitung der Funktion
+.abgebrochen.
+.
+.Gleichzeitig k\366nnen in der Funktion LISP-Ausdr\374cke
+.verwendet werden, bei denen die gleichen Bedingungen zu
+.erf\374llen sind, wie bei Pr\344dikationen. Dabei gilt
+.der R\374ckgabewert NIL als erfolglos, alle anderen als
+.erfolgreich.
+.
+.Erst wenn die Funktion erfolgreich ausgewertet wurde,
+.wird die 'Continuation' ausgef\374hrt. War die Auswer-
+.tung jedoch nicht erfolgreich, wird die 'Continuation'
+.nicht ausgef\374hrt.
+.
+.Diese Funktion wird benutzt, wenn der G\374ltigkeits-
+.bereich einer BQL-Variablen pr\344zisiert werden soll,
+.oder wenn im klassischen Sinne einer UND-Verkn\374pfung
+.die Continuation eines ASK nur dann ausgef\374hrt
+.werden soll, wenn die Pr\344dikationen der [AND-Funktion
+.erfolgreich ausgewertet werden konnten.
+.
+.Die [AND-Funktion liefert keinen brauchbaren
+.R\374ckgabewert.
+.
+.Beispiel: >(ask
+.            [and
+.             [Computer _ein-computer]
+.             [Optionen _ein-computer 
+.                       _eine-option]]
+.            (kb-format "~% Der Computer ~A
+.              hat folgende Optionen: ~% ~A"
+.             (name-of _ein-computer)
+.             (name-of _eine-option)))
+.           Der Computer SIEMENS-NIXDORF hat
+.             folgende Optionen:
+.           1GB-FESTPLATTE
+.           Der Computer SIEMENS-NIXDORF hat
+.             folgende Optionen:
+.           16MB-RAM
+.           Der Computer WANG hat folgende
+.             Optionen:
+.           850MB-FESTPLATTE
+.           Der Computer WANG hat folgende
+.             Optionen:
+.           QUAD-SPEED-CDROM
+.          NIL
+.
+#endif
+
+FF
+
+>[OR
+.[OR
+.===
+#ifdef __english
+.
+.Syntax: [or <predication>*]
+.
+.OR sequentially searches, from the left to the right,
+.for the solutions of the predications. If OR is
+.finished, it will return the solutions of all the
+.predications and an unusable value.
+.Statements can have the values True, False and
+.Unknown. The following table shows, how OR functions:
+.
+.  -------------------------
+.  |  or |  T  |  F  |  U  |
+.  -------------------------
+.  |  T  |  T  |  T  |  T  |
+.  -------------------------
+.  |  F  |  T  |  F  |  U  |
+.  -------------------------
+.  |  U  |  T  |  U  |  U  |
+.  -------------------------
+.
+.Example: >(ask [or
+.               [options SIEMENS-NIXDORF _options]
+.               [options WANG _options]]
+.               (kb-format "~% ~A" (name-of _options)))
+.         1GB-HARDDISK
+.         16MB-RAM
+.         850MB-HARDDISK
+.         8MB-RAM
+.         NIL
+.
+.First the interpreter searches for the bindings of
+.the first predication, then for the links of the
+.second and then it returns all links which it found.
+.
+#else
+.
+.Syntax: [or <Pr\344dikation>*]
+.
+.OR sucht nacheinander, von links nach rechts, alle
+.L\366sungen der Pr\344dikationen. Falls OR mit suchen
+.fertig ist, liefert es die gefundenen L\366sungen und
+.einen nicht-benutzbaren R\374ckgabewert.
+.Aussagen k\366nnen die Wahrheitswerte Wahr, Falsch,
+.und Unbekannt haben. Die folgende Tafel stellt dar,
+.wie OR funktioniert:
+.
+.  -------------------------
+.  |  or |  W  |  F  |  U  |
+.  -------------------------
+.  |  W  |  W  |  W  |  W  |
+.  -------------------------
+.  |  F  |  W  |  F  |  U  |
+.  -------------------------
+.  |  U  |  W  |  U  |  U  |
+.  -------------------------
+.
+.Beispiel: >(ask [or
+.             [optionen SIEMENS-NIXDORF _optionen]
+.             [optionen WANG _optionen]]
+.             (kb-format "~% ~A" (name-of _optionen)))
+.         1GB-FESTPLATTE
+.         16MB-RAM
+.         850MB-FESTPLATTE
+.         8MB-RAM
+.         NIL
+.
+.Der Interpreter sucht zuerst alle Bindungen f\374r
+.die erste Pr\344dikation, dann alle Bindungen f\374r
+.die zweite und gibt zum Schlu\337 alle gefundenen
+.Bindungen aus!
+.
+#endif
+
+FF
+
+>[NOT
+.[NOT
+.====
+#ifdef __english
+.
+.Syntax: [not <predication>]
+.
+.[NOT is a compound predication. It negates the truth
+.value of the predication.
+.All the variables that are used in the formula have
+.to be bound before [NOT starts checking. In particular
+.it should be made sure, that all the formulas, in which
+.not is used, are internally converted into a simple
+.predication, before not starts checking them. It is 
+.possible to negate composed formulas too if the internal
+.conversion is taken into account.
+.The rules of deMorgan are used for the conversion:
+.   not(A or B) == (not A) and (not B)
+.   not(A and B) == (not A) or (not B)
+.[NOT returns the negated value and an unusable
+.value.
+.
+.Example: >(ask [and
+.                [computer _x]
+.                [not [harddisk _x]]]
+.               (kb-format "~%~A" (name-of _x)))
+.         RAM
+.         CD-ROM
+.         NIL
+.
+.The interpreter searches for all components that are
+.not a harddisk.
+.
+#else
+.
+.Syntax: [not <Pr\344dikation>]
+.
+.[NOT ist eine Compound-Pr\344dikation. Es negiert 
+.den Wahrheitswert der umschlossenen Pr\344dikation.
+.Alle Variablen aus der Formel m\374ssen schon
+.gebunden sein, bevor [NOT anf\344ngt zu pr\374fen.
+.Es mu\337 besonders beachtet werden,
+.da\337 Formeln, in denen [NOT vorkommt, intern vor
+.der Auswertung so umgeformt werden, da\337 [NOT
+.sich stets nur auf einfache Pr\344dikationen be-
+.zieht. Man kann auch zusammengesetzte Formeln
+.negieren, wenn man die oben beschriebene
+.interne Umformung beachtet.
+.Die deMorgan`schen Gesetze werden f\374r die
+.Umformung benutzt:
+.   not (A or B) == (not A) and (not B)
+.   not (A and B) == (not A) or (not B)
+.[NOT liefert den Wert, der aus der Negation der
+.Pr\344dikation gewonnen wird. Es hat keinen 
+.benutzbaren R\374ckgabewert.
+.
+.Beispiel: >(ask [and
+.                 [computer _x]
+.                 [not [festplatte _x]]]
+.                (kb-format "~%~A" (name-of _x)))
+.          RAM
+.          CD-ROM
+.          NIL
+.
+.Der Interpreter sucht alle Komponenten, die keine
+.Festplatte sind!
+.
+#endif
+
+FF
+
+>[HAS-PART
+.[HAS-PART
+.=========
+#ifdef __english
+.
+.Syntax: (ask [has-part instance <bql-var>]
+.                     <continuation>)
+.
+.HAS-PART provides the values of the relations
+.that exist between the parts of an instance. 
+.
+.Example: >(ask [has-part SIEMENS-NIXDORF _x]
+.               (kb-format "~A" _x))
+.         #<1GB-HARDDISK>#<16MB-RAM>
+.
+#else
+.
+.Syntax: (ask [has-part Instanz <bql-Var>]
+.                     <continuation>)
+.
+.HAS-PART liefert die Werte der Relationen,
+.die zwischen den Bestandteilen einer Instanz
+.bestehen.
+.
+.Beispiel: >(ask [has-part SIEMENS-NIXDORF _x]
+.                (kb-format "~A" _x))
+.          #<1GB-FESTPLATTE>#<16MB-RAM>
+.
+#endif
+
+FF
+
+>ELEMENT-OF
+.ELEMENT-OF
+.==========
+#ifdef __english
+.
+.Syntax: (element-of <bql-var>
+.          {<evaluates-to-list> | <bql-var>})
+.
+.The operator ELEMENT-OF binds values to BQL-
+.variables. It can only be used in combination
+.with an ASK-expression.
+.
+.Example: >(ask [and (element-of _x `(3 2 1))
+.                      (< _x 2)]
+.               (kb-format "~A" _x))
+.         1
+.         NIL
+.
+.ELEMENT-OF sequentially binds 3, 2 and 1 to _x
+.
+#else
+.
+.Syntax: (element-of <bql-Var>
+.          {<evaluates-to-list> | <bql-Var>})
+.
+.Der Operator ELEMENT-OF kann Werte an BQL-
+.Variablen binden. Er kann nur zusammen mit 
+.dem ASK-Ausdruck benutzt werden.
+.
+.Beispiel: >(ask [and (element-of _x `(3 2 1))
+.                       (< _x 2)]
+.                (kb-format "~A" _x))
+.          1
+.          NIL
+.
+.ELEMENT-OF bindet sequentiell die Werte 3, 2
+.und 1 an _x.
+.
+#endif
+
+FF
+
+>MATCH
+.MATCH
+.=====
+#ifdef __english
+.
+.Syntax: (match <bql-variable>
+.           {<babylon-lisp-expression> |
+.            <bql-variable>})
+.
+.The Operator MATCH generates bindings for
+.variables the way, the other predications do.
+.The calculations can only be made with
+.instanciated values of the variable and can be
+.called within the operator ASK. Usually it only
+.makes sense to use it within a premise.
+.MATCH does not return a defined value.
+.
+.Example: >(ask [and (match _a `(a b c))
+.                (equal _a `(a b c))]
+.                (kb-format "~A" _a))
+.         (A B C)
+.         NIL
+.
+.MATCH once binds the list (A B C) to the
+.variable _a!
+.
+.Vergleiche hierzu ELEMENT-OF.
+.
+#else
+.
+.Syntax: (match <bql-Variable>
+.           {<babylon-lisp-Ausdruck> |
+.            <bql-Variable>})
+.
+.Der Operator MATCH kann wie die anderen Pr\344di-
+.kationen Bindungen f\374r Variablen generieren.
+.Die Berechnungen d\374rfen nur mit instanziierten
+.Variablenwerten und innerhalb des Operators ASK
+.aufgerufen werden. Sinnvoll ist meist nur der
+.Einsatz innerhalb einer Pr\344misse. MATCH liefert
+.keinen definierten Wert zur\374ck.
+.
+.Beispiel: >(ask [and (match _a `(a b c))
+.                 (equal _a `(a b c))]
+.                 (kb-format "~A" _a))
+.          (A B C)
+.          NIL
+.
+.MATCH bindet die Liste (A B C) einmal an die
+.Variable _a!
+.
+.See ELEMENT-OF, too.
+.
+#endif
+
+FF
+
+>$TERM
+.$TERM
+.=====
+.
+#ifdef __english
+.Syntax: ($TERM <term>)  or  !<term>
+.
+.The exclamation mark is for the analysis of
+.complex values. In this version, it can only
+.be used instead of the value in a two-argument-
+.predication. In this case, a relation value has
+.to be composed of a list of values.
+.If you use an exclamation mark with a list of
+.variables, then the single elements of the list
+.will be bound to the corresponding variables, if
+.the number, position and possibly known
+.values are corresponding. The same procedure is
+.followed for trees of any size.
+.
+.Example: >(ask [climate New-York
+.             !(_Month _Degree _Raindays)]
+.             (kb-format "~%~A" _Month))
+.         1
+.         2
+.         NIL
+.
+
+#else
+.Syntax: ($TERM <term>)  oder  !<term>
+.
+.Das Ausrufezeichen dient zur Aufl\366sung von
+.komplexen Werten. Es kann in der vorliegenden
+.Version nur anstelle des Wertes in einer zwei-
+.stelligen Pr\344dikation benutzt werden. Ein
+.Relationswert mu\337 in diesem Fall aus einer
+.Liste von mehreren Werten zusammengesetzt sein.
+.Wenn Sie bei einer Abfrage vor die Liste der
+.Variablen ein Ausrufezeichen setzen, so werden
+.die einzelnen Elemente der Liste an den ent-
+.sprechenden Variablen gebunden, wenn die An-
+.zahl, Position und eventuell schon bekannte
+.Werte \374bereinstimmen. Dieses verfahren wird
+.auch bei geschachtelten Listen mit beliebiger
+.Tiefe durchgef\374hrt.
+.
+.Beispiel: >(ask [Klima Berlin
+.              !(_Monat _Grad _Regentage)]
+.              (kb-format "~%~A" _Monat))
+.          1
+.          2
+.          NIL
+.
+#endif
+
+FF
+
+>!
+.!
+.=
+.
+#ifdef __english
+.Syntax: ($TERM <term>)  or  !<term>
+.
+.The exclamation mark is for the analysis of
+.complex-values. In this version, it can only
+.be used instead of the value in a two-argument-
+.predication. In this case, a relation value has
+.to be composed of a list of values.
+.If an exclamation mark is used with a list of
+.variables, the single elements of the list
+.will be bound to the corresponding variables, if
+.the number, position and possibly known
+.values are corresponding. The same procedure is
+.followed for trees of any size.
+.
+.Example: >(ask [climate New-York
+.             !(_Month _Degree _Raindays)]
+.             (kb-format "~%~A" _Month))
+.         1
+.         2
+.         NIL
+.
+
+#else
+.Syntax: ($TERM <term>)  oder  !<term>
+.
+.Das Ausrufezeichen dient zur Aufl\366sung von
+.komplexen Werten. Es kann in der vorliegenden
+.Version nur anstelle des Wertes in einer zwei-
+.stelligen Pr\344dikation benutzt werden. Ein
+.Relationswert mu\337 in diesem Fall aus einer
+.Liste von mehreren Werten zusammengesetzt sein.
+.Wenn Sie bei einer Abfrage vor die Liste der
+.Variablen ein Ausrufezeichen setzen, so werden
+.die einzelnen Elemente der Liste an den ent-
+.sprechenden Variablen gebunden, wenn die An-
+.zahl, Position und eventuell schon bekannte
+.Werte \374bereinstimmen. Dieses verfahren wird
+.auch bei geschachtelten Listen mit beliebiger
+.Tiefe durchgef\374hrt.
+.
+.Beispiel: >(ask [Klima Berlin
+.              !(_Monat _Grad _Regentage)]
+.              (kb-format "~%~A" _Monat))
+.          1
+.          2
+.          NIL
+.
+#endif
+
+! ----------------------------------------------------
+
+FF
+
+>TELL
+.TELL
+.====
+#ifdef __english
+.
+.Syntax: (tell <simple-predication>) ::=
+.        (tell [<relation-name> <instance> <value>])
+.
+.The operator TELL makes it possible to assign new
+.values to the instances for certain relations and
+.to change the knowledge base in this way.
+.Only a simple two-argument-predication can follow after
+.the operator TELL, i.e it is possible to connect a value
+.to a part or characteristic of an instance and in this
+.way change the knowledge base. The pre-
+.dication which follows after TELL has to be full
+.instanciated, there must not be any anonymus-
+.variable instead of a value in this place.
+.The operator TELL returns T, if the operation
+.is executed. NIL will be returned, if the pre-
+.dication is already known, therefore both of
+.the statements will be tested internally with
+.the function EQUAL. If the test is positive, then
+.NIL will be returned.
+.
+.Example: >(tell [place Buckingham-palace London])
+.         T
+.
+#else
+.
+.Syntax: (tell <einfache-Pr\344dikation>) ::=
+.        (tell [<Relations-Name> <Instanz> <Wert>])
+.
+.Der Operator TELL erm\366glicht es Ihnen, den Instanzen
+.f\374r bestimmte Relationen neue Werte zuzuweisen und
+.somit Ihre Wissensbasis zu ver\344ndern.
+.Dem Operator TELL kann nur eine einfache zweistellige
+.Pr\344dikation folgen, d.h. Sie k\366nnen dem Merkmal
+.bzw. Bestandteil einer Instanz einen Wert zuweisen
+.und somit Ihre Wissensbasis ver\344ndern. Die auf TELL
+.folgende Pr\344dikation mu\337 voll instanziiert sein, d.h.
+.anstelle des Wertes darf hier keine anonyme Variable
+.stehen.
+.Der Operator TELL liefert T zur\374ck, wenn die Opera-
+.tion ausgef\374hrt wurde. NIL wird zur\374ckgegeben,
+.wenn die Pr\344dikation bereits bekannt ist, dazu wer-
+.den die beiden Aussagen intern mit der Gleichheits-
+.funktion EQUAL getestet. Wenn sie daraufhin als
+.gleich erkannt werden, wird NIL zur\374ckgegeben.
+.
+.Beispiel: >(tell [ort Buckingham-Palast Londen])
+.          T
+.
+#endif
+
+FF
+
+>RETELL
+.RETELL
+.======
+#ifdef __english
+.
+.Syntax: (retell <simple-predication> old-value)
+.           ::= (retell [<relation-name> <instance>
+.               <new-value>] old-value)
+.
+.With RETELL it is possible to change the values of
+.instances. The old instance value can be replaced
+.by a new value. If the old value is unknown, it can
+.be replaced by the anonymus variable _.
+.RETELL returns T, if the knowledge base has been
+.changed, otherwise NIL.
+.
+.Example: >(retell [options Siemens-Nixdorf
+.             1,6GB-harddisk] 1GB-harddisk)
+.         T
+.
+.In this case the 1GB-harddisk of the Siemens-
+.Nixdorf-computer will be replaced by a
+.1,6GB-harddisk!
+.
+#else
+.
+.Syntax: (retell <EINFACHE-PR\304DIKATION> alter-Wert)
+.           ::= (retell [<Relations-Name> <Instanz>
+.               <neuer-Wert>] alter-Wert)
+.
+.Mit RETELL k\366nnen Sie Werte von Instanzen ver\344ndern.
+.Sie k\366nnen den alten Wert der Instanz durch den
+.neuen Wert ersetzen. Falls Ihnen der alte Wert nicht
+.bekannt ist, ersetzen Sie diesen durch die anonyme
+.Variable _.
+.RETELL liefert T zur\374ck, wenn die Wissensbasis ver-
+.\344ndert wurde, andernfalls NIL.
+.
+.Beispiel: >(retell [Optionen Siemens-Nixdorf
+.             1,6GB-festplatte] 1GB-festplatte)
+.          T
+.In diesem Falle wird die 1GB-Festplatte der Siemens-
+.Nixdorf-Computer durch eine 1,6GB-Festplatte ersetzt.
+.
+#endif
+
+FF
+
+>UNTELL
+.UNTELL
+.======
+#ifdef __english
+.
+.Syntax: (untell <simple-predication>) ::=
+.        (untell [<relation-name> <instance> <value>])
+.
+.UNTELL means, that all bindings will be broken.
+.The predication that will be used has to be fully
+.instanciated, i.e. that no unbound logical variables
+.should be used. The anonymus variable
+.can be used to set an instance-value relation on
+.indefinite.
+.UNTELL returns T, if the value is deleted, otherwise
+.NIL.
+.
+.Example: >(untell [place Buckingham-Palace London])
+.         T
+.
+.The value London will be deleted in this example!
+.
+#else
+.
+.Syntax: (untell <einfache-Pr\344dikation>) ::=
+.        (untell [<Relations-Name> <Instanz> <Wert>])
+.
+.UNTELL bedeutet, da\337 alle \374bergebenen Fakten
+.zur\374ckgezogen werden. Die benutzte Pr\344dikation
+.mu\337 immer vollinstanziiert sein d.h., es d\374rfen
+.keine ungebundenen logischen Variablen benutzt wer-
+.den. Die anonyme Variable k\366nnen Sie benutzen, um
+.eine Instanz-Wert-Relation auf unbestimmt zu setzen.
+.UNTELL liefert T, wenn der Wert gel\366scht wurde,
+.andernfalls NIL.
+.
+.Beispiel: >(untell [Ort Buckingham-Palast Londen])
+.          T
+.
+.In diesem Beispiel wird der Wert Londen gel\366scht!
+.
+#endif
+
+
+!
+! -----------------------------------------------------
+! no trailing FF allowed at the end of the last page !!
+!
+!!! EOF  

@@ -1,0 +1,58 @@
+<html><head><title>DEFINE-FRAME</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc345.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc343.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-FRAME</strong></font></center><p>
+
+<PRE>DEFINE-FRAME
+============
+
+Syntax: (define-frame &lt;Rahmen-Name&gt;
+           [:SPECIALIZES &lt;Liste-der-Rahmen-Namen&gt;]
+           [:DOCUMENTATION &lt;Dokumentation&gt;]
+           [:EXPLANATION &lt;Erkl&auml;rung&gt;]
+           &lt;Relation-Specifikation&gt;*)
+
+Warnung: Der Erkl&auml;rungseintrag wird durch 
+         EMA-XPS nicht unterst&uuml;tzt, d.h.
+         :documentation und :explanation
+         werden ignoriert.
+
+Ein Rahmen wird definiert durch seinen Namen. Unter
+dem Schl&uuml;sselwort ':specializes' m&uuml;ssen die Super-
+Rahmen des aktuellen Rahmens angegeben werden.
+Falls keine Super-Rahmen vorhanden sind, kann die
+Angabe des Schl&uuml;sselwortes entfallen. Die Angaben
+einer Dokumentation und Erkl&auml;rung sind ebenso op-
+tional.
+
+Genaueres auf der Seite RELATION-SPECIFICATION!
+
+Beispiel: &gt;(define-frame Stadt
+             :documentation &quot;Beschreibt die Stadt&quot;
+             :explanation ((&quot;Beschreibt die Stadt&quot;
+          &gt;(define-frame Hauptstadt
+             :specializes (Stadt)
+             :documentation &quot;Beschreibt die Stadt&quot;
+             :explanation (:description
+                ((&quot;Beschreibt die Stadt&quot;))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc345.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc343.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-FRAME done --!>

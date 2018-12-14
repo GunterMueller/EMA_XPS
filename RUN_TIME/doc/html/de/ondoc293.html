@@ -1,0 +1,62 @@
+<html><head><title>REMOVE-DEPENDENT</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc294.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc292.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>REMOVE-DEPENDENT</strong></font></center><p>
+
+<PRE>REMOVE-DEPENDENT
+================
+
+Syntax: (remove-dependent &lt;Relation-Specifier&gt;
+                          &lt;Sender-Specifier&gt;
+                          &lt;Empf&auml;nger-Specifier&gt;
+                          {[:READ T | NIL | Var]
+                           [:WRITE T | NIL | Var]}+
+                          [:KB &lt;kb&gt;])
+
+Warnung: noch nicht implementiert!
+
+Diese Funktion entfernt read- und write-dependents 
+dynamisch. Mit den optionalen Parametern geben Sie 
+an, ob der Empf&auml;nger von den lese- und/oder 
+schreibabh&auml;ngigen entfernt wird. Wollen Sie nur 
+den leseabh&auml;ngigen Empf&auml;nger entfernen, geben
+Sie bei ':READ' T an. Wollen Sie nur den 
+schreibabh&auml;ngigen Empf&auml;nger entfernen, geben Sie 
+bei ':WRITE' T an.
+R&uuml;ckgabewert ist der entfernte Empf&auml;nger der 
+Nachricht - in unserem Falle EMPF&Auml;NGER-SPECIFIER - 
+falls dieser enthalten ist, andernfalls NIL.
+Geben Sie den Identifier ein, erhalten Sie den Namen 
+der Instanz zur&uuml;ck. Geben Sie das Objekt an, 
+erhalten Sie das Objekt zur&uuml;ck.
+
+Beispiel: &gt;(remove-dependent 'Ort Louvre 
+                             Verkehrsbuero-Paris)
+          #&lt;VERKEHRSBUERO VERKEHRSBUERO-PARIS&gt;
+
+oder
+
+          &gt;(remove-dependent 'Ort 'Louvre 
+                             'Verkehrsbuero-Paris)
+          (VERKEHRSBUERO-PARIS)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc294.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc292.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- REMOVE-DEPENDENT done --!>

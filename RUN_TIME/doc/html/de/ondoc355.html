@@ -1,0 +1,234 @@
+<html><head><title>DEFINE-RULESET-TASK</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc356.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc354.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-RULESET-TASK</strong></font></center><p>
+
+<PRE>DEFINE-RULESET-TASK
+===================
+Syntax: (define-ruleset-task 
+           &lt;Regelmenge-Task-Name&gt;
+           &lt;Task-Arguments&gt;
+           [:DOCUMENTATION &lt;Dokumentation&gt;]
+           [:EXPLANATION &lt;Erkl&auml;rung&gt;]
+           [:SUBTASKS &lt;Liste-mit-Subtasks&gt;]
+           :MODE {:SEQUENTIAL |:FORWARD |:BACKWARD}
+           [:CONFLICT-RESOLUTION {NIL| :FIRST
+           MATCH| :OLDEST-MATCH| :NEWEST-MATCH}]
+           ACTIONS
+           {&lt;Vorw&auml;rts-Aktion&gt; | 
+            &lt;Sequentielle-Aktion&gt;|
+            &lt;R&uuml;ckw&auml;rts-Aktion&gt; | 
+            &lt;Task-Aktion&gt;}*)
+
+Warnung: Der Erkl&auml;rungseintrag wird durch 
+         EMA-XPS nicht unterst&uuml;tzt, d.h.
+         :explanation und :subtasks werden 
+         ignoriert.
+         :CONFLICT-RESOLUTION wird noch nicht
+         unterst&uuml;tzt!
+         Nur die Sequentielle-Aktion wird
+         momentan unterst&uuml;tzt!
+         Der Schl&uuml;ssel :no-rules arbeitet
+         momentan noch anders!
+
+Jede Regel, die Sie definieren, mu&szlig; einer 
+Regelmenge zugeordnet werden. In der Regel-
+menge wird vor allem die Abarbeitung der 
+Regeln genauer bestimmt. Es gibt drei ver-
+schiedene Modi, unter denen Sie ausw&auml;hlen
+k&ouml;nnen: vorw&auml;rts, r&uuml;ckw&auml;rts und sequen-
+tiell. Wenn Sie die Vorw&auml;rtsverkettung 
+w&auml;hlen, wird eine Konfliktmenge gebildet,
+in der Sie festlegen, welche Suchstrategie
+(first match, newest-match, oldest-match)
+angewendet wird.
+
+
+&lt;Sequentielle-Abarbeitung&gt;
+
+Bei einer sequentiellen Abarbeitung wird
+die Reihenfolge der Regeln auch bei mehr-
+maligem Durchlaufen der Regelmenge strikt
+gewahrt. Dabei k&ouml;nnen Regeln wiederholt mit
+der gleichen Instanziierung angewendet wer-
+den.
+Die Reihenfolge wird entweder durch die
+Priorit&auml;t der Regeln bestimmt oder durch
+die Aufschreibreihenfolge, wenn keine 
+Priorit&auml;tsangabe vorhanden ist.
+
+F&uuml;r die sequentielle Vorw&auml;rtsverkettung
+werden verschiedene Auswertungstaktiken
+angeboten:
+
+do-one ==&gt; {nil | :no-rules}
+
+Das System wertet die erste ausf&uuml;hrbare
+Regel aus und kehrt zum Aktionsteil der 
+Regelmengen-Task zur&uuml;ck. L&auml;&szlig;t sich keine
+Regel ausf&uuml;hren, wird ':no-rules' zur&uuml;ck-
+gegeben, andernfalls nil.
+
+do-all ==&gt; {nil | :no-rules}
+
+Alle Regeln in der Sortierreihenfolge werden
+gepr&uuml;ft und ausgewertet. L&auml;&szlig;t sich keine
+Regel ausf&uuml;hren, wird ':no-rules' zur&uuml;ckge-
+geben, andernfalls nil.
+
+do-while &lt;condition&gt; 
+    ==&gt; {:condition-failed | :no-rules}
+
+Ist die Form &lt;condition&gt; erf&uuml;llt, werden
+die Regeln in Sortierreihenfolge gepr&uuml;ft und
+die erste ausf&uuml;hrbare Regel ausgewertet.
+Anschliessend wird wie beim ersten Durchgang
+verfahren, bis &lt;condition&gt; nicht mehr erf&uuml;llt
+ist oder alle Regeln gepr&uuml;ft wurden. Im
+ersten Fall wird ':condition-failed' zur&uuml;ck-
+gegeben, andernfalls ':no-rules'.
+
+do-until &lt;condition&gt;
+    ==&gt;{:condition-succeded | :no-rules}
+
+Die Regeln werden in Sortierreihenfolge
+gepr&uuml;ft und die erste ausf&uuml;hrbare Regel
+wird ausgewertet. Ist die Lisp-Form 
+&lt;condition&gt; noch nicht erf&uuml;llt, so wird wie
+beim ersten Durchgang verfahren bis &lt;con-
+dition&gt; erf&uuml;llt ist oder alle Regeln ge-
+pr&uuml;ft wurden. Im ersten Fall wird 
+':condition-succeeded' zur&uuml;ckgegeben, 
+andernfalls ':no-rules'.
+
+
+&lt;Vorw&auml;rtsverkettung&gt;
+Die Regeln werden in der Sortierreihenfolge
+getested und Regeln mit g&uuml;ltigen Instanzi-
+ierungen in eine Konfliktmenge gestellt. Aus
+dieser Menge wird gem&auml;&szlig; festgelegter 
+Konfliktl&ouml;sung eine einzige Regel ausgew&auml;hlt
+und f&uuml;r alle Instanziierungen ausgewertet.
+
+Nach Auswertung einer Regel werden die Regeln
+erneut nach Sortierreihenfolge getestet. Bei
+Regeln, die schon ausgewertet wurden, wird
+gepr&uuml;ft, ob sich neue Instanziierungen er-
+geben. Nur f&uuml;r diese werden Regeln erneut
+ausgewertet.
+
+Eine Regel ohne logische Variable wird 
+h&ouml;chstens einmal ausgewertet. Schon einmal
+getestete Regeln werden nur dann erneut
+getestet, wenn im Pr&auml;missenteil ein Pr&auml;dikat
+auftritt, f&uuml;r das ein tell, untell oder retell
+erfolgte. 
+
+do-exhaustive ==&gt; {nil | :no-rules}
+
+Warnung: noch nicht implementiert!
+
+Der eben erl&auml;uterte Zyklus wird solange durch-
+laufen, bis keine Regeln mehr auswertbar sind.
+L&auml;&szlig;t sich keine Regel ausf&uuml;hren, wird
+':no-rules' zur&uuml;ckgegeben andernfalls nil.
+
+do-while &lt;condition&gt;
+   ==&gt; {:condition-failed | :no-rules}
+
+Vor jedem Durchlauf des oben erl&auml;uterten
+Zyklus wird getestet, ob die Lisp-Form 
+&lt;condition&gt; erf&uuml;llt ist. Die Auswertung 
+bricht ab, wenn &lt;condition&gt; nicht mehr er-
+f&uuml;llt ist oder alle Regeln gepr&uuml;ft wurden.
+Im ersten Fall wird ':condition-failed' 
+zur&uuml;ckgegeben andernfalls ':no-rules'.
+
+do-until &lt;condition&gt;
+      ==&gt; {:condition-succeded | :no-rules}
+
+Nach jedem Durchlauf des oben erl&auml;uterten
+Zyklus wird getestet, ob die Lisp-Form 
+&lt;condition&gt; erf&uuml;llt ist. Die Auswertung
+bricht ab, wenn &lt;condition&gt; eintritt oder alle
+Regeln gepr&uuml;ft wurden. Im ersten Fall wird
+':condition-succeded' zur&uuml;ckgegeben andernfalls
+':no-rules'.
+
+
+Formen der Konflikt-L&ouml;sung
+
+:first-match
+Die erste anwendbare Regel wird ausgewertet.
+
+:newest-match
+Die erste anwendbare Regel im j&uuml;ngsten 
+Abarbeitungszyklus wird ausgew&auml;hlt.
+
+:oldest-match
+Die erste anwendbare Regel im &auml;ltesten Ab-
+arbeitungszyklus wird angewendet.
+
+
+&lt;R&uuml;ckw&auml;rtsverkettung&gt;
+
+Innerhalb von r&uuml;ckw&auml;rts verketteten Regel-
+mengen gibt es nur eine einzige Regelauswer-
+tungstaktik, die versucht, die continuation-
+form zu verifizieren.
+
+verify &lt;verify_Ausdr&gt; [:once] {&lt;conti-form&gt;}+
+
+Warnung: noch nicht implementiert!
+
+Es wird eine g&uuml;ltige Instanziierung von 
+&lt;verify_Ausdr&gt; ermittelt und anschliessend die
+&lt;conti-form&gt; mit dieser Instanziierung ausge-
+wertet. Fehlt ':once', wird nach weiteren 
+Instanziierungen gesucht. (Es wird nicht
+gepr&uuml;ft, ob eine Instanziierung bereits
+aufgetreten ist.)
+
+VERIFY wertet, wie ask, die &lt;conti-form&gt; aus.
+Dabei werden alle direkt ablesbaren Instanzi-
+ierungen sowie alle ableitbaren 
+Instanziierungen generiert und f&uuml;r jede der
+Instanziierungen die &lt;continuation&gt; Formen
+ausgef&uuml;hrt.
+
+Beispiel: &gt;(define-ruleset-task URLAUBSANGEBOT
+              (ein-kunde)
+              :documentation 
+                 &quot;Bestimmt Urlaubsangebot&quot;
+              :explanation (:description
+                 ((&quot;Erstellt 
+                 ein Urlaubsangebot&quot;)))
+              :mode :SEQUENTIAL
+              actions
+               (kb-format &quot;~%Ich gebe Ihnen
+                  eine Auswahl von m&ouml;glichen
+                  Urlaubsinteressen&quot;)
+               (do-one)
+               (kb-format &quot;~%Das ist alles
+                  was ich wei&szlig;&quot;))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc356.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc354.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-RULESET-TASK done --!>

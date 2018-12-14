@@ -1,0 +1,248 @@
+<HEAD><TITLE>EMA-XPS User's Guide</TITLE></HEAD>
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<IMG align=left  SRC="EmaXpsIcon.gif">
+<IMG align=right SRC="EmaXpsIcon.gif">
+<CENTER><strong>
+<font size="6">
+The graphic expert system shell
+</font>
+<br>
+<font size="8">EMA-XPS
+</font></strong></CENTER>
+<br clear=all>
+
+
+
+
+
+
+<!--------------------------------------------------------->
+<HR SIZE=6>
+
+<IMG align=left  SRC="imgbang1.gif">
+<IMG align=right SRC="imgbang1.gif">
+<CENTER><strong>
+<font size="6">
+This page is under construction.
+</font></strong>
+<p>
+Currently only the
+<a href="../de/uguide.html">
+german version of this page
+</a>
+is available!
+<p>
+<i>Sorry for that.</i>
+<br>
+I hope to translate it, when I'm less busy.
+<br>
+If you succeeded in translating at least some part of it,
+<br>
+<i>please send it to me</i>!
+</CENTER>
+<BR clear=all>
+<!--------------------------------------------------------->
+
+
+
+
+
+<HR SIZE=6>
+
+
+
+
+<!--------------------------------------------------------->
+<p>
+<A HREF="../index.html"><IMG SRC="GoToTop.gif"></A>
+<strong><font size="8">
+<A NAME="inhalt">User's Guide</A>
+</strong></font>
+<p>
+<!--------------------------------------------------------->
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+Table of Contents
+</H2>
+<!--------------------------------------------------------->
+
+
+<MENU>
+ <DD>    <A HREF=#hdl_1_0>1.  Acknowledgements</A>
+ <!--- ... --->
+ <DD>    <A HREF=#hdl_9_0>9.  The EMA-XPS Online Help Pages</A>
+</MENU>
+
+<P>
+   
+<HR SIZE=6>
+
+   
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_1_0">1. Acknowledgements</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+<dd>
+I would like to order my acknowledgements chrono-
+logically:
+<dd>
+
+At first I want to thank my Professor Joachim Holtz
+for supporting this idea for the comlete time of
+this project and granting availability of latest
+computing power (ApolloDomainOS, SunOS, Linux).
+<dd>
+
+Remembering the first steps in X11/Motif&#174; pro-
+gramming and setting up UNIX&#174; Interprocess-
+Communications I want to thank Andreas Hennecke
+for the parts of source he added to build the X-
+version of EMA-Laboratory's Graphics Standard GRF3.
+This was used to build the KLED-application, an
+interactive tool for mouse-oriented manipulation
+of graphs, which is part of the EMA-XPS distri-
+bution. In this context the concept of a two-
+process-solution (one event-oriented, the other
+with a sequential work-flow) was born. The infe-
+rence engine of Babylon2 (developed by the GMD)
+works merely text-oriented, but its source is
+available free of charge. To avoid &quot;re-inventing
+the wheel&quot; only the graphic support should be 
+added by accompanying the Babylon2-process with
+a graphics manager.
+<dd>
+
+For testing and implementing a first version of
+this solution adapted to the demands of this pro-
+ject, the core-part of EMA-XPS v1, Jochen Krom-
+berg must be honored.
+<dd>
+
+In advance the work of Klaus Senf must be grate-
+fully mentioned. He built the complete rest of
+the GUI of EMA-XPS v1 to demonstrate the great
+chances of this concept.
+<dd>
+
+Although it were bad news, that &quot;babylon v3.1-
+beta&quot; from VW-GEDAS was removed from the market,
+the hopes in this project were strongly growing.
+The idea of adapting EMA-XPS to become a repla-
+cement for babylon3 emerged higher stability and
+flexibility of the core-IPC.
+Therefore the number of physical channels has
+been reduced to 1. Up to 1000 virtual channels
+can be multiplexed across it now.
+<dd>
+
+The most important prerequisite for the replace-
+ment-task was building a babylon3-like graphic
+session-time user-interface. This has been cre-
+ated by Michael Block with great love in details.
+<dd>
+
+For studying the knowledge-programming-languages
+of Babylon2 and babylon3, their common sets and
+their differences, I'd like to thank Jan Legen-
+hausen. He found the principles of how-to-trans-
+form babylon3 constructs into Babylon2/EMA-XPS
+ones. Therefore he developed the language-trans-
+lator &quot;3to2&quot;, which has been superseded by a 
+load-time input-filter as a part of EMA-XPS v2.1.
+<dd>
+
+For converting and optimizing the knowledge-
+editors of EMA-XPS v1 my thanks aren't finally 
+directed to Karsten Vossberg and Stephan Peters.
+This includes changing code in a way, that the
+complete multi-language-support of EMA-XPS v2.1
+has been moved to X-Resources. This enables
+even users of binary distributions to build 
+their own language support.
+<dd>
+
+Last but not least to mention is Frans Ceelen,
+who added online documentation of the state of the
+babylon3 emulation. This help on syntax is available 
+while editing knowledge from within the text fields
+of the knowledge editors.
+<p>
+
+Hans Groschwitz
+<p>
+
+
+
+
+
+
+
+
+
+<!--- lots of text missing... --->
+
+
+
+
+
+
+
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_9_0">9.   The EMA-XPS Online Help Pages</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+<PRE>
+   <a href="ondoc005.html">MAIN-MENU</a>
+   <a href="ondoc006.html">SESSION-SCREEN</a>
+   <a href="ondoc007.html">DEBUGGER</a>
+   <a href="ondoc008.html">EXPLANATION-WINDOW</a>
+   <a href="ondoc009.html">TRACER</a>
+   <a href="ondoc010.html">EDITORS</a>
+   <a href="ondoc011.html">FRAME-EDITOR</a>
+   <a href="ondoc012.html">INSTANCE-EDITOR</a>
+   <a href="ondoc013.html">BEHAVIOR-EDITOR</a>
+   <a href="ondoc014.html">RULE-EDITOR</a>
+   <a href="ondoc015.html">PROLOG-EDITOR</a>
+   <a href="ondoc016.html">CONSTRAINT-EDITOR</a>
+   <a href="ondoc017.html">CONSTRAINT-NET-EDITOR</a>
+   <a href="ondoc018.html">RESTRICTION-EDITOR</a>
+   <a href="ondoc019.html">TASK-EDITOR</a>
+   <a href="ondoc020.html">MISCELANEOUS-EDITOR</a>
+</PRE>
+   
+
+
+<P>
+<HR SIZE=6>
+
+
+<!--------------------------------------------------------->
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+Back to the table of contents
+<!--------------------------------------------------------->
+
+
+
+
+<!------- eof -------->

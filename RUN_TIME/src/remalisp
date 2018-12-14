@@ -1,0 +1,14 @@
+#!/bin/sh
+## line 3 is changed automatically!
+emapath=../EMA-XPS      ## relative to `src' directory!
+
+## with CLISP use:
+exec $emapath/bin/clisp \
+  -B $emapath/lib/clisp-2.45 \
+  -M $emapath/lib/rema-xps.mem \
+  -q "$@"
+
+## with Allegro CL 4.1 use:
+#exec $emapath/lib/rema-xps.mem $*
+
+### eof

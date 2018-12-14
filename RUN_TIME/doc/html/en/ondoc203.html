@@ -1,0 +1,48 @@
+<html><head><title>IS-NEARLY</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc204.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc202.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>IS-NEARLY</strong></font></center><p>
+
+<PRE>IS-NEARLY
+=========
+
+
+syntax: (is-nearly &lt;object1&gt; &lt;object2&gt; [&lt;delta&gt;])
+                   ; Babylon Lisp
+        (equalp &lt;object1&gt; &lt;object2&gt;)
+                   ; Common Lisp
+
+Warning: &lt;delta&gt; is not supported by EMA-XPS!
+
+This function compares both objects. It returns T,
+when the objects are almost equal. IS-NEARLY and
+EQUALP can not be compared for numbers: EQUALP
+works like '='.
+
+example:       &gt;(is-nearly #\a #\A)
+               T
+               &gt;(is-nearly 1 1.0)
+               T
+               &gt;(is-nearly 1 1.01 0.01)
+               T
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc204.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc202.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- IS-NEARLY done --!>

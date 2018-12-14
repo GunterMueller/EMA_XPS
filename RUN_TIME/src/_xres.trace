@@ -1,0 +1,47 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.trace   Hans Groschwitz        19.07.95   !!
+!!                 Karsten Vossberg                  !!
+!!                                                   !!
+!!   Functions to build the tracer.                  !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!*** general settings ***
+
+Tracer.height:                               400
+Tracer.title:                                Tracer
+Tracer.iconName:                             Tracer
+
+!*** language settings ***
+
+Tracer*Help.mnemonic:                        H
+Tracer*on_menu.mnemonic:                     M
+Tracer*trace.labelString:                    Tracer
+Tracer*trace.mnemonic:                       T
+
+#ifdef __english
+Tracer*clear_button.labelString:             Clear
+Tracer*clear_button.mnemonic:                C
+Tracer*Help.labelString:                     Help
+Tracer*on_menu.labelString:                  on Menu ...
+
+#else /* deutsch */
+Tracer*clear_button.labelString:             L\366schen
+Tracer*clear_button.mnemonic:                L
+Tracer*Help.labelString:                     Hilfe
+Tracer*on_menu.labelString:                  zum Men\374 ...
+
+#endif /* english */
+
+
+!*** color settings ***
+
+#ifdef COLOR
+Tracer*background:                           azure
+
+#else   !!! MONO: here non-default settings only, please!
+
+#endif
+
+
+!!! EOF

@@ -1,0 +1,46 @@
+<html><head><title>KB-FORMAT</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc232.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc230.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>KB-FORMAT</strong></font></center><p>
+
+<PRE>KB-FORMAT
+=========
+
+Syntax: (kb-format &lt;babylon-Format-Zeichenkette&gt;
+                   {&lt;babylon-Format-Arg&gt; ...})
+
+Mit KB-FORMAT erhalten Sie eine Ausgabe. KB-FORMAT
+gibt immer NIL zur&uuml;ck.
+
+Beispiel: &gt;(ask [Hauptstadt _stadt]
+                 (kb-format &quot;~%~A&quot; (name-of _stadt)))
+          Paris
+          Londen
+          Amsterdam
+
+          &gt;(kb-format &quot;Besuchen Sie ~{~A ~}&quot;
+             (set-to-list
+              (ask-instance-values 'Angebote Paris)))
+          Besuchen Sie
+          (Louvre Notre-Dame Moulin-Rouge)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc232.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc230.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- KB-FORMAT done --!>

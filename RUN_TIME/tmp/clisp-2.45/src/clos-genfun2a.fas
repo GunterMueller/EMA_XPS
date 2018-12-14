@@ -1,0 +1,407 @@
+(|SYSTEM|::|VERSION| '(20080430.))
+#0Y_ #0Y |CHARSET|::|UTF-8|
+#Y(#:|1 8 (IN-PACKAGE "CLOS")-1|
+   #17Y(00 00 00 00 00 00 00 00 20 01 DA 31 F6 0F 01 19 01)
+   ("CLOS" |COMMON-LISP|::|*PACKAGE*|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|11 15 (DEFVAR \|#'compute-discriminating-function\| NIL)-2|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'compute-discriminating-function|)
+    |CLOS|::|#'compute-discriminating-function|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|16 16 (DEFVAR \|#'compute-applicable-methods\| NIL)-3|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'compute-applicable-methods|)
+    |CLOS|::|#'compute-applicable-methods|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|17 17 (DEFVAR \|#'compute-applicable-methods-using-classes\| NIL)-4|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL|
+     |CLOS|::|#'compute-applicable-methods-using-classes|)
+    |CLOS|::|#'compute-applicable-methods-using-classes|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|18 18 (DEFVAR \|#'compute-effective-method\| NIL)-5|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'compute-effective-method|)
+    |CLOS|::|#'compute-effective-method|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|19 19 (DEFVAR \|#'generic-function-methods\| NIL)-6|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'generic-function-methods|)
+    |CLOS|::|#'generic-function-methods|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|20 20 (DEFVAR \|#'generic-function-method-class\| NIL)-7|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'generic-function-method-class|)
+    |CLOS|::|#'generic-function-method-class|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|21 21 (DEFVAR \|#'generic-function-signature\| NIL)-8|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'generic-function-signature|)
+    |CLOS|::|#'generic-function-signature|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|22 22 (DEFVAR \|#'generic-function-undeterminedp\| NIL)-9|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'generic-function-undeterminedp|)
+    |CLOS|::|#'generic-function-undeterminedp|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|23 23 (DEFVAR \|#'generic-function-method-combination\| NIL)-10|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'generic-function-method-combination|)
+    |CLOS|::|#'generic-function-method-combination|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|24 24 (DEFVAR \|#'generic-function-argorder\| NIL)-11|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'generic-function-argorder|)
+    |CLOS|::|#'generic-function-argorder|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|25 25 (DEFVAR \|#'generic-function-declarations\| NIL)-12|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'generic-function-declarations|)
+    |CLOS|::|#'generic-function-declarations|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|26 26 (DEFVAR \|#'method-qualifiers\| NIL)-13|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'method-qualifiers|)
+    |CLOS|::|#'method-qualifiers|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|27 27 (DEFVAR \|#'method-specializers\| NIL)-14|
+   #24Y(00 00 00 00 00 00 00 00 20 01 DA 31 62 DB 8C 57 04 DB 63 31 5A C6 19
+        01)
+   ((|COMMON-LISP|::|SPECIAL| |CLOS|::|#'method-specializers|)
+    |CLOS|::|#'method-specializers|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|29 36 (DEFUN SAFE-GF-METHODS (GF) ...)-15|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|SAFE-GF-METHODS| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|SAFE-GF-METHODS|
+       #45Y(00 00 00 00 01 00 00 00 26 02 AD 98 00 22 19 AD 0E 01 22 14 AD 0E
+            02 22 0F AD 0E 03 22 0A AD 0E 04 22 05 AD 2F 00 19 02 AD 2F 05 19
+            02)
+       (|CLOS|::|GENERIC-FUNCTION-METHODS| |CLOS|::|#'generic-function-methods|
+        |CLOS|::|#'compute-effective-method|
+        |CLOS|::|#'compute-discriminating-function|
+        |CLOS|::|#'compute-applicable-methods-using-classes|
+        |CLOS|::|STD-GF-METHODS|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|38 42 (DEFUN SAFE-GF-DEFAULT-METHOD-CLASS (GF) ...)-16|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|SAFE-GF-DEFAULT-METHOD-CLASS| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|SAFE-GF-DEFAULT-METHOD-CLASS|
+       #30Y(00 00 00 00 01 00 00 00 26 02 AD 0E 00 22 0A AD 0E 01 22 05 AD 2F
+            03 19 02 AD 2F 02 19 02)
+       (|CLOS|::|#'generic-function-method-class|
+        |CLOS|::|#'compute-effective-method|
+        |CLOS|::|STD-GF-DEFAULT-METHOD-CLASS|
+        |CLOS|::|GENERIC-FUNCTION-METHOD-CLASS|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|44 50 (DEFUN SAFE-GF-SIGNATURE (GF) ...)-17|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|SAFE-GF-SIGNATURE| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|SAFE-GF-SIGNATURE|
+       #40Y(00 00 00 00 01 00 00 00 26 02 AD 98 00 22 14 AD 0E 01 22 0F AD 0E
+            02 22 0A AD 0E 03 22 05 AD 2F 00 19 02 AD 2F 04 19 02)
+       (|CLOS|::|GENERIC-FUNCTION-SIGNATURE|
+        |CLOS|::|#'generic-function-signature|
+        |CLOS|::|#'generic-function-method-class|
+        |CLOS|::|#'compute-effective-method| |CLOS|::|STD-GF-SIGNATURE|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|52 56 (DEFUN SAFE-GF-UNDETERMINEDP (GF) ...)-18|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|SAFE-GF-UNDETERMINEDP| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|SAFE-GF-UNDETERMINEDP|
+       #30Y(00 00 00 00 01 00 00 00 26 02 AD 98 00 22 0A AD 0E 01 22 05 AD 2F
+            00 19 02 AD 2F 02 19 02)
+       (|CLOS|::|GENERIC-FUNCTION-UNDETERMINEDP|
+        |CLOS|::|#'generic-function-undeterminedp|
+        |CLOS|::|STD-GF-UNDETERMINEDP|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|58 63 (DEFUN SAFE-GF-METHOD-COMBINATION (GF) ...)-19|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|SAFE-GF-METHOD-COMBINATION| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|SAFE-GF-METHOD-COMBINATION|
+       #35Y(00 00 00 00 01 00 00 00 26 02 AD 98 00 22 0F AD 0E 01 22 0A AD 0E
+            02 22 05 AD 2F 00 19 02 AD 2F 03 19 02)
+       (|CLOS|::|GENERIC-FUNCTION-METHOD-COMBINATION|
+        |CLOS|::|#'generic-function-method-combination|
+        |CLOS|::|#'compute-effective-method|
+        |CLOS|::|STD-GF-METHOD-COMBINATION|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|65 70 (DEFUN SAFE-GF-ARGORDER (GF) ...)-20|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|SAFE-GF-ARGORDER| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|SAFE-GF-ARGORDER|
+       #35Y(00 00 00 00 01 00 00 00 26 02 AD 0E 00 22 0F AD 0E 01 22 0A AD 0E
+            02 22 05 AD 2F 04 19 02 AD 2F 03 19 02)
+       (|CLOS|::|#'generic-function-argorder| |CLOS|::|#'method-qualifiers|
+        |CLOS|::|#'compute-effective-method| |CLOS|::|STD-GF-ARGORDER|
+        |CLOS|::|GENERIC-FUNCTION-ARGORDER|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|72 78 (DEFUN SAFE-GF-DECLSPECS (GF) ...)-21|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|SAFE-GF-DECLSPECS| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|SAFE-GF-DECLSPECS|
+       #40Y(00 00 00 00 01 00 00 00 26 02 AD 0E 00 22 14 AD 0E 01 22 0F AD 0E
+            02 22 0A AD 0E 03 22 05 AD 2F 05 19 02 AD 2F 04 19 02)
+       (|CLOS|::|#'generic-function-declarations|
+        |CLOS|::|#'generic-function-argorder| |CLOS|::|#'method-qualifiers|
+        |CLOS|::|#'compute-effective-method| |CLOS|::|STD-GF-DECLSPECS|
+        |CLOS|::|GENERIC-FUNCTION-DECLARATIONS|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|80 85 (DEFUN SAFE-METHOD-QUALIFIERS (METHOD GF) ...)-22|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|SAFE-METHOD-QUALIFIERS| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|SAFE-METHOD-QUALIFIERS|
+       #35Y(00 00 00 00 02 00 00 00 26 03 AD 98 00 22 0F AD 0E 01 22 0A AD 0E
+            02 22 05 AE 2F 00 19 03 AE 2F 03 19 03)
+       (|CLOS|::|METHOD-QUALIFIERS| |CLOS|::|#'method-qualifiers|
+        |CLOS|::|#'compute-effective-method| |CLOS|::|STD-METHOD-QUALIFIERS|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|METHOD| |CLOS|::|GF|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|87 92 (DEFUN SAFE-METHOD-SPECIALIZERS (METHOD GF) ...)-23|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|SAFE-METHOD-SPECIALIZERS| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|SAFE-METHOD-SPECIALIZERS|
+       #35Y(00 00 00 00 02 00 00 00 26 03 AD 98 00 22 0F AD 0E 01 22 0A AD 0E
+            02 22 05 AE 2F 00 19 03 AE 2F 03 19 03)
+       (|CLOS|::|METHOD-SPECIALIZERS| |CLOS|::|#'method-specializers|
+        |CLOS|::|#'compute-effective-method| |CLOS|::|STD-METHOD-SPECIALIZERS|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|METHOD| |CLOS|::|GF|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|94 98 (DEFUN METHOD-APPLICABLE-P (METHOD REQUIRED-ARGUMENTS GF) ...)-24|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|METHOD-APPLICABLE-P| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|METHOD-APPLICABLE-P|
+       #22Y(00 00 00 00 03 00 00 00 26 04 99 00 AF B1 B0 70 01 33 01 2A 19 04)
+       (|COMMON-LISP|::|TYPEP| |CLOS|::|SAFE-METHOD-SPECIALIZERS|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|METHOD| |CLOS|::|REQUIRED-ARGUMENTS| |CLOS|::|GF|)
+       |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|100 129 (DEFUN SORT-APPLICABLE-METHODS (METHODS REQUIRED-ARGUMENT-CLASSES ARGUMENT-ORDER ...) ...)-25|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|SORT-APPLICABLE-METHODS| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|SORT-APPLICABLE-METHODS|
+       #38Y(00 00 00 00 04 00 00 00 26 05 00 2B 03 7F 04 00 00 7F 03 00 01 7F
+            02 00 02 B1 71 AB AD 6D 00 01 38 03 32 82 19 06)
+       (#Y(|CLOS|::|SORT-APPLICABLE-METHODS-1|
+           #111Y(00 00 00 00 02 00 00 00 26 03 AE 69 00 03 70 01 AE 69 00 03 70
+                 01 69 00 02 63 1B 80 4B AC 88 02 80 42 02 19 0A 00 19 0A 02 19
+                 0D 00 19 0D 87 01 00 14 69 00 01 71 A1 AD B1 71 A1 AE B1 71 A1
+                 AD 88 02 5A AC 88 02 5E AE 6F 03 AE AD 38 06 72 7A AE AE 38 06
+                 72 7A AD AD 90 01 31 4C AD AD 90 01 32 49 16 03 16 03 83 01 AD
+                 8D 9F 42 00 19 07)
+           (|COMMON-LISP|::|NIL| |CLOS|::|SAFE-METHOD-SPECIALIZERS|
+            |CLOS|::|EQL-SPECIALIZER-P| |CLOS|::|CLASS-PRECEDENCE-LIST|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+           (|CLOS|::|METHOD1| |CLOS|::|METHOD2|) |COMMON-LISP|::|NIL| 1))
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|METHODS| |CLOS|::|REQUIRED-ARGUMENT-CLASSES|
+        |CLOS|::|ARGUMENT-ORDER| |CLOS|::|GF|)
+       |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|131 133 (PREDEFUN COMPUTE-APPLICABLE-METHODS (GF ARGS) ...)-26|
+   #23Y(00 00 00 00 00 00 00 00 20 01 DA 64 30 01 DA DC 6F 03 32 9C C5 19 01)
+   (|CLOS|::|COMPUTE-APPLICABLE-METHODS| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|COMPUTE-APPLICABLE-METHODS|
+       #16Y(00 00 00 00 02 00 00 00 26 03 AE AE 30 00 19 03)
+       (|CLOS|::|COMPUTE-APPLICABLE-METHODS-<GENERIC-FUNCTION>|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF| |CLOS|::|ARGS|) |COMMON-LISP|::|NIL| 1)
+    |SYSTEM|::|MAKE-PRELIMINARY|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|135 156 (DEFUN COMPUTE-APPLICABLE-METHODS-<GENERIC-FUNCTION> (GF ARGS) ...)-27|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|COMPUTE-APPLICABLE-METHODS-<GENERIC-FUNCTION>|
+    |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|COMPUTE-APPLICABLE-METHODS-<GENERIC-FUNCTION>|
+       #133Y(00 00 00 00 02 00 00 00 26 03 AE 88 00 1D AE 6F 01 AC C7 5F F8 AE
+             72 62 AD 90 01 34 11 E4 6F 0B DE B1 AF B2 72 62 DE B4 33 06 1E 00
+             19 03 AF 6F 03 AC 63 1B 0B 87 01 00 B2 AD DE 2D 03 05 83 01 AD 8D
+             9F 71 16 02 AF DC AF 72 60 63 AE AC 1B 1B AD AD 71 B4 AF 80 B0 02
+             83 00 F9 1B 0E 94 00 AC B1 B7 2D 03 06 16 01 1D 67 83 00 AC 8D 9F
+             6E AE AE 31 B0 16 03 F9 14 E1 AE 73 00 16 B3 6F 08 B4 2D 04 09 19
+             06)
+       (|CLOS|::|SAFE-GF-UNDETERMINEDP| |CLOS|::|SAFE-GF-SIGNATURE| 0.
+        |CLOS|::|SAFE-GF-METHODS| |CLOS|::|COMPUTE-APPLICABLE-METHODS|
+        |CLOS|::|CHECK-METHOD-ONLY-STANDARD-SPECIALIZERS|
+        |CLOS|::|METHOD-APPLICABLE-P| #.#'|CLOS|::|CLASS-OF|
+        |CLOS|::|SAFE-GF-ARGORDER| |CLOS|::|SORT-APPLICABLE-METHODS|
+        "~S: ~S has ~S required argument~:P, but only ~S arguments were passed to ~S: ~S"
+        |SYSTEM|::|TEXT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF| |CLOS|::|ARGS|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|158 166 (PREDEFUN COMPUTE-APPLICABLE-METHODS-USING-CLASSES (GF REQ-ARG-CLASSES) ...)-28|
+   #23Y(00 00 00 00 00 00 00 00 20 01 DA 64 30 01 DA DC 6F 03 32 9C C5 19 01)
+   (|CLOS|::|COMPUTE-APPLICABLE-METHODS-USING-CLASSES|
+    |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|COMPUTE-APPLICABLE-METHODS-USING-CLASSES|
+       #16Y(00 00 00 00 02 00 00 00 26 03 AE AE 30 00 19 03)
+       (|CLOS|::|COMPUTE-APPLICABLE-METHODS-USING-CLASSES-<GENERIC-FUNCTION>|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF| |CLOS|::|REQ-ARG-CLASSES|) |COMMON-LISP|::|NIL| 1)
+    |SYSTEM|::|MAKE-PRELIMINARY|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|168 213 (DEFUN COMPUTE-APPLICABLE-METHODS-USING-CLASSES-<GENERIC-FUNCTION> (GF REQ-ARG-CLASSES) ...)-29|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|COMPUTE-APPLICABLE-METHODS-USING-CLASSES-<GENERIC-FUNCTION>|
+    |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|COMPUTE-APPLICABLE-METHODS-USING-CLASSES-<GENERIC-FUNCTION>|
+       #225Y(00 00 00 00 02 00 00 00 26 03 AD 8F 3E 27 DA AE 91 00 2A 21 AE 88
+             04 25 AE 6F 05 AC CB 5F F8 AE 72 62 AD 90 01 2F 19 E8 6F 02 DD B1
+             AF B2 72 62 DD B4 33 06 1E DB 6F 02 DD AF 33 02 1E 00 19 03 AF 6F
+             07 AC 63 1B 1B 16 02 93 01 80 75 1B 80 6F 7E 04 16 02 1B 80 49 87
+             01 00 B2 AD DD 2D 03 08 83 01 AD 8D 9F 71 16 02 63 AD AC AC 8C 9F
+             80 5C 94 00 AC B5 70 09 64 63 B6 AF AD 8C 9F 49 94 01 AD 8C 9F 36
+             94 01 AC 8E 3D 0F AD AD 6F 0B 32 39 22 FF BD 7D 05 16 02 1B 07 AD
+             AD 8B 0A 75 16 02 83 01 83 00 1B 54 01 02 40 02 19 0C AD AD 71 B4
+             AF 80 B0 02 83 00 F9 1B FF B1 16 03 93 01 03 92 00 64 9E 16 04 1D
+             65 83 00 1B FF 9F AE AE 31 B0 16 03 F8 14 B0 B2 6F 0C B3 6E 04 0D
+             64 40 02 19 05)
+       (#.#'|CLOS|::|DEFINED-CLASS-P|
+        "~S: argument should be a proper list of classes, not ~S"
+        |SYSTEM|::|TEXT| |CLOS|::|COMPUTE-APPLICABLE-METHODS-USING-CLASSES|
+        |CLOS|::|SAFE-GF-UNDETERMINEDP| |CLOS|::|SAFE-GF-SIGNATURE| 0.
+        |CLOS|::|SAFE-GF-METHODS|
+        |CLOS|::|CHECK-METHOD-ONLY-STANDARD-SPECIALIZERS|
+        |CLOS|::|SAFE-METHOD-SPECIALIZERS| |CLOS|::|SUBCLASSP|
+        |CLOS|::|EQL-SPECIALIZER-OBJECT| |CLOS|::|SAFE-GF-ARGORDER|
+        |CLOS|::|SORT-APPLICABLE-METHODS|
+        "~S: ~S has ~S required argument~:P, but ~S classes were passed to ~S: ~S")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF| |CLOS|::|REQ-ARG-CLASSES|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|215 325 (DEFUN COMPUTE-APPLICABLE-METHODS-FOR-SET (GF REQ-ARG-SPECS) ...)-30|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|COMPUTE-APPLICABLE-METHODS-FOR-SET|
+    |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|COMPUTE-APPLICABLE-METHODS-FOR-SET|
+       #334Y(02 00 01 00 02 00 00 00 26 03 00 2B 02 7F 03 00 00 7F 02 00 01 47
+             00 81 33 68 03 01 8F 3E 2C DB 68 04 01 91 00 2A 24 68 03 00 88 04
+             28 68 03 00 6F 05 AC CB 5F F8 68 04 01 72 62 AD 90 01 2F 19 EF 6F
+             03 DA 68 06 00 AF 33 03 1E DC 6F 03 DA 68 05 01 33 02 1E 00 1B 80
+             F0 68 04 00 6F 07 AC 63 1B 0D 87 01 00 68 07 00 AD DA 2D 03 08 83
+             01 AD 8D 9F 6F 16 02 63 AD AC 1B 80 A6 94 00 AC 68 0A 00 70 09 64
+             63 68 0C 01 AC B0 1B 80 77 16 02 1B 80 80 94 01 94 01 9D 26 0A 3A
+             9F 5C 78 AE 8B 0B 20 1B 80 5A AD 8E 3D 72 AD 6F 0C A0 5C 78 8B 0D
+             1D 1B 0E AD 8E 3D 10 9F 5C 78 AE 6F 0C 32 39 23 0D 7E 06 16 03 1B
+             39 9F 5C 78 AE 8A 0B 30 7D 07 16 03 1B 2C AC E8 E9 70 10 EB 2D 03
+             12 16 03 1B 1F 01 02 40 02 16 09 1B 80 5F AD AD 71 B4 AF 80 B0 02
+             83 00 F9 1B 2A 9F 5C 78 AE 8B 0D 50 16 03 83 01 83 00 AD 8C 9F FF
+             84 94 01 AD 8D 9F FF 82 16 03 16 01 93 01 03 92 00 47 9E 16 04 1D
+             4B 83 00 AC 8D 9F FF 55 AE AE 31 B0 16 03 F8 A2 2B 01 68 06 00 2F
+             13 0B 00 00 AD 71 AB AD B3 6D 14 02 38 03 72 82 64 40 02 16 03 48
+             19 04 19 04)
+       (|CLOS|::|COMPUTE-APPLICABLE-METHODS-FOR-SET|
+        #Y(|CLOS|::|COMPUTE-APPLICABLE-METHODS-FOR-SET-1|
+           #24Y(00 00 00 00 01 00 00 00 26 02 AD 32 16 1F 07 94 01 DA 31 AD 19
+                02 19 02)
+           ((|COMMON-LISP|::|TYPEP| |CLOS|::|INSTANCE-OF-P|
+             |COMMON-LISP|::|EQL|))
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|)
+           (|CLOS|::|X|) |COMMON-LISP|::|NIL| 1)
+        "~S: argument should be a proper list of specifiers, not ~S"
+        |SYSTEM|::|TEXT| |CLOS|::|SAFE-GF-UNDETERMINEDP|
+        |CLOS|::|SAFE-GF-SIGNATURE| 0. |CLOS|::|SAFE-GF-METHODS|
+        |CLOS|::|CHECK-METHOD-ONLY-STANDARD-SPECIALIZERS|
+        |CLOS|::|SAFE-METHOD-SPECIALIZERS|
+        #S(|COMMON-LISP|::|HASH-TABLE| :|TEST| |EXT|::|STABLEHASH-EQ|
+           (|COMMON-LISP|::|EQL| . 94.) (|CLOS|::|INSTANCE-OF-P| . 26.)
+           (|COMMON-LISP|::|TYPEP| . 11.))
+        |CLOS|::|SUBCLASSP| |CLOS|::|EQL-SPECIALIZER-OBJECT|
+        |COMMON-LISP|::|TYPEP| (|COMMON-LISP|::|FIRST| |CLOS|::|ARG-SPEC|)
+        (|COMMON-LISP|::|TYPEP| |CLOS|::|INSTANCE-OF-P| |COMMON-LISP|::|EQL|)
+        |SYSTEM|::|CASE-ERROR-STRING|
+        (|COMMON-LISP|::|MEMBER| |COMMON-LISP|::|TYPEP| |CLOS|::|INSTANCE-OF-P|
+         |COMMON-LISP|::|EQL|)
+        |SYSTEM|::|ETYPECASE-FAILED| |CLOS|::|SAFE-GF-ARGORDER|
+        #Y(|CLOS|::|COMPUTE-APPLICABLE-METHODS-FOR-SET-2|
+           #163Y(00 00 00 00 02 00 00 00 26 03 AE 69 01 01 70 02 AE 69 01 01 70
+                 02 69 00 01 63 AD 8C 9F 80 81 87 01 00 14 69 01 02 71 A1 AD B1
+                 71 A1 AE B1 71 A1 AD 88 03 11 AC 88 03 19 AD 9E 22 80 5C AC 0E
+                 04 23 0A 02 19 0A AC 89 03 79 1B 80 4D AD 0E 04 23 03 00 19 0A
+                 94 02 9D 26 05 18 01 02 40 02 49 01 A0 5C 5B 1B 16 A0 5C 78 32
+                 39 1B 0F 02 19 0E 00 19 0E AC E0 E1 70 08 E3 2D 03 0A F8 AC 6F
+                 0B AF AD 38 06 72 7A AF AE 38 06 72 7A AD AD 90 01 31 5B AD AD
+                 90 01 32 58 16 04 16 03 83 01 1B FF 7A 00 19 07)
+           (|COMMON-LISP|::|NIL| |COMMON-LISP|::|NIL|
+            |CLOS|::|SAFE-METHOD-SPECIALIZERS| |CLOS|::|EQL-SPECIALIZER-P|
+            |CLOS|::|<T>|
+            #S(|COMMON-LISP|::|HASH-TABLE| :|TEST| |EXT|::|STABLEHASH-EQ|
+               (|COMMON-LISP|::|EQL| . 12.) (|CLOS|::|INSTANCE-OF-P| . 7.)
+               (|COMMON-LISP|::|TYPEP| . 1.))
+            (|COMMON-LISP|::|FIRST| |CLOS|::|ARG-SPEC|)
+            (|COMMON-LISP|::|TYPEP| |CLOS|::|INSTANCE-OF-P|
+             |COMMON-LISP|::|EQL|)
+            |SYSTEM|::|CASE-ERROR-STRING|
+            (|COMMON-LISP|::|MEMBER| |COMMON-LISP|::|TYPEP|
+             |CLOS|::|INSTANCE-OF-P| |COMMON-LISP|::|EQL|)
+            |SYSTEM|::|ETYPECASE-FAILED| |CLOS|::|CLASS-PRECEDENCE-LIST|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+           (|CLOS|::|METHOD1| |CLOS|::|METHOD2|) |COMMON-LISP|::|NIL| 1)
+        "~S: ~S has ~S required argument~:P")
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF| |CLOS|::|REQ-ARG-SPECS|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|327 336 (DEFUN CHECK-METHOD-ONLY-STANDARD-SPECIALIZERS (GF METHOD CALLER) ...)-31|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|CHECK-METHOD-ONLY-STANDARD-SPECIALIZERS|
+    |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|CHECK-METHOD-ONLY-STANDARD-SPECIALIZERS|
+       #49Y(00 00 00 00 03 00 00 00 26 04 AE B0 70 00 63 1B 19 DC 6F 03 B0 AE
+            B3 B5 33 04 1E 87 01 00 14 8E 3D 06 AC 6B 01 8F 3C 69 83 01 AD 8D
+            9F 6D 00 19 06)
+       (|CLOS|::|SAFE-METHOD-SPECIALIZERS| |CLOS|::|<EQL-SPECIALIZER>|
+        "~S: Invalid method specializer ~S on ~S in ~S" |SYSTEM|::|TEXT|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|GF| |CLOS|::|METHOD| |CLOS|::|CALLER|) |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|338 376 (DEFUN GF-KEYWORD-ARGUMENTS (RESTP SIGNATURE METHODS) ...)-32|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|CLOS|::|GF-KEYWORD-ARGUMENTS| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|CLOS|::|GF-KEYWORD-ARGUMENTS|
+       #186Y(00 00 00 00 03 00 00 00 26 04 A0 1F 80 AA AE C5 5F 1C 27 99 01 AE
+             73 00 16 99 02 AD 38 05 81 6E 00 AF C8 5F 1C 04 9D 1F 80 8C 99 04
+             AD 90 00 29 0C AF CA 5F 14 01 02 AF 1B 2E 00 19 04 00 19 05 AC 31
+             AB 1B 18 AF 38 01 80 A9 03 14 AD 31 B8 16 02 1B 13 94 00 AC CA 5F
+             14 9D 21 64 9D F8 A1 21 64 9D FC FB 16 02 83 00 AC 8D 9F 67 16 01
+             9E 16 01 F8 73 02 23 64 38 05 72 6F B0 CB 5F 14 6F 07 AD 6F 07 E2
+             63 B0 AF 1B 14 16 02 1B 1C 94 01 AD AD 7B 02 7B 01 84 04 16 02 83
+             01 83 00 AD 8C 9F 68 94 01 AD 8D 9F 66 16 03 AC 31 B1 16 01 7A AE
+             AE AE 40 03 19 09 19 05 19 04)
+       (5. |CLOS|::|METHOD-SIGNATURE| |SYSTEM|::|SIG-KEYS-P| 3.
+        |SYSTEM|::|SIG-ALLOW-P| 4. 1. |SYSTEM|::|GENSYM-LIST|
+        |COMMON-LISP|::|&KEY|)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|CLOS|::|RESTP| |CLOS|::|SIGNATURE| |CLOS|::|METHODS|)
+       |COMMON-LISP|::|NIL| 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))

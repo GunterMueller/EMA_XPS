@@ -1,0 +1,271 @@
+.TH EMA-XPS 1 "September 12, 1996"
+.SH NAME
+EMA-XPS v2.1.6 \- A Hybrid Graphic Expert System Shell
+.SH SYNOPSIS
+.B ema-xps
+[
+.B -kbs
+.I path
+]
+[
+.B -kb
+.I file
+]
+[
+.B -ext
+.I ext
+]
+[
+.B -run
+]
+[
+.B -pty
+]
+[
+.B -csr
+]
+[
+.B -gui
+]
+[
+.B -dbg
+]
+[
+.B -pad
+]
+[
+.B -bw
+]
+[
+.B -help
+]
+.SH DESCRIPTION
+.BR EMA-XPS 
+is a hybrid graphic expert system shell based on the
+ASCII-oriented shell Babylon 2.3 of the German National
+Research Center for Computer Sciences (GMD). In addition to
+Babylon's AI-power  (object  oriented  data representation,
+forward and backward chained rules - collectable into  sets,
+horn clauses, and constraint networks) a graphic interface  
+based on the X11 Window  System  and  the  OSF/Motif  Widget
+Library has been provided.
+.PP
+To avoid collisions of the two programming techniques (event
+oriented vs. procedural style), two separate programs solve 
+these  different  jobs.  The  first  one   works   event   
+oriented. It initializes a bidirectional pair of interprocess
+communication channels using one pseudo teletype  (like  xterm).
+In  advance  it spawns  a  LISP-world containing the features
+of Babylon and the extensions for interprocess communication.
+.PP
+In addition to the AI-features of Babylon it offers a  task-
+processor. For  the  input of knowledge specialized editors
+have been realized.  Additional  support  is  granted  by  a
+tracer.  At  session time a flexible and widely configurable
+full-screen application and popup dialogs are available. The
+user  may choose to ask for explanations on the state of the
+inference process. For information on how to use
+.BR EMA-XPS
+at run-time,   an   interactive   help  facility  is  provided.
+Meanwhile the on-line documentation of the Babylon syntax is
+offered this way, too.
+.PP
+Beginning with version 2.1 of
+.BR EMA-XPS
+knowledge  base  files of the shell
+.I `babylon 3.1-beta''
+from VW-GEDAS (which is no more available) can be loaded, too. Those KBs are translated into
+.BR EMA-XPS
+style KBs at load-time (see the release notes).
+.SH OPTIONS
+.TP
+.BI "-kbs " path
+Sets up the search path for knowledge base files to be loaded to
+.I path
+which may be an absolute or relative description. It defaults to the ``.''
+directory.
+.TP
+.BI "-kb " file
+Specifies the name-part of a knowledge base file to be auto-loaded by
+.BR EMA-XPS 
+at boot time. The filename of a KB is assumed to consist of the three parts 
+.I path/file.extension.
+.TP
+.BI "-ext " file-extension
+Specifies the default extension for knowledge base files. Its default value
+is 
+.I ``kb'' 
+which means that
+.BR EMA-XPS 
+is looking for files matching ``path-presets/*.ext-preset''.
+.TP
+.B -run
+Automatically run a autoloaded KB at boot time. The KB must have been
+selected uniquely using some/all of the options 
+.I \-kbs,
+.I \-kb,
+and
+.I \-ext.
+.TP
+.B -pty
+(For debugging only) Like in xterms initing the interprecess communication channel may hang.
+This option displays more verbose what is done while looking for free PTYs.
+.TP
+.B -csr
+(For debugging only) This option prints out a warning message, any time, unexpected
+synchronisation signaling is done. 
+.TP
+.B -gui
+(For debugging only) Makes booting more verbose while setting up the
+graphic user interface.
+.TP
+.B -dbg
+(For debugging only) Displays additional information on the state of the interprocess
+communication. Additionally adds output to a file named /tmp/xx_dbg_<pid>.
+Should be used for interprocess communication protocol enhancements only!
+.TP
+.B -pad
+(For debugging only) With this switch set, the LISP debugger PAD is set to be visible 
+during boot time. Its common use should not be necessary.
+.TP
+.B -bw
+If you prefer running 
+.BR EMA-XPS
+in a black-and-white mode, e.g. when working on a grey-scale monitor, you
+might wish to set this option. 
+.TP
+.B -help
+Displays a helpful message on the use of the options of 
+.BR EMA-XPS .
+.PP
+.SH REFERENCE
+The AI-means of Babylon2 are written in CommonLISP, which is described in
+.RS 1
+      Guy L. Steele Jr.: Common Lisp - The Language.
+      Digital Press. 1st edition 1984, 465 pages.
+      ("CLtL1" for short)
+.RE
+.TP
+This has been superceded by
+.RS 1
+      Guy L. Steele Jr.: Common Lisp - The Language.
+      Digital Press. 2nd edition 1990, 1032 pages.
+      ("CLtL2" for short).
+.RE
+.TP
+Babylon itself is described in
+.RS 1
+      T. Christaller, F. Di Primio, A. Voss (Editors):
+      The AI-Workbench Babylon.
+      Addison Wesley. 2nd edition 1999, 888 pages.
+.RE
+.TP
+The enhancements of EMA-XPS to Babylon are documented in
+.RS 1
+      http://wmwap1.math.uni-wuppertal.de/EMA-XPS/
+      (english, for short) and
+      http://wmwap1.math.uni-wuppertal.de/EMA-XPS/DOC/
+      (german, more complete).
+.RE   
+.TP
+Those two WWW documents are part of the distribution, too.
+.RS 1   
+      Their locations are
+      file:/<...>/EMA-XPS/doc/en/index.html
+      and
+      file:/<...>/EMA-XPS/doc/de/index.html
+      respective.
+.RE
+.PP
+The
+.I <...>
+hereby names the absolute path to the location, where
+.BR EMA-XPS
+has been installed. This is preferably the
+.I /usr
+or
+.I /usr/local
+directory.
+.SH FILES
+.TP
+.I xps, rxps
+startup scripts to be installed into 
+.I <...>/EMA-XPS/bin
+or something similar. This directory should be mentioned in your $PATH 
+variable. Additionally
+.I <...>/EMA-XPS/man 
+should be mentioned in your $MANPATH variable.
+.TP
+.I ema-xps, rema-xps
+full version and runtime version of the graphic process (main executable)
+residing in 
+.I <...>/EMA-XPS/lib 
+directory.
+.TP
+.I emalisp, remalisp
+full version and runtime version of the LISP process (the AI-shell itself)
+residing in 
+.I <...>/EMA-XPS/lib
+directory.
+.TP
+.I ema-xps-init.cl
+user-specific LISP initialisation file, resides in 
+.I <...>/EMA-XPS/lib
+directory, too. Per default it tries to load files of the same name from
+your HOME directory and the current directory. 
+.TP
+.I *.kb
+default extension of knowledge base files, typically placed into
+.I  $HOME/kbs 
+directory or similar.
+.TP
+.I $HOME/ema-xps/*
+This directory typically contains the EMA-XPS sources. It may be removed after
+installation.
+.SH ENVIRONMENT
+.TP
+.B LANG
+specifies the language of EMA-XPS. Currently only 
+.I ``deutsch'' 
+(for german) and 
+.I ``english''
+are supported. The startup scripts check valid settings. Language
+support is granted using Xresources only. Users are encouraged to add further 
+language support. Send suggestions to the E-Mail addresses at the end of this 
+man page. 
+.TP
+.B XAPPLRESDIR
+This variable is preset by the starter scripts to correctly define the
+absolute position of the 
+.I <...>/EMA-XPS
+directory. If you wish another placement of the EMA-XPS tree,
+read the file INSTALL and preferably use the tiny program
+.I patch
+shipped with this distribution to modify the
+the starter scripts xps, rxps, emalisp and remalisp appropriately.
+.TP
+.BR HOME
+is used for determining the location of the user's home-directory.
+.SH "SEE ALSO"
+.IR clisp (1)
+.SH BUGS
+.PP
+In case of an unexpected death of the ema-xps process 
+killing the emalisp process as its child may fail.
+.PP
+In some critical situations the interprocess communication may hang.
+.SH PROJECTS
+.PP
+Clean PACKAGE handling of KBs (currently everything takes place within the
+BABYLON package).
+.PP
+Support of more natural languages. Accepting values like 'en_US' in $LANG, too.
+.SH ACKNOWLEDGEMENTS
+Special thanks to the Babylon2 core team at the GMD and to Bruno Haible et.
+al. for their decisions to offer
+.I ``free'' 
+software. These were necessary prerequisits to start such a project.
+.SH AUTHORS
+Hans Groschwitz, Karsten Vossberg, Stephan Peters, and many others ...
+.SH E-MAIL
+<hans@wmwap1.math.uni-wuppertal.de>

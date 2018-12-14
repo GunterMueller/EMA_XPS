@@ -1,0 +1,253 @@
+<HEAD>
+<TITLE>EMA-XPS - Eine hybride grafische Expertensystemschale</TITLE>
+</HEAD>
+
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<!------------------------------------------------->
+
+<CENTER>
+<strong>
+<font size="6">
+Die hybride grafische Expertensystemschale
+<br>
+</font>
+<font size="8">
+EMA-XPS
+</font>
+<p>
+Eine verteilte Anwendung f&uuml;r preemptive Multitaskingbetriebssysteme
+
+
+<P>
+<IMG SRC="EmaXpsMain.gif">
+<P>
+
+
+<IMG SRC="green-tr.gif">
+Willkommen in der Welt der Expertensystemschale des EMA Labors
+<IMG SRC="green-tr.gif">
+<BR>
+<blink><i>
+<font size="6">
+*** EMA-XPS v2.1.6 ***
+</font>
+</i></blink>
+
+
+<P>
+<IMG SRC="red-tr.gif">
+Copyright (c) 1989 - 2008 Hans Groschwitz
+<IMG SRC="red-tr.gif">
+<BR>
+Alle Rechte vorbehalten
+
+
+<P>
+<HR SIZE=6>
+<p>
+
+
+<i>
+Click here to get the
+<A HREF="index.html">english<IMG SRC="usa.gif"></a>
+version of this page.
+</i>
+
+
+<p>
+<HR SIZE=6>
+<P>
+
+
+</strong>
+</CENTER>
+
+
+<DD>
+<IMG SRC="docIcon.gif">
+<strong><i>
+<FONT SIZE="6">K</FONT>URZFASSUNG
+</i></strong>
+
+<br clear=left>
+<MENU>
+
+
+<DD>
+<IMG SRC="EmaXpsIcon.gif">
+     EMA-XPS ist eine hybride grafische Expertensystemschale. Sie basiert
+auf der textorientierten Schale Babylon 2.3 der Gesellschaft f&uuml;r
+Mathematik und Datenverarbeitung 
+(<A HREF="http://www.gmd.de/" target="_blank">GMD</A>). Zus&auml;tzlich zu
+<A 
+HREF="http://de.wikipedia.org/wiki/GMD-Forschungszentrum_Informationstechnik"
+target="_blank"><!-- http://nathan.gmd.de/projects/babylon.html -->Babylon's  
+
+KI-F&auml;higkeiten</A> (objektorientierte Datenrepr&auml;sentation,
+vorw&auml;rts- und r&uuml;ckw&auml;rts verkette Regeln - eingebunden in
+Regelmengen, Hornklauseln und Constraintnetzwerke) wird eine
+grafische Benutzerschnittstelle bereitgestellt,
+die unter dem X11-Window-System und der OSF/Motif Fensterbibliothek
+realisiert ist.
+<P>
+
+
+<DD>
+<IMG SRC="EmaXpsIcon.gif">
+     Um Konflikte der beiden verwendeten Programmiertechniken
+(ereignisorientiert, bzw. prozedural) zu vermeiden, sind die Aufgaben auf
+zwei unterschiedliche Programme aufgeteilt worden. Das erste arbeitet
+ereignis- orientiert. Es initialisiert ein bidirektionales Paar
+Interproze&szlig;kommunikations- kan&auml;le unter R&uuml;ckgriff auf eine 
+Pseudoteletype (siehe xterm). Danach spaltet es eine LISP-Welt ab, die
+die Funktionalit&auml;t einschlie&szlig;lich der Erweiterungen f&uuml;r die
+Interproze&szlig;kommunikation beinhaltet.
+<P>
+
+
+<DD>
+<IMG SRC="EmaXpsIcon.gif">
+     Als Erweiterung der KI-F&auml;higkeiten von Babylon ist ein
+Taskprozessor bereitgestellt worden.
+Zur Erleichterung der Wissenseingabe sind spezialisierte Editoren entwickelt worden.
+Zus&auml;tzliche Unterst&uuml;tzung bietet ein Tracer.
+Zur Sitzungslaufzeit steht eine flexible, in weiten Bereichen
+frei konfigurierbare Benutzerschnittstelle zur Verf&uuml;gung. 
+Der Benutzer kann Erkl&auml;rungen zum aktuellen Stand der Inferenz einholen.
+F&uuml;r Informationen zur Handhabung von EMA-XPS steht zur Laufzeit ein
+interaktives Hilfewerkzeug zur Verf&uuml;gung. Mittlerweile wird auf diesem
+Wege auch eine Online- Dokumentation der Babylon-Befehlssyntax angeboten.
+<P>
+
+
+<DD>
+<IMG SRC="EmaXpsIcon.gif">
+Seit Version 2.1 von EMA-XPS k&ouml;nnen auch Wissensbasis- Dateien der
+Schale ``babylon 3.1-beta'' von VW-GEDAS (die nicht mehr erh&auml;ltlich
+ist) geladen werden. Diese WBs werden w&auml;hrend des Ladevorgangs in EMA-XPS 
+eigene WBs umgewandelt (vgl. die <A HREF="FTP/NOTES">Release Notes</A> hierzu).
+<P>
+
+
+<DD>
+<IMG SRC="EmaXpsIcon.gif">
+     Neben der Quelltextdistribution werden derzeit auch statisch gebundene
+Bin&auml;rdistributionen f&uuml;r Linux 1.2 (AOUT) und SunOS 4.1 angeboten.
+Sie verwenden jeweils die X11R6 und OSF/Motif 2.0 Bibliotheken, sowie Bruno Haible's
+<A HREF="http://clisp.cons.org/" target="_blank">CLISP</a>
+Interpreter.
+
+
+
+</MENU>
+<HR SIZE=6>
+<br clear=left>
+<MENU>
+
+
+
+<IMG SRC="red-tr.gif">
+<strong><i>
+<FONT SIZE="6">V</FONT>ERVIELF&Auml;LTIGUNG
+</i></strong>
+<DD>
+EMA-XPS und CLISP unterliegen den Copyright-Bestimmungen der
+<A HREF="FTP/GNU-GPL">GNU General
+Public License</A>. Die Details regelt <A HREF="FTP/COPYRIGHT">dieses</A>
+englischsprachige Dokument!
+
+<P>
+
+<IMG SRC="red-tr.gif">
+<strong><i>
+<FONT SIZE="6">G</FONT>EW&Auml;HRLEISTUNG
+</i></strong>
+<DD>
+<IMG SRC="Warning.gif">
+Bei Nutzung dieser Software besteht <BLINK><FONT SIZE="6">K</FONT>EINERLEI
+<FONT SIZE="6">G</FONT>EW&Auml;HR</BLINK>!
+<IMG SRC="Warning.gif">
+
+<P>
+
+<IMG SRC="green-tr.gif">
+<strong><i>
+<FONT SIZE="6">I</FONT>NSTALLATION
+</i></strong>
+<DD> 
+Hinweise stehen <A HREF="FTP/INSTALL">hier</A> bereit!
+
+
+
+</MENU>
+<HR SIZE=6>
+<br clear=left>
+<MENU>
+
+
+<i><strong>
+<IMG SRC="biblio.gif">
+Werfen Sie auch einen Blick in die Dokumentation:
+</i></strong>
+<p><dd>
+<IMG SRC="check.gif">  
+<A HREF="de/uguide.html">Benutzerhandbuch</a>
+<p><dd>
+<IMG SRC="check.gif">
+<A HREF="de/pguide.html">Programmierhandbuch</a>
+<p><dd>
+<IMG SRC="check.gif">
+<A HREF="de/ref.html">Befehlsreferenz</a>
+<p><dd>
+<IMG SRC="check.gif">
+<A HREF="de/doc.html">Softwarebeschreibung</a>
+<p><dd>
+<IMG SRC="check.gif">
+<A HREF="de/lit.html">Literaturhinweise</a>
+<p>
+
+<i><strong>
+<IMG SRC="source.gif">
+Bereitgestellte Software:
+</i></strong>
+<p><dd>
+<IMG SRC="green-tr.gif">
+Hier befindet sich die <strong>Quelltextdistribution</strong> von
+<A HREF="FTP/emaxps.tar.gz">EMA-XPS</a>.
+<p><dd>
+<IMG SRC="red-tr.gif">
+Hier gibt es eine <strong>kopierte</strong> Version der
+<A HREF="FTP/babylon.tar.gz">Babylon-2.3</a> LISP-Quelltexte.
+<p><dd>
+<IMG SRC="red-tr.gif">
+Und hier ist eine <strong>Kopie</strong> der Quellen des
+<A HREF="FTP/clisp.tar.gz">CLISP</a> LISP-Interpreters. CLISP ist in einer
+Weise optimiert worden, die die meisten nativen
+<i><strong>cc</strong></i>'s verzweifeln l&auml;&szlig;t.
+Verwenden Sie nach M&ouml;glichkeit
+immer den <i><strong>gcc</strong></i>!
+<p>
+
+
+
+</MENU>
+<HR SIZE=6>
+<br clear=left>
+
+
+<IMG SRC="green-tr.gif">
+Email (August 1996):
+<DD> <A
+HREF="mailto:hans@ema-xps.org">hans@ema-xps.org</A>
+
+
+<P> 
+
+
+
+<!------------------------------------------------->
+<font>
+</body>
+<!***eof***>

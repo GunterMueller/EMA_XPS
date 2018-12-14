@@ -1,0 +1,63 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _help.ui      Hans Groschwitz        20.11.94   !!
+!!                 Michael Block                     !!
+!!                 Frans Ceelen           18.04.96   !!
+!!                                                   !!
+!!   Usage of the EMA-XPS session screen and its     !!
+!!   basic menu pane.                                !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#ifdef __english
+>SESSION-SCREEN
+.The Session Screen
+.==================
+.
+.The session screen contains the graphic elements of
+.a session. In addition to the two standard menus
+."Session" and "Help" other session specific menus 
+.may be created by the KB.
+.
+.The "Session" menu:
+.
+.- Break!
+.     interrupts the running session.
+.- Rerun
+.     terminates the session, destroys the session
+.     screen and starts the session again.
+.- End
+.     terminates the session and destroys the session
+.     screen.
+.- Grid on/off
+.     is a utility for the programmer. The grid
+.     size consists of 50 screen dots and helps
+.     placing graphic elements on the session screen.
+.
+#else
+>SITZUNGSFENSTER
+.Das Sitzungsfenster
+.===================
+.
+.Das Sitzungsfenster beinhaltet die grafischen
+.Bedienelemente einer Sitzung. Neben zus\344tz-
+.lichen Pulldownmen\374s existieren immer die
+.Men\374s "Sitzung" und "Hilfe".
+.
+.Das "Sitzung"-Men\374:
+.
+.- Unterbrechen!
+.     unterbricht die laufende Sitzung.
+.- Neustart
+.     beendet die Sitzung, zerst\366rt das Sitzungs-
+.     fenster und startet die Sitzung erneut.
+.- Ende
+.     beendet die Sitzung und zerst\366rt das Sitzungs-
+.     fenster.
+.- Raster an/aus
+.     ist ein Hilfsmittel f\374r den Programmierer.
+.     Das Rasterma\337 besteht aus 50 Bildpunkten und
+.     erleichert somit die Gestaltung einer Benutzer-
+.     oberfl\344che.
+.
+#endif
+
+!!! EOF

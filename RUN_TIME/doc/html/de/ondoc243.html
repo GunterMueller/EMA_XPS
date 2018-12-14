@@ -1,0 +1,42 @@
+<html><head><title>MAKE-BABYLON-MENU</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc244.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc242.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>MAKE-BABYLON-MENU</strong></font></center><p>
+
+<PRE>MAKE-BABYLON-MENU
+=================
+
+Syntax: (make-babylon-menu &lt;Interface&gt;
+           &lt;Name&gt; &lt;Aufschrift&gt; &amp;Rest &lt;Arg&gt;)
+
+Diese Funktion definiert ein Men&uuml; auf der Oberfl&auml;che. 
+&lt;Name&gt; ist der Name dieses Men&uuml;s. &lt;Aufschrift&gt; gibt 
+den Eintrag an, den das Men&uuml; haben soll. Der Men&uuml;-
+eintrag erscheint am oberen Bildschirmrand.
+
+Beispiel: &gt;(defun make-kb-interface (interface)
+              (add-babylon-menu
+              interface
+              (make-babylon-menu interface
+              &quot;men&uuml;1&quot; &quot;Optionen&quot;)))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc244.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc242.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- MAKE-BABYLON-MENU done --!>

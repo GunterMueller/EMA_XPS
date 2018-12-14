@@ -1,0 +1,978 @@
+<HEAD><TITLE>EMA-XPS Programmierhandbuch</TITLE></HEAD>
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<IMG align=left  SRC="EmaXpsIcon.gif">
+<IMG align=right SRC="EmaXpsIcon.gif">
+<CENTER><strong>
+<font size="6">
+Die grafische Expertensystemschale
+</font>
+<br>
+<font size="8">EMA-XPS
+</font></strong></CENTER>
+<br clear=all>
+
+<HR SIZE=6>
+
+
+
+
+
+<!--------------------------------------------------------->
+<p>
+<A HREF="../startseite.html"><IMG SRC="GoToTop.gif"></A>
+<strong><font size="8">
+<A NAME="inhalt">Programmierhandbuch</A>
+</strong></font>
+<p>
+<!--------------------------------------------------------->
+
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+Inhaltsverzeichnis
+</H2>
+<!--------------------------------------------------------->
+
+
+<MENU>
+ <DD>    <A HREF=#hdl_1_0>1.  Einleitung</A>
+ <DD>    <A HREF=#hdl_2_0>2.  Expertensysteme</A>
+ <DD>    <A HREF=#hdl_3_0>3.  Komponenten eines Expertensystems</A>
+ <DD>    <A HREF=#hdl_4_0>4.  Arten von Wissen</A>
+ <MENU>  <A HREF=#hdl_5_0>5.  Wissensrepr&auml;sentation in hybriden Expertensystemschalen</A>
+  <DD>   <A HREF=#hdl_5_1>5.1 Programmiersprachen in der k&uuml;nstlichen Intelligenz</A>
+  <DD>   <A HREF=#hdl_5_2>5.2 Semantische Netze</A>
+  <DD>   <A HREF=#hdl_5_3>5.3 Objektorientierung</A>
+  <DD>   <A HREF=#hdl_5_4>5.4 Produktionsregeln</A>
+  <DD>   <A HREF=#hdl_5_5>5.5 Pr&auml;dikatenlogik</A>
+  <DD>   <A HREF=#hdl_5_6>5.6 Constraints</A>
+ </MENU>
+</MENU>
+<P>
+
+<HR SIZE=6>
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_1_0">1. Einleitung</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+<DD>
+   In  den  modernen Industriegesellschaften  unserer  Tage
+sehen wir uns einer immer gr&ouml;&szlig;er werdenden Informationsflut
+gegen&uuml;ber,  die wir t&auml;glich zu bew&auml;ltigen haben.  Wir  sind
+gezwungen,  diese  Flut individuell zu  kategorisieren  und
+diese  in  relevante  oder in f&uuml;r den einzelnen  unwichtige
+Anteile  zu  trennen.  Der Bedarf an Ansprechpartnern,  die
+weniger  h&auml;ufig  ben&ouml;tigtes Wissen  verarbeitet  haben  und
+abrufbereit    zur   Verf&uuml;gung   stellen,   steigt    damit
+zwangsl&auml;ufig  st&auml;ndig an. Da diese Resource - der  Fachmann
+oder  Experte  -  ein  immer teureres  und  nicht  beliebig
+verf&uuml;gbares   Gut   wird,   entsteht   Bedarf   an    einer
+automatisierten Bereitstellung des Fachwissens.  In  diesem
+Zusammenhang sind in erster Linie zwei Grundbed&uuml;rfnisse  zu
+ber&uuml;cksichtigen:
+
+<LI>
+ die reine Bereitstellung von Fakten beispielsweise  in
+ Form von Lexika oder Datenbank-Systemen, oder
+
+<LI>
+ gerade  in  F&auml;llen,  in denen uns  die  Materie  nicht
+ gen&uuml;gend   nahe   ist,  soda&szlig;  eine   reine   Suche   nach
+ Schl&uuml;sselbegriffen nicht mehr ausreicht, eine  interaktive
+ Unterst&uuml;tzung des Wissenssuchenden durch die Wissensquelle.
+
+<DD>
+   F&uuml;r  das  erstgenannte  Problem existieren  seit  langer
+Zeit   geeignete  L&ouml;sungen,  die  mit  dem  Aufkommen   der
+automatisierten Datentechnik noch deutlich leistungsst&auml;rker
+geworden sind.
+
+<DD>
+   Im  zweiten Fall steht eine Sitzung - ein Gespr&auml;ch -  im
+Vordergrund,  in  deren  Verlauf  der  Experte,  also   die
+Wissensquelle,   ausgehend   von   dem   Vorwissen   seines
+Gegen&uuml;bers  mit  diesem  gemeinsam  herausfindet,  wie   im
+einzelnen  die Problemstellung zu formulieren  ist,  um  im
+Anschlu&szlig; daran eine L&ouml;sung zu erarbeiten.
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_2_0">2. Expertensysteme</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>
+   Ein  Mensch wird in der Regel dann als Experte auf einem
+Fachgebiet  bezeichnet, wenn er sich durch  eine  geeignete
+Ausbildung oder langj&auml;hrige T&auml;tigkeit spezielles Wissen und
+Probleml&ouml;sungsf&auml;higkeiten  angeeignet  hat,  die  ihm   das
+Bew&auml;ltigen  von  Aufgabenstellungen  erm&ouml;glichen,  die  von
+einem  Nicht-Experten  nicht oder  nicht  so  effizient  zu
+bew&auml;ltigen  w&auml;ren.  In diesem Zusammenhang  wird  auch  von
+Sachverst&auml;ndigen gesprochen. L&auml;&szlig;t sich solches Wissen nicht
+in  klare  Aussagen  fassen, sondern liegen  ausschlie&szlig;lich
+Erfahrungswerte vor, die sich mit den Jahren zu einer immer
+wieder  gleichbleibenden Methodik entwickelt haben, spricht
+man von heuristischem Wissen oder von Heuristiken.
+
+<DD>   
+   Die  K&uuml;nstliche  Intelligenz (KI) ist  ein  sehr  junges
+Forschungsgebiet.    In    diesem    Bereich    sind    die
+Expertensysteme  angesiedelt.  Dabei  handelt  es  sich  um
+Computerprogramme,    die    Wissensrepr&auml;sentations-    und
+Wissensverarbeitungsmechanismen kennen, die sie in die Lage
+versetzen  k&ouml;nnen,  auf einem speziellen Wissensgebiet  die
+Kompetenz  eines  menschlichen Experten  nachzubilden.  Sie
+k&ouml;nnen   als   Beratungs-   und   Lernsysteme   oder    als
+Diagnosesysteme    eingesetzt    werden.     Sie     k&ouml;nnen
+Auslegungsprobleme bew&auml;ltigen und sogar  komplexe  Prozesse
+steuern.  Au&szlig;er  bei der letztgenannten  Funktion  mu&szlig;  das
+Programm  immer in der Lage sein, Anfragen eines  Benutzers
+entgegenzunehmen,  zu  pr&auml;zisieren  und   in   vollst&auml;ndige
+Problemstellungen  umzuformulieren.  Es  mu&szlig;  verst&auml;ndliche
+Antworten generieren und Hilfestellung w&auml;hrend der gesamten
+Sitzung  anbieten k&ouml;nnen. Diese Anforderungen  lassen  sich
+mit  herk&ouml;mmlichen Datenverarbeitungsprogrammen nicht  oder
+nur mit einem sehr hohen Aufwand realisieren [X1].
+
+<DD>   
+   Allein  der Begriff Expertensystem verleitet  leicht  zu
+der  Annahme,  das Wissen eines Fachmanns  nach  gegl&uuml;ckter
+Eingabe st&auml;ndig in einer Weise verf&uuml;gbar zu haben, da&szlig;  auf
+diesen  Menschen n&ouml;tigenfalls ganz verzichtet werden  kann.
+Praktisch st&ouml;&szlig;t man im Umgang mit derartigen Systemen  bald
+an  Grenzen,  die  dann die &uuml;berh&ouml;hten Erwartungen  schnell
+entt&auml;uschen. Die Verwendung derartiger Systeme f&uuml;hrt  nicht
+zwangsl&auml;ufig zum gew&uuml;nschten Erfolg.
+
+<DD>   
+   Mit     den     heute     zur    Verf&uuml;gung     stehenden
+Expertensystemschalen - also Programmen zur Erstellung  und
+Betrieb  von  Expertensystemen -  ergeben  sich  Zw&auml;nge  im
+Bereich      der      Inferenzmaschine,      also       der
+Probleml&ouml;sungskomponente, des Speicherbedarfs und  der  vom
+Benutzer  noch akzeptierbaren Antwortzeiten.  Das  hat  zur
+Folge, da&szlig; eine scharfe Eingrenzung des verf&uuml;gbaren Wissens
+vorgenommen  werden mu&szlig;, um die notwendige Wissenstiefe  zu
+erreichen. Nur wenn sich das Endprodukt als eine kompetente
+Wissensquelle herausstellt - und sei es auch nur auf  einem
+schmal umrissenen Fachgebiet - hat das Expertensystem  eine
+Chance,  akzeptiert zu werden. Und nur dann  rentiert  sich
+der hohe Aufwand, der im Vorfeld in die Einarbeitung in die
+verwendete       Schale,       die      Wissensakquisition,
+Wissensstrukturierung und abschlie&szlig;ende  Umsetzung  in  die
+verf&uuml;gbaren   Wissensrepr&auml;sentationsmechanismen    erbracht
+werden mu&szlig;.
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_3_0">3. Komponenten eines Expertensystems</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>   
+   Die  ersten  Expertensysteme  sind  als  Einzelprogramme
+realisiert worden. Ein sehr bekanntes Beispiel hierf&uuml;r  ist
+das  an  der Stanford University entwickelte Expertensystem
+MYCIN   zur   Diagnose   und  Therapie   von   bakteriellen
+Infektionskrankheiten des Blutes und  der  Meningitis  [X2-
+X4].  Um nicht f&uuml;r jedes andere Problem, das wissensbasiert
+gel&ouml;st  werden soll, vollst&auml;ndig neu entwickeln zu  m&uuml;ssen,
+entstand daraus die Expertensystemschale EMYCIN (oder
+<em><strong>E</strong></em>mpty <em><strong>MYCIN</strong></em>). 
+Zu diesem Zweck war das medizinische Fachwissen aus
+MYCIN      entfernt     worden,     soda&szlig;      nur      die
+Probleml&ouml;sungsf&auml;higkeiten  verblieben.  Die  Trennung   von
+Schale  (Programm)  und Wissensbasis (Datei)  leistete  der
+Verbreitung von Expertensystemen Vorschub.
+
+<DD>   
+   Den   Kern   eines  jeden  Expertensystems  bildet   die
+Inferenzmaschine           (Probleml&ouml;sungs-            oder
+Schlu&szlig;folgerungskomponente), die - unter anderem -  in  der
+Lage  ist, unterschiedliche Wissensaussagen zu einer  Kette
+von Schlu&szlig;folgerungen nach folgendem Schema zu verbinden:
+
+<P>
+<CENTER>
+<TABLE>
+<TR>
+<td><strong>WENN</strong> A gilt,</td>
+<td><strong>DANN</strong> mu&szlig; auch B gelten;</td>
+</TR><TR>
+<td><strong>WENN</strong> aber B gilt,</td>
+<td><strong>DANN</strong> mu&szlig; auch C wahr sein;</td>
+</TR><TR>
+<td>usw.</td><td> </td>
+</TR>
+</TABLE>
+</CENTER>
+<P>
+
+Da  die  Fachexperten  selbst ihr  Wissen  h&auml;ufig  in  Form
+solcher  WENN-DANN-Aussagen verbalisieren, wird der Vorteil
+dieses Funktionsprinzips leicht sichtbar.
+
+<DD>
+   Die  Inferenzmaschine ist in der Lage, Schl&uuml;sse aus  den
+Wissensaussagen  zu  ziehen,  die  in  Form   von   bereits
+bekannten  Fakten  und  Regeln  f&uuml;r  das  weitere  Vorgehen
+vorliegen.  Vorhandenes Wissen kann  verkn&uuml;pft  werden,  um
+hieraus neues Wissen abzuleiten. Der Inferenzmaschine  kann
+ein  Datenbankanschlu&szlig; zur Verf&uuml;gung stehen, um den Zugriff
+auf  gro&szlig;e  Datenmengen zu erm&ouml;glichen. Die Wissensaussagen
+stehen in der Wissensbasis zur Verf&uuml;gung.
+   Bei  den  meisten  Schalen stehen  der  Inferenzmaschine
+zus&auml;tzlich die F&auml;higkeit zur Abarbeitung und Auswertung der
+Ergebnisse   von   Algorithmen,  das  Aktivieren   externer
+Programme   inklusive   Datenaustausch,   sowie   grafische
+M&ouml;glichkeiten  zur  Kommunikation mit dem  Endbenutzer  zur
+Verf&uuml;gung.
+
+<DD>   
+   Die   Schale   stellt   mit  ihren   M&ouml;glichkeiten   der
+Wissensrepr&auml;sentation   die   Rahmenbedingungen   f&uuml;r   die
+Wissenseingabe,  da  die  Wissensbasis  nur   mit   solchen
+Wissenskonstrukten   gef&uuml;llt   werden   kann,    die    die
+Inferenzmaschine und deren periph&auml;re Komponenten bearbeiten
+k&ouml;nnen.
+
+<DD>   
+   Um  das  Fachwissen in die Wissensbasis zu  integrieren,
+bieten viele Schalen eine Wissenserwerbskomponente an.  Die
+Eingabe   der   verschiedenen  Datenobjekte,   Regeln   und
+Relationen  erfolgt zumeist in daf&uuml;r ausgelegten  Editoren.
+Diese  unterst&uuml;tzen den Fachmann, der sein  Wissen  in  das
+Expertensystem  eingeben will. Falls von der  Schale  keine
+ausreichende    Unterst&uuml;tzung    f&uuml;r    den    Fachexperten
+bereitgestellt wird oder falls er nicht mit KI-Technologien
+vertraut  ist,  mu&szlig; dieser den sogenannten Wissensingenieur
+bem&uuml;hen.  Der  ist mit der Art und Weise der Wissenseingabe
+vertraut und kann - im Gespr&auml;ch mit dem Fachexperten -  die
+Wissensbasis  erzeugen.  Die Editoren  verarbeiten  die  in
+formaler  Sprache eingegebenen Wissensstrukturen, die  &uuml;ber
+einen  Interpreter  an die Inferenzmaschine  weitergeleitet
+werden.
+
+<DD>   
+   Eine     Endbenutzerschnittstelle    erleichtert     bei
+dialogorientierten   Expertensystemen   die   Kommunikation
+zwischen  Endbenutzer und Inferenzmaschine in  hohem  Ma&szlig;e.
+Ihrem Aufbau kommt eine besondere Bedeutung zu, da sie  das
+System repr&auml;sentiert und seine Akzeptanz bestimmt.
+
+<DD>   
+   Ein     weiterer     wichtiger     Teilbereich     eines
+Expertensystems  ist  die Erkl&auml;rungs- und  Hilfekomponente.
+Sie  kann  dem  Benutzer bereits gezogene Schlu&szlig;folgerungen
+des  Expertensystems verdeutlichen oder ihn  beim  weiteren
+Vorgehen im Verlauf einer Sitzung beraten. Mit ihrer  Hilfe
+kann  der  vom  System  gew&auml;hlte  L&ouml;sungsweg  nachvollzogen
+werden.  Dies  macht die Vorgehensweise des Expertensystems
+f&uuml;r den Entwickler und den Benutzer transparent.
+
+<DD>   
+   Ein  Expertensystem  mu&szlig; nicht zwingend  alle  genannten
+Komponenten  enthalten. Beispielsweise k&ouml;nnen  eingebettete
+Systeme,  die  unmittelbar  in  einen  technischen   Proze&szlig;
+eingebunden sind, direkt mit diesem kommunizieren. Ihre Me&szlig;-
+und   Zustandsdaten  bekommen  solche  Systeme  &uuml;ber  einen
+direkten  Zugriff auf den Proze&szlig;. Ein solches  System  kann
+ohne  weiteres  auf  eine Erkl&auml;rungskomponente  verzichten.
+Eine   endbenutzerfreundliche   Kommunikationsschnittstelle
+kann ebenso entfallen [S4, X1].
+
+<DD>   
+   Expertensysteme sind demnach grunds&auml;tzlich  unterteilbar
+in
+
+<LI>
+    dialogorientierte Beratungssysteme,  hier  kommen  der
+ grafischen     Endbenutzerschnittstelle     sowie      der
+ Erkl&auml;rungskomponente besondere Bedeutung zu, und
+
+<LI>
+    proze&szlig;orientierte Systeme zur Steuerung, Regelung  und
+ &Uuml;berwachung in Echtzeit.
+
+<DD>   
+   Nicht  alle  Inferenzmaschinen basieren (ausschlie&szlig;lich)
+auf   der  Abarbeitung  von  WENN-DANN-Aussagen.  Es   gibt
+beispielsweise  auch  Werkzeuge,  die  ausschlie&szlig;lich   mit
+formulierten  Zw&auml;ngen  (Constraints) operieren  [X9,S2,S3].
+Systeme,         die        mehrere        unterschiedliche
+Wissensrepr&auml;sentationsformalismen     anbieten,      welche
+voneinander  wechselseitig Gebrauch machen  k&ouml;nnen,  werden
+als hybride Expertensystemschalen bezeichnet [X7,X8]. Damit
+kann  Wissen  immer  in der geeignetsten  Weise  eingegeben
+werden,  was die Gr&ouml;&szlig;e der Wissensbasis verringert und  die
+Wissensverarbeitung beg&uuml;nstigt.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_P1.gif">
+</CENTER>
+<P>
+Bild P1: Komponenten eines Expertensystems
+<P>
+
+
+<DD>   
+   In  Bild  P1  wird das Zusammenspiel aller  Komponenten
+eines Expertensystems aufgezeigt.
+   Bekannte       gro&szlig;e      hybride      dialogorientierte
+Expertensystemschalen  sind in der Tabelle  P1  aufgef&uuml;hrt
+[S1,S4].
+
+
+<P>
+<CENTER>
+<TABLE WIDTH=550 BORDER CELLPADDING=5 CELLSPACING=2>
+<TR>
+ <TH align=left>Werkzeug</TH>
+ <TH align=left>Anbieter</TH>
+ <TH align=left>Preis Einzellizenz f&uuml;r UNIX</TH>
+</TR>
+<TR><TD>KEE            </TD><TD>Intellicorp </TD><TD>70 000,- DM</TD></TR>
+<TR><TD>Nexpert Object </TD><TD>Neuron Data </TD><TD>30 000,- DM</TD></TR>
+<TR><TD><EM>babylon</EM>-3      </TD><TD>VW-Gedas    </TD><TD>18 000,- DM</TD></TR>
+</TABLE>
+</CENTER>
+<P>
+Tabelle P1:   Bekannte gro&szlig;e hybride dialogorientierte
+Expertensystemschalen
+<P>
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_4_0">4. Arten von Wissen</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>   
+   Bevor  die Wissenseingabe in eine hybride Schale  Erfolg
+haben kann, mu&szlig; eine gr&uuml;ndliche Recherche des umzusetzenden
+Fachwissens erfolgen. Danach mu&szlig; dieses Wissen strukturiert
+und - entsprechend seiner Inhalte - den verschiedenen Arten
+von  Wissen zugeordnet werden [X1]. Dabei handelt  es  sich
+um:
+
+<LI>
+    <strong>Wissen  &uuml;ber  Objekte</strong>: Wissen &uuml;ber die  Beschaffenheit
+ oder  &uuml;ber die Eigenschaften eines Objekts. Dies kann  zum
+ Beispiel das Wissen &uuml;ber die technischen Daten eines Motors
+ sein (Motor XYZ, UR = 380V, IR = 10A, ...).
+
+<LI>
+    <strong>Wissen  &uuml;ber Beziehungen</strong>: Hierbei handelt es  sich  um
+ vergleichendes Wissen zwischen Objekten. Zum Beispiel  die
+ Aussage,  da&szlig; Synchronmaschinen immer mit der elektrischen
+ Frequenz  der  speisenden  Spannung  synchron  drehen,  im
+ Gegensatz  zu Asynchronmaschinen, die eine um den  Schlupf
+ verringerte Drehzahl besitzen.
+
+<LI>
+   <strong>Wissen &uuml;ber Vorgehensweisen</strong>: Der Experte wei&szlig;, in
+welcher Reihenfolge er das Problem angehen mu&szlig;, um zu einer
+schnellen L&ouml;sung zu kommen. Dies kann bedeuten, da&szlig; zuerst
+die Bemessungsspannung eines Motors mit der Netzspannung
+verglichen werden mu&szlig;, bevor andere Daten betrachtet werden
+d&uuml;rfen.
+
+<LI>
+   <strong>Wissen &uuml;ber Vorschriften</strong>: Bei einer Probleml&ouml;sung
+m&uuml;ssen verschiedene Gesetze und Grenzwerte eingehalten
+werden. Das Wissen &uuml;ber diese Zw&auml;nge bildet das
+Vorschriftenwissen. Beispielsweise ist der Betrieb einer
+permanenterregten Synchronmaschine ohne Verwendung eines
+exakten Lagegebers nur eingeschr&auml;nkt oder gar nicht
+m&ouml;glich.
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_5_0">5. Wissensrepr&auml;sentation in hybriden Expertensystemschalen</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>   
+   Zur   strukturierten   Darstellung  von   Expertenwissen
+stehen     in     hybriden     Schalen     unterschiedliche
+Wissensrepr&auml;sentationsmechanismen  zur  Verf&uuml;gung.  Hierbei
+finden sowohl deklarative, als auch prozedurale Formalismen
+Verwendung.    Deklarative   Formalismen   enthalten    die
+Beschreibung   von  Sachverhalten  oder  die  Zusammenh&auml;nge
+zwischen   ihnen,   ohne   auf  die  Verarbeitungstechniken
+einzugehen. Bei den prozeduralen Formalismen hingegen  geht
+es   um   die   Anwendung  von  Wissen   und   die   daraus
+resultierenden Schlu&szlig;folgerungen.
+
+<DD>
+   Die  am h&auml;ufigsten verwendeten deklarativen Formen  sind
+semantische  Netze  oder die Mittel der  objektorientierten
+Programmierung.  Produktionsregeln,  Constraints  und   die
+Pr&auml;dikatenlogik  sind dagegen den prozeduralen  Formalismen
+zuzuordnen.
+
+<DD>
+   Es  sei darauf hingewiesen, da&szlig; bereits in den folgenden
+Unterpunkten  gelegentlich auf die  Besonderheiten  der  im
+sp&auml;ter folgenden Kapitel 1.5 vorgestellten Schalen Babylon-
+2 und <EM>babylon</EM>-3 eingegangen wird.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_5_1">5.1 Programmiersprachen in der k&uuml;nstlichen Intelligenz</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>
+   Mit  dem  Beginn  der KI-Forschung kam der  Bedarf  nach
+m&auml;chtigen  Programmiersprachen auf, die es  dem  Entwickler
+abnahmen, Standardkonstrukte wiederholt einzubringen.  Dies
+ist  beispielsweise  bei  der  Verwaltung  von  dynamischem
+Speicher   notwendig.  In  diesen  Jahren  war   auch   die
+Begrenztheit    der    Rechenleistung    ein    nicht    zu
+untersch&auml;tzendes Problem. Dies &ouml;ffnete den Weg hin  zu  der
+Programmiersprache   LISP.  Sie   konnte   auf   speziellen
+Prozessoren abgearbeitet werden, die auf diese Sprache  hin
+optimiert  worden  waren,  sogenannte  LISP-Maschinen  [P9,
+P10].    Erst   in   den   siebziger   Jahren    kam    die
+Programmiersprache PROLOG dazu.
+
+<DD>
+   Der  Name LISP stammt von <strong>LIS</strong>t <strong>P</strong>rocessing Language. LISP
+ist etwa so alt wie die Programmiersprache FORTRAN (<strong>FOR</strong>mula
+<strong>TRAN</strong>slation),     die     speziell    f&uuml;r     mathematische
+Problemstellungen entwickelt worden war [P2]. LISP  dagegen
+ist   zur   Verarbeitung   hochstrukturierter   Datenmengen
+ausgelegt   worden.  Selbst  Programme  werden  in   diesen
+Datenstrukturen   in   Form  von   verschachtelten   Listen
+dargestellt,  womit  die Trennung von  Daten  und  Programm
+aufgehoben ist. Das Abarbeiten von Programmen geschieht auf
+der  Basis des Lambda-Kalk&uuml;ls [P11, P12]. Selbst Operatoren
+werden &uuml;ber das Lambda-Kalk&uuml;l realisiert. Die LISP-Notation
+f&uuml;r  "A ist kleiner als B" lautet dementsprechend (< A  B).
+Im  Gegensatz  zu  FORTRAN, dessen  Programmdateien  zuerst
+kompiliert  werden m&uuml;ssen, bevor die Programme abgearbeitet
+werden   k&ouml;nnen,   arbeitet  LISP   interpretativ   -   wie
+beispielsweise  auch  der  Beginners  All-Purpose  Symbolic
+Instruction    Code   (BASIC)   Interpreter    [P1].    Zur
+Unterst&uuml;tzung  des Programmierers stehen  ein  Editor,  ein
+Syntaxpr&uuml;fer   und  ein  Testsystem  zur   Verf&uuml;gung.   Die
+Speicherverwaltung wird - wie bei allen Interpretern -  von
+LISP  selbst durchgef&uuml;hrt. Zur Beschleunigung ausgetesteter
+Programmteile  steht  dar&uuml;ber  hinaus  ein   Compiler   zur
+Verf&uuml;gung.
+
+<DD>
+   Erst  1984  gelang  es, die bis dahin entstandene  gro&szlig;e
+Zahl  von  LISP-Dialekten zu vereinen und eine einheitliche
+Sprachdefinition    unter   der   Bezeichnung    CommonLISP
+festzuschreiben  [P13].  Die  Notwendigkeit  dazu  entstand
+nicht  zuletzt  durch  die gestiegene Nachfrage  an  dieser
+Sprache im Rahmen der KI-Forschung. Heute stellen alle LISP-
+Anbieter  wenigstens  diesen  Sprachumfang  zur  Verf&uuml;gung.
+Damit ist die M&ouml;glichkeit der portablen LISP-Programmierung
+geschaffen   worden.  Mittlerweile  gibt  es  eine   neuere
+Festlegung des Sprachumfangs von CommonLISP, die  auch  das
+CommonLISP  Object System (CLOS) ber&uuml;cksichtigt.  CLOS  ist
+der  Nachfolger des Flavorsystems, das die erste Form einer
+objektorientierten Erweiterung von LISP war [P16]. Im  Jahr
+1989  hat das Standardisierungskommittee X3J13 des American
+National  Standards  Institute  (ANSI)  diesen  erweiterten
+Standard erneut festgeschrieben [P14]. In Anlehnung an  die
+Titel   der   B&uuml;cher   von   Guy   L.   Steele   Jr.,   dem
+stellvertretenden Vorsitzenden von X3J13,  "CommonLISP  The
+Language"  und  "CommonLISP The Language, Second  Edition",
+haben sich auch die Bezeichnungen CLtL1 und CLtL2 f&uuml;r diese
+beiden   Standards  eingeb&uuml;rgert.  Da  diese   B&uuml;cher   die
+Sprachfestlegungen  wohl referenziert  dokumentieren,  sind
+sie  zu  Standardliteratur erhoben worden.  Seit  September
+1995  ist die ANSI-Festlegung von CommonLISP/CLOS verf&uuml;gbar
+und bereits von ersten Anbietern umgesetzt [P19]. Damit ist
+auch  f&uuml;r  die  Programmiersprache LISP  eine  Unsicherheit
+beendet  worden. Bei den Sprachen FORTRAN und C  ist  diese
+Unsicherheit   aufgrund   st&auml;rkeren   Interesses   deutlich
+schneller durch Normierung behoben worden [P2 - P4].
+
+<DD>
+   Die  Programmiersprache  PROLOG (<strong>PRO</strong>gramming  in
+<strong>LOG</strong>ic)
+gewinnt in den letzten Jahren im Bereich der KI-Entwicklung
+an   Bedeutung   [P17,  P18,  S2,   S3].   Sie   ist   eine
+logikorientierte  Programmiersprache (Pr&auml;dikatenlogik)  und
+arbeitet  als  ein Probleml&ouml;ser. Dabei werden Horn-Klauseln
+(n&auml;heres     in    Kapitel    1.4.5)    nach     bestimmten
+Theorembeweisverfahren der symbolischen  Logik  abgeleitet,
+mit dem Ziel, einen Widerspruchsbeweis zu f&uuml;hren. Es stehen
+aber  auch  ein  funktionales Verarbeitungsmodell  und  ein
+relationales Verarbeitungsmodell zur Verf&uuml;gung.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_5_2">5.2 Semantische Netze</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+   
+<DD>
+Ein semantisches Netz, wie es in Bild P2 dargestellt wird,
+ist   ein   grafisches  Netzwerk  von  Knoten,  die   durch
+gerichtete, benannte Kanten miteinander verbunden sind [X1,
+X2,  X8].  Die  Knoten  enthalten die Fakten,  w&auml;hrend  die
+Kanten   beliebige   Relationen  beschreiben.   Durch   die
+Verwendung  von  Beziehungen wie "ist ein"  oder  "hat  die
+Eigenschaft"  lassen  sich semantische  Netze  hierarchisch
+strukturieren.   Dies   bedeutet,  da&szlig;   Oberklassen   ihre
+Eigenschaften an Unterklassen - beziehungsweise an  Objekte
+- vererben.
+
+<DD>
+   In  dem  konkreten Beispiel aus Bild P2 existiert  eine
+Oberklasse Umrichter, dem die Eigenschaft zugeordnet  wird,
+Halbleiterventile zu besitzen. Diese Eigenschaft vererbt er
+an  die  Unterklassen Zwischenkreisumrichter und Umrichter-
+ohne-Zwischenkreis.  Ein  Zwischenkreisumrichter   wiederum
+ben&ouml;tigt   einen   Energiespeicher  und   moduliert   seine
+Ausgangsgr&ouml;&szlig;e.               Die                Unterklasse
+Spannungszwischenkreisumrichter bekommt  diese  Eigenschaft
+nun &uuml;bertragen (vererbt) und es werden weitere zugeordnet.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_P2.gif">
+</CENTER>
+<P>
+Bild P2: Aufbau eines semantischen Netzes
+<P>
+
+
+<DD>
+   Mit  Hilfe des Semantischen Netzes kann folgende Aussage
+&uuml;ber    einen   Spannungszwischenkreisumrichter   getroffen
+werden:  ein  Spannungszwischenkreisumrichter  enth&auml;lt  als
+Energiespeicher   einen  Kondensator.  Die   ver&auml;nderlichen
+Spannungszeitfl&auml;chen  werden &uuml;ber  die  Schaltzust&auml;nde  von
+Halbleiterventilen moduliert.
+
+<DD>
+   Ein   Hauptvorteil  dieser  Pr&auml;sentationsform  ist  ihre
+Flexibilit&auml;t. Neue Knoten und Relationen k&ouml;nnen nach Bedarf
+problemlos definiert werden.
+
+<DD>
+   Semantische    Netze    werden   jedoch    weniger    in
+Expertensystemen  eingesetzt, sondern bilden  vielmehr  die
+konzeptionelle  Grundlage  f&uuml;r die  Wissensdarstellung  mit
+Hilfe eines objektorientierten Programmierstils.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_5_3">5.3 Objektorientierung</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+   
+<DD>
+   Bei  objektorientierten Programmiersprachen stehen nicht
+Prozeduren  im  Vordergrund, die ungehindert auf  beliebige
+Daten  zugreifen k&ouml;nnen, sondern Objekte. Dabei handelt  es
+sich  um  Datenstrukturen, deren einzelne  Eintr&auml;ge  (Slots
+oder  Merkmale  genannt) die Eigenschaften  dieses  Objekts
+beschreiben.  Der Programmflu&szlig; kommt dadurch zustande,  da&szlig;
+die   Objekte   einander  Nachrichten  verschicken.   Diese
+Nachrichten   hei&szlig;en   Behaviors   (Verhaltensweisen)   und
+entsprechen   Funktionen.  Sie  sind  aber   den   Objekten
+zugeordnet  und  k&ouml;nnen  nur  Merkmale  desjenigen  Objekts
+beeinflussen, dem sie zugeordnet sind. Ein Objekt ist dabei
+eine  individuelle Auspr&auml;gung einer Vielzahl  gleichartiger
+Objekte,  die  einer gemeinsamen Klasse  angeh&ouml;ren.  Dieser
+Programmierstil  ist  als  eine Erweiterung  des  modularen
+Programmierstils  entstanden.  Er  gestattet,  selbst  sehr
+gro&szlig;e Programme noch handhaben zu k&ouml;nnen. Interessant  wird
+er  vor allem dadurch, da&szlig; durch Vererbungsmechanismen  aus
+allgemeinen  Objekten komplexere aufgebaut  werden  k&ouml;nnen.
+Beispielsweise  k&ouml;nnte  eine  Schleifring-Asynchronmaschine
+aus der Rotor- und der Statorwicklung zusammengesetzt sein,
+die  wiederum beide aus der Klasse Drehfeldwicklung stammen
+k&ouml;nnten.  Neue  Klassen werden also dadurch  gebildet,  da&szlig;
+Merkmale   aus   anderen   Klassen   ererbt   werden    und
+gegebenenfalls   neue   Merkmale  hinzukommen.   Auch   die
+Nachrichten  (Behaviors) werden vererbt, soweit  sie  nicht
+durch  spezialisiertere  Versionen  &uuml;berdeckt  werden.   Im
+Zusammenhang mit Expertensystemen werden Klassen h&auml;ufig als
+Frames  (Rahmen)  und Objekte als Instanzen  (Auspr&auml;gungen)
+bezeichnet.
+
+<DD>
+   Ein  Frame  entspricht  in etwa einem  Knoten  innerhalb
+eines   Semantischen   Netzes.  Im   Gegensatz   zu   einem
+Semantischen  Netz  sind  jedoch keine  frei  definierbaren
+Objektrelationen m&ouml;glich.
+
+<DD>
+   Durch   Vererbung   besteht   bei   Frames   somit   die
+M&ouml;glichkeit  des hierarchischen Aufbaus hochspezialisierter
+Frames,  beginnend  bei  einer allgemeinen  Klasse  (Super-
+Frame)  bis  hin  zu immer spezielleren Klassen,  den  Sub-
+Frames.
+
+<DD>
+   In  Bild P3 wird der Zusammenhang zwischen einem  Frame
+und  seinen Instanzen verdeutlicht. Der Frame Motor enth&auml;lt
+die  einzelnen  Merkmale  Name,  Spannung,  Strom,  und  so
+weiter.  In den Instanzen des Frames Motor werden  nun  die
+speziellen  Werte bestimmter Motoren eingetragen  [X1,  X2,
+X8, P5, P6, P15, P16].
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_P3.gif">
+</CENTER>
+<P>
+Bild P3: Frames und Instanzen
+<P>
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_5_4">5.4 Produktionsregeln</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>
+   Produktionsregeln  (kurz  Regeln)  sind  die   von   den
+meisten     Expertensystemen    verwendete     Form     der
+Wissenspr&auml;sentation, da das in ihnen implementierte  Wissen
+leicht  zu  lesen  und  zu pflegen  ist.  Sie  bilden  eine
+weitgehend  kontextunabh&auml;ngige  Wissenseinheit,  die  daher
+auch   isoliert  betrachtet  und  verstanden  werden  kann.
+Hieraus  ergibt  sich  eine einfache Modifizierbarkeit  der
+Wissensbasis. Bild P4 verdeutlicht den Aufbau einer Regel,
+die im wesentlichen aus einem Bedingungsteil (der Pr&auml;misse)
+und einem Aktionsteil (der Konklusion) besteht.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_P4.gif">
+<P>
+
+<TABLE>
+<TR><TD>
+<strong>WENN</strong> der Bedingungsteil (Pr&auml;misse) erf&uuml;llt ist,
+<BR>
+<strong>DANN</strong> wird der Aktionsteil (Konklusion) abgearbeitet.
+</TD></TR>
+</TABLE>
+
+</CENTER>
+<P>
+Bild P4: Aufbau einer Regel
+<P>
+
+
+Durch  das Anwenden von Regeln auf bereits bekannte  Fakten
+k&ouml;nnen neue Fakten gewonnen werden.
+
+<DD>
+   Bei    leistungsf&auml;higen   Expertensystemen   wird    die
+Gesamtzahl  der eingebrachten Regeln schnell gro&szlig;.  Um  die
+Suche  nach  geeigneten  Regeln  zu  beschleunigen,  k&ouml;nnen
+kontextbezogen Regeln zu Regelmengen zusammengefa&szlig;t werden.
+Dieses  Vorgehen empfiehlt sich, sobald ein  Expertensystem
+insgesamt  100 oder mehr Regeln umfa&szlig;t, von denen  f&uuml;r  ein
+Teilproblem nur wenige Regeln ben&ouml;tigt werden, da auch  die
+nicht  zu  diesem  Kontext geh&ouml;renden Regeln  immer  wieder
+gepr&uuml;ft werden [X1, X2, X8].
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_P5.gif">
+</CENTER>
+<P>
+Bild P5: Aufteilung der Regeln einer Wissensbasis in Regelmengen
+<P>
+
+
+
+<DD>
+   Es   existieren   drei  grunds&auml;tzlich   unterschiedliche
+Abarbeitungsstrate-gien f&uuml;r Regeln. Dies sind die Vorw&auml;rts-
+und    R&uuml;ckw&auml;rtsverkettung,    sowie    die    sequentielle
+Abarbeitung:
+
+<LI>
+    Bei  der  <strong>sequentiellen Abarbeitung</strong> werden den  Regeln
+ einer  Regelmenge Priorit&auml;ten (Vorr&auml;nge)  zugeordnet.  Die
+ Regeln  werden  gem&auml;&szlig; ihrer Priorit&auml;ten abgearbeitet.  Bei
+ mehreren Regeln gleicher Priorit&auml;t arbeitet beispielsweise
+ die  Expertensystemschale <EM>babylon</EM>-3 diese Regeln gem&auml;&szlig; der
+ Reihenfolge ihres Auftretens ab. Babylon-2 verzichtet  auf
+ den  Mechanismus der Regelpriorisierung. Hier  entscheidet
+ die Plazierung der Regel in der Regelmengen-Liste &uuml;ber ihre
+ Priorit&auml;t.  Die  erste Regel hat automatisch  die  h&ouml;chste
+ Priorit&auml;t.
+
+<LI>
+     Bei   der  <strong>Vorw&auml;rtsverkettung</strong>  werden  zun&auml;chst  alle
+ anwendbaren  Regeln  der Regelmenge durch  Mustervergleich
+ (pattern-matching) ermittelt. Anschlie&szlig;end wird eine Regel
+ ausgew&auml;hlt und zur Ausf&uuml;hrung gebracht. Bei der Auswahl der
+ Regeln   wird   zwischen  Tiefensuche  (Depth-first)   und
+ Breitensuche         (Breadth-first)        unterschieden.
+ Vorw&auml;rtsverkettete Systeme werden auch als datengesteuerte
+ Systeme bezeichnet [X1, X6]. Vorw&auml;rtsverkettete Regelmengen
+ werden  eingesetzt, wenn Teilergebnisse zu ermitteln  sind
+ und  der L&ouml;sungsraum sehr gro&szlig; ist. Heuristisches Vorgehen
+ ist   notwendig,   um   den  Grad  an   nicht   ben&ouml;tigtem
+ Wissenserwerb in Grenzen zu halten.
+
+<LI>
+    Im  Gegensatz  zu den vorw&auml;rtsverketteten  Regelmengen
+ geht  die  <strong>R&uuml;ckw&auml;rtsverkettung</strong>  von  der  Zielsetzung  der
+ Regeln,  also  der  Konklusion, aus. Zun&auml;chst  werden  die
+ Konklusionen  aller Regeln gepr&uuml;ft. F&uuml;hrt eine  Konklusion
+ zum  gew&uuml;nschten Teilziel (wenn diese Regel zur  Anwendung
+ k&auml;me),  werden  die  Voraussetzungen  ermittelt,  die  die
+ Pr&auml;misse dieser Regel erf&uuml;llen w&uuml;rden. Es werden wieder die
+ Aktionsteile  aller Regeln durchsucht, um  die  Regeln  zu
+ finden,  die die Erf&uuml;llbarkeit der Pr&auml;misse der  aktuellen
+ Ausgangsregel erreichen w&uuml;rden. Der Vorgang wird, beginnend
+ bei dem tats&auml;chlichen Zustand des Faktenwissens bis hin zur
+ L&ouml;sung   des  anf&auml;nglich  gesteckten  Teilziels,   solange
+ wiederholt,   bis  die  Reihenfolge  der  Regelabarbeitung
+ komplett  festliegt. Falls dies nicht gelingen kann,  wird
+ abgebrochen. R&uuml;ckw&auml;rtsverkettete Regelwerke werden auch als
+ zielgesteuert bezeichnet.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_P6.gif">
+</CENTER>
+<P>
+Bild P6: Strategien f&uuml;r die Verkettung von Regeln
+<P>
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_5_5">5.5 Pr&auml;dikatenlogik</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Die  Pr&auml;dikatenlogik stellt eine Methode zur  Verf&uuml;gung,
+aus  einer  Menge  von  Einzelerfahrungen  aussagenlogische
+Formeln  abzuleiten, und damit Pr&auml;dikate so zu bilden,  da&szlig;
+sich  die  Wissensbasis aufbauen l&auml;&szlig;t.  Damit  lassen  sich
+beispielsweise  aus heuristischem Wissen allgemein  g&uuml;ltige
+Regeln erzeugen (Wissenserwerb) [P17, P18, S2, S3].
+
+<DD>
+   Unter   der   im  folgenden  Kapitel  1.5  vorgestellten
+Expertensystemschale  Babylon-2 steht  eine  sehr  m&auml;chtige
+PROLOG-Implementierung zur Verf&uuml;gung.  Diese  ist  wie  die
+Schale selbst in CommonLISP realisiert worden, was aufgrund
+der   Vorgaben  des  Lambda-Kalk&uuml;ls  (vgl.  Kapitel  1.4.1)
+mitunter geringf&uuml;gige Abweichungen in der Syntax zur  Folge
+hat.  Im  Vorfeld der Erstellung des ebenfalls  CommonLISP-
+basierten  Nachfolgers <EM>babylon</EM>-3 wurden bereits  vorhandene
+Babylon-2-Wissensbasen  untersucht.  Dabei   stellte   sich
+heraus,  da&szlig;  die  PROLOG-Mechanismen  dort  nur  Anwendung
+fanden,  um  in Regeln Variablen einbringen zu k&ouml;nnen.  Das
+hei&szlig;t,  diese  Wissensbasen nutzen nicht die  M&ouml;glichkeiten
+der  Horn-Klausel-Resolution. Daher wurde bei <EM>babylon</EM>-3 auf
+diese   verzichtet  und  statt  dessen  die  Babylon-Query-
+Language  (BQL)  eingef&uuml;hrt.  Diese  erm&ouml;glicht  einen  von
+Datenbankanwendungen    bekannten    Zugriff    auf     das
+objektorientiert abgelegte Faktenwissen. Daher ist auch die
+Namensgebung  an  die Structured-Query-Language  (SQL)  der
+Datenbankmanagementsysteme (DBMS) angelehnt worden [P7].
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_5_6">5.6 Constraints</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Constraints    (Zw&auml;nge)    bieten    die    M&ouml;glichkeit,
+Abh&auml;ngigkeiten  zwischen verschiedenen Merkmalen  einzelner
+Instanzen   darzustellen.  Es  besteht   die   M&ouml;glichkeit,
+Auspr&auml;gungen    eines    oder    Kombinationen     mehrerer
+Objektattribute einzuschr&auml;nken. Constraints bilden eine Art
+&uuml;bergeordnetes Wissen, auch Metawissen oder Wissen  zweiter
+Art genannt.
+
+<DD>
+   Mit  Hilfe  der  Regeln  eines  Constraints  k&ouml;nnen  aus
+bekannten   Werten   eines   bestimmten   Constraints   die
+unbekannten  Werte  ermittelt werden. Diese  Vorgehensweise
+hei&szlig;t Propagierung [X1, X2, X8, X9].
+
+<DD>
+   Werte,  die  durch Constraints bestimmt  werden,  &auml;ndern
+sich,  sobald  sich der bei der Berechnung zugrundeliegende
+Wert  &auml;ndert. Weicht ein so berechneter Wert von  dem  Wert
+ab,  der  explizit eingetragen wurde, wird ein  Constraint-
+Fehler erkannt und eine entsprechende Aktion gestartet. Auf
+diese  Weise k&ouml;nnen Inkonsistenzen der Wissensbasis erkannt
+und behandelt werden.
+
+<DD>
+   Mittels   Bild   P7   kann  die  Funktionsweise   eines
+Constraints anhand des Ohmschen Gesetzes betrachtet werden.
+Es wird aus den Eingangswerten R und I die Ausgangsgr&ouml;&szlig;e  U
+berechnet. Wird der Wert f&uuml;r die Spannung U in einer  Weise
+ge&auml;ndert,  da&szlig; die Beziehung U = R * I nicht  mehr  erf&uuml;llt
+ist, erfolgt eine Reaktion auf diesen Constraint-Fehler.
+
+
+<P>
+<CENTER>
+<TABLE CELLPADDING=5 CELLSPACING=2><TR>
+
+<TD align=center>
+<IMG SRC="bild_P7.gif">
+<P>
+Bild P7: Ein einfacher Zwang (Constraint)
+</TD>
+
+<TD align=center>
+<IMG SRC="bild_P8.gif">
+<P>
+Bild P8: Ein Constraint-Netz
+</TD>
+
+</TR></TABLE>
+</CENTER>
+<P>
+
+
+<DD>
+   In  Bild  P8 wird die M&ouml;glichkeit dargestellt,  mehrere
+Constraints  zu einem Netz zu verkn&uuml;pfen. &Auml;ndert  sich  bei
+konstanter Ausgangsgr&ouml;&szlig;e eine der vier Eingangsgr&ouml;&szlig;en, wird
+zun&auml;chst    eine    Constraint-Verletzung   (Inkonsi-stenz)
+festgestellt.  Eine geeignete Reaktion darauf  ist  in  der
+Wissensbasis  vorzusehen.  Beispielsweise  k&ouml;nnte  die  den
+Constraint   verletztende  letzte   Aktion   zur&uuml;ckgenommen
+werden. Waren bis dahin aber noch nicht alle Werte bekannt,
+wird   das   Constraint   propagiert   und   die   fehlende
+Ausgangsgr&ouml;&szlig;e ermittelt.
+
+<DD>
+   Unter  <EM>babylon</EM>-3 existiert nur ein einziges  Constraint-
+Netz,  das  nur  w&auml;hrend  der  Abarbeitung  der  Start-Task
+propagiert  wird,  falls  es  nicht  explizit  abgeschaltet
+worden  ist.  Im weiteren Sitzungsverlauf bleibt  das  Netz
+ausgeschaltet.
+
+<DD>
+   Unter  Babylon-2 k&ouml;nnen diese primitiven Constraints  zu
+mehreren   Constraintnetzen  verkn&uuml;pft  werden,  wobei   im
+einfachsten  Fall ein einzelner primitiver Constraint  auch
+als  ein  Netz  angesehen werden kann.  Die  Anbindung  der
+Constraintnetze an die Slots der Instanzen  (gem&auml;&szlig;  Kapitel
+1.4.3) erfolgt &uuml;ber Restriktionen.
+
+<DD>
+   Beim  Laden  von <EM>babylon</EM>-3 Wissensbasen in  die  hier
+vorgestellte Expertensystemschale  EMA-XPS
+  werden  bei Bedarf durch einen Postprozessor  aus  den
+primitiven  <EM>babylon</EM>-3  Constraints ein  Constraintnetz  und
+eine Restriktion erzeugt.
+
+
+
+
+<P>
+<HR SIZE=6>
+
+
+
+<!--------------------------------------------------------->
+<A HREF=#inhalt><IMG align=left
+SRC="GoToTop.gif"></A>
+<br>Zur&uuml;ck zum Inhaltsverzeichnis
+<!--------------------------------------------------------->
+
+
+
+
+<!------- eof -------->

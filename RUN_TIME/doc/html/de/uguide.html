@@ -1,0 +1,1570 @@
+<HEAD><TITLE>EMA-XPS Benutzerhandbuch</TITLE></HEAD> <BODY
+background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000"> <font size="4">
+
+<IMG align=left  SRC="EmaXpsIcon.gif">
+<IMG align=right SRC="EmaXpsIcon.gif">
+<CENTER><strong>
+<font size="6">
+Die grafische Expertensystemschale
+</font>
+<br>
+<font size="8">EMA-XPS
+</font></strong></CENTER>
+<br clear=all>
+
+<HR SIZE=6>
+
+
+
+
+
+<!--------------------------------------------------------->
+<p>
+<A HREF="../startseite.html"><IMG SRC="GoToTop.gif"></A>
+<strong><font size="8">
+<A NAME="inhalt">Benutzerhandbuch</A>
+</strong></font>
+<p>
+<!--------------------------------------------------------->
+
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+Inhaltsverzeichnis
+</H2>
+<!--------------------------------------------------------->
+
+
+<MENU>
+ <DD>    <A HREF=#hdl_1_0>1.  Danksagungen</A>
+ <DD>    <A HREF=#hdl_2_0>2.  Hauptmen&uuml; und Systemdialoge</A>
+ <DD>    <A HREF=#hdl_3_0>3.  Debugger PAD</A>   
+ <DD>    <A HREF=#hdl_4_0>4.  Erkl&auml;rungskomponente</A>
+ <DD>    <A HREF=#hdl_5_0>5.  Tracer</A>
+ <MENU>  <A HREF=#hdl_6_0>6.  Editoren</A>
+  <DD>   <A HREF=#hdl_6_1>6.1 Der Taskmechanismus von EMA-XPS</A>
+  <DD>   <A HREF=#hdl_6_2>6.2 Editor f&uuml;r die Regelverarbeitung</A>
+  <DD>   <A HREF=#hdl_6_3>6.3 Editoren zur objektorientierten
+Programmierung</A>
+  <DD>   <A HREF=#hdl_6_4>6.4 Editoren f&uuml;r den
+Constraint-Mechanismus</A>
+  <DD>   <A HREF=#hdl_6_5>6.5 Der Prolog-Editor</A>   
+  <DD>   <A HREF=#hdl_6_6>6.6 Der Editor f&uuml;r sonstige
+Wissenskonstrukte</A>
+ </MENU>
+ <DD>    <A HREF=#hdl_7_0>7.  Hilfewerkzeug</A>
+ <DD>    <A HREF=#hdl_8_0>8.  Die Endbenutzerschnittstelle und ihre
+Dialoge</A>
+ <DD>    <A HREF=#hdl_9_0>9.  Die Online-Hilfeseiten von EMA-XPS</A>
+</MENU>
+
+<P>
+
+<HR SIZE=6>
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_1_0">1. Danksagungen</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+<DD>
+Ich m&ouml;chte meine Danksagungen zeitlich ordnen:
+<dd>
+
+Zun&auml;chst m&ouml;chte ich meinem Professor Joachim
+Holtz f&uuml;r die uneingeschr&auml;nkte Unterst&uuml;tzung 
+w&auml;hrend der gesamten Projektlaufzeit sowie die
+Bereithaltung der jeweils aktuellsten Rechner-Hardware
+(ApolloDomainOS, SunOS, Linux) danken.
+<dd>
+
+Eingedenk der ersten Gehversuche in der X11/Motif&#174;
+Programmierung sowie dem Aufsetzen unterschiedlicher
+Arten der UNIX&#174; Interproze&szlig;kommunikation m&ouml;chte
+ich Andreas Hennecke f&uuml;r seine Anteile am Quell-
+text der X-Version des EMA-Labor Grafikstandards GRF3
+danken. Damit wurde der Kennlinieneditor KLED reali-
+siert, eine maus-orientierte grafische Anwendung zur
+interaktiven Manipulation von Graphen. KLED ist Be-
+standteil der EMA-XPS Distribution. In diesem Zu-
+sammenhang ist das Konzept einer Zwei-Proze&szlig;-L&ouml;sung
+(einer arbeitet ereignisorientiert, der andere 
+sequentiell) entstanden. Die Inferenzmaschine von 
+Babylon2 (entwickelt von der GMD) unterst&uuml;tzt nur
+reine Textein- und -ausgaben. Die Quelltexte sind aber
+kostenfrei verf&uuml;gbar. Um nicht &quot;das Rad zweimal zu
+erfinden&quot; sollte nur die Grafikf&auml;higkeit dadurch
+erg&auml;nzt werden, da&szlig; der Babylon2-Proze&szlig; von
+einem Grafikmanager begleitet wird. 
+<dd>
+
+Joachim Kromberg trug seinen Anteil bei der Erprobung
+und Implementierung einer ersten Version dieses 
+L&ouml;sungsansatzes in Form des Kernst&uuml;cks von EMA-XPS
+v1 bei. daf&uuml;r sei ihm auch an dieser Stelle Dank
+ausgesprochen.
+<dd>
+
+Weiterhin mu&szlig; die Arbeit von Klaus Senf besonders ge-
+w&uuml;rdigt werden. Er schrieb den Rest der grafischen 
+Oberfl&auml;che von EMA-XPS v1. So konnten die gro&szlig;en
+Chancen dieses Ansatzes verdeutlicht werden.
+<dd>
+
+Obwohl es vielfach unerfreulich aufgenommen wurde,
+da&szlig; &quot;babylon 3.1-beta&quot; von VW-GEDAS vom Markt genom-
+men worden war, ergaben sich daraus stark wachsende 
+Hoffnungen in dieses Vorhaben. 
+Die Idee, EMA-XPS so anzupassen, da&szlig; es ein Ersatz
+f&uuml;r babylon3 werden kann, setzten gr&ouml;&szlig;ere Sta-
+bilit&auml;t und Flexibilit&auml;t der Lowlevel-Interproze&szlig;-
+Kommunikation voraus. 
+Zu diesem Zweck wurde die Nummer der physikalischen 
+Kan&auml;le auf 1 reduziert. Bis zu 1000 virtuelle Kan&auml;le
+k&ouml;nnen mittlerweile dar&uuml;ber gemultiplext werden.
+<dd>
+
+Die wichtigste Voraussetzung f&uuml;r die Herausforderung,
+ein Ersatz f&uuml;r babylon3 zu werden, war die Schaffung
+einer &auml;quivalenten Endbenutzerschnittstelle. Diese
+ist von Michael Block mit gro&szlig;er Liebe ins Detail 
+umgesetzt worden. 
+<dd>
+
+F&uuml;r die Untersuchung der Wissenseingabesprachen von 
+von Babylon2 und babylon3, ihre Gemeinsamkeiten und 
+Unterschiede, m&ouml;chte ich Jan Legenhausen danken. 
+Er stellte die Prinzipien f&uuml;r die &Uuml;bersetzung von
+babylon3 Konstrukten in Babylon2/EMA-XPS entsprechende
+zusammen. Daraus entwickelte er den &Uuml;bersetzer &quot;3to2&quot;,
+der mittlerweile von einem in EMA-XPS v2.1 integrierten
+zur Ladezeit aktivierten Einlesefilter ersetzt wurde.
+<dd>
+
+Nicht zum Schlu&szlig; sei mein Dank gerichtet an Karsten 
+Vossberg und Stephan Peters, die die Wissenseditoren 
+von EMA-XPS v1 angepa&szlig;t und optimiert haben. 
+Dies schlie&szlig;t grunds&auml;tzliche &Auml;nderungen der
+Quelltexte ein, um die komplette Mehrsprachunter-
+st&uuml;tzung von EMA-XPS v2.1 mittels X-Resourcen hand-
+haben zu k&ouml;nnen. Dies versetzt sogar Benutzer 
+reiner Bin&auml;rdistributionen in die Lage, die Unter-
+st&uuml;tzung weiterer Sprachen zu realisieren.
+<dd>
+
+Last but not least m&ouml;chte ich Frans Ceelen erw&auml;hnen,
+der den Stand der babylon3 Emulation in Form einer 
+Online-Dokumentation erg&auml;nzte. Diese Hilfe zur Syntax
+steht bei der Wissenseingabe innerhalb der Textfelder 
+der Wissenseditoren zur Verf&uuml;gung.
+
+<p>
+Hans Groschwitz
+<p>
+
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_2_0">2. Hauptmen&uuml; und Systemdialoge</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>
+   EMA-XPS v2.1 unterst&uuml;tzt die grafische Ausgabe auf Farb-
+,   Graustufen   und  Monochromdisplays  entsprechend   der
+M&ouml;glichkeiten  des  Motif-Widgetsets.  Durch  Setzen  einer
+Option  kann  aber  auch eine ausschlie&szlig;lich  schwarz-wei&szlig;e
+Darstellung  erzwungen  werden.  Da  alle  Farbwerte   &uuml;ber
+Xresourcen gesetzt werden und nicht festgeschrieben  worden
+sind,  kann  auf  diesem  Wege ohne  Rekompilation  der  C-
+Quelltexte eine individuelle Farbwahl nachgetragen werden.
+
+<DD>
+   Ebenfalls   wird  der  Native  Language  Support   (<strong>NLS</strong>)
+unterst&uuml;tzt. Derzeit sind die Sprachen Deutsch und Englisch
+verf&uuml;gbar.   Dies   geschieht   unterR&uuml;ckgriff   auf    die
+Mehrsprachenunterst&uuml;tzung der  X  Windows,  die  zu  diesem
+Zweck  den  Wert der Environmentvariablen LANG auszuwerten.
+EMA-XPS   verzichtet  komplett  auf   das   Hardcoden   von
+Textausgaben.  Dementsprechend werden  bei  der  grafischen
+Initialisierung die Environmentvariablen HOME,  XAPPLRESDIR
+und  LANG  genutzt,  um den jeweils g&uuml;ltigen  Standort  der
+Xresourcen zu bestimmen. Das Hilfewerkzeug nutzt  ebenfalls
+diese    Variablen,   um   die   ben&ouml;tigte   Version    der
+Hilfetextdatei  zu lokalisieren. Der NLS wirkt  sich  damit
+ausschlie&szlig;lich    auf   die   Fensternamen,    Men&uuml;s    und
+Knopfaufschriften von EMA-XPS aus.
+
+<DD>
+   Die    Ausgaben   des   verwendeten   LISP-Interpreters,
+insbesondere   bei   Fehlermeldungen,  sind   davon   nicht
+betroffen.  Zwar  unterst&uuml;tzt CLISP die  Sprachen  Deutsch,
+Englisch  und Franz&ouml;sisch. Da der NLS aber nicht  in  CLtL1
+oder    CLtL2   festgeschrieben   ist,   k&ouml;nnen   derartige
+F&auml;higkeiten nicht vorausgesetzt werden.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_U1.gif">
+</CENTER>
+<P>
+Bild U1: Er&ouml;ffnungsdialog mit Rollbalken
+<P>
+
+                             
+
+<DD>
+   Die  Schale  Babylon-2 unterst&uuml;tzt die Sprachen  Deutsch
+und   Englisch.   Die  Erweiterungen,   die   mit   EMA-XPS
+eingebracht worden sind, sind so gehalten, da&szlig; der Babylon-
+2-Kern - au&szlig;er bei den Trace-Ausgaben und derzeit noch  bei
+den  Erkl&auml;rungen  -  keine Textausgaben mehr  erzeugt.  Ein
+Wechsel  der Ausgabesprache von der Voreinstellung Englisch
+nach  Deutsch kann bei Babylon-2 durch Setzen der  globalen
+Variablen *language* erfolgen.
+
+<P>
+<ADDRESS><STRONG><CENTER>
+                (setf *language* 'deutsch)
+</CENTER></STRONG></ADDRESS>
+<P>
+
+Daf&uuml;r  eignet  sich  ein  Eintrag  in  der  Datei  ema-xps-
+init.lisp, die EMA-XPS w&auml;hrend der Bootphase l&auml;dt.
+
+<DD>
+   Dem  Benutzer pr&auml;sentiert sich EMA-XPS zur Bootzeit, wie
+in  Bild U1 dargestellt. In dem xterm, aus dem heraus  die
+Schale   gestartet   wird,  werden  die  einzelnen   Phasen
+visualisiert. Die Laufzeitversion von EMA-XPS bietet  keine
+Wissenseditoren   an.  Die  Bootzeit  ist   dementsprechend
+k&uuml;rzer,  weil die Gestalt der einzelnen Editoren nicht  dem
+Xserver       bekanntgegeben      werden      mu&szlig;.       Im
+Er&ouml;ffnungsdialogfenster wird ein Rollbalken bewegt.
+
+<DD>
+   Sobald    die   Proze&szlig;synchronisierung   erfolgt    ist,
+erscheint  das Hauptfenster der Schale (Bild U2).  In  der
+Entwickler-  oder Vollversion stellt dieses zus&auml;tzlich  zum
+Umfang  der  Laufzeitversion  ein  Men&uuml;  "Bearbeiten"   zur
+Verf&uuml;gung,     sowie    die    M&ouml;glichkeit,    Wissensbasen
+abzuspeichern und zu tracen.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_U2.gif">
+</CENTER>
+<P>
+Bild U2: Das Hauptfenster des Grafikservers
+<P>
+
+                             
+
+<DD>
+   Unter    EMA-XPS    k&ouml;nnen   maximal   9    Wissensbasen
+gleichzeitig in der LISP-Welt vorhanden sein.  Deren  Namen
+sind  im  Datei-Men&uuml; (Bild U3a) des Hauptfensters oberhalb
+des  Beenden-Eintrags aufgelistet. Es kann immer  nur  eine
+Wissensbasis  aktuell  sein, die  im  Men&uuml;  mit  einem  `>`
+markiert  ist.  Auf  der  LISP-Seite  werden  entsprechende
+Datenstrukturen  gepflegt, die den Namen der  Wissensbasis,
+den  damit  verkn&uuml;pften  Dateinamen sowie  eine  Infomation
+beinhalten, ob die in der LISP-Welt vorhandene Wissensbasis
+gegen&uuml;ber  der  aus  der Datei geladenen Version  ver&auml;ndert
+worden       ist.       &Uuml;ber       den       privilegierten
+Interproze&szlig;kommunikationskanal 008  wird  die  C-Seite  von
+jeder  &Auml;nderung  dieser  Datenstrukturen  unterrichtet.   C
+pflegt eine exakte Kopie dieser Datenbest&auml;nde.
+
+<DD>
+   Nur  in der Vollversion der Schale steht ein Bearbeiten-
+Men&uuml;  (Bild U3b) zur Verf&uuml;gung, von dem aus die grafischen
+Wissenseditoren sichtbar gemacht werden k&ouml;nnen. Vom Sitzung-
+Men&uuml;  (Bild  U3c)  aus  kann eine  Sitzung  der  aktuellen
+Wissensbasis   gestartet  werden.  Weiterhin   k&ouml;nnen   der
+Debugger   PAD  und  das  Erkl&auml;rungsfenster  und   in   der
+Vollversion  auch  der Tracer aktiviert werden.  Bild  U3d
+zeigt  das  Hilfe-Men&uuml; mit unterschiedlichen Themen.  Diese
+Eintr&auml;ge bewirken, da&szlig; das Hilfewerkzeug mit der jeweiligen
+Hilfeseite aufgeschlagen aktiviert wird.
+
+
+<P>
+<CENTER>
+<TABLE><! CELLPADDING=5 CELLSPACING=2><TR>
+
+<TD align=left>
+a)<BR>
+<a href="ondoc005.html"><IMG SRC="bild_U3a.gif"></a>
+</TD>
+
+<TD align=left>
+b)<BR>
+<a href="ondoc005.html"><IMG SRC="bild_U3b.gif"></a>
+</TD>
+
+<TD align=left>
+c)<BR>
+<a href="ondoc005.html"><IMG SRC="bild_U3c.gif"></a>
+</TD>
+
+<TD align=left>
+d)<BR>
+<a href="ondoc005.html"><IMG SRC="bild_U3d.gif"></a>
+</TD>
+
+</TR></TABLE>
+</CENTER>
+<P>
+Bild U3: Die Pulldown-Men&uuml;s des Hauptfensters
+<P>
+
+
+
+<DD>
+   Bei  Anwahl  von  Eintr&auml;gen  in  den  Men&uuml;s  werden  mit
+Ausnahme  der  Eintr&auml;ge  des Datei-Men&uuml;s  eigenst&auml;ndige  X-
+Applikationen  aktiviert. Dazu werden keine  eigenst&auml;ndigen
+UNIX-Prozesse  gestartet.  Diese Eigenst&auml;ndigkeit  betrifft
+nur X und wird beim Erstellen von Xresourcen deutlich.
+
+<DD>
+   Die   Aktionen,  die  vom  Datei-Men&uuml;  ausgel&ouml;st  werden
+k&ouml;nnen,  aktivieren  die Popupdialoge des  Systems.  Einige
+dieser   Dialoge  k&ouml;nnen  ausschlie&szlig;lich  von  der  C-Seite
+ausgel&ouml;st  werden.  Zum Laden (Bild  U4a)  oder  Speichern
+(Bild U4b) einer Wissensbasis steigern Dateiauswahldialoge
+die  Benutzerfreundlichkeit. Der LISP-Seite gen&uuml;gt aber die
+Information "Lade die Datei XYZ". Im Fall, da&szlig; der Benutzer
+nicht  laden  will  und abbricht, m&uuml;&szlig;ten Sonderbehandlungen
+LISP-seitig realisiert sein.
+
+<DD>
+   LISP h&auml;lt pro Wissensbasis auch den kompletten Pfad  der
+zugeh&ouml;rigen Datei fest, um ihn beim Speichern zur Verf&uuml;gung
+zu haben. Da diese Kontrolldaten bereits f&uuml;r die Verwaltung
+der   Editoren  st&auml;ndig  im  Grafikserverproze&szlig;  gespiegelt
+werden,  gen&uuml;gt es, die komplette grafische  Verwaltung  C-
+seitig abzuwickeln.
+
+<DD>
+   Beim  Speichern einer Wissensbasis kann gew&auml;hlt  werden,
+ob  sie  als zur Ladezeit zu interpretieren - und damit  im
+Klartext - abgelegt werden soll oder in einem bin&auml;ren,  vom
+LISP-Compiler vorbehandelten Format. Bild U4b  zeigt  auch
+den  untergeordneten Popupdialog zur Voreinstellung  dieser
+Pr&auml;ferenz.
+
+
+<P>
+<CENTER>
+<TABLE><! CELLPADDING=5 CELLSPACING=2><TR>
+
+<TD align=left>
+a)<BR>
+<IMG SRC="bild_U4a.gif">
+</TD>
+
+<TD align=left>
+b)<BR>
+<IMG SRC="bild_U4b.gif">
+</TD>
+
+</TR></TABLE>
+<P>
+
+<TABLE><TR><TD align=left>
+c)<BR>
+<IMG SRC="bild_U4c.gif">
+</TD></TR></TABLE>
+
+</CENTER>
+<P>
+Bild U4:  Vom Grafikserver initiierte Systemdialoge
+<DD>      a) f&uuml;r das Laden einer Wissensbasis
+<DD>      b) zum Speichern unter einem anderen Namen
+<DD>      c) Hinweis auf nicht gesicherte &Auml;nderungen
+<P>
+
+
+
+<DD>
+   EMA-XPS  v2.1 setzt f&uuml;r alle Wissensbasen die Verwendung
+der    leistungsf&auml;higsten   Auspr&auml;gungen   der    einzelnen
+Wissensinterpreter  von  Babylon-2  voraus.   Die   einzige
+Ausnahme  ist der Freitextinterpreter. Auf seine Verwendung
+wird    verzichtet.   Andererseits   ist   zur   leichteren
+Realisierung von Callbacks der Endbenutzerschnittstelle ein
+Taskmechanismus  eingef&uuml;hrt  worden.  Dieser  ersetzt   den
+Instruktionen-Bereich von Babylon-2. Damit &auml;ndert sich  das
+Dateiformat von Wissensbasen f&uuml;r EMA-XPS v2.1 gegen&uuml;ber dem
+von  Babylon-2.  Zur Unterscheidung bevorzugt  EMA-XPS  f&uuml;r
+eigene Wissensbasen die Dateinamenserweiterung `*.kb'.
+
+
+<P>
+<TABLE BORDER CELLPADDING=5 CELLSPACING=2>
+<TR><TD>
+<ADDRESS><STRONG>
+Wissensbasen,  die unter Babylon-2 erstellt  worden  sind,
+k&ouml;nnen   von  EMA-XPS  </strong></em>nicht<em><strong>  korrekt  eingelesen  werden.
+Vorbehandlungen  dieser Dateien sind  in  geringem  Umfang
+notwendig.
+</STRONG></ADDRESS>
+</TD></TR></TABLE> 
+<P>
+
+
+<DD>
+   Schlie&szlig;lich kann gew&uuml;nscht werden, eine Wissensbasis  zu
+schlie&szlig;en, also aus der LISP-Welt zu entfernen,  oder  EMA-
+XPS   komplett  zu  beenden.  Falls  mittels  der  Editoren
+&Auml;nderungen  vorgenommen  wurden,  die  noch  nicht  in  die
+zugeordnete Wissensbasisdatei &uuml;bertragen worden sind,  kann
+der Grafikserver direkt eine Warnung (Bild U4c) ausl&ouml;sen.
+
+
+
+<P>
+<CENTER>
+<TABLE><! CELLPADDING=5 CELLSPACING=2><TR>
+
+<TD align=left>
+a)<BR>
+<IMG SRC="bild_U5a.gif">
+</TD>   
+
+<TD align=left>
+b)<BR>
+<IMG SRC="bild_U5b.gif">
+</TD>
+
+</TR></TABLE>
+</CENTER>
+<P>
+Bild U5:  Von der LISP-Welt initiierte Systemdialoge
+<DD>      a) Eingabe des Namens einer neuen Wissensbasis
+<DD>      b) Statistik der Wissensinhalte der aktuellen Wissensbasis
+<P>
+
+
+
+<DD>
+   Bei  anderen  Systemdialogen erschien eine  LISP-seitige
+Kontrolle  sinnvoller. Beispielsweise k&ouml;nnten f&uuml;r  eine  zu
+speichernde Datei keine Schreibrechte existieren. Dies wird
+der  LISP-Proze&szlig;  erst beim Versuch, die Datei  zu  &ouml;ffnen,
+feststellen. Auch f&uuml;r das Erzeugen einer neuen Wissensbasis
+reicht  eine  LISP-seitige  Verwaltung  (Bild  U5a).   Das
+Anlegen einer neuen Wissensbasis findet zun&auml;chst nur in der
+LISP-Welt  statt. Demgem&auml;&szlig; existiert noch kein zugeordneter
+Dateiname.   Einfaches   Speichern   versagt   dann.    Der
+Men&uuml;eintrag  "Speichern unter" ist zu verwenden.  Auch  die
+Beschaffung   der  notwendigen  Daten  zur  Ausgabe   einer
+Statistik  der  aktuellen  Wissensbasis  f&auml;llt  unter  LISP
+leichter als unter C (Bild U5b).
+
+<DD>
+   Um   bei   den  LISP-seitig  initiierten  Dialogen   die
+Aufrecherhaltung  der Mehrsprachlichkeit  gew&auml;hrleisten  zu
+k&ouml;nnen,   sind  die  Textstrings  in  den  Xresourcen   als
+Formatdirektiven    der    C-Bibliotheksfunktion    <em>sprintf</em>
+formuliert  worden.  Der  Nachrichtenkanal  sendet  die  zu
+ersetzenden  Zeichenketten. Sprintf verbindet  die  w&auml;hrend
+der Bootphase aus den Xresourcen gewonnenen und gesicherten
+Formatdirektiven  mit  den  &uuml;bertragenen  Zeichenketten  zu
+einem  Ausgabestring, der an den zu &ouml;ffnenden  Systemdialog
+&uuml;bergeben wird.
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_3_0">3. Debugger PAD</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>
+   Wenn  bei der Evaluierung von LISP-Ausdr&uuml;cken ein Fehler
+auftritt,  ruft der Interpreter seinen Debugger auf.  Unter
+EMA-XPS wird dann der LISP Debugger PAD (Fehlerwerkzeug) im
+Fensterstack nach vorne geholt und entikonifiziert. Er  ist
+ein   portables  grafisches  Frontend  f&uuml;r  eine   Vielzahl
+unterschiedlicher  textstromorientierter  Debugger-Implemen
+tierungen.  Der  Benutzer  wird  zur  Fehlerbehebung  LISP-
+Kommandos direkt eingeben wollen. Dazu bietet der PAD unten
+ein   Texteingabefenster.  Andere  LISP-Eingaben  l&ouml;st  der
+Benutzer  beispielsweise durch Mausaktionen  aus.  Mit  der
+Beschr&auml;nkung     auf    einen    einzigen    physikalischen
+Daten&uuml;bertragungskanal    ist    die    Einf&uuml;hrung    einer
+Befehlswarteschlange  notwendig  geworden.   Das   mittlere
+Textausgabefeld  des  PADs zeigt den aktuellen  Inhalt  der
+Befehlsqueue  an.  Die  Echos der  Eingaben,  soweit  nicht
+unterdr&uuml;ckt,  und  die  Ausgaben der  LISP-Welt  werden  im
+obersten Fenster dargestellt.
+
+<DD>
+   Bild  U6  zeigt den PAD im Anschlu&szlig; an die  Bootphase.
+Nach der Synchronisierung beider Prozesse und dem Laden der
+benutzerindividuellen    Initialisierungsdatei     ema-xps-
+init.lisp   sind   &uuml;ber   das   Hauptmen&uuml;   zun&auml;chst   zwei
+Wissensbasen geladen worden, die abwechselnd zur  aktuellen
+Wissensbasis  erkl&auml;rt worden sind. F&uuml;r beide  sind  mittels
+eines  speziellen  Systemdialogs  (Bild  U5b)  Statistiken
+ihrer Wissensinhalte angezeigt worden.
+
+<DD>
+   Mittels    des   Knopfes   "Unterbrechen!"   kann    ein
+Keyboardinterruptsignal (SIGINT) an den LISP-Proze&szlig; gesandt
+werden.   Dieser   wird   dann   die   aktuellen   Arbeiten
+unterbrechen  und  den Debugger aufrufen.  In  diesem  Fall
+bietet   der   Debugger  an,  den  unterbrochenen   Vorgang
+fortzusetzen.
+
+
+<P>
+<CENTER>
+<a href="ondoc007.html"><IMG SRC="bild_U6.gif"></a>
+</CENTER>
+<P>
+Bild U6: Der LISP Debugger PAD von EMA-XPS v2.1
+<P>
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_4_0">4. Erkl&auml;rungskomponente</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Die   Erkl&auml;rungskomponente  von  EMA-XPS  nutzt  derzeit
+ausschlie&szlig;lich  das  Leistungsangebot von  Babylon-2.  Dort
+werden  Erkl&auml;rungen  men&uuml;gesteuert angefordert.  Zu  diesem
+Zweck  bieten der Regel- und der Prologinterpreter Methoden
+an,  die  nach  einer interaktiven Auswahl die erl&auml;uternden
+Texte &uuml;ber den *explain-stream* ausgeben. Eine Analyse  der
+zur   Auswahl   stehenden  Erkl&auml;rungstypen   ergab   wenige
+Grundfunktionen,  die - ohne die Auswahlmen&uuml;s  in  Anspruch
+nehmen  zu  m&uuml;ssen - direkt aktiviert werden  k&ouml;nnen.  Dazu
+w&auml;ren  aber  die Babylon-2 LISP-Quelltexte zu  &uuml;berarbeiten
+gewesen.  Um  diese  nicht &auml;ndern  zu  m&uuml;ssen,  wurden  die
+relevanten Codeanteile in eigene Funktionen &uuml;bertragen.
+
+
+<P>
+<CENTER>
+<a href="ondoc008.html"><IMG SRC="bild_U7.gif"></a>
+</CENTER>
+<P>
+Bild U7: Erkl&auml;rungsfenster
+<P>
+
+
+
+<DD>
+   Das  Erkl&auml;rungsfenster  (Bild U8)  bietet  &uuml;ber  seine
+Men&uuml;s  Erkl&auml;rung und Zeigen die M&ouml;glichkeit, im Laufe einer
+Sitzung  mit  einem Expertensystem Erkl&auml;rungen anzufordern.
+Dies  ist immer dann der Fall, wenn das Expertensystem  auf
+Benutzerreaktionen  wie  das Bet&auml;tigen  eines  Druckknopfes
+wartet,  nicht  aber, wenn der Benutzer  einen  Popupdialog
+best&auml;tigen soll. Daher k&ouml;nnen diese Funktionen auch in  den
+Tasks der Wissensbasis verankert werden.
+
+<DD>
+   Das  Fenster  kann  vom Hauptmen&uuml; aus  sichtbar  gemacht
+werden.  Jede Textausgabe in dieses Fenster &ouml;ffnet es  aber
+auch und holt es im Fensterstack nach oben.
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_5_0">5. Tracer</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Die  Meta-,  Regel-,  Prolog- und  Constraintinterpreter
+von  Babylon-2 bieten in der leistungsst&auml;rksten  Ausf&uuml;hrung
+jeweils    die   M&ouml;glichkeit,   TraceAusgaben   an-    oder
+auszuschalten.  Jeder Interpreter schreibt diese  Texte  in
+geeignete logische Str&ouml;me. Sie werden unter EMA-XPS v2.1 in
+ein  einzelnes  eigens  daf&uuml;r  vorgesehenes  Ausgabefenster
+geschrieben.   Den  Textausgaben  werden   je   Interpreter
+geeignete  K&uuml;rzel  vorangestellt.  EMA-XPS  stellt   diesen
+Ausgaben  noch  den Namen der aktuellen Wissensbasis  voran
+(Bild U8).
+
+<DD>
+   Unter   EMA-XPS   v2.1   ist  zur  Erleichterung   einer
+ereignisorientierten   Sitzungsgestaltung   ein    weiterer
+Interpreter geschaffen worden. Auch dieser Task-Interpreter
+bietet Trace-M&ouml;glichkeiten an.
+
+<DD>
+   Oberhalb    des    Textausgabefeldes    sind    Schalter
+angebracht,  die  -  f&uuml;r die jeweilige Wissensbasis  -  den
+gew&uuml;nschten  Umfang  an  Trace darstellen.  Mit  Hilfe  der
+Schalter kann dieser Umfang ge&auml;ndert werden.
+
+
+
+<P>
+<CENTER>
+<a href="ondoc009.html"><IMG SRC="bild_U8.gif"></a>
+</CENTER>
+<P>
+Bild U8: Tracer
+<P>
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_6_0">6. Editoren</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>
+   Die  textstromorientierte Expertensystemschale Babylon-2
+stellt  keine definierte Wissensingenieurschnittstelle  zur
+Verf&uuml;gung.   Die  Wissenseingabe  erfolgt   mittels   eines
+Texteditors. Dies geschieht unter Einhaltung einer gewissen
+Programmierdisziplin durch Untereinanderschreiben von LISP-
+Toplevelformen wie <strong><em>(defframe ...)</em></strong>, <strong><em>(definstance
+...)</em></strong>,
+<strong><em>(defbehavior</em></strong>  ...)  und dergleichen. Die einzelnen  Interpreter
+von Babylon-2 besitzen Methoden, die in ihrer Zust&auml;ndigkeit
+liegenden   aktuellen  Wissensbest&auml;nde  in  einen   bereits
+ge&ouml;ffneten   Datenstrom  zu  schreiben.  Diese   sind   zur
+Speicherung von EMA-XPS Wissensbasen herangezogen worden.
+
+<DD>
+   Aus  dieser  Funktionalit&auml;t sind die Routinen entwickelt
+worden,  mit  denen  die  zu bearbeitenden  Formen  in  die
+grafischen  Editoren geladen werden. Schlie&szlig;lich  sind  f&uuml;r
+die  &Uuml;bernahme  der  &Auml;nderungen in die LISP-Welt  geeignete
+LISP-Kommandos erstellt werden.
+
+<DD>
+   Die  <a href="ondoc010.html">Editoren von EMA-XPS v2.1</a>
+ ben&ouml;tigen daher nur,  da&szlig;
+LISP  bei  der  Anforderung der aktuellen Versionen  dieser
+Formen  und im Moment der Abspeicherung eingabebereit  ist.
+In  der  verbleibenden Zeit steht LISP f&uuml;r andere  Aufgaben
+zur Verf&uuml;gung.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_6_1">6.1  Der Taskmechanismus von EMA-XPS</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>
+   Sitzungen     mit     unter     Babylon-2     erstellten
+Expertensystemen verlaufen textstromorientiert, wie in Bild S4  
+verdeutlicht. Der Metaprozessor &uuml;bernimmt die  globale
+Kontrolle  des Sitzungsablaufs. Zu diesem Zweck  werden  in
+der  Wissensbasis die notwendigen Anweisungen zum  Ansto&szlig;en
+von  Regelwerken und dergleichen in den Block <strong><em>(instructions
+...)</em></strong> geschrieben [S2, S3].
+
+<DD>
+   Sollen  Sitzungen  ereignisorientiert ablaufen,  wie  in
+Bild  S5  angedeutet,  sind  unterschiedliche  Arten   von
+Benutzereingaben m&ouml;glich. Die Endbenutzerschnittstelle  von
+EMA-XPS v2.1 besteht aus einem Sitzungsfenster, auf dem  in
+erster  Linie  mittels  frei  platzierter  Druckkn&ouml;pfe  und
+Eintr&auml;gen  in  Pulldownmen&uuml;s  die  Aktivierung  von   LISP-
+Kommandos  ausgel&ouml;st wird. Dazu ist pro grafischem  Element
+ein  Callback registriert. Dies ist ein LISP-Kommando,  das
+in  die  Standardeingabe  von LISP  geschrieben  wird.  Die
+Befehlswarteschlange  des  Debugger  PADs  wird  damit  zur
+Eventqueue.
+
+<DD>
+   Dies  setzt aber voraus, da&szlig; die urspr&uuml;ngliche Babylon-2
+Sitzung  unterbrochen wird, um LISP-Kommandos  einlesen  zu
+k&ouml;nnen.  Innerhalb des Instruktionenbereichs von  Babylon-2
+ist   die  besondere  Variable  <em>self</em>  an  die  Instanz  des
+aktuellen  Expertensystems  gebunden.  Nachrichten  an  die
+einzelnen  Wissensinterpreter k&ouml;nnen daher mit <em><strong>($send  self
+...)</em></strong>  abgesetzt werden. Die Bindung von self wird  am  Ende
+des  Instruktionenbereichs aufgehoben. Trotzdem  kann  eine
+Babylon-2   Sitzung  danach  weitergef&uuml;hrt  werden.   Unter
+Verwendung  des  Babylon-2 Ausdrucks <em><strong>(send-kb
+...)</em></strong>  k&ouml;nnen
+diese Interpreter in der gleichen Weise erreicht werden. Da
+der LISP-Proze&szlig; interpretativ arbeitet, gehen die aktuellen
+Variablenwerte und Systemzust&auml;nde nicht verloren.
+
+<DD>
+   Daher   ist   es   m&ouml;glich,  unter  EMA-XPS   v2.1   den
+Instruktionenbereich  gegen&uuml;ber  dem  Wissensingenieur  f&uuml;r
+unzug&auml;nglich  zu  erkl&auml;ren. F&uuml;r  alle  Wissensbasen  lautet
+dieser   Block   daher   gleich.   Zun&auml;chst   werden    die
+Wissensinterpreter    und    die   Endbenutzerschnittstelle
+reinitialisiert. Dann wird festgestellt, ob eine  Task  mit
+dem  Namen  MAIN  existiert. Existiert sie nicht,  ist  die
+Sitzung  beendet. Ansonsten geht die weitere Kontrolle  der
+Sitzung &uuml;ber an diese Er&ouml;ffnungstask. Mit dem Ende von MAIN
+endet der Instruktionenblock. Ereignisorientierte Sitzungen
+unter  EMA-XPS  fangen im allgemeinen jetzt erst  an,  weil
+MAIN  zumeist  nur  die  grafische Endbenutzerschnittstelle
+sitzungsgerecht initialisiert.
+
+<DD>
+   Da  bei  EMA-XPS  der Sitzungsverlauf  oft  unterbrochen
+ist,   ist  in  der  Zwischenzeit  prinzipiell  sogar   das
+Editieren   von  Konstrukten  der  aktuellen   Wissensbasis
+m&ouml;glich.  Es k&ouml;nnen aber auch Erkl&auml;rungen abgefragt  werden
+und &Auml;nderungen im Umfang des Trace vorgenommen werden.
+
+<DD>
+   Die   Tasks  von  EMA-XPS  werden  definiert  wie  LISP-
+Funktionen,  nur  da&szlig; anstelle des Konstruktors  <em>defun</em>  ein
+<em>deftask</em> tritt (Bild U9). Sie werden auch abgearbeitet wie
+LISP-Funktionen,  nur sind ihre Definitionen  nicht  global
+bekannt.  Mit dem Entfernen einer Wissensbasis werden  auch
+die  Taskdefinitionen  gel&ouml;scht. Eine Interferenz  zwischen
+unterschiedlichen    Definitionen     einer     Task     in
+unterschiedlichen Wissensbasen ist ausgeschlossen.
+
+
+<P>
+<CENTER>
+<TABLE WIDTH=500 BORDER CELLPADDING=5 CELLSPACING=2><TR><TD>
+<ADDRESS><STRONG>
+<MENU>    (deftask task-name (arg1 arg2 &key key)
+<MENU>     "Optionaler Kommentar"
+<DD>     (anweisung-1 ...)
+<DD>     (anweisung-2 ...)
+<DD>     ;; ...
+<DD>     (anweisung-n ...)
+<DD>     ;; Das Ergebnis der anweisung-n ist zugleich
+<DD>     ;; der R&uuml;ckgabewert der Task
+</MENU>    )
+</MENU>    
+<DD>    ;; ein m&ouml;glicher Taskaufruf:
+<MENU>    (setf resultat
+<DD>     (dotask 'task-name 1 2))
+</MENU>
+</STRONG></ADDRESS>
+</TD></TR></TABLE>
+</CENTER>
+<P>
+Bild U9: Definition und Aufrufform einer Task unter EMA-XPS
+<P>
+
+
+
+<DD>
+   Unter  Babylon-2 sollte auf die Verwendung von  globalen
+Variablen,   Funktions-  und  Makrodefinitionen   m&ouml;glichst
+verzichtet werden, weil alle in den Symboltabellen der USER-
+Package  abgelegt werden. St&auml;ndig besteht die  Gefahr,  da&szlig;
+zwei  Wissensbasen, die zur gleichen Zeit in der  LISP-Welt
+bekannt   sind,   zwei   gleichlautende   Konstrukte    mit
+unterschiedlicher  Funktion  definiert  haben  und   nutzen
+wollen.  Dann  kommt  es zu Inkonsistenzen  im  Ablauf  der
+Expertensysteme.  Nur die Definition der zuletzt  geladenen
+Wissensbasis  ist  verf&uuml;gbar.  Sie  gilt  aber  f&uuml;r   <strong>beide</strong>
+Expertensysteme.
+
+<DD>
+   Schlie&szlig;lich  ist zu bedenken, da&szlig; der Aufruf  von  Tasks
+fast  genauso  schnell geschieht wie der Aufruf  von  LISP-
+Funktionen.  Daf&uuml;r  k&ouml;nnen  Tasks auch  Trace-Informationen
+erzeugen.
+
+
+<P>
+<CENTER>
+<a href="ondoc019.html"><IMG SRC="bild_U10.gif"></a>
+</CENTER>
+<P>
+Bild U10: Task-Editor
+<P>
+
+
+
+<DD>
+   Der  Kopfbereich aller Wissenseditoren von  EMA-XPS  ist
+gleich  gestaltet. Eine Men&uuml;leiste bietet  ein  Bearbeiten-
+und  ein Hilfe-Men&uuml;, &uuml;ber das Erkl&auml;rungen zur Bedienung des
+jeweiligen  Editors abgerufen werden k&ouml;nnen. Au&szlig;erdem  wird
+Hilfe  zu  einzelnen LISP-Kommandos angeboten. Unter  Motif
+kann  durch  Dr&uuml;cken der Funktionstaste  F1  oder  -  falls
+vorhanden - der Taste mit der Aufschrift HELP, diese  Hilfe
+ebenfalls     aktiviert    werden.     Positioniert     der
+Wissensingenieur  in einem Texteingabefeld  den  Textcursor
+innerhalb  eines  Wortes  und dr&uuml;ckt  F1  oder  HELP,  wird
+versucht,    Hilfe   zur   Syntax   dieses   LISP-Kommandos
+anzubieten.
+
+
+<DD>
+   Unterhalb  der  Men&uuml;leiste  ist  als  erstes  ein  Knopf
+angeordnet,  der  den Namen der Wissensbasis  tr&auml;gt,  deren
+Konstrukte bearbeitet werden sollen. Dr&uuml;cken auf den  Knopf
+l&auml;&szlig;t  einen Auswahldialog erscheinen, in dem die Namen  der
+aktuell verf&uuml;gbaren Wissensbasen aufgef&uuml;hrt sind. Die Namen
+sind den gespiegelten Kontrolldaten entnommen.
+
+
+<DD>
+   Beim  Task-Editor (Bild U10) folgt darunter  ein  Knopf
+mit  dem  Namen der Task, die bearbeitet werden  soll.  Bei
+Bet&auml;tigen  des Knopfes mit dem Tasknamen wird ein  Kommando
+abgesetzt,  das  LISP  auffordert,  &uuml;ber  einen  bestimmten
+Nachrichtenkanal die bekannten Tasknamen an die C-Seite  zu
+senden.  Der  C-seitig  registrierte  Handler  baut   einen
+Auswahldialog  auf.  Nach  erfolgter  Auswahl   wird   LISP
+angewiesen, die Definition der gew&uuml;nschten Task &uuml;ber  einen
+weiteren Nachrichtenkanal zu &uuml;bertragen. Diese wird in  den
+unten anschlie&szlig;enden Textfeldern f&uuml;r die Argumentzeile, den
+optionalen Kommentar und den Taskk&ouml;rper dargestellt.
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_6_2">6.2  Editor f&uuml;r die Regelverarbeitung</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+<P>
+<CENTER>
+<a href="ondoc014.html"><IMG SRC="bild_U11.gif"></a>
+</CENTER>
+<P>
+Bild U11: Regeleditor mit bearbeiteter Regel sowie das Datei-Men&uuml; des
+       Hauptfensters mit der grafischen Aufbereitung der Kontrolldaten
+       &uuml;ber die geladenen Wissensbasen
+<P>
+
+
+
+<DD>
+   Die      bereits     beschriebene     Spiegelung     der
+Kontrolldatenbest&auml;nde  &uuml;ber geladene  Wissensbasen  ist  in
+erster  Linie  zur  Sicherung aktueller  Eingaben  bei  der
+Wissensprogrammierung  eingef&uuml;hrt  worden.   Jeder   Editor
+reagiert auf die Bearbeitung von Wissenskonstrukten, in dem
+er  die  Grafik  eines Ausrufungszeichens im  Editorfenster
+rechts neben dem Namen der betroffenen Wissensbasis anzeigt
+(Bild   U11).   Gleichzeitig   wird   im   Dateimen&uuml;   des
+Hauptfensters  von  EMA-XPS  v2.1  hinter  dem  Namen   der
+Wissensbasis ein "!!" vermerkt.
+
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_U12.gif">
+</CENTER>
+<P>
+Bild U12: Dialog zur Umsortierung von Regeln innerhalb einer Regelmenge
+<P>
+
+
+<DD>
+   Jeder  Editor bietet die M&ouml;glichkeit, die &Auml;nderungen  zu
+speichern.  Dann werden diese in die LISP-Welt  &uuml;bertragen.
+Die Ausrufungszeichen verschwinden und im Hauptfenster wird
+ein "#" dargestellt. Durch Speichern einer Wissensbasis  in
+eine  Datei  wird  dieses  Zeichen  wieder  entfernt.  Beim
+Schie&szlig;en   von   Wissensbasen,  die  C-  oder   LISP-seitig
+ver&auml;ndert   sind,   aber   nicht   gesichert,   wird   eine
+Sicherheitsabfrage durchgef&uuml;hrt.
+
+
+<DD>
+   Der  Regeleditor ist prinzipiell &auml;hnlich dem  Taskeditor
+aufgebaut. Zun&auml;chst ist eine Regelmenge auszuw&auml;hlen. Daraus
+kann eine Regel selektiert und zur Anzeige gebracht werden.
+
+
+
+<DD>
+   Bei   der   Eingabe  von  Regeldefinitionen   sind   die
+Strategien einer Schale zur Konfliktaufl&ouml;sung zu  beachten.
+Babylon-2  -  und  damit  auch  EMA-XPS  -  verwendet   die
+einfachste   m&ouml;gliche.  Wenn  zwei  Regeln   mit   gleichem
+Bedingungsteil und unterschiedlichen Aktionsteilen in einem
+Regelwerk  existieren,  wird  Babylon-2  immer  der  zuerst
+gefundenen zutreffenden Regel den Vorzug geben. Die  Regeln
+sind  in  Regelmengen  zufsammengefa&szlig;t,  die  wiederum  als
+Listen  organisiert sind, welche die Regelk&ouml;rper enthalten.
+Die  Position  eines  Regelk&ouml;rpers in der  Regelmengenliste
+entscheidet also &uuml;ber die Priorisierung der Regel.
+
+<DD>
+   Das  Bearbeiten-Men&uuml;  des  Editors  bietet  daher  einen
+Dialog   zur   Umsortierung  der  Regeln  innerhalb   einer
+Regelmenge (Bild U12).
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_6_3">6.3  Editoren zur objektorientierten Programmierung</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Babylon-2   ist   selbst   objektorientiert   realisiert
+worden. Diese Mittel stehen auch f&uuml;r die Wissenseinbringung
+zur Verf&uuml;gung. Ein Frame-Editor (Bild U13), ein Editor zur
+Erstellung  statischer  Instanzen  (Bild  U14),  also  von
+Instanzen,  die mit einer pro Wissensbasis g&uuml;ltigen  global
+ansprechbaren Variablen verkn&uuml;pft sind, und ein Editor  zum
+Erstellen  von  Behaviors  (Bild  U15)  unterst&uuml;tzen   den
+Wissensingenieur bei der Eingabe dieser Formen.
+
+
+<P>
+<CENTER>
+<a href="ondoc011.html"><IMG SRC="bild_U13.gif"></a>
+</CENTER>
+<P>
+Bild U13: Frame-Editor
+<P>
+
+
+<P>
+<CENTER>
+<a href="ondoc012.html"><IMG SRC="bild_U14.gif"></a>
+</CENTER>
+<P>
+Bild U14: Instanz-Editor
+<P>
+
+
+<P>
+<CENTER>
+<a href="ondoc013.html"><IMG SRC="bild_U15.gif"></a>
+</CENTER>
+<P>
+Bild U15: Behavior-Editor
+<P>
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_6_4">6.4  Editoren f&uuml;r den Constraint-Mechanismus</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Der   CONSAT-Interpreter  von  Babylon-2   unterscheidet
+zwischen    primitiven   und   Compound-Constraints.    Die
+Primitiven   beschreiben   die   Zw&auml;nge   zwischen    ihren
+Eingangsgr&ouml;&szlig;en     beispielsweise    &uuml;ber     mathematische
+Zusammenh&auml;nge.  Compound-Constraints werden zur  Festlegung
+von  Constraint-Netzen verwendet. Die Zw&auml;nge zwischen ihren
+Eingangsgr&ouml;&szlig;en  werden  mittels  primitiver  oder   anderer
+Compound-Constraints   festgelegt.    Schlie&szlig;lich    binden
+Restriktionen  die  Eingangsgr&ouml;&szlig;en der Constraints  an  die
+Slots   von   statischen  Instanzen.   Die   drei   hierf&uuml;r
+spezialisierten Editoren sind in den Bildern U16 bis  U18
+dargestellt.
+
+
+
+<P>
+<CENTER>
+<a href="ondoc016.html"><IMG SRC="bild_U16.gif"></a>
+</CENTER>
+<P>
+Bild U16: Editor f&uuml;r primitive Constraints
+<P>
+
+
+<P>
+<CENTER>
+<a href="ondoc017.html"><IMG SRC="bild_U17.gif"></a>
+</CENTER>
+<P>
+Bild U17: Editor f&uuml;r Constraint-Netze
+<P>
+
+
+<P>
+<CENTER>
+<a href="ondoc018.html"><IMG SRC="bild_U18.gif"></a>
+</CENTER>
+<P>
+Bild U18: Restriktionen-Editor
+<P>
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_6_5">6.5  Der Prolog-Editor</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+   
+
+<DD>
+   Damit  Babylon-2 auch in der Lage ist, Horn-Klauseln  zu
+verarbeiten,  ist  mit  den Mitteln der  Programmiersprache
+LISP  ein Prologinterpreter realisiert worden. Die von  ihm
+bearbeiteten     Klauseln    werden    in     Klauselmengen
+zusammengefa&szlig;t  wie Regeln in Regelmengen. Ebenso  ist  die
+Reihenfolge, also die Anordnung der Klauseln innerhalb  der
+Klauselmenge von Bedeutung.
+
+<DD>
+   Im  Gegensatz  zu den anderen Wissenskonstrukten  werden
+Klauselmengen  nicht gel&ouml;scht, wenn die  Wissensbasis,  mit
+der   sie  verkn&uuml;pft  sind,  entfernt  wird.  Klauselmengen
+unterliegen  einer eigenen Verwaltung. Alle  Klauselmengen,
+die  in  die  LISP-Welt geladen werden, ob innerhalb  einer
+Wissensbasis oder als eigene Dateien, werden in einer Liste
+gespeichert,   die  mit  der  globalen  Variable   *axioms*
+verkn&uuml;pft  ist.  Theoretisch  k&ouml;nnten  Klauselmengen   also
+editiert werden, obwohl keine Wissensbasis in der LISP-Welt
+vorhanden ist. Praktisch geht dies trotzdem nicht,  da  die
+Prologinterpreter  nur  im  Zusammenhang  mit  Wissensbasen
+existieren.
+
+
+<P>
+<CENTER>
+<a href="ondoc015.html"><IMG SRC="bild_U19.gif"></a>
+</CENTER>
+<P>
+Bild U19: Prolog-Editor mit Zuordnungsdialog f&uuml;r Klauselmengen
+<P>
+
+
+
+<DD>
+   F&uuml;r  jede  Wissensbasis existiert eine fest  zugewiesene
+Klauselmenge. Weitere Klauselmengen von *axioms* k&ouml;nnen der
+Wissensbasis quasi als Bibliotheken zur Verf&uuml;gung  gestellt
+werden.  Bei  der  Suche  nach  treffenden  Klauseln   wird
+zun&auml;chst in der festen Menge gesucht, danach in den  freien
+Mengen,  den  Bibliotheken. Dabei ist die  Reihenfolge  der
+Zuordnung    entscheident.   Der    Zuordnungsdialog    des
+Prologeditors (Bild U19) ist daf&uuml;r zust&auml;ndig.
+
+<DD>
+   Beim  Speichern  einer EMA-XPS Wissensbasis  werden  per
+Konvention   alle   mit   einer  Wissensbasis   verkn&uuml;pften
+Klauselmengen   in   die  Datei  &uuml;bernommen,   weil   nicht
+garantiert  werden kann, da&szlig; bei der n&auml;chsten  Sitzung  die
+Bibliotheken   noch  existieren  und  die   alten   Inhalte
+aufweisen.
+
+<DD>
+   Stattdessen   wird  beim  Einladen  einer   Wissensbasis
+gepr&uuml;ft,  ob  Klauselmengen mit dem gleichen Namen  bereits
+existieren.  Wenn dies der Fall ist, wird gepr&uuml;ft,  ob  sie
+inhaltlich gleich sind. Ist dies nicht der Fall,  wird  der
+Benutzer  gefragt,  ob er die alte Version  mit  der  neuen
+&uuml;berschreiben will oder nicht.
+
+
+
+
+<!--------------------------------------------------------->
+<H2>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_6_6">6.6  Editor f&uuml;r sonstige Wissenskonstrukte</A>
+</H2>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>
+   Neben  den  gebr&auml;uchlichen  Wissensrepr&auml;sentationsformen
+von  Babylon-2,  f&uuml;r  die  individuell  angepa&szlig;te  Editoren
+existieren,  gibt  es Konstrukte, die nur  selten  ben&ouml;tigt
+werden. Ein Beispiel sind die Relation-Behaviors [S2,  S3].
+Um  diese trotzdem grafisch eingeben zu k&ouml;nnen, bietet EMA-
+XPS   diesen   Editor  an  (Bild  U20).  Pro  Wissensbasis
+existiert genau ein Block f&uuml;r sonstige Konstrukte.
+
+
+<P>
+<CENTER>
+<a href="ondoc020.html"><IMG SRC="bild_U20.gif"></a>
+</CENTER>
+<P>
+Bild U20: Editor f&uuml;r sonstige Konstrukte
+<P>
+
+
+
+<DD>
+   Um     EMA-XPS     nicht    zu    verwirren,     sollten
+Regeldefinitionen, sowie die anderen Formen, f&uuml;r die eigene
+Editoren  bereitstehen, nicht in diesem  Block  erscheinen.
+Dies k&ouml;nnte zu Inkonsistenzen f&uuml;hren.
+
+<DD>
+   Hiermit  lassen sich auch Funktionen und  Makros,  sowie
+globale  Variablen definieren. Die Gefahr eines &Uuml;berladens,
+wie  bereits in Kapitel 4.8.1 zu den Tasks beschrieben, ist
+dabei  aber  gegeben. Auf diese Mittel  sollte  daher  nach
+M&ouml;glichkeit verzichtet werden.
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_7_0">7. Hilfewerkzeug</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>
+   Nicht  nur  die  Wissenseditoren besitzen eine  schnelle
+Anbindung  an  das Hilfesystem von EMA-XPS durch  Bet&auml;tigen
+der  F1- oder HELP-Taste, wie in Kapitel 4.8.1 beschrieben.
+Auch das Hauptfenster, der Debugger PAD, der Tracer und das
+Erkl&auml;rungsfenster bieten diese Funktionalit&auml;t.
+
+<DD>
+   Die  Hilfe ist auf zwei Arten organisiert. Der Hilfetext
+ist  im Buchstil seitenweise thematisch angeordnet. Mit den
+Kn&ouml;pfen im Hilfewerkzeug (Bild U21) unten rechts kann vor-
+und  zur&uuml;ckgebl&auml;ttert werden. Das Feld mit der Seitennummer
+kann  beschrieben  werden, um eine bestimmte  Seite  direkt
+anzuspringen.   Mittels  eines   Browsers,   in   dem   die
+&Uuml;berschriften  der  behandelten Themen beziehungsweise  die
+Namen der LISP-Kommandos aufgef&uuml;hrt sind, kann alphabetisch
+gesucht werden.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_U21.gif">
+</CENTER>
+<P>
+Bild U21: Hilfewerkzeug mit Browser
+<P>
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_8_0">8.   Die Endbenutzerschnittstelle und ihre Dialoge</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+
+<DD>
+   Zur      Generierung     leistungsf&auml;higer     grafischer
+Endbenutzerschnittstellen stehen  dem  Wisensingenieur  ein
+Hauptsitzungsfenster,   das  den  gesamten   physikalischen
+Bildschirm  ausf&uuml;llt, und 6 verschiedene  Popupdialoge  zur
+Verf&uuml;gung.
+
+<DD>
+   Die  Dialoge  sind  in ihrem Leistungsumfang  den  LISP-
+seitig   initiierten   Systemdialogen  nachempfunden.   Die
+Dialogtexte   werden   von  der  Wissensbasis   festgelegt.
+Folgende Auspr&auml;gungen lassen sich unterscheiden:
+
+<LI>ein Informationsdialog,
+<LI>ein Entscheidungsdialog mit zwei Best&auml;tigungskn&ouml;pfen,
+<LI>ein Entscheidungsdialog mit drei Best&auml;tigungskn&ouml;pfen,
+<LI>ein Promptdialog mit einem einzeiligen Texteingabefeld,
+<LI>eine 1-aus-N Auswahl, sowie
+<LI>eine mehrere-aus-N Auswahl aus einer Liste von M&ouml;glichkeiten.
+
+<DD>
+   Das   Sitzungshauptfenster  wird  automatisch  angelegt,
+sobald  LISP die Aufforderung sendet, ein erstes grafisches
+Element  zu  erzeugen. Mit dem speziellen  Befehl  <em>ui-stop-session</em>
+ werden alle existierenden grafischen Elemente - als
+letztes der Sitzungsbildschirm - explizit zerst&ouml;rt.
+
+<LI>
+Der  Hauptbildschirm bietet die M&ouml;glichkeit, da&szlig; neben den
+ immer verf&uuml;gbaren Men&uuml;s Sitzung und Hilfe weitere <strong>Men&uuml;s</strong> mit
+ geeigneten <strong>Men&uuml;eintr&auml;gen</strong> definiert werden.
+
+<LI>
+Es  k&ouml;nnen  <strong>Pushbuttons</strong>  und <strong>Labels</strong>
+  mit  Textaufschriften
+ oder Bildern frei auf dem Sitzungsfenster platziert werden.
+ Auch Plazierungen an Orten, die die Aufl&ouml;sung des Displays
+ &uuml;berschreiten, sind erlaubt. Dann erscheinen Rollbalken, um
+ den sichtbaren Fensterausschnitt zu ver&auml;ndern.
+
+<LI>
+Weiterhin   k&ouml;nnen   senkrechte  und   waagrechte   Linien
+ (<strong>Separatoren</strong>) plaziert werden.
+
+<LI>
+Schlie&szlig;lich besteht die M&ouml;glichkeit, einzeilige
+<strong>Texteingabefelder</strong> und mehrzeilige, rollbare
+<strong>Textausgaben</strong> zu
+positionieren.
+
+<DD>
+   Die  Farb-  und  Schriftartfestlegungen  k&ouml;nnen  in  der
+Wissensbasis festgelegt sein (hardcoding) oder sich aus der
+Auswertung  von  Xresourcen ergeben. Die Xresourcen  werden
+allerdings  nur  einmal  beim  Start  von  EMA-XPS  in  die
+applikationseigene      Resourcedatenbank       &uuml;bernommen.
+Nachtr&auml;gliche  &Auml;nderungen  zeigen  daher  erst  nach  einem
+Neustart von EMA-XPS Wirkung. Die Option von EMA-XPS,  eine
+schwarz-wei&szlig;e  Darstellung zu erzwingen, kommt  hier  nicht
+zum      Tragen.     Falls     gew&uuml;nscht,     ist      eine
+Mehrsprachenunterst&uuml;tzung explizit in der  Wissensbasis  zu
+realisieren. Nur die Namen der Fenster und die  Farben  und
+Schriftarten der Dialoge werden &uuml;ber die Xresourcen von EMA-
+XPS sprachabh&auml;ngig bestimmt.
+
+<DD>
+   Als   Positionierungshilfe  bei  der   Entwicklung   der
+Sitzungsoberfl&auml;che kann ein Raster in den  Hintergrund  des
+Hauptbildschirms  eingeblendet  werden.  Zur   Sitzungszeit
+k&ouml;nnen  eine  Vielzahl der Eigenschaften dieser  grafischen
+Elemente   ge&auml;ndert  werden.  Tabelle  U1   gibt   dar&uuml;ber
+Aufschlu&szlig;.
+
+
+
+<!------------------------------------------------------->
+<P>
+<CENTER>
+<TABLE BORDER><! CELLPADDING=5 CELLSPACING=2>
+<TR>
+<td> </td>
+<td>Druck- knopf mit Be- schrift.</td>
+<td>Feld mit Be- schrift.</td>
+<td>Druck- knopf mit Grafik</td>
+<td>Feld mit Grafik</td>
+<td>Trenn- linie</td>
+<td>Ausgabe- Text- fenster</td>
+<td>Eingabe- Textfeld</td>
+<td>Men&uuml;</td>
+<td>Men&uuml;- eintrag</td>
+
+</TR><TR>
+<td>ui-set/get- geometry</td>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<td align=center>-</td>
+<td align=center>-</td>
+
+</TR><TR>
+<td>ui-set/get- foreground</td>
+<th>X</th>
+<th>X</th>
+<th>X</th>
+<th>X</th>
+<th>X</th>
+<th>X</th>
+<th>X</th>
+<td align=center>-</td>
+<td align=center>-</td>
+
+</TR><TR>
+<td>ui-set/get- background</td>
+<th>X</th>
+<th>X</th>
+<th>X</th>
+<th>X</th>
+<td align=center>-</td>
+<th>X</th>
+<th>X</th>
+<td align=center>-</td>
+<td align=center>-</td>
+
+</TR><TR>
+<td>ui-set/get- font</td>
+<th>X</th>
+<th>X</th>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<th>X</th>
+<th>X</th>
+<td align=center>-</td>
+<td align=center>-</td>
+
+</TR><TR>
+<td>ui-set/get- bitmap</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<th>O</th>
+<th>O</th>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+
+</TR><TR>
+<td>ui-set/get- alignment</td>
+<th>X</th>
+<th>X</th>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+
+</TR><TR>
+<td>ui-set/get- text</td>
+<th>X</th>
+<th>X</th>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<th>O</th>
+<td align=center>-</td>
+<th>X</th>
+<th>X</th>
+
+</TR><TR>
+<td>ui-add-<BR> text</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<th>O</th>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+
+</TR><TR>
+<td>ui-set/get- mnemonic</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<th>X</th>
+<th>X</th>
+
+</TR><TR>
+<td>ui-set/get- callback</td>
+<th>O</th>
+<td align=center>-</td>
+<th>O</th>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<th>O</th>
+
+</TR><TR>
+<td>ui-set/get- visibility</td>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+
+</TR><TR>
+<td>ui-set/get- sensitivity</td>
+<th>O</th>
+<td align=center>-</td>
+<th>O</th>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+<th>O</th>
+<th>O</th>
+<th>O</th>
+
+</TR>
+</TABLE>
+</CENTER>
+<P>
+<DD>(<strong>O</strong>) Oberfl&auml;chenelement ist ansprechbar
+<DD>(<strong>X</strong>) Oberfl&auml;chenelement ist zus&auml;tzlich aus 
+    Resource-Datei ansprechbar
+<P>
+Tabelle U1: Resourcen der Grundelemente der
+Endbenutzerschnittstelle
+<P>
+
+
+
+<DD>
+   Um  die Bearbeitung der Endbenutzerschnittstelle w&auml;hrend
+einer  laufenden Sitzung zu beschleunigen, sind  Teile  des
+Protokolls   zwischen   Expertensystem   und   Grafikserver
+<strong>asynchron</strong>  voreingestellt. Beispielsweise  erg&auml;nzt  
+<em>ui-add-text</em>  den  Text  in  einem  mehrzeiligen  Ausgabefeld.  Bei
+synchronem Protokoll wird nach jedem Aufruf der Erfolg  der
+Operation  zur&uuml;ckgegeben. Es k&ouml;nnte der Versuch unternommen
+worden  sein,  in ein nicht existentes Feld auszugeben.  Im
+allgemeinen  ist  diese st&auml;ndige &Uuml;berpr&uuml;fung  unn&ouml;tig.  Sie
+kostet  zus&auml;tzliche Zeit, weil LISP in jedem Fall  auf  den
+R&uuml;ckerhalt der Best&auml;tigung des Grafikservers wartet,  bevor
+der   Interpreter  den  n&auml;chsten  Befehl  bearbeitet.   Pro
+Grafikanweisung    ist   dementsprechend    die    doppelte
+Protokollaufzeit  abzuwarten. Bei  asynchroner  &Uuml;bertragung
+ist   -   au&szlig;er  der  zeitlichen  Verschiebung  durch   die
+Protokollaufzeit  - nur gelegentlich auf  die  Bereitschaft
+des  Ausgabestroms zur Annahme von Zeichen zu warten.  Dies
+kann  auch bei synchroner &Uuml;bertragung auftreten, dort sogar
+zweimal pro Grafikanweisung.
+
+<DD>
+   Zum   Beleg   der   Leistungsf&auml;higkeit  der   grafischen
+Endbenutzerschnittstelle von EMA-XPS zeigt Bild U22  einen
+Schnappschu&szlig;  aus  einer  Sitzung  mit  dem  Expertensystem
+DANTEX   unter  <EM>babylon</EM>-3.  Bild  U23  zeigt  die  gleiche
+Aufnahme bei Betrieb der Wissensbasis unter EMA-XPS.
+
+
+<P>
+<CENTER>
+<IMG SRC="bild_U22.gif">
+</CENTER>
+<P>
+Bild U22: Ausschnitt aus einer Sitzung mit dem
+Expertensystem DANTEX unter der Schale <EM>babylon</EM>-3
+<P>
+
+
+<P>
+<CENTER>
+<a href="ondoc006.html"><IMG SRC="bild_U23.gif"></a>
+</CENTER>
+<P>
+Bild U23: Ausschnitt aus einer Sitzung mit dem
+Expertensystem DANTEX unter der Schale EMA-XPS v2.1
+<P>
+
+
+
+
+
+<!--------------------------------------------------------->
+<H1>
+<A HREF=#inhalt><IMG SRC="GoToTop.gif"></A>
+<A NAME="hdl_9_0">9.   Die Online-Hilfeseiten von EMA-XPS</A>
+</H1>
+<!--------------------------------------------------------->
+
+
+
+<PRE>
+   <a href="ondoc005.html">HAUPTMENÜ</a>
+   <a href="ondoc006.html">SITZUNGSFENSTER</a>
+   <a href="ondoc007.html">FEHLERWERKZEUG</a>
+   <a href="ondoc008.html">ERKLÄRUNGSFENSTER</a>
+   <a href="ondoc009.html">TRACER</a>
+   <a href="ondoc010.html">EDITOREN</a>
+   <a href="ondoc011.html">FRAME-EDITOR</a>
+   <a href="ondoc012.html">INSTANZ-EDITOR</a>
+   <a href="ondoc013.html">BEHAVIOR-EDITOR</a>
+   <a href="ondoc014.html">REGEL-EDITOR</a>
+   <a href="ondoc015.html">PROLOG-EDITOR</a>
+   <a href="ondoc016.html">CONSTRAINT-EDITOR</a>
+   <a href="ondoc017.html">CONSTRAINTNETZ-EDITOR</a>
+   <a href="ondoc018.html">RESTRIKTIONEN-EDITOR</a>
+   <a href="ondoc019.html">TASK-EDITOR</a>
+   <a href="ondoc020.html">SONSTIGES-EDITOR</a>
+</PRE>
+
+
+
+<P>
+<HR SIZE=6>
+
+
+<!--------------------------------------------------------->
+<A HREF=#inhalt><IMG align=left
+SRC="GoToTop.gif"></A>
+<br>Zur&uuml;ck zum Inhaltsverzeichnis
+<!--------------------------------------------------------->
+
+
+
+
+<!------- eof -------->

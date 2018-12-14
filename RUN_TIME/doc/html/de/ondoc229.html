@@ -1,0 +1,55 @@
+<html><head><title>KB-CHOOSE-FROM-MENU</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc230.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc228.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>KB-CHOOSE-FROM-MENU</strong></font></center><p>
+
+<PRE>KB-CHOOSE-FROM-MENU
+===================
+
+Syntax: (kb-choose-from-menu
+              &lt;babylon-menu-item-list&gt;
+              &lt;babylon-menu-title&gt;
+              [&lt;item-extraction-function])
+
+Mit dieser Funktion erhalten Sie einen Dialog mit
+mehreren Men&uuml;eintr&auml;gen, aus denen Sie sich eines
+ausw&auml;hlen k&ouml;nnen. Die babylon-menu-item-list
+enth&auml;lt die Men&uuml;eintr&auml;ge. Der babylon-menu-
+title ist die Dialog&uuml;berschrift. Mit item-
+extraction-function k&ouml;nnen Sie optional eine
+Funktion angeben, mit der Sie bestimmen, wie sich
+die Eintr&auml;ge darstellen sollen. Sie haben die
+M&ouml;glichkeit zwischen Ja und Nein zu w&auml;hlen.
+Bei Best&auml;tigung wird der selektierte Men&uuml;eintrag
+zur&uuml;ckgeliefert, bei Nein wird NIL zur&uuml;ckge-
+liefert. Die Best&auml;tigung ohne Selektion wird wie
+Nein behandelt.
+
+Beispiel: &gt;(kb-choose-from-menu
+              '((AMSTERDAM NIEDERLANDE)
+                (BERLIN DEUTSCHLAND))
+              &quot;Stadt:&quot; #'first)
+          (AMSTERDAM NIEDERLANDE) wird geliefert
+          nachdem Sie den Men&uuml;eintrag AMSTERDAM
+          gew&auml;hlt haben!
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc230.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc228.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- KB-CHOOSE-FROM-MENU done --!>

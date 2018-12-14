@@ -1,0 +1,48 @@
+<html><head><title>RULESET-OF</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc296.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc294.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>RULESET-OF</strong></font></center><p>
+
+<PRE>RULESET-OF
+==========
+
+syntax: (ruleset-of &lt;rule-specifier&gt;
+                    [:IDENTIFIER T | NIL | Var]
+                    [:KB &lt;kb&gt;])
+
+Warning: Two rules with the same names can exist in
+         different sets! Hence first hit. Here the
+         emulation can refuse, because B3 works here
+         with instances!
+         The key :KB is unsupported yet!
+
+This function returns the set of rules, which contains
+the given rule. If you set ':IDENTIFIER' to T, then
+you get back the name of the set of rules. If you set
+':IDENTIFIER' to NIL, then the set of rules will be
+returned as an object.
+
+example: &gt;(ruleset-of '(holidayoffer holidayselection)
+                      :identifier T)
+         HOLIDAYOFFER
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc296.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc294.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- RULESET-OF done --!>

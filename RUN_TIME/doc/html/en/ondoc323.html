@@ -1,0 +1,45 @@
+<html><head><title>SAME-SETS</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc324.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc322.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>SAME-SETS</strong></font></center><p>
+
+<PRE>SAME-SETS
+=========
+
+syntax: (same-sets &lt;evaluates-to &lt;set-of A (...)&gt;&gt;
+                   &lt;evaluates-to &lt;set-of B (...)&gt;&gt;
+                   [:TEST &lt;lisp-type: function&gt;])
+
+        ==&gt; T | NIL                                       
+
+This function checks, whether both sets have the
+same elements.
+
+example: &gt;(same-sets *capital-cities* *cities*)
+         NIL
+ 
+         &gt;(same-sets *cities*
+             (union-of-sets 
+                 *capital-cities* *cities*))
+         T
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc324.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc322.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- SAME-SETS done --!>

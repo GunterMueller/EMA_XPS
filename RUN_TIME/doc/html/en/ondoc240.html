@@ -1,0 +1,50 @@
+<html><head><title>MAKE-BABYLON-INPUT-FIELD</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc241.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc239.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>MAKE-BABYLON-INPUT-FIELD</strong></font></center><p>
+
+<PRE>MAKE-BABYLON-INPUT-FIELD
+========================
+
+syntax: (make-babylon-input-field &lt;interface&gt;
+           &lt;wname&gt; &lt;xpos&gt; &lt;ypos&gt; &lt;width&gt; &lt;height&gt;
+           &lt;default-text&gt; &lt;font&gt; &lt;color&gt; &lt;action&gt; 
+           &amp;rest &lt;args&gt;)
+
+This function defines an input-field on the window. 
+&lt;wname&gt; is the name for the field. &lt;xpos&gt; and &lt;ypos&gt; 
+give the position for the upper left corner. &lt;width&gt; 
+and &lt;height&gt; define the size of the field. &lt;default-
+text&gt; is the text that is written in the input-field.
+&lt;font&gt; and &lt;color&gt; are not supported by Babylon v3.
+&lt;action&gt; starts a task, after the user has pressed
+return. The defined input-field will appear in the
+interface.
+
+example: &gt;(defun make-kb-interface (interface)
+             (add-window-elements
+             interface
+             (list (make-babylon-input-field interface
+             &quot;babylon-standard-input&quot; 400 300 100 50
+             &quot;input:&quot; nil nil nil))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc241.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc239.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- MAKE-BABYLON-INPUT-FIELD done --!>

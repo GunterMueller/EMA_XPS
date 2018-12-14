@@ -1,0 +1,2689 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!    Knowledge-Handling documentation file      !!
+!!    for the Help Utility                       !!
+!!                                               !!
+!!    help-cv converts "\nFF\n" to "\n\f\n" and  !!
+!!    outputs only lines beginning with a ".".   !!
+!!    This DOT is not transfered !!              !!
+!!                                               !!
+!!    The ">" works like "." but should be the   !!
+!!    first printed line of a topic. It is used  !!
+!!    as the BROWSE-keyword!                     !!
+!!                                               !!
+!!    The well known switch is __english         !!
+!!                                               !!
+!!    ======================================     !!
+!!                                               !!
+!!    WARNING: because of a flaw in GNU cpp you  !!
+!!    only should use backquotes in spite of     !!
+!!    quotes!                                    !!
+!!                                               !! 
+!!         ae = \344            Ae = \304        !!
+!!         oe = \366            Oe = \326        !!
+!!         ue = \374            Ue = \334        !!   
+!!         sz = \337     Paragraph = \247        !!
+!!                                               !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!
+! no heading FF allowed in front of the first page !!
+! ---------------------------------------------------
+!
+
+#ifdef __english
+>KNOWLEDGE-HANDLING
+.Knowledge Handling
+.==================
+.
+.This chapter focusses on the programming interface
+.offered to the knowledge engineer to access and   
+.modify the knowledge at inferencing time.
+.
+.Documentation of the original Babylon2 syntax is
+.avoided. Please refer to the literature listed in
+.case of using Babylon2 stylus.
+.
+.The organisation of this chapter is close to
+.chapter 7 of the babylon3 documentation.    
+.
+.1) Presentation of SETs
+.2) misc. knowledge handling functions
+.3) slot-value manipulation (BQL uses them)
+.4) operations on SETs
+. 
+.INFORMATION: Functions, which expect instances as
+.            arguments, can operate with instance
+.            names and instance objects.
+.
+#else
+>WISSENSVERARBEITUNG
+.Wissensverarbeitung
+.==================
+.
+.In diesem Kapitel wird die Programmierschnittstelle
+.f\374r den Wissensingenieur vorgestellt. 
+.
+.Auf eine Beschreibung der Zugriffsmethoden der EMA-
+.XPS zugrundeliegenden Babylon2-Inferenzmaschine    
+.wird hier weitestgehend verzichtet. Diesbez\374glich
+.sei auf die Literatur zu Babylon2 verwiesen. 
+.
+.Die Organisation dieses Kapitels ist angelehnt an
+.die des Kapitels 7 der babylon3 Dokumentation.   
+.
+.1) Vorstellung von SETs
+.2) diverse wissensverarbeitende Funktionalit\344t
+.3) \304nderung von Slotwerten (darauf fu\337t die BQL)
+.4) SET Operationen
+.
+.INFORMATION: Funktionen, die als Argumente Instanzen
+.             erwarten, k\366nnen sowohl mit Instanz-
+.             namen als auch mit Instanzobjekten
+.             operieren.
+.
+#endif
+
+! -----------------------------------------------------
+
+FF
+
+>{
+.{
+.=
+.
+#ifdef __english
+.In spite of mere values, babylon3 stores sets of values
+.within the slots of its instances. Hence it may become
+.necessary to manipulate only parts of them. Therefore
+.set operations are provided. In babylon3 a set is an own
+.data type. Its elements may be constrained to a choosen
+.type.
+.
+.A set may be entered similarly to a list. Just use braces
+.in spite of brackets. The printed representation of
+.{1 2 3} would be #<set-of TYPE (1 2 3)>.
+.
+.
+.EMA-XPS emulates those sets as vectors, which is a stan-
+.dard CommonLISP data type. Vectors are not defined in
+.BabylonLISP, which proves this solution acceptable.
+.
+.WARNING: Hence be careful if you are planning to use vec-
+.tors in combination with babylon3 KBs under EMA-XPS!
+.
+.EMA-XPS reads a set {1 2 3} correctly. Type constraints
+.are NOT emulated well. Please avoid using this means!
+.The printed representation is that of a vector: #(1 2 3).
+.
+#else
+.Statt einfacher Werte werden unter babylon3 Mengen (SETs)
+.von Werten in den Slots der Instanzen abgelegt. Daher 
+.kann es von Interesse sein, nur Teilmengen davon zu be-
+.arbeiten. aus diesem Grund stehen SET-Operationen zur
+.Verf\374gung. In babylon3 bilden SETs einen eigenen 
+.Datentyp. Den SET-Elementen k\366nnen Typeinschr\344nkungen
+.auferlegt werden. 
+.
+.Die Eingabe eines SETs erfolgt \344hnlich einer Liste.
+.Anstelle der runden Klammern sind einfach geschweifte zu
+.verwenden. Die Ausgabe von {1 2 3} w\344re dann
+.#<set-of TYPE (1 2 3)>.
+.
+.
+.EMA-XPS emuliert solche SETs als Vektoren, einem Stan-
+.darddatentyp von CommonLISP. Dies ist zul\344ssig, da 
+.unter BabylonLISP Vektoren nicht definiert sind.
+.
+.WARNUNG: Im Zusammenhang mit unter babylon3 entwickelten
+.und unter EMA-XPS weiterverwendeten WBs ist Vorsicht im
+.Umgang mit Vektoren dringend angeraten!
+.
+.EMA-XPS liest ein SET {1 2 3} korrekt ein. Typeinschr\344n-
+.kungen werden NICHT sauber emuliert. Von ihrem Gebrauch
+.wird abgeraten! Die Druckdarstellung entspricht der eines
+.Vektors: #(1 2 3).
+.
+#endif
+
+! -----------------------------------------------------
+
+FF
+
+>ADD-DEPENDENT
+.ADD-DEPENDENT
+.=============
+#ifdef __english
+.
+.syntax: (add-dependent <relation-specifier>
+.                       <sender-specifier>
+.                       <receiver-specifier>
+.                       {[:READ T | NIL | var]
+.                        [:WRITE T | NIL | var]}+
+.                       [:KB <kb>])
+.
+.Warning: yet not implemented!
+.
+.Read- and write-dependents will be added dynamically.
+.With the optional parameters you can set the dependent
+.to be a read- and/or a write-dependent. If you only
+.want to send a read-dependent message, then you have
+.to set `:READ T`. For only write-dependent messages you
+.have to set `:WRITE T`.
+.The behaviors NOTIFY-READ-DEPENDENT or NOTIFY-WRITE-
+.DEPENDENT are necessary for the process.
+.
+.If the receiver of the message - in our case RECEIVER-
+.SPECIFIER - is not included yet, then he will be 
+.returned as a value, otherwise NIL.
+.If you put in the identifier, you get back the name of 
+.the instance. If you put in the object, you get back 
+.the object.
+.
+.example: >(add-dependent `place Louvre
+.                         trafficoffice-Paris :read T)
+.         #<TRAFFICOFFICE TRAFFICOFFICE-PARIS>
+.
+.         or
+.
+.         >(add-dependent `place `Louvre
+.                         `trafficoffice-Paris :read T)
+.         TRAFFICOFFICE-PARIS
+.
+#else
+.
+.Syntax: (add-dependent <Relation-Specifier>
+.                       <Sender-Specifier>
+.                       <Empf\344nger-Specifier>
+.                       {[:READ T | NIL | var]
+.                        [:WRITE  T | NIL | var]}+
+.                       [:KB <kb>])
+.
+.Warnung: noch nicht implementiert!
+.
+.Read- und write-dependents werden dynamisch hinzu-
+.gef\374gt. Mit den optionalen Parametern geben Sie an, 
+.ob das Dependent als lese- und/oder schreibabh\344ngig 
+.klassifiziert wird. Wollen Sie nur eine leseabh\344ngige 
+.Nachricht versenden, geben Sie bei `:READ` T an. Bei 
+.nur schreibabh\344ngigen Nachrichten wird `:WRITE` auf 
+.T gesetzt. Sie m\374ssen jedoch beachten, da\337 die 
+.Behaviors NOTIFY-READ-DEPENDENT bzw. NOTIFY-WRITE-
+.DEPENDENT zum Ablauf notwendig sind.
+.
+.R\374ckgabewert ist der Empf\344nger der Nachricht 
+.- in unserem Falle EMPF\304NGER-SPECIFIER - falls diese 
+.noch nicht enthalten ist, andernfalls NIL.
+.Geben Sie den Identifier ein, erhalten Sie den Namen 
+.der Instanz zur\374ck. Geben Sie das Objekt an, 
+.erhalten Sie das Objekt zur\374ck.
+.
+.Beispiel: >(add-dependent `Ort Louvre
+.                          Verkehrsbuero-Paris :read T)
+.          #<VERKEHRSBUERO VERKEHRSBUERO-PARIS>
+.
+.          oder
+.
+.          >(add-dependent `Ort `Louvre
+.                          `Verkehrsbuero-Paris :read T)
+.          VERKEHRSBUERO-PARIS
+.
+#endif
+
+FF
+
+>BEHAVIORS-OF
+.BEHAVIORS-OF
+.============
+#ifdef __english
+.
+.syntax: (behaviors-of <frame-specifier>
+.                      [:DIRECT T | NIL | Var]
+.                      [:IDENTIFIER T | NIL | Var]
+.                      [:KB <kb>])
+.
+.Warning: yet not implemented!
+.
+.This function returns a list with all behaviors or
+.a list with all behavior identifiers of a frame.
+.If you do not give details, then `:DIRECT` and
+.`:IDENTIFIER` will be set to NIL and you will get a
+.list with all behaviors of a frame as objects.
+.
+.example: >(behaviors-of `culture :identifier T)
+.         ((NOTIFY-READ-DEPENDENT :primary
+.                       (trafficoffice culture))
+.         >(behaviors-of `offer :direct T)
+.         NIL
+.
+#else
+.
+.Syntax: (behaviors-of <Rahmen-Specifier>
+.                      [:DIRECT T | NIL | Var]
+.                      [:IDENTIFIER T | NIL | Var]
+.                      [:KB <kb>])
+.
+.Warnung: noch nicht implementiert!
+.
+.Diese Funktion liefert eine Liste mit allen Behaviors
+.bzw. eine Liste mit allen Behavior identifiers eines
+.Rahmens. Machen Sie keine Angabe, werden `:DIRECT` und
+.`:IDENTIFIER` auf NIL gesetzt und Sie erhalten eine
+.Liste mit allen Behaviors eines Rahmens als Objekte.
+.
+.Beispiel: >(behaviors-of `Kultur :identifier T)
+.          ((NOTIFY-READ-DEPENDENT :primary
+.                        (Verkehrsbuero Kultur))
+.          >(behaviors-of `Angebot :direct T)
+.          NIL
+.
+#endif
+
+FF
+
+>CONSTRAINTS-OF
+.CONSTRAINTS-OF
+.==============
+#ifdef __english
+.
+.syntax: (constraints-of <constraint-pattern-specifier>
+.                        [:IDENTIFIER T | NIL | Var]
+.                        [:KB <kb>])
+.
+.Warning: yet not implemented!
+.
+.This Function returns a list with the constraints of
+.the constraint pattern. If you do not give details,
+.then you will get back the objects and `:IDENTIFIER`
+.will be set to NIL, otherwise you will get back a
+.list of constraint identifiers.
+.
+.example: >(constraint-of calculate-real-costs
+.                         :identifier T)
+.         (calculate-costs-for-clients)
+.
+#else
+.
+.Syntax: (constraints-of <Constraint-Muster-Specifier>
+.                        [:IDENTIFIER T | NIL | Var]
+.                        [:KB <kb>])
+.
+.Warnung: noch nicht implementiert!
+.
+.Diese Funktion liefert eine Liste der Constraints, die
+.zu dem Constraint-Muster definiert sind. Machen Sie
+.keine Angabe, erhalten Sie die Objekte zur\374ck, d.h.
+.`:IDENTIFIER` wird auf NIL gesetzt. Sonst erhalten Sie
+.eine Liste von Constraint-Identifiern.
+.
+.Beispiel: >(constraint-of berechne-reale-kosten
+.                          :identifier T)
+.          (berechne-kosten-fuer-kunden)
+.
+#endif
+
+FF
+
+>CONSTRAINT-PATTERN-OF
+.CONSTRAINT-PATTERN-OF
+.=====================
+#ifdef __english
+.
+.syntax: (constraint-pattern-of <constraint-specifier>
+.                          [:IDENTIFIER T | NIL | Var]
+.                          [:KB <kb>])
+.
+.Warning: yet not implemented!
+.
+.This function returns the constraint pattern, to which
+.the given constraint belongs. If you do not give
+.details you will get back the object and `:IDENTIFIER`
+.will be set to NIL, otherwise the constraint pattern
+.will be returned as an identifier.
+.
+.example: >(constraint-pattern-of
+.                   calculate-costs-for-clients
+.                   :IDENTIFIER T)
+.         CALCULATE-REAL-COSTS
+.
+#else
+.
+.Syntax: (constraint-pattern-of <Constraint-Specifier>
+.                          [:IDENTIFIER T | NIL | Var]
+.                          [:KB <kb>])
+.
+.Warnung: noch nicht implementiert!
+.
+.Diese Funktion liefert das Constraint-Muster, zu 
+.dem das angegebene Constraint geh\366rt, zur\374ck.
+.Machen Sie keine Angabe, erhalten Sie das Objekt 
+.zur\374ck, d.h. `:IDENTIFIER` wird auf NIL gesetzt. 
+.Sonst wird das Constraint-Muster als Identifier 
+.geliefert.
+.
+.Beispiel: >(constraint-pattern-of
+.                    berechne-kosten-fuer-kunden
+.                    :IDENTIFIER T)
+.          BERECHNE-REALE-KOSTEN
+.
+#endif
+
+FF
+
+>DEPENDENTS-OF
+.DEPENDENTS-OF
+.=============
+#ifdef __english
+.
+.syntax: (dependents-of <relation-specifier>
+.                       <instance-specifier>
+.                       {[:READ T | NIL | Var]
+.                        [:WRITE T | NIL | Var]}+
+.                       [:IDENTIFIER T | NIL | Var]
+.                       [:KB <kb>])
+.
+.Warning: yet not implemented!
+.
+.This function returns the read- and/or write-
+.dependents of an instance relation. If you want to 
+.have all read-dependent receivers, then you have to 
+.set `:READ` to T. If you only want to have write-
+.dependent receivers, then `:WRITE` has to be set to T.
+.The list of dependents will be returned as objects 
+.or as identifiers.
+.
+.example: >(dependents-of `place museum :read T)
+.         (#<TRAFFICOFFICE TRAFFICOFFICE-PARIS>)
+.
+#else
+.
+.Syntax: (dependents-of <Relation-Specifier>
+.                       <Instanz-Specifier>
+.                       {[:READ T | NIL | Var]
+.                        [:WRITE T | NIL | Var]}+
+.                       [:IDENTIFIER T | NIL Var]
+.                       [:KB <kb>])
+.
+.Warnung: noch nicht implementiert!
+.
+.Diese Funktion liefert die read- und/oder write-
+.dependents einer Instanzrelation. Wollen Sie alle 
+.leseabh\344ngigen Empf\344nger, geben Sie bei `:READ`
+.T an. Wollen Sie nur schreibabh\344ngige Empf\344nger 
+.wird `:WRITE` auf T gesetzt.
+.Die Liste von Dependents wird als Objekte oder 
+.Identifier zur\374ckgeliefert.
+.
+.Beispiel: >(dependents-of `Ort Museum :read T)
+.          (#<VERKEHRSBUERO VERKEHRSBUERO-PARIS>)
+.
+#endif
+
+FF
+
+>FRAME-OF
+.FRAME-OF
+.========
+#ifdef __english
+.
+.syntax: (frame-of <instance-specifier>
+.                  [:IDENTIFIER T | NIL | Var]
+.                  [:KB <kb-name>])
+.
+.Warning: yet not implemented!
+.
+.This function returns the object or the identifier
+.of a frame, which belongs to an instance. If you do 
+.not give any details, then `:IDENTIFIER` will be set 
+.to NIL and you will get the frame object.
+.
+.example: >(frame-of Berlin)
+.         #<FRAME CAPITALCITY>
+.         
+.         >(frame-of Berlin :identifier T)
+.         CAPITALCITY
+.
+#else
+.
+.Syntax: (frame-of <Instanz-Specifier>
+.                  [:IDENTIFIER T | NIL | Var]
+.                  [:KB <kb-Name>])
+.
+.Warnung: noch nicht implementiert!
+.
+.Diese Funktion liefert das Objekt bzw. den Identifier 
+.des zu einer Instanz geh\366renden Rahmens. Machen Sie 
+.keine Angabe wird `:IDENTIFIER` auf NIL gesetzt und
+.Sie erhalten das Rahmen-Objekt.
+.
+.Beispiel: >(frame-of Berlin)
+.          #<RAHMEN HAUPTSTADT>
+.
+.          >(frame-of Berlin :identifier T)
+.          HAUPTSTADT
+.
+#endif
+
+FF
+
+>IDENTIFIER-OF
+.IDENTIFIER-OF
+.=============
+#ifdef __english
+.
+.syntax: (identifier-of <evaluates-to kb-object>)
+.
+.Warning: yet not implemented!
+.
+.This function returns the identifier of a knowledge 
+.base object.
+.
+.example: >(ask [city _a-city]
+.            (kb-format "~%~A" (identifier-of _a-city)))
+.         PARIS
+.         LONDON
+.         NEW-YORK
+.         BERLIN
+.         NIL
+.
+#else
+.
+.Syntax: (identifier-of <evaluates-to kb-Objekt>)
+.
+.Warnung: noch nicht implementiert!
+.
+.Diese Funktion liefert den Identifier eines 
+.Wissensbasis-Objekts zur\374ck.
+.
+.Beispiel: >(ask [Stadt _eine-Stadt]
+.              (kb-format "~%~A" 
+.                 (identifier-of _eine-Stadt)))
+.          PARIS
+.          LONDEN
+.          NEW-YORK
+.          BERLIN
+.          NIL
+.
+#endif
+
+FF
+
+>INSTANCES-OF
+.INSTANCES-OF
+.============
+#ifdef __english
+.
+.syntax: (instances-of <frame-specifier>
+.                      [:DIRECT T | NIL | Var]
+.                      [:IDENTIFIER T | NIL | Var]
+.                      [:KB <kb>])
+.
+.This function returns a list with static instance
+.objects or instance identifiers of a frame. Dynamic
+.instances cannot be found this way! If you do
+.not give any details, then `:DIRECT` AND `:IDENTIFIER` 
+.will be set to NIL and you will get a list with all 
+.instances of the frame as objects.
+.
+.example: >(instances-of `city)
+.         (#<CAPITALCITY PARIS> #<CAPITALCITY LONDON>
+.             #<CAPITALCITY NEW-YORK> 
+.                   #<CAPITALCITY BERLIN>)
+.
+#else
+.
+.Syntax: (instances-of <Rahmen-Specifier>
+.                      [:DIRECT T | NIL | Var]
+.                      [:IDENTIFIER T | NIL | Var]
+.                      [:KB <kb>])
+.
+.Diese Funktion liefert eine Liste von statischen 
+.Instanzobjekten bzw. Instanzidentifiern eines 
+.Rahmens. Dynamische Instanzen k\366nnen auf diese
+.Weise nicht gefunden werden!
+.Machen Sie keine Angabe werden `:DIRECT` und
+.`:IDENTIFIER` auf NIL gesetzt und Sie erhalten eine 
+.Liste mit allen Instanzen des Rahmens als Objekten.
+.
+.Beispiel: >(instances-of `Stadt)
+.          (#<HAUPTSTADT PARIS> #<HAUPTSTADT LONDON>
+.              #<HAUPTSTADT NEW-YORK> 
+.                    #<HAUPTSTADT BERLIN>)
+.
+#endif
+
+FF
+
+>IS-FRAME-OF
+.IS-FRAME-OF
+.===========
+#ifdef __english
+.
+.syntax: (is-frame-of <instance-specifier>
+.                     <frame-specifier>
+.                     [:DIRECT T | NIL | Var]
+.                     [:KB <kb>])
+.
+.Warning: under construction: the key :KB
+.         is unsupported yet!
+.
+.This function tests, whether the given instance be-
+.longs to the given frame. If you do not give details, 
+.then T will be returned if <frame-specifier> is the 
+.frame of the instance, respectively is the superframe
+.from the instance`s frame. Otherwise NIL will be
+.returned.
+.
+.example: >(is-frame-of Berlin `capitalcity)
+.         T
+.         >(is-frame-of Berlin `city)
+.         T
+.         >(is-frame-of Berlin `city :direct T)
+.         NIL
+.
+#else
+.
+.Syntax: (is-frame-of <Instanz-Specifier>
+.                     <Rahmen-Specifier>
+.                     [:DIRECT T | NIL | Var]
+.                     [:KB <kb>])
+.
+.Warnung: in Konstruktion: Der Schl\374ssel :KB
+          wird noch nicht unterst\374tzt!
+.
+.Diese Funktion pr\374ft, ob die angegebene Instanz 
+.zu dem angegebenen Rahmen geh\366rt. Machen Sie keine 
+.Angabe, so gilt die Anfrage wenn <Rahmen-Specifier> 
+.der Rahmen der Instanz, bzw. ein Superrahmen des 
+.Rahmens der Instanz ist, andernfalls wird NIL zu-
+.r\374ckgeliefert.
+.
+.Beispiel: >(is-frame-of Berlin `Hauptstadt)
+.          T
+.          >(is-frame-of Berlin `Stadt)
+.          T
+.          >(is-frame-of Berlin `Stadt :direct T)
+.          NIL
+.
+#endif
+
+FF
+
+>NAME-OF
+.NAME-OF
+.=======
+#ifdef __english
+.
+.syntax: (name-of <evaluates-to kb-object>)
+.
+.Warning: other lisp types are passed!
+.
+.This function returns the name of a knowledge 
+.base object.
+.
+.example: >(ask [city _a-city]
+.               (kb-format "~%~A" (name-of _a-city)))
+.         PARIS
+.         LONDON
+.         NEW-YORK
+.         BERLIN
+.         NIL
+.
+#else
+.
+.Syntax: (name-of <evaluates-to KB-Objekt>)
+.
+.Warnung: other lisp types are passed!
+.
+.Diese Funktion liefert den Namen eines 
+.Wissensbasisobjektes.
+.
+.Beispiel: >(ask [Stadt _eine-Stadt]
+.            (kb-format "~%~A" (name-of _eine-Stadt)))
+.          PARIS
+.          LONDON
+.          NEW-YORK
+.          BERLIN
+.          NIL
+.
+#endif
+
+FF
+
+>OBJECT-OF
+.OBJECT-OF
+.=========
+#ifdef __english
+.
+.syntax: (object-of <kb-object-identifier> [:KB <kb>])
+.
+.Warning: the key :KB is unsupported yet!
+.
+.This function returns the identified object.
+.
+.example: >(object-of `city)
+.         #<FRAME CITY>
+.
+#else
+.
+.Syntax: (object-of <KB-Objekt-Identifier> [:KB <kb>])
+.
+.Warnung: Der Schl\374ssel :KB wird noch nicht
+.         unterst\374tzt!
+.
+.Diese Funktion liefert das identifizierte Objekt
+.zur\374ck.
+.
+.Beispiel: >(object-of `Stadt)
+.          #<RAHMEN STADT>
+.
+#endif
+
+FF
+
+>RELATIONS-OF
+.RELATIONS-OF
+.============
+#ifdef __english
+.
+.syntax: (relations-of <frame-specifier>
+.                      {[:PART T | NIL | Var]
+.                       [:GENERAL T | NIL | Var]}+
+.                      [:DIRECT T | NIL | Var]
+.                      [:KB <kb>])
+.
+.Warning: :PART and :GENERAL may both be set at a time.
+.         The key :KB is unsupported yet!
+.         :PART and :DIRECT are under construction!
+.
+.This function returns the names of all characteristics
+.and/or parts of a frame as a list. If you only want  
+.the characteristics of a frame, then you have to set
+.`:GENERAL` to T. If you only want the parts of a frame, 
+.then you have to set `:PART` to T. If you set `:DIRECT` 
+.to T you only get all directly specified characteris-
+.tics and/or parts of a frame.
+.
+.example: >(relations-of `capitalcity :direct T)
+.         (SEAT-OF-GOVERNMENT)
+.         >(relations-of `capitalcity 
+.                        :general T :part T)
+.         (COUNTRY CLIMATE LANDSCAPE 
+.                 OFFER SEAT-OF-GOVERNMENT)
+.
+#else
+.
+.Syntax: (relations-of <Rahmen-Specifier>
+.                      {[:PART T | NIL | Var]
+.                       [:GENERAL T | NIL | Var]}+
+.                      [:DIRECT T | NIL | Var]
+.                      [:KB <kb>])
+.
+.Warnung: :PART und :GENERAL d\374rfen gleichzeitig
+.         gesetzt werden.
+.         Der Schl\374ssel :KB wird noch nicht
+.         unterst\374tzt!
+.         :PART und :DIRECT sind in Konstruktion!
+.         
+.Diese Funktion liefert die Namen aller Merkmale 
+.und/oder Bestandteile eines Rahmens als Liste. Wollen 
+.Sie nur die Merkmale eines Rahmens, setzen Sie 
+.`:GENERAL` auf T. Wollen Sie nur die Bestandteile
+.eines Rahmens, setzen Sie `:PART` auf T. Geben Sie bei 
+.`:DIRECT` T an, erhalten Sie lediglich alle direkt
+.bei einem Rahmen spezifizierten Merkmale und/oder 
+.Bestandteile.
+.
+.Beispiel: >(relations-of `Hauptstadt :direct T)
+.          (REGIERUNGSSITZ)
+.          >(relations-of `Hauptstadt 
+.                         :general T :part T)
+.          (LAND KLIMA LANDSCHAFT 
+.                     ANGEBOTE REGIERUNGSSITZ)
+.
+#endif
+
+FF
+
+>REMOVE-DEPENDENT
+.REMOVE-DEPENDENT
+.================
+#ifdef __english
+.
+.syntax: (remove-dependent <relation-specifier>
+.                          <sender-specifier>
+.                          <receiver-specifier>
+.                          {[:READ T | NIL | Var]
+.                           [:WRITE T | NIL | Var]}+
+.                          [:KB <kb>])
+.
+.Warning: yet not implemented!
+.
+.This function removes read- and write-dependents 
+.dynamically. With the optional parameters you can 
+.choose, whether the receiver will be removed from the 
+.read- and/or write-dependents. If you only want to 
+.remove the read-dependent receiver, then you have to 
+.set `:READ` to T. If you only want to remove the write-
+.dependent receiver, then you have to set `:WRITE` to T.
+.The value, that will be returned, is the removed 
+.receiver of the message - in our case RECEIVER-
+.SPECIFIER -. If the RECEIVER-SPECIFIER is not 
+.included, then NIL will be returned.
+.If you put in the identifier, then you get back the 
+.name of the instance. If you put in the object, then 
+.you get back the object.
+.
+.example: >(remove-dependent `place Louvre 
+.                            trafficoffice-Paris)
+.         #<TRAFFICOFFICE TRAFFICOFFICE-PARIS>
+.
+.or
+. 
+.         >(remove-dependent `place `Louvre 
+.                            `trafficoffice-Paris)
+.         (TRAFFICOFFICE-PARIS)
+.
+#else
+.
+.Syntax: (remove-dependent <Relation-Specifier>
+.                          <Sender-Specifier>
+.                          <Empf\344nger-Specifier>
+.                          {[:READ T | NIL | Var]
+.                           [:WRITE T | NIL | Var]}+
+.                          [:KB <kb>])
+.
+.Warnung: noch nicht implementiert!
+.
+.Diese Funktion entfernt read- und write-dependents 
+.dynamisch. Mit den optionalen Parametern geben Sie 
+.an, ob der Empf\344nger von den lese- und/oder 
+.schreibabh\344ngigen entfernt wird. Wollen Sie nur 
+.den leseabh\344ngigen Empf\344nger entfernen, geben
+.Sie bei `:READ` T an. Wollen Sie nur den 
+.schreibabh\344ngigen Empf\344nger entfernen, geben Sie 
+.bei `:WRITE` T an.
+.R\374ckgabewert ist der entfernte Empf\344nger der 
+.Nachricht - in unserem Falle EMPF\304NGER-SPECIFIER - 
+.falls dieser enthalten ist, andernfalls NIL.
+.Geben Sie den Identifier ein, erhalten Sie den Namen 
+.der Instanz zur\374ck. Geben Sie das Objekt an, 
+.erhalten Sie das Objekt zur\374ck.
+.
+.Beispiel: >(remove-dependent `Ort Louvre 
+.                             Verkehrsbuero-Paris)
+.          #<VERKEHRSBUERO VERKEHRSBUERO-PARIS>
+.
+.oder
+.
+.          >(remove-dependent `Ort `Louvre 
+.                             `Verkehrsbuero-Paris)
+.          (VERKEHRSBUERO-PARIS)
+.
+#endif
+
+FF
+
+>RULES-OF
+.RULES-OF
+.========
+#ifdef __english
+.
+.syntax: (rules-of <ruleset-specifier>
+.                  [:IDENTIFIER T | NIL | Var]
+.                  [:KB <kb>])
+.
+Warning: the key :KB is unsupported yet! 
+.
+.This function returns a list of the rules, which 
+.exist in this set of rules. If you do not give any 
+.details, then you get back the objects, which 
+.means that the `:IDENTIFIER` will be set to NIL. If 
+.you set `:IDENTIFIER` to T, then a list of rule
+.identifiers will be returned.
+.
+.example: >(rules-of `holidayoffer :identifier T)
+.         (HOLIDAYSELECTION)
+.
+#else
+.
+.Syntax: (rules-of <Regelmenge-specifier>
+.                  [:IDENTIFIER T | NIL | Var]
+.                  [:KB <kb>])
+.
+.Warnung: Der Schl\374ssel :KB wird noch nicht
+.         unterst\374tzt!
+.
+.Diese Funktion liefert eine Liste der Regeln, die in 
+.dieser Regelmenge vorhanden sind. Machen Sie keine 
+.Angabe, erhalten Sie die Objekte zur\374ck, d.h. 
+.`:IDENTIFIER` wird auf NIL gesetzt.
+.Falls `:IDENTIFIER` auf T gesetzt wird, dann erhalten 
+.Sie eine Liste von Regel-Identifiern.
+.
+.Beispiel: >(rules-of `Urlaubsangebot :identifier T)
+.          (URLAUBSAUSWAHL)
+.
+#endif
+
+FF
+
+>RULESET-OF
+.RULESET-OF
+.==========
+#ifdef __english
+.
+.syntax: (ruleset-of <rule-specifier>
+.                    [:IDENTIFIER T | NIL | Var]
+.                    [:KB <kb>])
+.
+.Warning: Two rules with the same names can exist in
+.         different sets! Hence first hit. Here the
+.         emulation can refuse, because B3 works here
+.         with instances!
+.         The key :KB is unsupported yet!
+.
+.This function returns the set of rules, which contains
+.the given rule. If you set `:IDENTIFIER` to T, then
+.you get back the name of the set of rules. If you set
+.`:IDENTIFIER` to NIL, then the set of rules will be
+.returned as an object.
+.
+.example: >(ruleset-of `(holidayoffer holidayselection)
+.                      :identifier T)
+.         HOLIDAYOFFER
+.
+#else
+.
+.Syntax: (ruleset-of <Regel-Specifier>
+.                    [:IDENTIFIER T | NIL | Var]
+.                    [:KB <kb>])
+.
+.Warnung: Es k\366nnen zwei Regeln gleichen Namens
+.         in unterschiedlichen Sets existieren! 
+.         Daher erster Treffer. Da B3 hier mit
+.         Instanzen arbeitet, kann die Emulation
+.         hier versagen!
+.         Der Schl\374ssel :KB wird noch nicht
+.         unterst\374tzt!
+.
+.Diese Funktion liefert die Regelmenge, die die 
+.angegebene Regel enth\344lt, zur\374ck. Geben Sie bei 
+.`:IDENTIFIER` T an, erhalten Sie den Namen der Regel-
+.menge. Falls Sie bei `:IDENTIFIER` NIL angeben, dann 
+.wird die Regelmenge als Objekt zur\374ckgeliefert.
+.
+.Beispiel: >(ruleset-of `(Urlaubsangebot 
+.                       Urlaubsauswahl)
+.                       :identifier T)
+.          URLAUBSANGEBOT
+.
+#endif
+
+FF
+
+>SET-PROTOCOL-LEVEL
+.SET-PROTOCOL-LEVEL
+.==================
+#ifdef __english
+.
+.syntax: (set-protocol-level 
+.                   {:maximum | :minimum | :none}
+.                   [:KB <kb>])
+.
+.Warning: set-protocol-level is not implemented yet!
+.
+.This function sets the protocol level to on or to off.
+.Further you can vary the protocol-level-depth.
+.The used protocol-level-mode will be returned as a 
+.value.
+.
+.example: >(set-protocol-level :maximum 
+.                              `travelguide-1)
+.         :maximum
+.
+#else
+.
+.Syntax: (set-protocol-level 
+.                    {:maximum | :minimum | :none}
+.                    [:KB <kb>])
+.
+.Warnung: set-protocol-level ist noch nicht
+.         implementiert!
+.
+.Diese Funktion schaltet die Protokollierung der 
+.Ablaufschritte ein oder aus. Zus\344tzlich k\366nnen 
+.Sie die Protokollierungstiefe variieren. 
+.R\374ckgabewert ist die eingestellte Proto-
+.kollierungsart.
+.
+.Beispiel: >(set-protocol-level :maximum 
+.                               `reisefuehrer-1)
+.          :maximum
+.
+#endif
+
+FF
+
+>SUBFRAMES-OF
+.SUBFRAMES-OF
+.============
+#ifdef __english
+.
+.syntax: (subframes-of <frame-specifier>
+.                      [:DIRECT T | NIL | Var]
+.                      [:IDENTIFIER T | NIL | Var]
+.                      [:KB <kb>])
+.
+.Warning: B2 handles frames only by their symbol-
+.         names!
+.         The key :KB is not supported yet!
+.
+.This function returns a list with all subframes of 
+.the frame. The default value for `:direct` and 
+.`:identifier` is NIL, i.e. if you do not give 
+.any details, then you get back a list with all 
+.subframes of a frame as objects. If you set 
+.`:identifier` to T, then a list with all sub-
+.frames as symbols will be returned.
+.
+.example: >(subframes-of `offer)
+.         (#<FRAME   CULTURE>   
+.               #<FRAME   MUSEUM>   ...)
+.
+.         >(subframes-of `offer :direct T 
+.                               :identifier T)
+.         (CULTURE)
+.
+#else
+.
+.Syntax: (subframes-of <Rahmen-Specifier>
+.                      [:DIRECT T | NIL | Var]
+.                      [:IDENTIFIER T | NIL | Var]
+.                      [:KB <kb>])
+.
+.Warnung: B2 kann Rahmen nur durch deren Symbol-
+.         Namen handhaben!
+.         Der Schl\374ssel :KB wird noch nicht
+.         unterst\374tzt!
+.
+.Diese Funktion liefert eine Liste aller bzw. aller 
+.direkt in der Frametaxonomie unterhalb eines Rahmens 
+.stehenden Rahmens. Defaultm\344\337ig wird `:direct` 
+.und `:identifier` auf NIL gesetzt, d.h. wenn Sie 
+.keine Angabe machen, erhalten Sie eine Liste aller 
+.untergeordneten Rahmen eines Rahmens als Objekte 
+.zur\374ck. Setzen Sie `:identifier` auf T, dann
+.wird eine Liste mit Symbole zur\374ckgeliefert.
+.
+.Beispiel: >(subframes-of `Angebot)
+.          (#<FRAME   KULTUR>   
+.                #<FRAME   MUSEUM>   ...)
+.
+.          >(subframes-of `Angebot :direct T 
+.                                  :identifier T)
+.          (KULTUR)
+.
+#endif
+
+FF
+
+>SUPERFRAMES-OF
+.SUPERFRAMES-OF
+.==============
+#ifdef __english
+.
+.syntax: (superframes-of <frame-specifier>
+.                        [:DIRECT T | NIL | Var]
+.                        [:IDENTIFIER T | NIL | Var]
+.                        [:KB <kb>])
+.
+.Warning: B2 handles frames only by their symbol-
+.         names!
+.         The key :KB is not supported yet!
+.
+.This function returns a list with all superframes of 
+.a frame. If you do not give details, then 
+.`:direct` and `:identifier` will be set to NIL and 
+.you will get back a list with all frames as objects. 
+.If you set `:identifier` to T, then you will get back 
+.the frames as identifiers.
+.
+.example: >(superframes-of `museum :identifier T)
+.         (CULTURE OFFER)
+.
+.         >(superframes-of `museum :direct T)
+.         (#<FRAME CULTURE>)
+.
+#else
+.
+.Syntax: (superframes-of <Rahmen-Specifier>
+.                        [:DIRECT T | NIL | Var]
+.                        [:IDENTIFIER T | NIL | Var]
+.                        [:KB <kb>])
+.
+.Warnung: B2 kann Rahmen nur durch deren Symbol-
+.         Namen handhaben!
+.         Der Schl\374ssel :KB wird noch nicht
+.         unterst\374tzt!
+.
+.Diese Funktion liefert eine Liste aller bzw. aller 
+.direkt oberhalb eines Rahmens stehenden Rahmens. 
+.Machen Sie keine Angabe, wird `:direct` und 
+.`:identifier` auf NIL gesetzt und Sie erhalten eine 
+.Liste mit allen Rahmen als Objekten. Falls Sie 
+.`:identifier` auf T setzen, dann werden die Rahmen 
+.als Identifier geliefert.
+.
+.Beispiel: >(superframes-of `Museum :identifier T)
+.          (KULTUR ANGEBOT)
+.
+.          >(superframes-of `Museum :direct T)
+.          (#<FRAME KULTUR>)
+.
+#endif
+
+FF
+
+>THIS-KB
+.THIS-KB
+.=======
+#ifdef __english
+.
+.syntax: (this-kb)
+.
+.This function can be set instead of the name of the 
+.knowledge base. This is usefull, when the knowledge
+.base has to be renamed, i.e. setting the new name 
+.is not neccessary.
+.
+#else
+.
+.Syntax: (this-kb)
+.
+.Diese Funktion kann anstelle des Names der Wissens-
+.basis eingesetzt werden. Dies ist von Vorteil bei 
+.Umbenennungen von Wissensbasen, d.h. der neue Name 
+.mu\337 nicht extra angegeben werden.
+.
+#endif
+
+! -----------------------------------------------------
+
+FF
+
+>ARE-INSTANCE-VALUES
+.ARE-INSTANCE-VALUES
+.===================
+#ifdef __english
+.
+.syntax: (are-instance-values 
+.                      <evaluates-to relation-name>
+.                      <evaluates-to instance-spec>
+.                      <set>   ;has to be a set!
+.                      [:read-dependents
+.                           {T | NIL | Var}]
+.                      [:if-undetermined
+.                           {T | NIL | Var}])
+.
+.This function checks, whether there are particular 
+.values in the value set of an instance relation. If 
+.`:if-undetermined` is not set to NIL, then a 
+.`if-undetermined-action` will be started before the 
+.relation value is found. If `:read-dependents` is 
+.not set to NIL, then the read-dependents will be 
+.informed after the relation value is found.
+.
+.example: >(are-instance-values `place louvre 
+.                               {Berlin Paris})
+.         NIL
+.
+.         >(are-instance-values `place louvre {Paris})
+.         #<set-of T (...)>
+.
+#else
+.
+.Syntax: (are-instance-values 
+.                    <evaluates-to Relationsname>
+.                    <evaluates-to Instanz-Spec>
+.                    <Set>  ; mu\337 eine Menge sein!
+.                    [:read-dependents
+.                          {T | NIL | Var}]
+.                    [:if-undetermined
+.                          {T | NIL | Var}])
+.
+.Diese Funktion pr\374ft, ob bestimmte Werte in der 
+.Wertemenge der Instanzrelation enthalten sind.
+.Ist der Schalter `:if-undetermined` ungleich NIL, 
+.wird bei noch unbestimmten Relationswert eine 
+.eventuell vorhandene if-undetermined Aktion vor dem 
+.lesenden Zugriff angestossen. Ist der Schalter 
+.`:read-dependents` ungleich NIL, werden nach dem 
+.lesenden Zugriff eventuell vorhandene read-dependents
+.informiert.
+.
+.Beispiel: >(are-instance-values `ort louvre 
+.                                {Berlin Paris})
+.          NIL
+. 
+.          >(are-instance-values `ort louvre {Paris})
+.          #<set-of T (...)>
+.
+#endif
+
+FF
+
+>ASK-INSTANCE-VALUE
+.ASK-INSTANCE-VALUE
+.==================
+#ifdef __english
+.
+.syntax: (ask-instance-value 
+.                        <evaluates-to relation-name>
+.                        <evaluates-to instance-spec>
+.                        [:read-dependents 
+.                             {T | NIL | Var}]
+.                        [:if-undetermined 
+.                             {T | NIL | Var}])
+.
+.This function returns the first element of the value
+.set of an instance relation or NIL. If `:if-undeter-
+.mined` is not set to NIL, then a `if-undetermined-
+.action` will be started before the relation value is
+.found. If `:read-dependents` is not set to NIL, then
+.the read-dependents will be informed after the rela-
+.tion value is found.
+.
+.example: >(ask-instance-value `place louvre)
+.         #<capital-city Paris>
+.
+#else
+.
+.syntax: (ask-instance-value 
+.                       <evaluates-to Relationsname>
+.                       <evaluates-to Instanz-Spec>
+.                       [:read-dependents
+.                           {T | NIL | Var}]
+.                       [:if-undetermined
+.                           {T | NIL | Var}])
+.
+.Diese Funktion liefert das erste Element aus der
+.Wertemenge der Instanzrelation oder NIL.
+.Ist der Schalter `:if-undetermined` ungleich NIL, 
+.wird bei noch unbestimmten Relationswert eine 
+.eventuell vorhandene if-undetermined Aktion vor dem 
+.lesenden Zugriff angestossen. Ist der Schalter 
+.`:read-dependents` ungleich NIL, werden nach dem 
+.lesenden Zugriff eventuell vorhandene read-dependents
+.informiert.
+.
+.Beispiel: >(ask-instance-value `ort louvre)
+.          #<Hauptstadt Paris>
+.
+#endif
+
+FF
+
+>ASK-INSTANCE-VALUES
+.ASK-INSTANCE-VALUES
+.===================
+#ifdef __english
+.
+.syntax: (ask-instance-values 
+.                        <evaluates-to relation-name>
+.                        <evaluates-to instance-spec>
+.                        [:read-dependents 
+.                            {T | NIL | Var}]
+.                        [:if-undetermined 
+                             {T | NIL | Var}])
+.
+.This function returns the value set of the instance 
+.relation. If `:if-undetermined` is not set to NIL, 
+.then a `if-undetermined-action` will be started 
+.before the relation value is found. If `:read-
+.dependents` is not set to NIL, then the read-
+.dependents will be informed after the relation value 
+.is found.
+.
+.example: >(ask-instance-values `place louvre)
+.         #<set-of CITY (...)>
+.
+#else
+.
+.syntax: (ask-instance-values 
+.                        <evaluates-to Relationsname>
+.                        <evaluates-to Instanz-Spec>
+.                        [:read-dependents
+.                            {T | NIL | Var}]
+.                        [:if-undetermined
+.                            {T | NIL | Var}])
+.
+.Diese Funktion liefert die Wertemenge der Instanz-
+.relation. Ist der Schalter `:if-undetermined` 
+.ungleich NIL, wird bei noch unbestimmten Relations-
+.wert eine eventuell vorhandene if-undetermined Aktion 
+.vor dem lesenden Zugriff angestossen. Ist der 
+.Schalter `:read-dependents` ungleich NIL, werden nach
+.dem lesenden Zugriff eventuell vorhandene read-
+.dependents informiert.
+.
+.Beispiel: >(ask-instance-values `ort louvre)
+.          #<set-of STADT (...)>
+.
+#endif
+
+FF
+
+>IS-INSTANCE-VALUE
+.IS-INSTANCE-VALUE
+.=================
+#ifdef __english
+.
+.syntax: (is-instance-value 
+.                        <evaluates-to relation-name>
+.                        <evaluates-to instance-spec>
+.                        <lisp-type: T>
+.                        [:read-dependents
+.                            {T | NIL | Var}]
+.                        [:if-undetermined
+.                            {T | NIL | Var}])
+.
+.This function checks, whether there is a particular 
+.value in the value set of the instance relation. If 
+.`:if-undetermined` is not set to NIL, then a 
+.`if-undetermined-action` will be started before the 
+.relation value is found. If `:read-dependents` is not 
+.set to NIL, then the read-dependents will be informed 
+.after the relation value is found.
+.
+.example: >(is-instance-value `place louvre Berlin)
+.         NIL
+.
+.         >(is-instance-value `place louvre Paris)
+.         #<capital-city Paris>
+.
+#else
+.
+.Syntax: (is-instance-value 
+.                        <evaluates-to Relationsname>
+.                        <evaluates-to Instanz-Spec>
+.                        <Lisp-Typ: T>
+.                        [:read-dependents
+.                            {T | NIL | Var}]
+.                        [:if-undetermined
+.                            {T | NIL | Var}])
+.
+.Diese Funktion pr\374ft, ob ein bestimmter Wert in 
+.der Wertemenge der Instanzrelation enthalten ist.
+.Ist der Schalter `:if-undetermined` ungleich NIL, 
+.wird bei noch unbestimmten Relationswert eine 
+.eventuell vorhandene if-undetermined Aktion vor dem 
+.lesenden Zugriff angestossen. Ist der Schalter 
+.`:read-dependents` ungleich NIL, werden nach dem 
+.lesenden Zugriff eventuell vorhandene read-dependents
+.informiert.
+.
+.Beispiel: >(is-instance-value `ort louvre Berlin)
+.          NIL
+. 
+.          >(is-instance-value `ort louvre Paris)
+.          #<Hauptstadt Paris>
+.
+#endif
+
+FF
+
+>RETELL-INSTANCE-VALUE
+.RETELL-INSTANCE-VALUE
+.=====================
+#ifdef __english
+.
+.syntax: (retell-instance-value 
+.                       <evaluates-to relation-name>
+.                       <evaluates-to instance-spec>
+.                       {<lisp-type: T> | <set>}
+.                          ;; Tell-value
+.                       <lisp-type: T>
+.                          ;; Untell-value
+.                       [:write-dependents
+.                          {T | NIL | Var}]
+.                       [:probe 
+.                          {T | NIL | :and-do | Var}])
+.
+.If an untell-value is included in the value set of 
+.the instance relation, then it will be replaced 
+.with the tell-value or with the elements of the 
+.tell-value, which are not included yet. A value will 
+.be removed without replacing it, when the tell-value 
+.is part of the value set. If the untell-value is not 
+.included in the value set, then it can not be 
+.replaced.
+.If `:write-dependents` is not set to NIL, then the 
+.write-dependents will be informed after the untell-
+.value was replaced.
+.The changed value set will be returned, when the 
+.untell-value is included, otherwise NIL.
+.
+.example: >(retell-instance-value `offer Paris 
+.                                 Moulin-Rouge
+.                                 Louvre)
+.         #<set-of OFFER (...)>
+.         
+.         >(retell-instance-value `offer Paris 
+.                                 {Louvre} 
+.                                 Centre-Pompidou)
+.         NIL
+.
+#else
+.
+.Syntax: (retell-instance-value 
+.                        <evaluates-to Relationsname>
+.                        <evaluates-to Instanz-Spec>
+.                        {<Lisp-Typ: T> | <set>}
+.                            ;; Tell-Wert
+.                        <Lisp-Typ: T>
+.                            ;; Untell-Wert
+.                        [:write-dependents
+.                            {T | NIL | Var}]
+.                        [:probe
+.                            {T | NIL | :and-do | Var}])
+.
+.Ist Untell-Wert in der Wertemenge der Instanzrelation 
+.enthalten, so wird er entfernt und der Tell-Wert, bzw. 
+.die nicht bereits enthaltenen Elemente des Tell-
+.Wertes, hinzugef\374gt. Ein Wert wird ersatzlos 
+.entfernt, falls Tell-Wert eine Teilmenge der 
+.Wertemenge ist. Ist der Untell-Wert nicht in der 
+.Wertemenge enthalten, kann keine Ersetzung folgen.
+.Ist der Schalter `:write-dependents` ungleich NIL, 
+.werden nach dem scheibenden Zugriff eventuell 
+.vorhandene write-dependents \374ber die Werte\344nderung 
+.informiert.
+.R\374ckgabewert ist die ver\344nderte Wertemenge oder 
+.NIL, wenn der Untell-Wert nicht in der Wertemenge 
+.enthalten ist.
+.
+.Beispiel: >(retell-instance-value `angebote Paris
+.                                  Hofbr\344uhaus 
+.                                  Louvre)
+.          #<set-of ANGEBOT (...)>
+.    
+.          >(retell-instance-value `angebote Paris
+.                                  {Hofbr\344uhaus} 
+.                                  Centre-Pompidou)
+.          NIL
+.
+#endif
+
+FF
+
+>RETELL-INSTANCE-VALUES
+.RETELL-INSTANCE-VALUES
+.======================
+#ifdef __english
+.
+.syntax: (retell-instance-values 
+.                        <evaluates-to relation-name>
+.                        <evaluates-to instance-spec>
+.                        {<lisp-type: T> | <set>}
+.                           ;; Tell-value
+.                        {<set> | _ }
+.                           ;; Untell-value
+.                        [:write-dependents
+.                           {T | NIL | Var}]
+.                        [:probe 
+.                           {T | NIL | :and-do | Var}])
+.
+.If elements of the untell-value are included in the 
+.value set of the instance relation, then the value 
+.will be replaced with the tell-value or with 
+.the elements of the tell-value, which are not 
+.included yet. Values will be removed without 
+.replacing them, when the tell-value is part of the 
+.value set. If the untell-value is not included in 
+.the value set, then it can not be replaced.
+.If `_` is given instead of the untell-value, then the 
+.whole value set will be replaced with the tell-
+.value. If `:write-dependents` is not set to NIL, then 
+.the write-dependents will be informed after the 
+.untell-value was replaced.
+.The changed value set will be returned, when elements 
+.of the untell-value are included, otherwise NIL.
+.
+.example: >(retell-instance-values `offer Paris 
+.                                  Moulin-Rouge
+.                                  {Louvre 
+.                                  Centre-Pompidou})
+.         #<set-of OFFER (...)>
+.
+.         >(retell-instance-values `offer Paris
+.                                  {Moulin Rouge} 
+.                                  {Centre-Pompidou})
+.         NIL
+.
+#else
+.
+.Syntax: (retell-instance-values 
+.                        <evaluates-to Relationsname>
+.                        <evaluates-to Instanz-Spec>
+.                        {<Lisp-Typ: T> | <set>}
+.                           ;; Tell-Wert
+.                        {<set> | _ }
+.                           ;; Untell-Wert
+.                        [:write-dependents
+.                           {T | NIL | Var}]
+.                        [:probe
+.                           {T | NIL | :and-do | Var}])
+.
+.Sind Elemente des Untell-Wertes in der Wertemenge der 
+.Instanzrelation enthalten, so wird er entfernt und der 
+.Tell-Wert, bzw. die nicht bereits enthaltenen Elemente 
+.des Tell-Wertes, hinzugef\374gt. Werte werden 
+.ersatzlos entfernt, falls Tell-Wert eine Teilmenge 
+.der Wertemenge ist. Sind Untell-Wert und die 
+.Wertemenge disjunkt, kann keine Ersetzung erfolgen.
+.Ist _ als Untell-Wert angegeben, wird die gesamte 
+.Wertemenge ohne Teilmengenpr\374fung durch Tell-Wert 
+.ersetzt. Ist der Schalter `:write-dependents` 
+.ungleich NIL, werden nach dem scheibenden Zugriff 
+.eventuell vorhandene write-dependents \374ber die 
+.Werte\344nderung informiert.
+.R\374ckgabewert ist die ver\344nderte Wertemenge oder 
+.NIL, wenn der Untell-Wert und die Wertemenge disjunkt 
+.sind.
+.
+.Beispiel: >(retell-instance-values `angebote Paris
+.                    Hofbr\344uhaus 
+.                    {Louvre Centre-Pompidou})
+.          #<set-of ANGEBOT (...)>
+.    
+.          >(retell-instance-values `angebote Paris
+.                       {Hofbr\344uhaus} 
+.                       {Centre-Pompidou})
+.          NIL
+.
+#endif
+
+FF
+
+>TELL-INSTANCE-VALUE
+.TELL-INSTANCE-VALUE
+.===================
+#ifdef __english
+.
+.syntax: (tell-instance-value 
+.                        <evaluates-to relation-name>
+.                        <evaluates-to instance-spec>
+.                        <lisp-type: T>
+.                        [:write-dependents 
+.                           {T | NIL | Var}]
+.                        [:probe 
+.                           {T | NIL | :and-do | Var}])
+.
+.This function adds an element to the value set of 
+.the instance relation, when it is not included yet. 
+.If `:write-dependents` is not set to NIL, then the 
+.write-dependents will be informed after the value set 
+.is changed. The value set will be returned, when it 
+.has been changed, otherwise NIL will be returned.
+.
+.example: >(tell-instance-value `offer Paris Louvre)
+.         NIL
+.
+.         >(tell-instance-value `offer Paris 
+.                               Centre-Pompidou)
+.         #<set-of OFFER (...)>
+.
+#else
+.
+.Syntax: (tell-instance-value 
+.                        <evaluates-to Relationsname>
+.                        <evaluates-to Instanz-Spec>
+.                        <Lisp-Typ: T>
+.                        [:write-dependents
+.                           {T | NIL | Var}]
+.                        [:probe
+.                           {T | NIL | :and-do | Var})
+.
+.Diese Funktion f\374gt ein Element zur Wertemenge der 
+.Instanzrelation hinzu, wenn es nicht bereits 
+.enthalten ist. Ist der Schalter `:write-dependents` 
+.ungleich NIL, werden nach dem schreibenden Zugriff 
+.eventuell vorhandene write-dependents \374ber die 
+.Werte\344nderung informiert.
+.R\374ckgabewert ist die erweiterte Wertemenge oder 
+.NIL, wenn das Element bereits enthalten ist.
+.
+.Beispiel: >(tell-instance-value `angebote Paris 
+.                                Louvre)
+.          NIL
+.
+.          >(tell-instance-value `angebote Paris 
+.                                Centre-Pompidou)
+.          #<set-of ANGEBOT (...)>
+.
+#endif
+
+FF
+
+>TELL-INSTANCE-VALUES
+.TELL-INSTANCE-VALUES
+.====================
+#ifdef __english
+.
+.syntax: (tell-instance-values 
+.                        <evaluates-to relation-name>
+.                        <evaluates-to instance-spec>
+.                        <set>
+.                        [:write-dependents 
+.                          {T | NIL | Var}]
+.                        [:probe 
+.                          {T | NIL | :and-do | Var}])
+.
+.This function adds all elements of the set, which are 
+.not included yet, to the value set of the instance 
+.relation. If `:write-dependents` is not set to 
+.NIL, then the write-dependents will be informed after 
+.the value set is changed. The value set will be 
+.returned, when it was changed, otherwise NIL will be 
+.returned.
+.
+.example: >(tell-instance-values `offer Paris {Louvre})
+.         NIL
+.
+.         >(tell-instance-values `offer Paris 
+.                             {Louvre Centre-Pompidou})
+.         #<set-of OFFER (...)>
+.
+#else
+.
+.Syntax: (tell-instance-values 
+.                         <evaluates-to Relationsname>
+.                         <evaluates-to Instanz-Spec>
+.                         <Menge>
+.                         [:write-dependents
+.                           {T | NIL | Var}]
+.                         [:probe
+.                           {T | NIL | :and-do | Var})
+.
+.Diese Funktion f\374gt alle Elemente der Menge zur 
+.Wertemenge der Instanzrelation hinzu, die nicht 
+.bereits in dieser enthalten sind.
+.Ist der Schalter `:write-dependents` ungleich NIL, 
+.werden nach dem schreibenden Zugriff eventuell 
+.vorhandene write-dependents \374ber die 
+.Werte\344nderung informiert.
+.R\374ckgabewert ist die erweiterte Wertemenge oder NIL, 
+.wenn die Menge eine Teilmenge der Wertemenge ist.
+.
+.Beispiel: >(tell-instance-values `angebote Paris 
+.                                 {Louvre})
+.          NIL
+.
+.          >(tell-instance-values `angebote Paris 
+.                                 {Louvre 
+.                                 Centre-Pompidou})
+.          #<set-of ANGEBOT (...)>
+.
+#endif
+
+FF
+
+>UNDETERMINED-INSTANCE-VALUES
+.UNDETERMINED-INSTANCE-VALUES
+.============================
+#ifdef __english
+.
+.syntax: (undetermined-instance-values 
+.           <evaluates-to relation-name>
+.           <evaluates-to instance-spec>)
+.
+.Warning: does NOT activate any behaviors!
+.
+.This function checks, whether the value of the 
+.instance relation is indefinite. It returns T or NIL.
+.
+.example: >(undetermined-instance-values `place louvre)
+.         NIL
+.
+#else
+.
+.Syntax: (undetermined-instance-values
+.           <evaluates-to Relationsname>
+.           <evaluates-to Instanz-Spec>)
+.
+.Warnung: Aktiviert keine Behaviors!
+.
+.Diese Funktion pr\374ft, ob der Wert der Instanz-
+.relation unbestimmt ist. Der R\374ckgabewert ist T 
+.oder NIL.
+.
+.Beispiel: >(undetermined-instance-values `ort louvre)
+.          NIL
+.
+#endif
+
+FF
+
+>UNTELL-INSTANCE-VALUE
+.UNTELL-INSTANCE-VALUE
+.=====================
+#ifdef __english
+.
+.syntax: (untell-instance-value 
+.                         <evaluates-to relation-name>
+.                         <evaluates-to instance-spec>
+.                         <lisp-type: T>
+.                         [:write-dependents 
+.                            {T | NIL | Var}]
+.                         [:probe 
+.                            {T | NIL | :and-do | Var}])
+.
+.This function removes an element from the value set 
+.of the instance relation. If `:write-dependents` is 
+.not set to NIL, then the write-dependents will be 
+.informed after the value set is changed.
+.The changed value set or NIL, when the element is not 
+.included in the value set, will be returned as value.
+.
+.example: >(untell-instance-value `offer Paris Louvre)
+.         #<set-of OFFER (...)>
+.         
+.         >(untell-instance-value `offer Paris Big-Ben)
+.         NIL
+.
+#else
+.
+.Syntax: (untell-instance-value 
+.                        <evaluates-to Relationsname>
+.                        <evaluates-to Instanz-Spec>
+.                        <Lisp-Typ: T>
+.                        [:write-dependents
+.                          {T | NIL | Var}]
+.                        [:probe
+.                          {T | NIL | :and-do | Var}])
+.
+.Diese Funktion entfernt ein Element aus der Werte-
+.menge der Instanzrelation. Ist der Schalter 
+.`:write-dependents` ungleich NIL, werden nach dem 
+.schreibenden Zugriff eventuell vorhandene write-
+.dependents \374ber die Werte\344nderung informiert.
+.R\374ckgabewert ist die verkleinerte Wertemenge oder 
+.NIL, wenn das Element nicht in der Wertemenge 
+.enthalten ist.
+.
+.Beispiel: >(untell-instance-value `angebote Paris 
+.                                  Louvre)
+.          #<set-of ANGEBOT (...)>
+.         
+.          >(untell-instance-value `angebote Paris 
+.                                  Big-Ben)
+.          NIL
+.
+#endif
+
+FF
+
+>UNTELL-INSTANCE-VALUES
+.UNTELL-INSTANCE-VALUES
+.======================
+#ifdef __english
+.
+.syntax: (untell-instance-values 
+.                         <evaluates-to relation-name>
+.                         <evaluates-to instance-spec>
+.                         {<set> | _ }
+.                         [:write-dependents 
+.                          {T | NIL | Var}]
+.                         [:probe 
+.                          {T | NIL | :and-do | Var}])
+.
+.This function removes all elements of the set from 
+.the value set of the instance relation. If _ is given 
+.instead of a set, then the whole value set will be 
+.replaced with the indefinite empty set. 
+.If `:write-dependents` is not set to NIL, then 
+.the write-dependents will be informed after the 
+.value set is changed. The changed value set or NIL, 
+.when the elements are not included in the value set, 
+.will be returned as value.
+.
+.example: >(untell-instance-values `offer Paris 
+.                                  {Louvre})
+.         #<set-of OFFER (...)>
+.         
+.         >(untell-instance-values `offer Paris 
+.                                  {Big-Ben})
+.         NIL
+.
+#else
+.
+.Syntax: (untell-instance-values 
+.                         <evaluates-to Relationsname>
+.                         <evaluates-to Instanz-Spec>
+.                         {<Menge> | _ }
+.                         [:write-dependents
+.                           {T | NIL | Var}]
+.                         [:probe
+.                           {T | NIL | :and-do | Var}])
+.
+.Diese Funktion entfernt alle Elemente der Menge aus 
+.der Wertemenge der Instanzrelation. Ist _ statt einer 
+.Menge angegeben, wird die gesamte Wertemenge entfernt 
+.und die unbestimmte, leere Menge eingetragen. Ist der 
+.Schalter `:write-dependents` ungleich NIL, werden 
+.nach dem schreibenden Zugriff eventuell vorhandene 
+.writedependents \374ber die Werte\344nderung infor-
+.miert. R\374ckgabewert ist die verkleinerte Werte-
+.menge oder NIL, wenn die Menge und die Wertemenge 
+.disjunkt sind.
+.
+.Beispiel: >(untell-instance-values `angebote Paris 
+.                                   {Louvre})
+.          #<set-of ANGEBOT (...)>
+.         
+.          >(untell-instance-values `angebote Paris 
+.                                   {Big-Ben})
+.          NIL
+.
+#endif
+
+! -----------------------------------------------------
+
+FF
+
+>ADD-TO-SET
+.ADD-TO-SET
+.==========
+#ifdef __english
+.
+.syntax: (add-to-set <lisp-type: T>
+.                    <evaluates-to <set-of A (...)>>
+.                    [:TEST <lisp-type: function>])
+.
+.        ==> <set-of A (...)> | <new-set-of A (...)>
+.
+.This function adds an element to a set.
+.
+.Warning: type checking may cause an error:
+.         if all elements of a set have the same
+.         type, check the first elem. with CAVEAT:
+.         what about empty set ?!?
+.
+.example: >(add-to-set bonn *capital-cities*)
+.         Error: The elementtype restriction 
+.                is used wrong.
+.
+.         >(add-to-set hamburg *cities*)
+.         #<set-of CITY (...)>
+.
+.         >(set-to-list *)
+.         (#<CITY HAMBURG> #<CAPITAL-CITY PARIS> 
+.              #<CITY DORTMUND> #<CAPITAL-CITY 
+.                   BRUESSEL> #<CITY BONN>
+.                         #<CAPITAL-CITY BERLIN>)
+.
+#else
+.
+.Syntax: (add-to-set <Lisp-Typ: T>
+.                    <evaluates-to <set-of A (...)>>
+.                    [:TEST <Lisp-Typ: Funktion>])
+.
+.        ==> <set-of A (...)> | <new-set-of A (...)>
+.
+.Diese Funktion f\374gt einer Menge ein Element hinzu.
+.
+.Warnung: Eine TYP-Pr\374fung kann einen Fehler
+.         verursachen: Wenn alle Elemente der
+.         Menge den gleichen Typ haben, dann
+.         pr\374fe das erste Element mit CAVAT:
+.         Was ist mit einer leeren Menge ?!?
+.
+.Beispiel: >(add-to-set bonn *hauptstaedte*)
+.          Fehler: Die Elementtyp Restriktion 
+.                  wurde verletzt.
+.
+.          >(add-to-set hamburg *staedte*)
+.          #<set-of STADT (...)>
+.
+.          >(set-to-list *)
+.          (#<STADT HAMBURG> #<HAUPTSTADT PARIS> 
+.                #<STADT DORTMUND> #<HAUPTSTADT 
+.                       BRUESSEL> #<STADT BONN>
+.                           #<HAUPTSTADT BERLIN>)
+.
+#endif
+
+FF
+
+>CARDINALITY-OF-SET
+.CARDINALITY-OF-SET
+.==================
+#ifdef __english
+.
+.syntax: (cardinality-of-set <evaluates-to 
+.                            <set-of X (...)>>)
+.
+.This function determines the cardinality of the set.
+.It returns the number of elements. 
+.
+.
+.Warning: length works the same on vectors
+.         and lists !!! 
+.
+.example: >(list-to-set `(1 2 3) :TYPE `integer)
+.         #<set-of INTEGER (...)>
+.
+.         >(cardinality-of-set *)
+.         3
+.
+#else
+.
+.Syntax: (cardinality-of-set <evaluates-to 
+.                            <set-of X (...)>>)
+.
+.Diese Funktion ermittelt die Kardinalit\344t der 
+.Menge. Der R\374ckgabewert ist eine Zahl, die die 
+.Anzahl der Elemente angibt.
+.
+.Warnung: LENGTH arbeitet in gleicher Weise
+.         mit Vektoren und Listen !!!
+.
+.Beispiel: >(list-to-set `(1 2 3) :TYPE `integer)
+.          #<set-of INTEGER (...)>
+.        
+.          >(cardinality-of-set *)
+.          3
+.
+#endif
+
+FF
+
+>DIFFERENCE-OF-SETS
+.DIFFERENCE-OF-SETS
+.==================
+#ifdef __english
+.
+.syntax: (difference-of-sets 
+.                   <evaluates-to <set-of A (...)>>
+.                   <evaluates-to <set-of B (...)>>
+.                   [:TYPE <evaluates-to type-name>]
+.                   [:TEST <lisp-type: function>])
+.
+.        ==> <new-set-of A (...)>
+.
+.This function creates a new set with the difference 
+.of two sets. The new set has the element type of the 
+.first set.
+.
+.Warning: type checking may cause an error!
+.
+.example: >(difference-of-sets *cities* 
+.                              *capital-cities*)
+.         #<set-of CITY (...)>
+.          
+.         >(set-to-list *)
+.         (#<CITY BONN> #<CITY DORTMUND>)
+.
+#else
+.
+.Syntax: (difference-of-sets 
+.                      <evaluates-to <set-of A (...)>>
+.                      <evaluates-to <set-of B (...)>>
+.                      [:TYPE <evaluates-to Typ-Name>]
+.                      [:TEST <Lisp-Typ: Funktion>])
+.
+.        ==> <new-set-of A (...)>
+.
+.Diese Funktion bildet die Differenzmenge zweier 
+.Mengen. Die Differenzmenge hat den Elementtyp der 
+.ersten Menge.
+.
+.Warnung: Eine Typ-Pr\374fung kann einen Fehler
+.         verursachen!
+.
+.Beispiel: >(difference-of-sets *staedte* 
+.                               *hauptstaedte*)
+.          #<set-of STADT (...)>
+.
+.          >(set-to-list *)
+.          (#<STADT BONN> #<STADT DORTMUND>)
+.
+#endif
+
+FF
+
+>ELEMENT-OF-SET
+.ELEMENT-OF-SET
+.==============
+#ifdef __english
+.
+.syntax: (element-of-set <evaluates-to 
+.                          <set-of A (...)>>
+.                        [:EXTRACT-FN 
+.                          <lisp-type: function>])
+.
+.        ==> <element> | NIL
+.
+.This function returns an element of the set, which is
+.extracted by the extraction function.
+.If there is not an extracted element, then NIL will 
+.be returned.
+.
+.example: >(list-to-set `(2 "house" 3 "window" 4 5))
+.         #<set-of T (...)>
+.
+.         >(element-of-set * :extract-fn #`stringp)
+.         "house"
+.
+#else
+.
+.Syntax: (element-of-set <evaluates-to 
+.                          <set-of A (...)>>
+.                        [:EXTRACT-FN
+.                          <Lisp-Typ: Funktion>])
+.
+.        ==> <element> | NIL
+.                       
+.Diese Funktion liefert ein Element der Menge, das der
+.Extraktionsfunktion gen\374gt, zur\374ck.
+.R\374ckgabewert ist das enthaltene Element. Ist die 
+.Menge leer oder gen\374gt kein Element der 
+.Extraktionsfunktion ist der R\374ckgabewert NIL.
+.
+.Beispiel: >(list-to-set `(2 "Haus" 3 "Fenster" 4 5))
+.          #<set-of T (...)>
+.      
+.          >(element-of-set * :extract-fn #`stringp)
+.          "Haus"
+.
+#endif
+
+FF
+
+>INTERSECTION-OF-SETS
+.INTERSECTION-OF-SETS
+.====================
+#ifdef __english
+.
+.syntax: (intersection-of-sets 
+.              <evaluates-to <set-of A (...)>>
+.              <evaluates-to <set-of B (...)>>
+.              [:TYPE <evaluates-to type-name>]
+.              [:TEST <lisp-type: function>])
+.
+.        ==> <set-of X (...)>
+.
+.This function produces the intersection of two sets.
+.
+.Warning: type checking may cause an error!
+.
+.example: >(set-to-list (intersection-of-sets
+.               *cities* *capital-cities* 
+.               :TYPE `capital-city))
+.         (#<CAPITAL-CITY PARIS> #<CAPITAL-CITY 
+.              BRUESSEL> #<CAPITAL-CITY BERLIN>)
+.
+#else
+.
+.Syntax: (intersection-of-sets 
+.              <evaluates-to <set-of A (...)>>
+.              <evaluates-to <set-of B (...)>>
+.              [:TYPE <evaluates-to Typ-Name>]
+.              [:TEST <Lisp-Typ: Funktion>])
+.
+.        ==> <set-of X (...)>
+.
+.Diese Funktion bildet die Schnittmenge zweier 
+.Mengen.
+.
+.Warnung: Eine Typ-Pr\374fung kann einen Fehler
+.         verursachen!
+.
+.Beispiel: >(set-to-list (intersection-of-sets
+.                *staedte* *hauptstaedte* 
+.                :TYPE `hauptstadt))
+.          (#<HAUPTSTADT PARIS> #<HAUPTSTADT 
+.               BRUESSEL> #<HAUPTSTADT BERLIN>)
+.
+#endif
+
+FF
+
+>IS-ELEMENT-OF-SET
+.IS-ELEMENT-OF-SET
+.=================
+#ifdef __english
+.
+.syntax: (is-element-of-set 
+.                   <lisp-type: T>
+.                   <evaluates-to <set-of A (...)>>
+.                   [:TEST <lisp-type: function>])
+.
+.        ==> <element> | NIL
+.
+.This function checks, whether the given element is 
+.included in the set.
+.
+.example: >(is-element-of-set bonn *capital-cities*)
+.         NIL
+.
+.         >(is-element-of-set bonn *cities*)
+.         #<CITY BONN>
+.
+#else
+.
+.Syntax: (is-element-of-set 
+.                   <Lisp-Typ: T>
+.                   <evaluates-to <set-of A (...)>>
+.                   [:TEST <Lisp-Typ: Funktion>])
+.
+.        ==> <Element> | NIL
+.
+.Diese Funktion pr\374ft, ob das angegebene Element 
+.in der Menge enthalten ist.
+.
+.Beispiel: >(is-element-of-set bonn *hauptstaedte*)
+.          NIL
+.
+.          >(is-element-of-set bonn *staedte*)
+.          #<CITY BONN>
+.
+#endif
+
+FF
+
+>IS-EMPTY-SET
+.IS-EMPTY-SET
+.============
+#ifdef __english
+.
+.syntax: (is-empty-set <evaluates-to set>)
+.
+.        ==> T | NIL
+.
+.This function checks, whether the given set is an 
+.empty set.
+.
+.Warning: length works on vectors AND lists!
+.
+.example: >(difference-of-set *capital-cities* 
+.                             *cities*)
+.         #<set-of T (...)>
+.
+.         >(is-empty-set *)
+.         T    ; i.e. the set is an empty set!
+.
+#else
+.
+.Syntax: (is-empty-set <evaluates-to set>)
+.
+.        ==> T | NIL
+.
+.Diese Funktion pr\374ft, ob es sich bei der 
+.angegebenen Menge um eine leere Menge handelt.
+.
+.Warnung: LENGTH arbeitet mit Vektoren UND Listen!
+.
+.Beispiel: >(difference-of-set *hauptstaedte* 
+.                              *staedte*)
+.          #<set-of T (...)>
+.
+.          >(is-empty-set *)
+.          T    ; d.h. dies ist eine leere Menge!
+.
+#endif
+
+FF
+
+>IS-SET
+.IS-SET
+.======
+#ifdef __english
+.
+.syntax: (is-set <evaluates-to set>)
+.
+.        ==> T | NIL
+.
+.This fuction checks, whether the argument is a set.
+.
+.example: >(is-set *cities*)
+.         T
+.
+.         >(is-set *capital-cities*)
+.         T
+.
+.         >(is-set `(1 2 3))
+.         NIL
+.
+#else
+.
+.Syntax: (is-set <evaluates-to Menge>)
+.
+.        ==> T | NIL
+.
+.Diese Funktion pr\374ft, ob es sich bei dem Argument 
+.um eine Menge handelt.
+.
+.Beispiel: >(is-set *staedte*)
+.          T
+.
+.          >(is-set *hauptstaedte*)
+.          T
+.
+.          >(is-set `(1 2 3))
+.          NIL
+.
+#endif
+
+FF
+
+>IS-SUBSET-OF-SET
+.IS-SUBSET-OF-SET
+.================
+#ifdef __english
+.
+.syntax: (is-subset-of-set <set-of type-A> 
+.                          <set-of type-B>
+.                          [:TEST test-fn])
+.
+.        ==> <set-of type-A> | NIL
+.
+.This function checks, whether the set of type A is 
+.part of the set of type B.
+.
+.example: >(is-subset-of-set *capital-cities* 
+.                            *cities*)
+.         #<set-of T (...)>
+.      
+.         >(is-subset-of-set *cities* 
+.                            *capital-cities*)
+.         NIL
+.
+#else
+.
+.Syntax: (is-subset-of-set <set-of Typ-A>
+.                          <set-of Typ-B>
+.                          [:TEST Test-Fn])
+.
+.        ==> <set-of Typ-A> | NIL
+.
+.Diese Funktion pr\374ft nach, ob die Menge des Typs 
+.A eine Teilmenge der Menge des Typs B ist.
+.
+.Beispiel: >(is-subset-of-set *hauptstaedte* 
+.                             *staedte*)
+.          #<set-of T (...)>
+. 
+.          >(is-subset-of-set *staedte* 
+.                             *hauptstaedte*)
+.          NIL
+.
+#endif
+
+FF
+
+>IS-UNDETERMINED-SET
+.IS-UNDETERMINED-SET
+.===================
+#ifdef __english
+.
+.syntax: (is-undetermined-set <evaluates-to set>)
+.
+.        ==> T | NIL
+.
+.This function checks, whether the given set is an 
+.indefinite empty set.
+.
+.Warning: length works on vectors AND lists!
+.
+.example: >(difference-of-set *capital-cities* 
+.                             *cities*)
+.         #<set-of T ()>
+.         
+.         >(is-undetermined-set *)
+.         NIL
+.
+.         >(is-undetermined-set 
+.              (ask-instance-values `landscape Paris))
+.         T  ; i.e. the set is indefinite and empty!
+.
+#else
+.
+.Syntax: (is-undetermined-set <evaluates-to Menge>)
+.
+.        ==> T | NIL
+.
+.Diese Funktion pr\374ft nach, ob es sich bei der 
+.angegebenen Menge um eine unbestimmte leere Menge 
+.handelt.
+.
+.Warnung: LENGTH arbeitet mit Vektoren UND Listen!
+.
+.Beispiel: >(difference-of-set *hauptstaedte* 
+.                              *staedte*)
+.          #<set-of T()>
+.         
+.          >(is-undetermined-set *)
+.          NIL
+.
+.          >(is-undetermined-set
+.               (ask-instance-values `landschaft 
+.                                    Paris))
+.          T  ; d.h. die Menge ist unbestimmt 
+.               und leer!
+.
+#endif
+
+FF
+
+>LIST-TO-SET
+.LIST-TO-SET
+.===========
+#ifdef __english
+.
+.syntax: (list-to-set <evaluates-to list>
+.                     [:TYPE <evaluates-to type-name>]
+.                     [:TEST <lisp-type: function>])
+.
+.        ==> #<set-of X (...)>
+.
+.This function produces a set with the given 
+.elements.
+.
+.Warning: type checking may cause an error!
+.
+.example: >(list-to-set 
+.            (list Paris Dortmund Bruessel 
+.                 Bonn Berlin))
+.         #<set-of T (...)>
+.      
+.         >(setf *cities*
+.            (list-to-set
+.               (list Paris Dortmund Bruessel 
+.                    Bonn Berlin)
+.               :TYPE `CITY))
+.         #<set-of CITY (...)>
+.
+.         >(setf *capital-cities*
+.            (list-to-set
+.               (list Paris Dortmund Bruessel 
+.                      Bonn Berlin)
+.               :TYPE `CAPITAL-CITY))
+.         #<set-of CAPITAL-CITY (...)>
+.
+#else
+.
+.Syntax: (list-to-set <evaluates-to Liste>
+.                     [:TYPE <evaluates-to Typ-Name>]
+.                     [:TEST <Lisp-Typ: Funktion>])
+.
+.        ==> #<set-of X (...)>
+.
+.Diese Funktion erzeugt eine Menge mit den 
+.angegebenen Elementen.
+.
+.Warnung: Eine Typ-Pr\374fung kann einen Fehler
+.         verursachen!
+.
+.Beispiel: >(list-to-set
+.             (list Paris Dortmund Bruessel 
+.                     Bonn Berlin))
+.          #<set-of T (...)>
+.      
+.          >(setf *staedte*
+.            (list-to-set
+.               (list Paris Dortmund Bruessel 
+.                     Bonn Berlin)
+.               :TYPE `STADT))
+.          #<set-of STADT (...)>
+.
+.          >(setf *hauptstaedte*
+.            (list-to-set
+.               (list Paris Dortmund Bruessel 
+.                     Bonn Berlin)
+.               :TYPE `HAUPTSTADT))
+.          #<set-of HAUPTSTADT (...)>
+.
+#endif
+
+FF
+
+>REMOVE-FROM-SET
+.REMOVE-FROM-SET
+.===============
+#ifdef __english
+.
+.syntax: (remove-from-set <lisp-type: T>
+.                         <evaluates-to
+.                            <set-of A (...)>>
+.                         [:TEST
+.                            <lisp-type: function>])
+.
+.        ==> <set-of A (...)> | <new-set-of A (...)>
+.
+.This function removes an element from a set.
+.
+.Warning: type checking may cause an error:
+.         if all elements of a set have the
+.         same type, check the first elem.
+.         with CAVEAT: what about empty set ?!?
+.
+.example: >(remove-from-set bonn *capital-cities*)
+.         >(same-sets * *capital-cities*)
+.         T
+.
+.         >(remove-from-set hamburg *cities*)
+.         #<set-of CITY (...)>
+.       
+.         >(set-to-list *)
+.         (#<CAPITAL-CITY PARIS> #<CITY DORTMUND>
+.            #<CAPITAL-CITY BRUESSEL> #<CITY BONN>
+.                #<CAPITAL-CITY BERLIN>)
+.
+#else
+.
+.Syntax: (remove-from-set <Lisp-Typ: T>
+.                         <evaluates-to
+.                            <set-of A (...)>>
+.                         [:TEST
+.                            <Lisp-Typ: Funktion>])
+.
+.        ==> <set-of A (...)> | <new-set-of A (...)>
+.
+.Diese Funktion entfernt ein Element aus einer Menge.
+.
+.Warnung: Eine Typ-Pr\374fung kann einen Fehler
+.         verursachen: Wenn alle Elemente der Menge
+.         den gleichen Typ haben, dann pr\374fe
+.         das erste Element mit CAVEAT: Was ist
+.         mit einer leeren Menge ?!?
+.
+.Beispiel: >(remove-from-set bonn *hauptstaedte*)
+.          >(same-sets * *hauptstaedte*)
+.          T
+.
+.          >(remove-from-set hamburg *staedte*)
+.          #<set-of STADT (...)>
+.    
+.          >(set-to list *)
+.          (#<HAUPTSTADT PARIS> #<STADT DORTMUND>
+.              #<HAUPTSTADT BRUESSEL> #<STADT BONN>
+.                  #<HAUPTSTADT BERLIN>)
+.
+#endif
+
+FF
+
+>SAME-SETS
+.SAME-SETS
+.=========
+#ifdef __english
+.
+.syntax: (same-sets <evaluates-to <set-of A (...)>>
+.                   <evaluates-to <set-of B (...)>>
+.                   [:TEST <lisp-type: function>])
+.
+.        ==> T | NIL                                       
+.
+.This function checks, whether both sets have the
+.same elements.
+.
+.example: >(same-sets *capital-cities* *cities*)
+.         NIL
+. 
+.         >(same-sets *cities*
+.             (union-of-sets 
+.                 *capital-cities* *cities*))
+.         T
+.
+#else
+.
+.Syntax: (same-sets <evaluates-to <set-of A (...)>>
+.                   <evaluates-to <set-of B (...)>>
+.                   [:TEST <Lisp-Typ: Funktion>])
+.
+.        ==> T | NIL
+.
+.Diese Funktion pr\374ft, ob beide Mengen die gleichen
+.Elemente haben.
+.
+.Beispiel: >(same-sets *hauptstaedte* *staedte*)
+.          NIL
+.
+.          >(same-sets *cities*
+.              (union-of-sets
+.                  *hauptstaedte* *staedte*))
+.          T
+.
+#endif
+
+FF
+
+>SET-TO-LIST
+.SET-TO-LIST
+.===========
+#ifdef __english
+.
+.syntax: (set-to-list <evaluates-to <set-of A (...)>>
+.                     [:EXTRACT-FN
+.                        <lisp-type: function>])
+.
+.        ==> List with the extracted elements
+.
+.This function extracts elements from the set with
+.the extraction function.
+.
+.example: >(list-to-set `(2 "house" 3 4 "window" 5))
+.         #<set-of T (...)>
+.      
+.         >(set-to-list * :EXTRACT-FN #`stringp)
+.         ("house" "window")
+.
+#else
+.
+.Syntax: (set-to-list <evaluates-to <set-of A (...)>>
+.                     [:EXTRACT-FN
+.                         <Lisp-Typ: Funktion>])
+.
+.        ==> Liste der extrahierten Elemente
+.
+.Die Extrahierfunktion wird auf die Elemente der Menge
+.angewendet.
+.
+.Beispiel: >(list-to-set `(2 "Haus" 3 4 "Fenster" 5))
+.          #<set-of T (...)>
+.
+.          >(set-to-list * :EXTRACT-FN #`stringp)
+.          ("Haus" "Fenster")
+.
+#endif
+
+FF
+
+>SUBSET-OF-SET
+.SUBSET-OF-SET
+.=============
+#ifdef __english
+.
+.syntax: (subset-of-set <set-of type-A>
+.                       [:EXTRACT-FN <extract-fn>]
+.                       [:TEST test-fn]
+.                       [:TYPE <type-identifier>])
+.
+.        ==> <set-of type-x>
+.
+.This function produces a subset of the given set.
+.
+.Warning: type checking may cause an error!
+.
+.example: >(setf *capital-cities*
+.              (subset-of-set *cities*
+.              :EXTRACT-FN #`(lambda (a-element)
+.              (is-frame-of a-element `capital-city))
+.              :TYPE `capital-city))
+.         <set-of CAPITAL-CITY (...)>
+.
+.         >(map-set *)
+.         (Paris Bruessel Berlin)
+.
+#else
+.
+.Syntax: (subset-of-set <set-of Typ-A>
+.                       [:EXTRACT-FN <extract-fn>]
+.                       [:TEST Test-Fn]
+.                       [:TYPE <Typbezeichner>])
+.
+.        ==> <set-of Typ-x>
+.
+.Diese Funktion erzeugt eine Teilmenge der angegebenen
+.Menge.
+.
+.Warnung: Eine Typ-Pr\374fung kann einen Fehler
+.         verursachen!
+.
+.Beispiel: >(setf *hauptstaedte*
+.               (subset-of-set *staedte*
+.               :EXTRACT-FN #`(lambda (a-element)
+.               (is-frame-of a-element `hauptstadt))
+.               :TYPE `hauptstadt))
+.          <set-of HAUPTSTADT (...)>
+.         
+.          >(map-set *)
+.          (Paris Bruessel Berlin)
+.
+#endif
+
+FF
+
+>SYMMETRIC-DIFFERENCE-OF-SETS
+.SYMMETRIC-DIFFERENCE-OF-SETS
+.============================
+#ifdef __english
+.
+.syntax: (symmetric-difference-of-sets
+.             <evaluates-to <set-of A (...)>>
+.             <evaluates-to <set-of B (...)>>
+.             [:TYPE <evaluates-to type-name>]
+.             [:TEST <lisp-type: function>])
+.
+.        ==> #<set-of X (...)>
+.
+.This function produces the symmetric difference of
+.two sets.
+.
+.Warning: type checking may cause an error!
+.
+.         Speed UP:
+.           (difference-of-sets
+.             (union-of-sets set1 set2 
+.                            :test test)
+.             (intersection-of-sets
+.                            set1 set2
+.                            :test test)
+.             :test test)
+.
+.
+. 
+.example: >(symmetric-difference-of-sets
+.                   *capital-cities* *cities*)
+.         #<set-of CITY (...)>
+. 
+.         >(set-to-list *)
+.         (#<CITY BONN> #<CITY DORTMUND>)
+.
+#else
+.
+.Syntax: (symmetric-difference-of-sets
+.             <evaluates-to <set-of A (...)>>
+.             <evaluates-to <set-of B (...)>>
+.             [:TYPE <evaluates-to Typ-Name>]
+.             [:TEST <Lisp-Typ: Funktion>])
+.
+.        ==> #<set-of X (...)>
+.
+.Diese Funktion bildet die Vereinigungsmenge ab-
+.z\374glich der Schnittmenge.
+.
+.Warnung: Eine Typ-Pr\374fung kann einen Fehler
+.         verursachen!
+.
+.         Beschleunigen:
+.           (difference-of-sets
+.             (union-of-sets set1 set2 
+.                            :test test)
+.             (intersection-of-sets
+.                            set1 set2
+.                            :test test)
+.             :test test)
+.
+.
+.
+.Beispiel: >(symmetric-difference-of-sets
+.                  *hauptstaedte* *staedte*)
+.          #<set-of STADT (...)>
+.         
+.          >(set-to-list *)
+.          (#<STADT BONN> #<STADT DORTMUND>)
+.
+#endif
+
+FF
+
+>UNION-OF-SETS
+.UNION-OF-SETS
+.=============
+#ifdef __english
+.
+.syntax: (union-of-sets 
+.            <evaluates-to <set-of A (...)>>
+.            <evaluates-to <set-of B (...)>>
+.            [:TYPE <evaluates-to type-name>]
+.            [:TEST <lisp-type: function>])
+.
+.        ==> <new-set-of X (...)>
+.
+.This function produces the union of two sets.
+.
+.Warning: type checking may cause an error!
+.
+.example: >(union-of-sets *cities* *capital-cities*)
+.         #<set-of CITY (...)>
+.
+.         >(set-to-list *)
+.         (#<CITY BONN> #<CITY DORTMUND> #<CAPITAL-
+.              CITY PARIS> #<CAPITAL-CITY BRUESSEL>
+.                 #<CAPITAL-CITY BERLIN>)
+.
+#else
+.
+.Syntax: (union-of-sets
+.            <evaluates-to <set-of A (...)>>
+.            <evaluates-to <set-of B (...)>>
+.            [:TYPE <evaluates-to Typ-Name>]
+.            [:TEST <Lisp-Typ: Funktion>])
+.
+.        ==> <new-set-of X (...)>
+.
+.Diese Funktion erzeugt die Vereinigungsmenge zweier
+.Mengen.
+.
+.Warnung: Eine Typ-Pr\374fung kann einen Fehler
+.         verursachen!
+.
+.Beispiel: >(union-of-sets *staedte* *hauptstaedte*)
+.          #<set-of STADT (...)>
+.       
+.          >(set-to-list *)
+.          (#<STADT BONN> #<STADT DORTMUND> #<HAUPT-
+.              STADT PARIS> #<HAUPTSTADT BRUESSEL>
+.                 #<HAUPTSTADT BERLIN>)
+.
+#endif
+
+
+!
+! -----------------------------------------------------
+! no trailing FF allowed at the end of the last page !!
+!
+!!! EOF
+

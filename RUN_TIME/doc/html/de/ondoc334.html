@@ -1,0 +1,60 @@
+<html><head><title>[NOT</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc335.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc333.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>[NOT</strong></font></center><p>
+
+<PRE>[NOT
+====
+
+Syntax: [not &lt;Pr&auml;dikation&gt;]
+
+[NOT ist eine Compound-Pr&auml;dikation. Es negiert 
+den Wahrheitswert der umschlossenen Pr&auml;dikation.
+Alle Variablen aus der Formel m&uuml;ssen schon
+gebunden sein, bevor [NOT anf&auml;ngt zu pr&uuml;fen.
+Es mu&szlig; besonders beachtet werden,
+da&szlig; Formeln, in denen [NOT vorkommt, intern vor
+der Auswertung so umgeformt werden, da&szlig; [NOT
+sich stets nur auf einfache Pr&auml;dikationen be-
+zieht. Man kann auch zusammengesetzte Formeln
+negieren, wenn man die oben beschriebene
+interne Umformung beachtet.
+Die deMorgan'schen Gesetze werden f&uuml;r die
+Umformung benutzt:
+   not (A or B) == (not A) and (not B)
+   not (A and B) == (not A) or (not B)
+[NOT liefert den Wert, der aus der Negation der
+Pr&auml;dikation gewonnen wird. Es hat keinen 
+benutzbaren R&uuml;ckgabewert.
+
+Beispiel: &gt;(ask [and
+                 [computer _x]
+                 [not [festplatte _x]]]
+                (kb-format &quot;~%~A&quot; (name-of _x)))
+          RAM
+          CD-ROM
+          NIL
+
+Der Interpreter sucht alle Komponenten, die keine
+Festplatte sind!
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc335.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc333.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- [NOT done --!>

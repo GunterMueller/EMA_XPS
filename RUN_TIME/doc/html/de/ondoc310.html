@@ -1,0 +1,56 @@
+<html><head><title>UNTELL-INSTANCE-VALUES</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc311.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc309.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>UNTELL-INSTANCE-VALUES</strong></font></center><p>
+
+<PRE>UNTELL-INSTANCE-VALUES
+======================
+
+Syntax: (untell-instance-values 
+                         &lt;evaluates-to Relationsname&gt;
+                         &lt;evaluates-to Instanz-Spec&gt;
+                         {&lt;Menge&gt; | _ }
+                         [:write-dependents
+                           {T | NIL | Var}]
+                         [:probe
+                           {T | NIL | :and-do | Var}])
+
+Diese Funktion entfernt alle Elemente der Menge aus 
+der Wertemenge der Instanzrelation. Ist _ statt einer 
+Menge angegeben, wird die gesamte Wertemenge entfernt 
+und die unbestimmte, leere Menge eingetragen. Ist der 
+Schalter ':write-dependents' ungleich NIL, werden 
+nach dem schreibenden Zugriff eventuell vorhandene 
+writedependents &uuml;ber die Werte&auml;nderung infor-
+miert. R&uuml;ckgabewert ist die verkleinerte Werte-
+menge oder NIL, wenn die Menge und die Wertemenge 
+disjunkt sind.
+
+Beispiel: &gt;(untell-instance-values 'angebote Paris 
+                                   {Louvre})
+          #&lt;set-of ANGEBOT (...)&gt;
+         
+          &gt;(untell-instance-values 'angebote Paris 
+                                   {Big-Ben})
+          NIL
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc311.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc309.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- UNTELL-INSTANCE-VALUES done --!>

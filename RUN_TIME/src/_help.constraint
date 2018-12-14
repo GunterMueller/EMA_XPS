@@ -1,0 +1,81 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _help.constraint Hans Groschwitz     19.07.95   !!
+!!                    Karsten Vossberg               !!
+!!                    Klaus Senf                     !!
+!!                    Frans Ceelen        18.04.96   !!
+!!                                                   !!
+!!   Functions to build the constraint-editor.       !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+>CONSTRAINT-EDITOR
+#ifdef __english
+.The Constraint-Editor
+.=====================
+.
+.Constraints can be edited and created via the
+.constraint editor.
+.To select the respective knowledge base you have
+.to click on the field with the label "Knowledge Base".
+.The field below enables the selection of a constraint.
+.To create a new constraint, enter the new name in the
+.field selection of the selection menue.
+.
+.The Edit menu:
+.
+.- Apply this Constraint...
+.       The modified constraint will be transfered into
+.       the knowledge base. 
+.- Delete this Constraint...
+.       This constraint will be removed from the
+.       knowledge base.
+.- Undo Changes
+.       The old constraint definition is reloaded
+.       from the knowledge base.
+.
+.Constraint modifications, not yet updated in the KB,  
+.are displayed by an exclamation mark in the top right
+.corner.
+.
+.Help on the syntax of babylon- and lisp-expressions
+.can be requested by placing the text cursor into a 
+.word in the text fields of the editors, followed by
+.a keypress on the [Help]-Button [F1].
+.
+#else
+.Der Constraint-Editor
+.=====================
+.
+.Mit dem Constraint-Editor k\366nnen Constraints editiert 
+.und erstellt werden.
+.Zur Auswahl der betreffenden Wissensbasis ist das Feld
+.neben dem Label "Wissensbasis" anzuklicken. 
+.Das darunterliegenden Feld erm\366glicht die Auswahl 
+.eines Constraints. Soll ein neues Constraint erstellt
+.werden, so ist der neue Name in das Feld Auswahl des 
+.Constraint-Auswahlmen\374s einzutragen.  
+.
+.Das Bearbeiten-Men\374:
+.
+.- Diesen Constraint \374bernehmen...    
+.       Der ge\344nderte Constraint wird an die Wissensba-
+.       sis \374bergeben. 
+.- Diesen Constraint l\366schen...
+.       Dieser Constraint wird aus der Wissensbasis ent-
+.       fernt.
+.- \304nderungen zur\374cknehmen... 
+.       Es wird wieder der unbearbeitete Constraint ge-
+.       laden.
+.
+.Eine noch nicht in die Wissensbasis \374bertragene \304nde-
+.rung eines Constraints wird durch ein Ausrufezeichen  
+.in der rechten oberen Ecke angezeigt. 
+.
+.Durch Anw\344hlen eines Wortes in den Textfeldern der
+.Editoren mit dem Textcursor und anschlie\337endes Dr\374cken
+.des [Hilfe]-Knopfes [F1] kann Hilfe zur Syntax der
+.Babylon- und LISP-Ausdr\374cke abgerufen werden.
+.
+#endif
+
+!!! EOF

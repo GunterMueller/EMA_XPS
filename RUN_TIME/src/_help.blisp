@@ -1,0 +1,7510 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!    BabylonLISP syntax documentation file      !!
+!!    for the Help Utility                       !!
+!!                                               !!
+!!    help-cv converts "\nFF\n" to "\n\f\n" and  !!
+!!    outputs only lines beginning with a ".".   !!
+!!    This DOT is not transfered !!              !!
+!!                                               !!
+!!    The ">" works like "." but should be the   !!
+!!    first printed line of a topic. It is used  !!
+!!    as the BROWSE-keyword!                     !!
+!!                                               !!
+!!    The well known switch is __english         !!
+!!                                               !!
+!!    ======================================     !!
+!!                                               !!
+!!    WARNING: because of a flaw in GNU cpp you  !!
+!!    only should use backquotes in spite of     !!
+!!    quotes!                                    !!
+!!                                               !!
+!!         ae = \344            Ae = \304        !!
+!!         oe = \366            Oe = \326        !!
+!!         ue = \374            Ue = \334        !!
+!!         sz = \337     Paragraph = \247        !!
+!!                                               !! 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!
+! no heading FF allowed in front of the first page !!
+! ---------------------------------------------------
+!
+
+>BABYLON-LISP
+.babylon-LISP
+.============
+.
+#ifdef __english
+.The hybrid shell babylon3 offers only a subset of the 
+.power of CommonLISP to the knowledge engineer. Under
+.EMA-XPS all CommonLISP constructs may be used. But take
+.care of the emulations! 
+.Especially the use of arrays should be avoided, not to 
+.run into conflict with babylon3 SETs.
+.
+.Following is the *allowed* set of BabylonLISP con-
+.structs, which may sometimes be different to the
+.CommonLISP syntax!
+.
+.The organisation of this capter is close to   
+.chapter 9 of the babylon3 documentation.
+.
+.
+.
+.The rest of this page focusses on the miscelaneous
+.data types available with babylon LISP:
+.
+.
+.NUMBERS
+.=======
+.
+.There are four different kinds of numbers in
+.Common Lisp: Integers, ratios, floating-point
+.numbers and complex numbers.
+.
+.
+.INTEGERS
+.--------
+.
+.syntax: <sign><digits>
+.
+.The integers may have a sign and they normally have
+.a base of 10. This base can be in the range from 2 to
+.36, too.
+.
+.syntax: #<base>R<sign><digits>
+.
+.There are special notations for binary, octal and
+.hexadecimal bases:
+.
+.syntax: #B<sign><digits>
+.        #O<sign><digits>
+.        #X<sign><digits>
+.
+.examples:       3
+.               +5
+.               -4
+.               #2R1011	; decimal 11, base 2.
+.               #B-1011 ; decimal -11, binary base.
+.               #O325   ; decimal 213, octal base.
+.               #XD4    ; decimal 212, hexad. base.
+.
+.
+.RATIOS
+.------
+.
+.syntax: <sign><digits>/<digits>
+.
+.Ratios can consist of two integers.
+.They may have a sign too. The denominator of a ratio
+.may not be zero and if the ratio is not shortened, it
+.will be converted internally into a shortened form.
+.A different base can also be used, but in this case
+.the base number is for the numerator and the denomi-
+.nator.
+.
+.syntax:     #<base>R<sign><digits>/<digits>
+.            #B<sign><digits>/<digits>
+.            #O<sign><digits>/<digits>
+.            #X<sign><digits>/<digits>
+.
+.examples:       3/2
+.               -1/3
+.
+.               >(/ 4 6)
+.               2/3	; internally converted!
+.
+.               #B11/10	; decimal 3/2, binary base.
+.
+.
+.FLOATING-POINT NUMBERS
+.----------------------
+.
+.syntax: <sign><digits>.<digits><format><sign><exp.>
+.
+.Floating-point numbers may have a sign and they can be
+.written as decimal ratios or in an exponentiell form.
+.Floating-point numbers can be used with different pre-
+.cisions, depending on the implementation. The letters
+.e, s, f, d und l specify the format.
+.
+.e: format isn`t specified
+.s: short-format:
+.      (min. precision 13 bits, min. exp. 5 bits)
+.f: single-format:
+.      (min. precision 24 bits, min. exp. 8 bits)
+.d: double-format:
+.      (min. precision 50 bits, min. exp. 8 bits)
+.l: long-format:
+.      (min. precision 50 bits, min. exp. 8 bits)
+.
+.examples:       0.0      ; zero in default format
+.                0E0      ; also zero in default format
+.                2.123
+.                1.62E+19
+.                16.2E+18
+.                -13.4
+.                3.1415927
+.                      ; pi in default format
+.                3.1416s0
+.                      ; pi in short format
+.                3.1415927
+.                      ; pi in single format
+.                3.141592653589793d0
+.                      ; pi in double format
+.                3.1415926535897932385L0
+.                      ; pi in long format
+.
+.
+.COMPLEX NUMBERS
+.---------------
+.
+.syntax: #C(<real part> <imaginary part>)
+.
+.Complex numbers are represented in cartesian form,
+.with a real part and an imaginary part each of which
+.is a non-complex number. They will be converted
+.internally, if they are of a different type.
+.
+.examples:      #C(3.0s1 1.5s-1)
+.               #C(1 -2)
+.               #C(2/3 2.0)     ; will be converted 
+.               #C(0 1)            internally to
+.                                   #C(0.6666667 2.0)
+.
+.
+.CHARACTERS
+.==========
+.
+.Syntax: #\<character>
+.
+.In Common Lisp you can use all ASCII-codes (0 - 255)
+.as a character. Characters return theirselves.
+.Characters with the same ASCII-Codes are EQ most of
+.the time (Depends on the implementation).
+.
+.example:       >#\A
+.               #\A
+.
+.
+.STRINGS
+.=======
+.
+.Syntax: "<string>"
+.
+.Strings are special vectors, which elements are
+.characters. Stringoperations only work on the active
+.part of a string. Strings are enclosed in "".
+.
+.example:       >"hallo"
+.               "hallo"
+.
+
+! ----------------------------------------------
+
+#else
+.Die hybride Schale babylon3 stellt nur einen Teil des
+.Sprachumfangs von CommonLISP bereit. Unter EMA-XPS
+.steht zwar der gesamte CommonLISP Sprachumfang zur
+.Verf\374gung, die Verwendung von hier nicht dokumen-
+.tierten Befehlen sollte aber mit Vorsicht gehandhabt
+.werden. Speziell auf die Nutzung von Arrays (Feldern)
+.sollte verzichtet werden, um nicht mit den emulierten
+.babylon3 SETs in Konflikt zu geraten. 
+.
+.Im folgenden sind die *erlaubten* BabylonLISP Kommandos
+.beschrieben, die gelegentlich von ihren CommonLISP Pen-
+.dants in der Syntax geringf\374gig abweichen k\366nnen!
+.
+.Die Organisation dieses Kapitels ist angelehnt an
+.die des Kapitels 9 der babylon3 Dokumentation.
+.
+.
+.
+.Der Rest dieser Seite behandelt die unterschiedlichen
+.Datentypen, die unter babylon LISP genutzt werden
+.k\366nnen:
+.
+.
+.ZAHLEN
+.======
+.
+.In Common Lisp werden vier Arten von Zahlen unter-
+.schieden: Ganze Zahlen (Integers), Br\374che (Ratios),
+.Gleitkommazahlen (Floating-Point-Numbers) und komplexe
+.Zahlen (Complex Numbers).
+.
+.
+.GANZE ZAHLEN
+.------------
+.
+.Syntax: <Vorzeichen><Zahl>
+.
+.Die ganzen Zahlen d\374rfen ein Vorzeichen haben und
+.haben normalerweise die Basis 10. Diese darf jedoch
+.beliebig im Bereich zwischen 2 und 36 liegen.
+.
+.Syntax: #<Basis>R<Vorzeichen><Zahl>
+.
+.F\374r bin\344re, oktale und hexadezimale Zahlen gibt es
+.spezielle Schreibweisen:
+.
+.Syntax: #B<Vorzeichen><Zahl>
+.        #O<Vorzeichen><Zahl>
+.        #X<Vorzeichen><Zahl>
+.
+.Beispiele:     3
+.              +5
+.              -4
+.              #2R1011 ; dezimal  11, Basis 2.
+.              #B-1011 ; dezimal -11, Bin\344rschreibw.
+.              #O325   ; dezimal 213, Oktalschreibw.
+.              #XD4    ; dezimal 212, Hexadezimal-
+.					 schreibweise.
+.
+.
+.BR\334CHE
+.------
+.
+.Syntax: <Vorzeichen><Zahl>/<Zahl>
+.
+.In Common Lisp k\366nnen Br\374che (rationale Zahlen) aus
+.zwei ganzen Zahlen dargestellt werden. Diese d\374rfen
+.auch ein Vorzeichen haben. Der Nenner eines Bruches
+.darf nicht Null sein und falls der Bruch ungek\374rzt
+.sein sollte, wird er intern in eine gek\374rzte Form
+.umgewandelt. Eine Basis\344nderung ist auch hier m\366g-
+.lich. Die Basiszahl gilt dann aber f\374r Z\344hler und
+.Nenner.
+.
+.Syntax:        #<Basis>R<Vorzeichen><Zahl>/<Zahl>
+.               #B<Vorzeichen><Zahl>/<Zahl>
+.               #O<Vorzeichen><Zahl>/<Zahl>
+.               #X<Vorzeichen><Zahl>/<Zahl>
+.
+.Beispiele:      3/2
+.               -1/3
+.
+.               >(/ 4 6)
+.               2/3	; interne Umwandlung!
+.
+.               #B11/10 ; dezimal 3/2, Bin\344rschr.
+.
+.
+.GLEITKOMMAZAHLEN
+.----------------
+.
+.Syntax: <Vorz.><Zahl>.<Zahl><Format><Vorz.><Exp.>
+.
+.Gleitkommazahlen d\374rfen ein Vorzeichen haben und
+.k\366nnen entweder als Dezimalbruch oder in einer
+.exponentiellen Form geschrieben werden. Gleitkomma-
+.zahlen k\366nnen mit unterschiedlichen Genauigkeiten,
+.abh\344ngig von der Implementation, bearbeitet werden.
+.Die Buchstaben e, s, f, d und l geben das Format an:
+.
+.e: Format ist nicht vorgegeben
+.s: Short-Format:
+.          (Min. Genauigkeit 13 Bits, Min. Exp. 5 Bits)
+.f: Single-Format:
+.          (Min. Genauigkeit 24 Bits, Min. Exp. 8 Bits)
+.d: Double-Format:
+.          (Min. Genauigkeit 50 Bits, Min. Exp. 8 Bits)
+.l: Long-Format:
+.          (Min. Genauigkeit 50 Bits, Min. Exp. 8 Bits)
+.
+.Beispiele:      0.0 	; Null in Standard-Format
+.                0E0 	; auch Null in Standard-Format
+.                2.123
+.                1.62E+19
+.                16.2E+18
+.                -13.4
+.                3.1415927
+.                     ; Pi in Standard-Format
+.                3.1416s0
+.                     ; Pi in Short-Format
+.                3.1415927
+.                     ; Pi in Single-Format
+.                3.141592653589793d0
+.                     ; Pi in Double-Format
+.                3.1415926535897932385L0
+.                     ; Pi in Long-Format
+.
+.
+.KOMPLEXE ZAHLEN
+.---------------
+.
+.Syntax: #C(<Realteil> <Imagin\344rteil>)
+.
+.Komplexe Zahlen werden in karthetischer Form repre-
+.sentiert mit einem Real- und Imagin\344rteil. Der Real-
+.und Imagin\344rteil m\374ssen nicht-komplexe Zahlen sein
+.und werden intern, falls sie von unterschiedlichem Typ
+.sind, umgewandelt.
+.
+.Beispiele:     #C(3.0s1 1.5s-1)
+.               #C(1 -2)
+.               #C(2/3 2.0)  ; wird intern als 
+.               #C(0 1)         #C(0.6666667 2.0)
+.                                dargestellt
+.
+.
+.ZEICHEN
+.=======
+.
+.Syntax: #\<Zeichen>
+.
+.In Common Lisp sind alle ASCII-Zeichen (0 - 255) als
+.Zeichenobjekte verwendbar. Zeichenobjekte werten zu
+.sich selbst aus. Zeichen mit gleichem ASCII-Wert sind
+.meistens EQ (Abh\344ngig von der Implementation).
+.
+.Beispiel:      >#\A
+.               #\A
+.
+.
+.ZEICHENKETTEN
+.=============
+.
+.Syntax: "<Zeichenkette>"
+.
+.Zeichenketten sind spezielle Vektoren, deren Elemente
+.Zeichen sind. Zeichenkettenoperationen  arbeiten
+.grunds\344tzlich nur auf dem aktiven Teil einer
+.Zeichenkette (also vor dem F\374llstandzeiger).
+.Zeichenketten sind in Anf\374hrungszeichen einge-
+.schlossen.
+.
+.Beispiel:      >"hallo"
+.               "hallo"
+.
+#endif
+
+! -------------------------------------------------------
+
+FF
+
+>NUMBERP
+.NUMBERP
+.=======
+#ifdef __english
+.
+.syntax: (numberp <object>) 
+.
+.        ==> T | NIL
+.
+.This function verifies, whether the object is a
+.number. A function is true (T), when its argument
+.is a number or a special kind of number, otherwise
+.it is false (NIL).
+.
+.examples:      >(numberp #C(1 2))
+.               T
+.
+.               >(numberp 3)
+.               T
+.
+.               >(numberp pi)
+.               T
+.
+.               >(numberp "a")
+.               NIL
+.
+#else
+.
+.Syntax: (numberp <Objekt>) 
+.
+.        ==> T | NIL
+.
+.Diese Funktion ist f\374r die Erkennung von Zahlen. Der
+.R\374ckgabewert ist T, wenn das <Objekt> eine Zahl bzw.
+.eine Zahl bestimmten Typs ist, sonst NIL.
+.
+.Beispiele:     >(numberp #C(1 2))
+.               T
+.
+.               >(numberp 3)
+.               T
+.
+.               >(numberp pi)
+.               T
+.
+.               >(numberp "a")
+.               NIL
+.
+#endif
+
+FF
+
+>INTEGERP
+.INTEGERP
+.========
+#ifdef __english
+.
+.syntax: (integerp <object>) 
+.
+.        ==> T | NIL
+.
+.This function verifies, whether the object is an
+.integer. A function is true (T), when its argument
+.is an integer, otherwise it is false (NIL).
+.
+.examples:      >(integerp 3)
+.               T
+.
+.               >(integerp pi)
+.               NIL
+.
+#else
+.
+.Syntax: (integerp <Objekt>) 
+.
+.        ==> T | NIL
+.
+.Diese Funktion ist f\374r die Erkennung von ganzen
+.Zahlen. Der R\374ckgabewert ist T, wenn das <Objekt>
+.eine ganze Zahl ist, sonst NIL.
+.
+.Beispiele:     >(integerp 3)
+.               T
+.
+.               >(integerp pi)
+.               NIL
+.
+#endif
+
+FF
+
+>RATIONALP
+.RATIONALP
+.=========
+#ifdef __english
+.
+.syntax: (rationalp <object>)   ;Common Lisp command
+.        (ratiop <object>)      ;Babylon Lisp command
+.
+.        ==> T | NIL
+.
+.This function verifies, whether the object is a ratio.
+.A function is true (T), when its argument is a ratio,
+.otherwise it is false (NIL).
+.
+.examples:      >(rationalp 3/2)
+.               T
+.
+.               >(rationalp "a")
+.               NIL
+.
+#else
+.
+.Syntax: (rationalp <Objekt>)    ; Common Lisp Befehl
+.        (ratiop <Objekt>)       ; Babylon Lisp Befehl
+.
+.        ==> T | NIL
+.
+.Diese Funktion ist f\374r die Erkennung von rationalen
+.Zahlen. Der R\374ckgabewert ist T, wenn das <Objekt>
+.eine rationale Zahl ist, sonst NIL.
+.
+.Beispiele:     >(rationalp #C(1 2))
+.               NIL
+.
+.               >(rationalp 3/2)
+.               T
+.
+#endif
+
+FF
+
+>RATIOP
+.RATIOP
+.======
+#ifdef __english
+.
+.syntax: (rationalp <object>)    ;Common Lisp command
+.        (ratiop <object>)       ;Babylon Lisp command
+.
+.        ==> T | NIL
+.
+.This function verifies, whether the object is a ratio.
+.A function is true (T), when its argument is a ratio,
+.otherwise it is false (NIL).
+.
+.examples:      >(ratiop 3/2)
+.               T
+.
+.               >(ratiop "a")
+.               NIL
+.
+#else
+.
+.Syntax: (rationalp <Objekt>)    ; Common Lisp Befehl
+.        (ratiop <Objekt>)       ; Babylon Lisp Befehl
+.
+.Diese Funktion ist f\374r die Erkennung von rationalen
+.Zahlen. Der R\374ckgabewert ist T, wenn das <Objekt>
+.eine rationale Zahl ist, sonst NIL.
+.
+.Beispiele:     >(ratiop #C(1 2))
+.               NIL
+.
+.               >(ratiop 3/2)
+.               T
+.
+#endif
+
+FF
+
+>FLOATP
+.FLOATP
+.======
+#ifdef __english
+.
+.syntax: (floatp <object>) 
+.
+.        ==> T | NIL
+.
+.This function verifies, whether the object is a
+.floating point number. A function is true (T),
+.when its argument is a floating point number,
+.otherwise it is false (NIL).
+.
+.example:       >(floatp #C(1 2))
+.               NIL
+.
+#else
+.
+.Syntax: (floatp <Objekt>) 
+.
+.        ==> T | NIL
+.
+.Diese Funktion ist f\374r die Erkennung von Gleitkomma-
+.Zahlen. Der R\374ckgabewert ist T, wenn das <Objekt>
+.eine Gleitkomma-Zahl ist, sonst NIL.
+.
+.Beispiel:      >(floatp #C(1 2))
+.               NIL
+.
+#endif
+
+FF
+
+>COMPLEXP
+.COMPLEXP
+.========
+#ifdef __english
+.
+.syntax: (complexp <object>) 
+.
+.        ==> T | NIL
+.
+.This function verifies, whether the object is a
+.complex number. A function is true (T), when its
+.argument is a complex number, otherwise it is
+.false (NIL).
+.
+.examples:      >(complexp #C(1 2))
+.               T
+.
+.               >(complexp "a")
+.               NIL
+.
+#else
+.
+.Syntax: (complexp <Objekt>) 
+.
+.        ==> T | NIL
+.
+.Diese Funktion ist f\374r die Erkennung von komplexen
+.Zahlen. Der R\374ckgabewert ist T, wenn das <Objekt>
+.eine komplexe Zahl ist, sonst NIL.
+.
+.Beispiele:     >(complexp #C(1 2))
+.               T
+.
+.               >(complexp "a")
+.               NIL
+.
+#endif
+
+FF
+
+>LISTP
+.LISTP
+.=====
+#ifdef __english
+.
+.syntax: (listp <object>)
+.
+.This function checks, whether the object is a list.
+.It returns T, when the test was successful, otherwise
+.NIL.
+.
+.example:       >(listp `(1 2))
+.               T
+.
+#else
+.
+.Syntax: (listp <Objekt>)
+.
+.Diese Funktion pr\374ft, ob das Objekt eine Liste ist.
+.Sie liefert T, wenn der Test erfolgreich war, sonst
+.NIL.
+.
+.Beispiel:      >(listp `(1 2))
+.               T
+.
+#endif
+
+FF
+
+>SEQUENCEP
+.SEQUENCEP
+.=========
+#ifdef __english
+.
+.syntax: (sequencep <object>) ; only in Babylon Lisp!
+.
+.This function checks, whether the object is a
+.sequence. It returns T, when the test was successful,
+.otherwise NIL.
+.
+.example:       >(sequencep `(1 2))
+.               NIL
+.
+#else
+.
+.Syntax: (sequencep <Objekt>) ; nur in Babylon Lisp!
+.
+.Diese Funktion pr\374ft, ob das Objekt eine Sequenz ist.
+.Sie liefert T, wenn der Test erfolgreich war, sonst
+.NIL.
+.
+.Beispiel:      >(sequencep `(1 2))
+.               NIL
+.
+#endif
+
+FF
+
+>CHARACTERP
+.CHARACTERP
+.==========
+#ifdef __english
+.
+.syntax: (characterp <object>)
+.
+.This function checks, whether the object is a
+.character. It returns T, when the test was
+.successful, otherwise NIL.
+.
+.example:       >(characterp `(1 2))
+.               NIL
+.
+#else
+.
+.Syntax: (characterp <Objekt>)
+.
+.Diese Funktion pr\374ft, ob das Objekt ein Zeichen ist.
+.Sie liefert T, wenn der Test erfolgreich war, sonst
+.NIL.
+.
+.Beispiel:      >(characterp `(1 2))
+.               NIL
+.
+#endif
+
+FF
+
+>SYMBOLP
+.SYMBOLP
+.=======
+#ifdef __english
+.
+.syntax: (symbolp <object>)
+.
+.This function checks, whether the object is a symbol.
+.It returns T, when the test was successful, otherwise
+.NIL.
+.
+.example:       >(symbolp `(1 2))
+.               NIL
+.
+#else
+.
+.Syntax: (symbolp <Objekt>)
+.
+.Diese Funktion pr\374ft, ob das Objekt ein Symbol ist.
+.Sie liefert T, wenn der Test erfolgreich war, sonst
+.NIL.
+.
+.Beispiel:      >(symbolp `(1 2))
+.               NIL
+.
+#endif
+
+FF
+
+>STREAMP
+.STREAMP
+.=======
+#ifdef __english
+.
+.syntax: (streamp <object>)
+.
+.This function checks, whether the object is an
+.input/output-stream. It returns T, when the test
+.was successful, otherwise NIL.
+.
+.example:       >(streamp `(1 2))
+.               NIL
+.
+#else
+.
+.Syntax: (streamp <Objekt>)
+.
+.Diese Funktion pr\374ft, ob das Objekt ein
+.Eingabe/Ausgabe-Strom ist. Sie liefert T, wenn
+.der Test erfolgreich war, sonst NIL.
+.
+.Beispiel:      >(streamp `(1 2))
+.               NIL
+.
+#endif
+
+FF
+ 
+>COMPLEX
+.COMPLEX
+.=======
+#ifdef __english
+.
+.syntax: (complex <real part> <imaginary part>)
+.
+.        ==> <complex number>
+.
+.The function COMPLEX produces a complex number. The
+.real part and the imaginary part of it have to be
+.non-complex numbers.
+.
+.example:       >(complex 1 2)
+.               #C(1 2)
+.
+#else
+.
+.Syntax: (complex <Realteil> <Imagin\344rteil>)
+.
+.        ==> <komplexe Zahl>
+.
+.Die Funktion COMPLEX erzeugt eine komplexe Zahl. Der
+.Real- und Imagin\344rteil m\374ssen nicht-komplexe
+.Zahlen sein.
+.
+.Beispiel:      >(complex 1 2)
+.               #C(1 2)
+.
+#endif
+
+FF
+
+>REALPART
+.REALPART
+.========
+#ifdef __english
+.
+.syntax: (realpart <complex number>)
+.
+.        ==> <non-complex number>
+.
+.This function extracts the real part from the complex
+.number. The result is a non-complex number.
+.
+.example:       >(realpart #C(1 2))
+.               1
+.
+#else
+.
+.Syntax: (realpart <komplexe Zahl>)
+.
+.        ==> <nicht-komplexe Zahl>
+.
+.Diese Funktion extrahiert den Realteil der komplexen
+.Zahl. Das Ergebnis ist eine nicht-komplexe Zahl.
+.
+.Beispiel:      >(realpart #C(1 2))
+.               1
+.
+#endif
+
+FF
+
+>IMAGPART
+.IMAGPART
+.========
+#ifdef __english
+.
+.syntax: (imagpart <complex number>)
+.
+.        ==> <non-complex number>
+.
+.This function extracts the imaginary part from the
+.complex number. The result is a non-complex number.
+.
+.example:       >(imagpart #C(1 2))
+.               2	
+.
+#else
+.
+.Syntax: (imagpart <komplexe Zahl>)
+.
+.        ==> <nicht-komplexe Zahl>
+.
+.Diese Funktion extrahiert den Imagin\344rteil der
+.komplexen Zahl. Das Ergebnis ist eine nicht-komplexe
+.Zahl.
+.
+.Beispiel:      >(imagpart #C(1 2))
+.               2
+.
+#endif
+
+FF
+
+>NUMERATOR
+.NUMERATOR
+.=========
+#ifdef __english
+.
+.syntax: (numerator <ratio>)
+.
+.        ==> <numerator>
+.
+.This function extracts the numerator from a ratio.
+.The ratio has to be of type integer or ratio. If
+.the number is an integer then the numerator = <ratio>.
+.
+.example:       >(numerator 2/3)
+.               2
+.
+#else
+.
+.Syntax: (numerator <rationale Zahl>)
+.
+.        ==> <Z\344hler>
+.
+.Diese Funktion extrahiert die Z\344hler einer rationalen
+.Zahl. Die rationale Zahl mu\337 vom Typ integer oder
+.ratio sein. Bei einer ganzen Zahl ist der Z\344hler =
+.<rationale Zahl>.
+.
+.Beispiel:      >(numerator 2/3)
+.               2
+.
+#endif
+
+FF
+
+>DENOMINATOR
+.DENOMINATOR
+.===========
+#ifdef __english
+.
+.syntax: (denominator <ratio>)
+.
+.        ==> <denominator>
+.
+.This function extracts the denominator from a ratio.
+.The ratio has to be of type integer or ratio. If
+.the number is an integer, then the denominator is 1.
+.
+.example:       >(denominator 2/3)
+.               3
+.
+#else
+.
+.Syntax: (denominator <rationale Zahl>)
+.
+.        ==> <Nenner>
+.
+.Diese Funktion extrahiert den Nenner einer rationalen
+.Zahl. Die rationale Zahl mu\337 vom Typ integer oder
+.ratio sein. Bei einer ganzen Zahl ist der Nenner 1.
+.
+.Beispiel:      >(denominator 2/3)
+.               3
+.
+#endif
+
+FF
+
+>+
+.+
+.=
+#ifdef __english
+.
+.syntax: (+ {<number> ...})
+.
+.        ==> <number>
+.
+.The arithmetic operation + adds its arguments. 
+.
+.example:       >(+ 1 2)
+.               3
+.
+#else
+.
+.Syntax: (+ {<Zahl> ...})
+.
+.        ==> <Zahl>
+.
+.Die arithmetische Grundoperation + addiert ihre
+.Argumente.
+.
+.Beispiel:      >(+ 1 2)
+.               3
+.
+#endif
+
+FF
+
+>-
+.-
+.=
+#ifdef __english
+.
+.syntax: (- {<number> ...})
+.
+.        ==> <number>
+.
+.The arithmetic operation (- x) negates its argument. 
+.- with more than one argument substracts the following
+.arguments from the first one.
+.
+.example:       >(- 1 2)
+.               -1
+.
+#else
+.
+.Syntax: (- {<Zahl> ...})
+.
+.        ==> <Zahl>
+.
+.Die arithmetische Grundoperation (- x) negiert ihr
+.Argument. -  mit mehreren Argumenten subtrahiert vom
+.ersten Argument die weiteren.
+.
+.Beispiel:      >(- 1 2)
+.               -1
+.
+#endif
+
+FF
+
+>*
+.*
+.=
+#ifdef __english
+.
+.syntax: (* {<number> ...})
+.
+.        ==> <number>
+.
+.The arithmetic operation * multiplies its arguments. 
+.
+.example:       >(* 1 2)
+.               2
+.
+#else
+.
+.Syntax: (* {<Zahl> ...})
+.
+.        ==> <Zahl>
+.
+.Die arithmetische Grundoperation * multipliziert ihre
+.Argumente.
+.
+.Beispiel:      >(* 1 2)
+.               2
+.
+#endif
+
+FF
+
+>/
+./
+.=
+#ifdef __english
+.
+.syntax: (/ {<number> ...})
+.
+.        ==> <number>
+.
+.The arithmetic operation (/ x) reciprocates the
+.argument. / with more than one argument divides the
+.first argument through all the others.
+.
+.example:       >(/ 3 4 5)
+.               3/20
+.
+#else
+.
+.Syntax: (/ {<Zahl> ...})
+.
+.        ==> <Zahl>
+.
+.Die arithmetische Grundoperation (/ x) bildet den
+.Kehrwert. / mit mehreren Argumenten dividiert das
+.erste Argument durch die weiteren.
+.
+.Beispiel:      >(/ 3 4 5)
+.               3/20
+.
+#endif
+
+FF
+
+>=
+.=
+.=
+#ifdef __english
+.
+.syntax: (= {<number> ...})
+.
+.This function checks the arguments, whether they
+.are all equal. It returns T, when the test was
+.successful, otherwise NIL.
+.
+.example:       >(= 1 1 2)
+.               NIL
+.
+#else
+.
+.Syntax: (= {<Zahl> ...})
+.
+.Diese Funktion pr\374ft die angegebene Folge von
+.Zahlen auf Gleichheit. Der R\374ckgabewert ist T, wenn
+.der Test erfolgreich war, sonst NIL.
+.
+.Beispiel:      >(= 1 1 2)
+.               NIL
+.
+#endif
+
+FF
+
+><=
+.<=
+.==
+#ifdef __english
+.
+.syntax: (<= {<non-complex number> ...})
+.
+.This function checks the arguments, whether they are
+.monotonically nondecreasing. It returns T, when the
+.test was successful, otherwise NIL.
+.
+.example:       >(<= 1 2.0)
+.               T
+.
+#else
+.
+.Syntax: (<= {<nicht-komplexe Zahl> ...})
+.
+.Diese Funktion pr\374ft die angegebene Folge von
+.Zahlen auf monotones Nichtfallen. Der R\374ckgabewert
+.ist T, wenn der Test erfolgreich war, sonst NIL.
+.
+.Beispiel:      >(<= 1 2.0)
+.               T
+.
+#endif
+
+FF
+
+><
+.<
+.=
+#ifdef __english
+.
+.syntax: (< {<non-complex number> ...})
+.
+.This function checks the arguments, whether they are
+.monotonically increasing. It returns T, when the test
+.was successful, otherwise NIL.
+.
+.example:       >(< 1 2 3)
+.               T
+.
+#else
+.
+.Syntax: (< {<nicht-komplexe Zahl> ...})
+.
+.Diese Funktion pr\374ft die angegebene Folge von
+.Zahlen auf monotones Steigen. Der R\374ckgabewert
+.ist T, wenn der Test erfolgreich war, sonst NIL.
+.
+.Beispiel:      >(< 1 2 3)
+.               T
+.
+#endif
+
+FF
+
+>>
+.>
+.=
+#ifdef __english
+.
+.syntax: (> {<non-complex number> ...})
+.
+.This function checks the arguments, whether they are
+.monotonically decreasing. It returns T, when the test
+.was successful, otherwise NIL.
+.
+.example:       >(> 1 2 3)
+.               NIL
+.
+#else
+.
+.Syntax: (> {<nicht-komplexe Zahl> ...})
+.
+.Diese Funktion pr\374ft die angegebene Folge von
+.Zahlen auf monotones Fallen. Der R\374ckgabewert
+.ist T, wenn der Test erfolgreich war, sonst NIL.
+.
+.Beispiel:      >(> 1 2 3)
+.               NIL
+.
+#endif
+
+FF
+
+>>=
+.>=
+.==
+#ifdef __english
+.
+.syntax: (>= {<non-complex number> ...})
+.
+.This function checks the arguments, whether they are
+.monotonically nonincreasing. It returns T, when the
+.test was successful, otherwise NIL.
+.
+.example:       >(>= 1 1.0)
+.               T
+.
+#else
+.
+.Syntax: (>= {<nicht-komplexe Zahl> ...})
+.
+.Diese Funktion pr\374ft die angegebene Folge von
+.Zahlen auf monotones Nichtsteigen. Der R\374ckgabewert
+.ist T, wenn der Test erfolgreich war, sonst NIL.
+.
+.Beispiel:      >(>= 1 1.0)
+.               T
+.
+#endif
+
+FF
+
+>/=
+./=
+.==
+#ifdef __english
+.
+.syntax: (/= {<number> ...})
+.
+.This function checks the arguments, whether they are
+.all different. It returns T, when the test was
+.successful, otherwise NIL.
+.
+.example:       >(/= 1 1.0)
+.               NIL
+.
+#else
+.
+.Syntax: (/= {<Zahl> ...})
+.
+.Diese Funktion pr\374ft die angegebene Folge von
+.Zahlen auf Ungleichheit. Der R\374ckgabewert ist T,
+.wenn der Test erfolgreich war, sonst NIL.
+.
+.Beispiel:      >(/= 1 1.0)
+.               NIL
+.
+#endif
+
+FF
+
+>FLOOR
+.FLOOR
+.=====
+#ifdef __english
+.
+.syntax: (floor <non-complex number>)
+.
+.This function rounds off non-complex numbers. The 
+.result is an integer without rest. 
+.
+.example:       >(floor 1.6)
+.               1 ;
+.               0.6   ; the second result only exists 
+.                             in Common Lisp, not
+.                                     in Babylon Lisp!
+.
+#else
+.
+.Syntax: (floor <nicht-komplexe Zahl>)
+.
+.Diese Funktion rundet nicht-komplexe Zahlen ab. Das
+.Ergebnis ist die entsprechende ganze Zahl.
+.
+.Beispiel:      >(floor 1.6)
+.               1 ;
+.               0.6     ; der zweite R\374ckgabewert
+.                         wird nur unter Common Lisp
+.                         unterst\374tzt, aber nicht
+.                         unter Babylon Lisp!
+.
+#endif
+
+FF
+
+>CEILING
+.CEILING
+.=======
+#ifdef __english
+.
+.syntax: (ceiling <non-complex number>)
+.
+.This function rounds non-complex numbers. The
+.result is the next integer.
+.
+.example:       >(ceiling 1.4)         
+.               2 ;
+.               -0.6 ; the second result only exists 
+.                               in Common Lisp, not
+.                                    in Babylon Lisp!
+.
+#else
+.
+.Syntax: (ceiling <nicht-komplexe Zahl>)
+.
+.Diese Funktion rundet nicht-komplexe Zahlen auf. Das
+.Ergebnis ist die entsprechende ganze Zahl.
+.
+.Beispiel:      >(ceiling 1.4)   
+.               2 ;                 
+.               -0.6     ; der zweite R\374ckgabewert
+.                          wird nur unter Common Lisp
+.                          unterst\374tzt, aber nicht
+.                          unter Babylon Lisp!
+.
+#endif
+
+FF
+
+>ROUND
+.ROUND
+.=====
+#ifdef __english
+.
+.syntax: (round <non-complex number>)
+.
+.This function rounds non-complex numbers. The result
+.is the nearest integer.
+.
+.example:       >(round 1.5)
+.               2 ;
+.               -0.5  ; the second result only exists 
+.                            in Common Lisp, not
+.                                 in Babylon Lisp!
+.
+#else
+.
+.Syntax: (round <nicht-komplexe Zahl>)
+.
+.Diese Funktion rundet nicht-komplexe Zahlen zur
+.n\344chsten ganzen Zahl. Das Ergebnis ist die
+.entsprechende ganze Zahl.
+.
+.Beispiel:      >(round 1.5)
+.               2 ;
+.               -0.5  ; der zweite R\374ckgabewert wird
+.                       nur unter Common Lisp unter-
+.                       st\374tzt, aber nicht unter
+.                       Babylon Lisp!
+.
+#endif
+
+FF
+
+>FLOAT
+.FLOAT
+.=====
+#ifdef __english
+.
+.syntax: (float <non-complex number>)
+.
+.This function converts non-complex numbers into a
+.floating-point number. The result is a floating-point
+.number.
+.
+.example:       >(float 2/3)
+.               0.6666667
+.
+#else
+.
+.Syntax: (float <nicht-komplexe Zahl>)
+.
+.Diese Funktion konvertiert nicht-komplexe Zahlen in
+.eine Gleitkommazahl. R\374ckgabewert ist die ermittelte
+.Gleitkommazahl.
+.
+.Beispiel:      >(float 2/3)
+.               0.6666667
+.
+#endif
+
+FF
+
+>CONJUGATE
+.CONJUGATE
+.=========
+#ifdef __english
+.
+.syntax: (conjugate <number>)
+.
+.This function converts a number into its conjugate
+.complex number. The result for non-complex numbers
+.is the argument <number> itself.
+.
+.example:       >(conjugate #C(1 2))
+.               #C(1 -2)
+.
+#else
+.
+.Syntax: (conjugate <Zahl>)
+.
+.Diese Funktion ermittelt die konjugiert komplexe
+.Zahl zu <Zahl>. F\374r nicht-komplexe Zahlen ist
+.das Ergebnis das Argument <Zahl> selbst. R\374ckgabe-
+.wert ist die ermittelte komplexe Zahl.
+.
+.Beispiel:      >(conjugate #C(1 2))
+.               #C(1 -2)
+.
+#endif
+
+FF
+
+>ABS
+.ABS
+.===
+#ifdef __english
+.
+.syntax: (abs <number>)
+.
+.This function returns the absolute value of
+.the argument.
+.
+.example:       >(abs -4)
+.               4
+.
+#else
+.
+.Syntax: (abs <Zahl>)
+.
+.Diese Funktion bildet den Absolutbetrag von <Zahl>.
+.
+.Beispiel:      >(abs -4)
+.               4
+.
+#endif
+
+FF
+
+>SIN
+.SIN
+.===
+#ifdef __english
+.
+.syntax: (sin <number>)
+.
+.SIN calculates the sine of the argument. The argument
+.has to be given in radians and may be complex.
+.
+.example:      >(sin (/ pi 2))
+.              1.0L0
+.
+#else
+.
+.Syntax: (sin <Zahl>)
+.
+.SIN berechnet den Sinus des Argumentes . Die Argumente
+.werden in Bogenma\337 angegeben und d\374rfen komplex
+.sein.
+.
+.Beispiel:      >(sin (/ pi 2))
+.               1.0L0
+.
+#endif
+
+FF
+
+>COS
+.COS
+.===
+#ifdef __english
+.
+.syntax: (cos <number>)
+.
+.COS calculates the cosine of the argument. The
+.argument has to be given in radians and may be
+.complex.
+.
+.example:       >(cos (/ pi 4))
+.               0.7071067811865475244L0
+.
+#else
+.
+.Syntax: (cos <Zahl>)
+.
+.COS berechnet den Kosinus des Argumentes. Die
+.Argumente werden in Bogenma\337 angegeben und
+.d\374rfen komplex sein.
+.
+.Beispiel:      >(cos (/ pi 4))
+.               0.7071067811865475244L0
+.
+#endif
+
+FF
+
+>TAN
+.TAN
+.===
+#ifdef __english
+.
+.syntax: (tan <number>)
+.
+.TAN calculates the tangent of the argument. The
+.argument has to be given in radians and may be
+.complex.
+.
+.example:       >(tan 0)
+.               0
+.
+#else
+.
+.Syntax: (tan <Zahl>)
+.
+.TAN berechnet den Tangens des Argumentes. Die
+.Argumente werden in Bogenma\337 angegeben und
+.d\374rfen komplex sein.
+.
+.Beispiel:      >(tan 0)
+.               0
+.
+#endif
+
+FF
+
+>ASIN
+.ASIN
+.====
+#ifdef __english
+.
+.syntax: (asin <number>)
+.
+.ASIN calculates the arc sine of the argument. The
+.result returns in radians. The argument may be
+.complex.
+.
+.example:       >(asin 1.0)
+.               1.5707964
+.
+#else
+.
+.Syntax: (asin <Zahl>)
+.
+.ASIN berechnet den Arkus-Sinus des Argumentes. Die
+.Ergebnisse werden in Bogenma\337 geliefert. Das
+.Argument darf komplex sein.
+.
+.Beispiel:      >(asin 1.0)
+.               1.5707964
+.
+#endif
+
+FF
+
+>ACOS
+.ACOS
+.====
+#ifdef __english
+.
+.syntax: (acos <number>)
+.
+.ACOS calculates the arc cosine of the argument. The
+.result returns in radians. The argument may be
+.complex.
+.
+.example:       >(acos 0.707)
+.               0.7855493
+.
+#else
+.
+.Syntax: (acos <Zahl>)
+.
+.ACOS berechnet den Arkus-Kosinus des Argumentes. Die
+.Ergebnisse werden in Bogenma\337 geliefert. Das
+.Argument darf komplex sein.
+.
+.Beispiel:       >(acos 0.707)
+.                0.7855493
+.
+#endif
+
+FF
+
+>ATAN
+.ATAN
+.====
+#ifdef __english
+.
+.syntax: (atan <number>)
+.
+.ATAN calculates the arc tangent of the argument. The
+.result returns in radians. The argument may be
+.complex.
+.
+.example:       >(atan 0)
+.               0
+.
+#else
+.
+.Syntax: (atan <Zahl>)
+.
+.ATAN berechnet den Arkus-Tangens des Argumentes. Die
+.Ergebnisse werden in Bogenma\337 geliefert. Das
+.Argument darf komplex sein.
+.
+.Beispiel:      >(atan 0)
+.               0
+.
+#endif
+
+FF
+
+>SINH
+.SINH
+.====
+#ifdef __english
+.
+.syntax: (sinh <number>)
+.
+.This function computes the hyperbolic sine function.
+.This function is not supported by babylon v3!
+.
+.example:       >(sinh pi)
+.               11.548739357257748379L0
+.
+#else
+.
+.Syntax: (sinh <Zahl>) 
+.
+.Diese Funktion berechnet den hyperbolischen Sinus.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:      >(sinh pi)
+.               11.548739357257748379L0
+.
+#endif
+
+FF
+
+>COSH
+.COSH
+.====
+#ifdef __english
+.
+.syntax: (cosh <number>) 
+.
+.This function computes the hyperbolic cosine function.
+.This function is not supported by babylon v3!
+.
+.example:       >(cosh pi)
+.               11.591953287257748379L0
+.
+#else
+.
+.Syntax: (cosh <Zahl>) 
+.
+.Diese Funktion berechnet den hyperbolischen Kosinus.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:      >(cosh pi)
+.               11.591953287257748379L0
+.
+#endif
+
+FF
+
+>TANH
+.TANH
+.====
+#ifdef __english
+.
+.syntax: (tanh <number>) 
+.
+.This function computes the hyperbolic tangent
+.function.
+.This function is not supported by babylon v3!
+.
+.example:       >(tanh pi)
+.               0.996272076
+.
+#else
+.
+.Syntax: (tanh <Zahl>) 
+.
+.Diese Funktion berechnet den hyperbolischen Tangens.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:      >(tanh pi)
+.               0.996272076
+.
+#endif
+
+FF
+
+>ASINH
+.ASINH
+.=====
+#ifdef __english
+.
+.syntax: (asinh <number>)
+.
+.This function computes the arc hyperbolic sine
+.function.
+.This function is not supported by babylon v3!
+.
+.example:       >(asinh pi)
+.               1.862295743
+.
+#else
+.
+.Syntax: (asinh <Zahl>)
+.
+.Diese Funktion berechnet den hyperbolischen
+.Arkus-Sinus.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:     >(asinh pi)
+.              1.862295743
+.
+#endif
+
+FF
+
+>ACOSH
+.ACOSH
+.=====
+#ifdef __english
+.
+.syntax: (acosh <number>)
+.
+.This function computes the arc hyperbolic cosine
+.function.
+.This function is not supported by babylon v3!
+.
+.example:       >(acosh pi)
+.               1.811526272
+.
+#else
+.
+.Syntax: (acosh <Zahl>)
+.
+.Diese Funktion berechnet den hyperbolischen Arkus-
+.Kosinus.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:     >(acosh pi)
+.              1.811526272
+.
+#endif
+
+FF
+
+>ATANH
+.ATANH
+.=====
+#ifdef __english
+.
+.syntax: (atanh <number>)
+.
+.This function computes the arc hyperbolic tangent
+.function.
+.This function is not supported by babylon v3!
+.
+.example:       >(atanh pi)
+.               0
+.
+#else
+.
+.Syntax: (atanh <Zahl>)
+.
+.Diese Funktion berechnet den hyperbolischen Arkus-
+.Tangens.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:      >(atanh pi)
+.               0
+.
+#endif
+
+FF
+
+>SQRT
+.SQRT
+.====
+#ifdef __english
+.
+.syntax: (sqrt <number>)
+.
+.The function SQRT calculates the square root of
+.the argument.
+.
+.example:       >(sqrt 3)
+.               1.7320508
+.
+#else
+.
+.Syntax: (sqrt <Zahl>)
+.
+.Die Funktion SQRT berechnet die Wurzel aus dem
+.Argument. R\374ckgabewert ist die Quadratw\374rzel.
+.
+.Beispiel:      >(sqrt 3)
+.               1.7320508
+.
+#endif
+
+FF
+
+>EXP
+.EXP
+.===
+#ifdef __english
+.
+.syntax: (exp <number>)
+.
+.This function calculates e^<number>.
+.
+.example:       >(exp 3)
+.               20.085537
+.
+#else
+.
+.Syntax: (exp <Zahl>)
+.
+.Diese Funktion berechnet e^<Zahl>.
+.
+.Beispiel:      >(exp 3)
+.               20.085537
+.
+#endif
+
+FF
+
+>EXPT
+.EXPT
+.====
+#ifdef __english
+.
+.syntax: (expt <base> <power>)
+.
+.This function calculates <base>^<power>
+.
+.example:       >(expt 2 3)
+.               8
+.
+#else
+.
+.Syntax: (expt <Basis> <Potenz>)
+.
+.Diese Funktion berechnet <Basis>^<Potenz>.
+.
+.Beispiel:      >(expt 2 3)
+.               8
+.
+#endif
+
+FF
+
+>LOG
+.LOG
+.===
+#ifdef __english
+.
+.syntax: (log <number> <base>)
+.
+.This function calculates without <base> the natural
+.logarithm , otherwise the logarithm of the argument
+.with a base different from e.
+.This function is not supported by babylon v3!
+.
+.examples:      >(log 2)
+.               0.6931472
+.
+.               >(log 2 10)
+.               0.30102998
+.
+#else
+.
+.Syntax: (log <Zahl> <Basis>)
+.
+.Diese Funktion berechnet ohne Basisangabe den nat\374r-
+.lichen Logarithmus, sonst den Logarithmus zur 
+.ge\344nderter Basis.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:      >(log 2)
+.               0.6931472
+.
+.               >(log 2 10)
+.               0.30102998
+.
+#endif
+
+FF
+
+>MIN
+.MIN
+.===
+#ifdef __english
+.
+.syntax: (min {<number> ...})
+.
+.This function searches for the smallest number
+.of all given numbers.
+.
+.example:       >(min 8 3 6 2 6 1 7 5 4)
+.               1
+.
+#else
+.
+.Syntax: (min {<Zahl> ...})
+.
+.Diese Funktion bestimmt das Minimum der angegebenen
+.Zahlenfolge. R\374ckgabewert ist der gefundene minimale
+.Wert.
+.
+.Beispiel:      >(min 8 3 6 2 6 1 7 5 4)
+.               1
+.
+#endif
+
+FF
+
+>MAX
+.MAX
+.===
+#ifdef __english
+.
+.syntax: (max {<number> ...})
+.
+.This function searches for the biggest number
+.of all given numbers.
+.
+.example:       >(max 1 2 3)
+.               3
+.
+#else
+.
+.Syntax: (max {<Zahl> ...})
+.
+.Diese Funktion bestimmt das Maximum der angegebenen
+.Zahlenfolge. R\374ckgabewert ist der gefundene maximale
+.Wert.
+.
+.Beispiel:      >(max 1 2 3)
+.               3
+.
+#endif
+
+FF
+
+>GCD
+.GCD
+.===
+#ifdef __english
+.
+.syntax: (gcd {<number> ...})
+.
+.This function returns the greatest common divisor of
+.all the arguments.
+.It is not supported by babylon v3!
+.
+.example:       >(gcd 12 16)
+.               4
+.
+#else
+.
+.Syntax: (gcd {<Zahl> ...})
+.
+.Diese Funktion liefert den gr\366\337ten gemeinsamen
+.Teiler der Argumente.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:      >(gcd 12 16)
+.               4
+.
+#endif
+
+FF
+
+>LCM
+.LCM
+.===
+#ifdef __english
+.
+.syntax: (lcm {<number> ...})
+.
+.This function returns the least common multiple of
+.all the arguments.
+.It is not supported by babylon v3!
+.
+.example:       >(lcm 12 16)
+.               48
+.
+#else
+.
+.Syntax: (lcm {<Zahl> ...})
+.
+.Diese Funktion liefert das kleinste gemeinsame
+.Vielfache der Argumente.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:      >(lcm 12 16)
+.               48
+.
+#endif
+
+FF
+
+>MINUSP
+.MINUSP
+.======
+#ifdef __english
+.
+.syntax: (minusp <number>)
+.
+.This function checks, whether the argument is <0.
+.The result is T, when the test was successful,
+.otherwise NIL.
+.This function is not supported by babylon v3!
+.
+.example:       >(minusp 3)
+.               NIL
+.
+#else
+.
+.Syntax: (minusp <Zahl>)
+.
+.Diese Funktion pr\374ft, ob das Argument <0 ist!
+.Der R\374ckgabewert ist T bei erfolgreichem Test,
+.sonst NIL.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+.Beispiel:      >(minusp 3)
+.               NIL
+.
+#endif
+
+FF
+
+>ZEROP
+.ZEROP
+.=====
+#ifdef __english
+.
+.syntax: (zerop <number>)
+.
+.This function checks, whether the argument is =0.
+.The result is T, when the test was successful,
+.otherwise NIL.
+.This function is not supported by babylon v3!
+.
+.example:       >(zerop 0)
+.               T
+.
+#else
+.
+.Syntax: (zerop <Zahl>)
+.
+.Diese Funktion pr\374ft, ob das Argument =0 ist!
+.Der R\374ckgabewert ist T bei erfolgreichem Test,
+.sonst NIL.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+.Beispiel:      >(zerop 0)
+.               T
+.
+#endif
+
+FF
+
+>PLUSP
+.PLUSP
+.=====
+#ifdef __english
+.
+.syntax: (plusp <number>)
+.
+.This function checks, whether the argument is >0.
+.The result is T, when the test was successful,
+.otherwise NIL.
+.This function is not supported by babylon v3!
+.
+.example:       >(plusp 3)
+.               T
+.
+#else
+.
+.Syntax: (plusp <Zahl>)
+.
+.Diese Funktion pr\374ft, ob das Argument >0 ist!
+.Der R\374ckgabewert ist T bei erfolgreichem Test,
+.sonst NIL.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+.Beispiel:      >(plusp 3)
+.               T
+.
+#endif
+
+FF
+
+>ODDP
+.ODDP
+.====
+#ifdef __english
+.
+.syntax: (oddp <integer>)
+.
+.This function checks, whether the argument is odd.
+.The result ist T, when the test was successful,
+.otherwise NIL.
+.This function is not supported by babylon v3!
+.
+.example:       >(oddp 3)
+.               T
+.
+#else
+.
+.Syntax: (oddp <Ganze Zahl>)
+.
+.Diese Funktion pr\374ft, ob das Argument ungerade ist.
+.Der R\374ckgabewert ist T bei erfolgreichem Test,
+.sonst NIL.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+.Beispiel:      >(oddp 3)
+.               T
+.
+#endif
+
+FF
+
+>EVENP
+.EVENP
+.=====
+#ifdef __english
+.
+.syntax: (evenp <integer>)
+.
+.This function checks, whether the argument is even.
+.The result is T, when the test was successful,
+.otherwise NIL.
+.This function is not supported by babylon v3!
+.
+.example:       >(evenp 3)
+.               NIL
+.
+#else
+.
+.Syntax: (evenp <Ganze Zahl>)
+.
+.Diese Funktion pr\374ft, ob das Argument gerade ist.
+.Der R\374ckgabewert ist T bei erfolgreichem Test,
+.sonst NIL.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+.Beispiel:      >(evenp 3)
+.               NIL
+.
+#endif
+
+FF
+
+! ----------------------------------------------------
+
+>ALPHA-CHAR-P
+.ALPHA-CHAR-P
+.============
+#ifdef __english
+.
+.Syntax: (alpha-char-p <character>)
+.
+.This function checks, whether the argument is an
+.alphabetic character. It returns T, when the test 
+.was successful, otherwise NIL.
+.
+.uppercase-character:                   A...Z
+.lowercase-character:                   a...z
+.digit-character:                       0...9
+.alphanumeric-character:                A...Z, a...z
+.                                       and 0...9
+.
+.example:       >(alpha-char-p #\5)
+.               NIL
+.
+#else
+.
+.Syntax: (alpha-char-p <Zeichen>)
+.
+.Diese Funktion pr\374ft, ob das Zeichen ein
+.Buchstabenzeichen ist. Der R\374ckgabewert ist T
+.bei erfolgreichem Test, sonst NIL.
+.
+.Gro\337buchstabe:                         A...Z
+.Kleinbuchstabe:                        a...z
+.Ziffernzeichen:                        0...9
+.Alphanumerisches Zeichen:              A...Z, a...z
+.                                       und 0...9
+.
+.Beispiel:      >(alpha-char-p #\5)
+.               NIL
+.
+#endif
+
+FF
+
+>UPPER-CASE-P
+.UPPER-CASE-P
+.============
+#ifdef __english
+.
+.Syntax: (upper-case-p <character>)
+.
+.This function checks, whether the argument is an
+.uppercase character. It returns T, when the test 
+.was successful, otherwise NIL.
+.
+.uppercase-character:                   A...Z
+.lowercase-character:                   a...z
+.digit-character:                       0...9
+.alphanumeric-character:                A...Z, a...z
+.                                       and 0...9
+.
+.example:       >(upper-case-p #\A)
+.               T
+.
+#else
+.
+.Syntax: (upper-case-p <Zeichen>)
+.
+.Diese Funktion pr\374ft, ob das Zeichen ein Gro\337-
+.buchstabe ist. Der R\374ckgabewert ist T bei erfolg-
+.reichem Test, sonst NIL.
+.
+.Gro\337buchstabe:                         A...Z
+.Kleinbuchstabe:                        a...z
+.Ziffernzeichen:                        0...9
+.Alphanumerisches Zeichen:              A...Z, a...z
+.                                       und 0...9
+.
+.Beispiel:      >(upper-case-p #\A)
+.               T
+.
+#endif
+
+FF
+
+>LOWER-CASE-P
+.LOWER-CASE-P
+.============
+#ifdef __english
+.
+.Syntax: (lower-case-p <character>)
+.
+.This function checks, whether the argument is a
+.lowercase character. It returns T, when the test 
+.was successful, otherwise NIL.
+.
+.uppercase-character:                   A...Z
+.lowercase-character:                   a...z
+.digit-character:                       0...9
+.alphanumeric-character:                A...Z, a...z
+.                                       and 0...9
+.
+.example:       >(lower-case-p #\a)
+.               T
+.
+#else
+.
+.Syntax: (lower-case-p <Zeichen>)
+.
+.Diese Funktion pr\374ft, ob das Zeichen ein Klein-
+.buchstabe ist. Der R\374ckgabewert ist T bei erfolg-
+.reichem Test, sonst NIL.
+.
+.Gro\337buchstabe:                         A...Z
+.Kleinbuchstabe:                        a...z
+.Ziffernzeichen:                        0...9
+.Alphanumerisches Zeichen:              A...Z, a...z
+.                                       und 0...9
+.
+.Beispiel:      >(lower-case-p #\a)
+.               T
+.
+#endif
+
+FF
+
+>DIGIT-CHAR-P
+.DIGIT-CHAR-P
+.============
+#ifdef __english
+.
+.Syntax: (digit-char-p <character>)
+.
+.This function checks, whether the argument is a digit
+.character. It returns the digit character, when the
+.test was successful, otherwise NIL.
+.
+.uppercase-character:                   A...Z
+.lowercase-character:                   a...z
+.digit-character:                       0...9
+.alphanumeric-character:                A...Z, a...z
+.                                       and 0...9
+.
+.example:       >(digit-char-p #\5)
+.               5
+.
+#else
+.
+.Syntax: (digit-char-p <Zeichen>)
+.
+.Diese Funktion pr\374ft, ob das Zeichen ein Ziffern-
+.zeichen ist. Der R\374ckgabewert ist das Ziffernzeichen
+.bei erfolgreichem Test, sonst NIL.
+.
+.Gro\337buchstabe:                         A...Z
+.Kleinbuchstabe:                        a...z
+.Ziffernzeichen:                        0...9
+.Alphanumerisches Zeichen:              A...Z, a...z
+.                                       und 0...9
+.
+.Beispiel:      >(digit-char-p #\5)
+.               5
+.
+#endif
+
+FF
+
+>ALPHANUMERICP
+.ALPHANUMERICP
+.=============
+#ifdef __english
+.
+.Syntax: (alphanumericp <character>)
+.
+.This function checks, whether the argument is an
+.alphanumeric character. It returns T, when the test 
+.was successful, otherwise NIL.
+.
+.uppercase-character:                   A...Z
+.lowercase-character:                   a...z
+.digit-character:                       0...9
+.alphanumeric-character:                A...Z, a...z
+.                                       and 0...9
+.
+.example:       >(alphanumericp #\!)
+.               NIL
+.
+#else
+.
+.Syntax: (alphanumericp <Zeichen>)
+.
+.Diese Funktion pr\374ft, ob das Zeichen ein alpha-
+.numerisches Zeichen ist. Der R\374ckgabewert ist T
+.bei erfolgreichem Test, sonst NIL.
+.
+.Gro\337buchstabe:                         A...Z
+.Kleinbuchstabe:                        a...z
+.Ziffernzeichen:                        0...9
+.Alphanumerisches Zeichen:              A...Z, a...z
+.                                       und 0...9
+.
+.Beispiel:      >(alphanumericp #\!)
+.               NIL
+.
+#endif
+
+FF
+
+>CHAR=
+.CHAR=
+.=====
+#ifdef __english
+.
+.Syntax: (char= {<character> ...})
+.
+.This function compares the given characters in the
+.same way like numbers.
+.
+.The following ordering on characters exists:
+. 
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.The ordering between those groups is unspecified and
+.depends on the implementation. But most of the time
+.the characters are in the ASCII ordering.
+.
+.0...9 < A...Z < a...z.
+.
+.It returns T, when the ordering is given,
+.otherwise NIL.
+.
+.example:       >(char= #\a #\A)
+.               NIL
+.
+#else
+.
+.Syntax: (char= {<Zeichen> ...})
+.
+.Diese Funktion vergleicht die angegebenen Zeichen
+.analog zu den numerischen Vergleichen.
+.
+.Es gilt folgende partielle Ordnung:
+.
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.Die Ordnung zwischen diesen Teilbereichen ist
+.unbestimmt und implementationsabh\344ngig. Meistens
+.aber wird wie folgt nach ASCII geordnet:
+.
+.0...9 < A...Z < a...z.
+.
+.Der R\374ckgabewert ist T wenn die Ordnung gegeben
+.ist, sonst NIL.
+.
+.Beispiel:      >(char= #\a #\A)
+.               NIL
+.
+#endif
+
+FF
+
+>CHAR/=
+.CHAR/=
+.======
+#ifdef __english
+.
+.Syntax: (char/= {<character> ...})
+.            ; Checks, whether the
+.              characters are not equal.
+.
+.This function compares the given characters in the
+.same way like numbers.
+.
+.The following ordering on characters exists:
+. 
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.The ordering between those groups is unspecified and
+.depends on the implementation. But most of the time
+.the characters are in the ASCII ordering.
+.
+.0...9 < A...Z < a...z.
+.
+.It returns T, when the ordering is given, otherwise
+.NIL.
+.
+.example:       >(char/= #\a #\A)
+.               T
+.
+#else
+.
+.Syntax: (char/= {<Zeichen> ...})
+.            ; Pr\374ft, ob die Zeichen
+.              ungleich sind.
+.
+.Diese Funktion vergleicht die angegebenen Zeichen
+.analog zu den numerischen Vergleichen.
+.
+.Es gilt folgende partielle Ordnung:
+.
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.Die Ordnung zwischen diesen Teilbereichen ist
+.unbestimmt und implementationsabh\344ngig. Meistens
+.aber wird wie folgt nach ASCII geordnet:
+.
+.0...9 < A...Z < a...z.
+.
+.Der R\374ckgabewert ist T wenn die Ordnung gegeben
+.ist, sonst NIL.
+.
+.Beispiel:      >(char/= #\a #\A)
+.               T
+.
+#endif
+
+FF
+
+>CHAR<
+.CHAR<
+.=====
+#ifdef __english
+.
+.Syntax: (char< {<character> ...})
+.
+.This function compares the given characters in the
+.same way like numbers.
+.
+.The following ordering on characters exists:
+. 
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.The ordering between those groups is unspecified and
+.depends on the implementation. But most of the time
+.the characters are in the ASCII ordering.
+.
+.0...9 < A...Z < a...z.
+.
+.It returns T, when the ordering is given, otherwise
+.NIL.
+.
+.example:       >(char< #\a #\b)
+.               T
+.
+#else
+.
+.Syntax: (char< {<Zeichen> ...})
+.
+.Diese Funktion vergleicht die angegebenen Zeichen
+.analog zu den numerischen Vergleichen.
+.
+.Es gilt folgende partielle Ordnung:
+.
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.Die Ordnung zwischen diesen Teilbereichen ist
+.unbestimmt und implementationsabh\344ngig. Meistens
+.aber wird wie folgt nach ASCII geordnet:
+.
+.0...9 < A...Z < a...z.
+.
+.Der R\374ckgabewert ist T wenn die Ordnung gegeben
+.ist, sonst NIL.
+.
+.Beispiel:      >(char< #\a #\b)
+.               T
+.
+#endif
+
+FF
+
+>CHAR>
+.CHAR>
+.=====
+#ifdef __english
+.
+.Syntax: (char> {<character> ...})
+.
+.This function compares the given characters in the
+.same way like numbers.
+.
+.The following ordering on characters exists:
+. 
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.The ordering between those groups is unspecified and
+.depends on the implementation. But most of the time
+.the characters are in the ASCII ordering.
+.
+.0...9 < A...Z < a...z.
+.
+.It returns T, when the ordering is given, otherwise
+.NIL.
+.
+.example:       >(char> #\a #\A #\5)
+.               T
+.
+#else
+.
+.Syntax: (char> {<Zeichen> ...})
+.
+.Diese Funktion vergleicht die angegebenen Zeichen
+.analog zu den numerischen Vergleichen. Es gilt fol-
+.gende partielle Ordnung:
+.
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.Die Ordnung zwischen diesen Teilbereichen ist
+.unbestimmt und implementationsabh\344ngig. Meistens
+.aber wird wie folgt nach ASCII geordnet:
+.
+.0...9 < A...Z < a...z.
+.
+.Der R\374ckgabewert ist T wenn die Ordnung gegeben
+.ist, sonst NIL.
+.
+.Beispiel:      >(char> #\a #\A #\5)
+.               T
+.
+#endif
+
+FF
+
+>CHAR<=
+.CHAR<=
+.======
+#ifdef __english
+.
+.Syntax: (char<= {<character> ...})
+.
+.This function compares the given characters in the
+.same way like numbers.
+.
+.The following ordering on characters exists:
+. 
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.The ordering between those groups is unspecified and
+.depends on the implementation. But most of the time
+.the characters are in the ASCII ordering.
+.
+.0...9 < A...Z < a...z.
+.
+.It returns T, when the ordering is given, otherwise
+.NIL.
+.
+.example:       >(char<= #\a #\b)
+.               T
+.
+#else
+.
+.Syntax: (char<= {<Zeichen> ...})
+.
+.Diese Funktion vergleicht die angegebenen Zeichen
+.analog zu den numerischen Vergleichen.
+.
+.Es gilt folgende partielle Ordnung:
+.
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.Die Ordnung zwischen diesen Teilbereichen ist
+.unbestimmt und implementationsabh\344ngig. Meistens
+.aber wird wie folgt nach ASCII geordnet:
+.
+.0...9 < A...Z < a...z.
+.
+.Der R\374ckgabewert ist T wenn die Ordnung gegeben
+.ist, sonst NIL.
+.
+.Beispiel:      >(char<= #\a #\b)
+.               T
+.
+#endif
+
+FF
+
+>CHAR>=
+.CHAR>=
+.======
+#ifdef __english
+.
+.Syntax: (char>= {<character> ...})
+.
+.This function compares the given characters in the
+.same way like numbers.
+.
+.The following ordering on characters exists:
+. 
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.The ordering between those groups is unspecified and
+.depends on the implementation. But most of the time
+.the characters are in the ASCII ordering.
+.
+.0...9 < A...Z < a...z.
+.
+.It returns T, when the ordering is given, otherwise
+.NIL.
+.
+.example:       >(char>= #\a #\a)
+.               T
+.
+#else
+.
+.Syntax: (char>= {<Zeichen> ...})
+.
+.Diese Funktion vergleicht die angegebenen Zeichen
+.analog zu den numerischen Vergleichen.
+.
+.Es gilt folgende partielle Ordnung:
+.
+.A < ... < Z
+.a < ... < z
+.0 < ... < 9
+.
+.Die Ordnung zwischen diesen Teilbereichen ist
+.unbestimmt und implementationsabh\344ngig. Meistens
+.aber wird wie folgt nach ASCII geordnet:
+.
+.0...9 < A...Z < a...z.
+.
+.Der R\374ckgabewert ist T wenn die Ordnung gegeben
+.ist, sonst NIL.
+.
+.Beispiel:      >(char>= #\a #\a)
+.               T
+.
+#endif
+
+FF
+
+>CHAR-CODE
+.CHAR-CODE
+.=========
+#ifdef __english
+.
+.Syntax: (char-code <character>)
+.
+.This function converts a character into a character
+.code.
+.
+.example:       >(char-code #\escape)
+.               27
+.
+#else
+.
+.Syntax: (char-code <Zeichen>)
+.
+.Diese Funktion wandelt ein Zeichen in eine ganze
+.Zahl um.
+.
+.Beispiel:      >(char-code #\escape)
+.               27
+.
+#endif
+
+FF
+
+>CODE-CHAR
+.CODE-CHAR
+.=========
+#ifdef __english
+.
+.Syntax: (code-char <character-code>)
+.
+.This function converts a character code into a
+.character.
+.
+.example:       >(code-char 27)
+.               #\Escape
+.
+#else
+.
+.Syntax: (code-char <Zeichencode>)
+.
+.Diese Funktion wandelt eine ganze Zahl in ein
+.Zeichen um.
+.
+.Beispiel:      >(code-char 27)
+.               #\Escape
+.
+#endif
+
+FF
+
+>CHAR-UPCASE
+.CHAR-UPCASE
+.===========
+#ifdef __english
+.
+.Syntax: (char-upcase <character>)
+.
+.This function converts the argument into an uppercase
+.character. The same character will be returned, when  
+.conversion is not possible (digit-character).
+.
+.example:       >(char-upcase #\a)
+.               #\A
+.
+#else
+.
+.Syntax: (char-upcase <Zeichen>)
+.
+.Diese Funktion wandelt das angegebene Zeichen in den
+.entsprechenden Gro\337buchstaben um. Ist das nicht
+.m\366glich (z.B. bei Ziffernzeichen) so wird das
+.Zeichen unver\344ndert als Wert geliefert.
+.
+.Beispiel:      >(char-upcase #\a)
+.               #\A
+.
+#endif
+
+FF
+
+>CHAR-DOWNCASE
+.CHAR-DOWNCASE
+.=============
+#ifdef __english
+.
+.Syntax: (char-downcase <character>)
+.
+.This function converts the argument into a downcase
+.character. The same character will be returned, when
+.conversion is not possible (digit-character).
+.
+.example:       >(char-downcase #\A)
+.               #\a
+.
+#else
+.
+.Syntax: (char-downcase <Zeichen>)
+.
+.Diese Funktion wandelt das angegebene Zeichen in den
+.entsprechenden Kleinbuchstaben um. Ist das nicht
+.m\366glich (z.B. bei Ziffernzeichen) so wird das
+.Zeichen unver\344ndert als Wert geliefert.
+.
+.Beispiel:      >(char-downcase #\A)
+.               #\a
+.
+#endif
+
+! ----------------------------------------------------
+
+FF
+
+>STRINGP
+.STRINGP
+.=======
+#ifdef __english
+.
+.Syntax: (stringp <string>)
+.
+.This function recognises strings. It returns T, when
+.the test was successful, otherwise NIL.
+.
+.example:       >(stringp "Computer")
+.               T
+.
+#else
+.
+.Syntax: (stringp <Zeichenkette>)
+.
+.Diese Funktion erkennt Zeichenketten. Der R\374ckgabe-
+.wert ist T bei erfolgreichem Test, sonst NIL.
+.
+.Beispiel:      >(stringp "Computer")
+.               T
+.
+#endif
+
+FF
+
+>CHAR
+.CHAR
+.====
+#ifdef __english
+.
+.Syntax: (char <string> <number>)
+.
+.This function extracts characters from a string.
+.
+.examples:      >(char "Computer" 0)
+.               #\C
+.
+.               >(char "Computer" 2)
+.               #\m
+.
+#else
+.
+.Syntax: (char <Zeichenkette> <Zahl>)
+.
+.Die Funktion Char dient zum Zugriff auf ein
+.Einzelzeichen innerhalb einer Zeichenkette.
+.
+.Beispiel:      >(char "Computer" 0)
+.               #\C
+.
+.               >(char "Computer" 2)
+.               #\m
+.
+#endif
+
+FF
+
+>STRING=
+.STRING=
+.=======
+#ifdef __english
+.
+.Syntax: (string= <string1> <string2>
+.	  :START1 <number> :END1 <number>
+.         :START2 <number> :END2 <number>)
+.
+.This function compares (parts of) strings with
+.differentiation between upper- and lowercase-
+.characters. It returns T, when the strings are
+.equal, otherwise NIL.
+.
+.examples:      >(string= "Computer" "Computer")
+.               T
+.
+.               >(string= "zusammen" "Programm"
+.                  :start1 3 :end1 6 :start2 5)
+.               T
+.
+#else
+.
+.Syntax: (string= <Zeichenkette1> <Zeichenkette2>
+.           :START1 <Zahl> :END1 <Zahl>
+.           :START2 <Zahl> :END2 <Zahl>)
+.
+.Diese Funktion vergleicht (Teil-)Zeichenketten mit
+.Gro\337- und Kleinbuchstaben-unterscheidung! Sie
+.liefert T bei Gleichheit bzw. NIL, wenn die Zeichen-
+.ketten nicht gleich sind.
+.
+.Beispiele:     >(string= "Computer" "Computer")
+.               T
+.
+.               >(string= "zusammen" "Programm"
+.                  :start1 3 :end1 6 :start2 5)
+.               T
+.
+#endif
+
+FF
+
+>STRING>=
+.STRING>=
+.========
+#ifdef __english
+.
+.Syntax: (string>= <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.This function compares (parts of) strings with
+.differentiation between upper- and lowercase-
+.characters. It returns T or the length of the common
+.begin-part, when the strings are equal, otherwise
+.NIL.
+.
+.example:      >(string>= "Computer" "Computer")
+.              T
+.
+#else
+.
+.Syntax: (string>= <Zeichenkette1> <Zeichenkette2>
+.               :START1 <Zahl> :END1 <Zahl>
+.               :START2 <Zahl> :END2 <Zahl>)
+.
+.Diese Funktion vergleicht (Teil-)Zeichenketten mit
+.Gro\337- und Kleinbuchstaben-unterscheidung! Sie
+.liefert T oder die L\344nge des gemeinsamen Anfangs-
+.st\374cks bei Gleichheit bzw. NIL, wenn die Zeichen-
+.ketten nicht gleich sind.
+.
+.Beispiel:      >(string>= "Computer" "Computer")
+.               T
+.
+#endif
+
+FF
+
+>STRING>
+.STRING>
+.=======
+#ifdef __english
+.
+.Syntax: (string> <string1> <string2>
+.           :START1 <number> :END1 <number>
+.           :START2 <number> :END2 <number>)
+.
+.This function compares (parts of) strings with
+.differentiation between upper- and lowercase-
+.characters. It returns the length of the common
+.begin-part, when the strings are equal, otherwise
+.NIL.
+.
+.examples:      >(string> "Auto" "Automobil")
+.               NIL
+.
+.               >(string> "Automobil" "Auto")
+.               4
+.
+#else
+.
+.Syntax: (string> <Zeichenkette1> <Zeichenkette2>
+.               :START1 <Zahl> :END1 <Zahl>
+.               :START2 <Zahl> :END2 <Zahl>)
+.
+.Diese Funktion vergleicht (Teil-)Zeichenketten mit
+.Gro\337- und Kleinbuchstaben-unterscheidung! Sie
+.liefert die L\344nge des gemeinsamen Anfangsst\374cks
+.bei Gleichheit bzw. NIL, wenn die Zeichenketten nicht
+.gleich sind.
+.
+.Beispiele:     >(string> "Auto" "Automobil")
+.               NIL
+.
+.               >(string> "Automobil" "Auto")
+.               4
+.
+#endif
+
+FF
+
+>STRING<
+.STRING<
+.=======
+#ifdef __english
+.
+.Syntax: (string< <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.This function compares (parts of) strings with
+.differentiation between upper- and lowercase-
+.characters. It returns the length of the common
+.begin-part, when the strings are equal, otherwise
+.NIL.
+.
+.examples:      >(string< "Auto" "Automobil")
+.               4
+.
+.               >(string< "Automobil" "Auto")
+.               NIL
+.
+#else
+.
+.Syntax: (string< <Zeichenkette1> <Zeichenkette2>
+.               :START1 <Zahl> :END1 <Zahl>
+.               :START2 <Zahl> :END2 <Zahl>)
+.
+.Diese Funktion vergleicht (Teil-)Zeichenketten mit
+.Gro\337- und Kleinbuchstabe-unterscheidung! Sie
+.liefert die L\344nge des gemeinsamen Anfangsst\374cks
+.bei gleichheit bzw. NIL, wenn die Zeichenketten nicht
+.gleich sind.
+.
+.Beispiele:     >(string< "Auto" "Automobil")
+.               4
+.
+.               >(string< "Automobil" "Auto")
+.               NIL
+.
+#endif
+
+FF
+
+>STRING<=
+.STRING<=
+.========
+#ifdef __english
+.
+.Syntax: (string<= <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.This function compares (parts of) strings with
+.differentiation between upper- and lowercase-
+.characters. It returns T or the length of the common
+.begin-part, when the strings are equal, otherwise NIL.
+.
+.example:       >(string<= "Computer" "Computer")
+.               T
+.
+#else
+.
+.Syntax: (string<= <Zeichenkette1> <Zeichenkette2>
+.            :START1 <Zahl> :END1 <Zahl>
+.            :START2 <Zahl> :END2 <Zahl>)
+.
+.Diese Funktion vergleicht (Teil-)Zeichenketten mit
+.Gro\337- und Kleinbuchstaben-unterscheidung! Sie
+.liefert T oder die L\344nge des gemeinsamen Anfangs-
+.st\374cks bei Gleichheit bzw. NIL, wenn die Zeichen-
+.ketten nicht gleich sind.
+.
+.Beispiel:      >(string<= "Computer" "Computer")
+.               T
+.
+#endif
+
+FF
+
+>STRING/=
+.STRING/=
+.========
+#ifdef __english
+.
+.Syntax: (string/= <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.This function compares (parts of) strings with
+.differentiation between upper- and lowercase-
+.characters. It returns T, when the strings are
+.not equal, otherwise NIL.
+.
+.example:       >(string/= "Computer" "Computer")
+.               NIL
+.
+#else
+.
+.Syntax: (string/= <Zeichenkette1> <Zeichenkette2>
+.           :START1 <Zahl> :END1 <Zahl>
+.           :START2 <Zahl> :END2 <Zahl>)
+.
+.Diese Funktion vergleicht (Teil-)Zeichenketten mit
+.Gro\337- und Kleinbuchstaben-unterscheidung! Sie
+.liefert T bei Ungleichheit bzw. NIL, wenn die Zeichen-
+.ketten gleich sind.
+.
+.Beispiele:     >(string/= "Computer" "Computer")
+.               NIL
+.
+#endif
+
+FF
+
+>STRING-EQUAL
+.STRING-EQUAL
+.============
+#ifdef __english
+.
+.Syntax: (string-equal <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.This function is analogous to the STRING= function,
+.but it does not recognise the difference between
+.upper- and lowercase-characters.
+.This function is not supported by babylon v3!
+.
+#else
+.
+.Syntax: (string-equal <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.Diese Funktion ist analog zu dem STRING= Befehl, aber
+.sie unterscheidet keine Gro\337- und Kleinbuchstaben.
+.Diese Funktion wird durch babylon v3 nicht unter-
+.st\374tzt!
+.
+#endif
+
+FF
+
+>STRING-NOT-EQUAL
+.STRING-NOT-EQUAL
+.================
+#ifdef __english
+.
+.Syntax: (string-not-equal <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.This function is analogous to the STRING/= function,
+.but it does not recognise the difference between
+.upper- and lowercase-characters.
+.This function is not supported by babylon v3!
+.
+#else
+.
+.Syntax: (string-not-equal <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.Diese Funktion ist analog zu dem STRING/= Befehl, aber
+.sie unterscheidet keine Gro\337- und Kleinbuchstaben.
+.Diese Funktion wird durch babylon v3 nicht unter-
+.st\374tzt!
+.
+#endif
+
+FF
+
+>STRING-LESSP
+.STRING-LESSP
+.============
+#ifdef __english
+.
+.Syntax: (string-lessp <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.This function is analogous to the STRING< function,
+.but it does not recognise the difference between
+.upper- and lowercase-characters.
+.This function is not supported by babylon v3!
+.
+#else
+.
+.Syntax: (string-lessp <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.Diese Funktion ist analog zu dem STRING< Befehl, aber
+.sie unterscheidet keine Gro\337- und Kleinbuchstaben.
+.Diese Funktion wird durch babylon v3 nicht unter-
+.st\374tzt!
+.
+#endif
+
+FF
+
+>STRING-NOT-LESSP
+.STRING-NOT-LESSP
+.================
+#ifdef __english
+.
+.Syntax: (string-not-lessp <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.This function is analogous to the STRING<= function,
+.but it does not recognise the difference between
+.upper- and lowercase-characters.
+.This function is not supported by babylon v3!
+.
+#else
+.
+.Syntax: (string-not-lessp <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.Diese Funktion ist analog zu dem STRING<= Befehl,
+.aber sie unterscheidet keine Gro\337- und
+.Kleinbuchstaben.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+#endif
+
+FF
+
+>STRING-GREATERP
+.STRING-GREATERP
+.===============
+#ifdef __english
+.
+.Syntax: (string-greaterp <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.This function is analogous to the STRING> function,
+.but it does not recognise the difference between
+.upper- and lowercase-characters.
+.This function is not supported by babylon v3!
+.
+#else
+.
+.Syntax: (string-greaterp <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.Diese Funktion ist analog zu dem STRING> Befehl, aber
+.sie unterscheidet keine Gro\337- und Kleinbuchstaben.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+#endif
+
+FF
+
+>STRING-NOT-GREATERP
+.STRING-NOT-GREATERP
+.===================
+#ifdef __english
+.
+.Syntax: (string-not-greaterp <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.This function is analogous to the STRING>= function,
+.but it does not recognise the difference between
+.upper- and lowercase-characters.
+.This function is not supported by babylon v3!
+.
+#else
+.
+.Syntax: (string-not-greaterp <string1> <string2>
+.          :START1 <number> :END1 <number>
+.          :START2 <number> :END2 <number>)
+.
+.Diese Funktion ist analog zu dem STRING>= Befehl, aber
+.sie unterscheidet keine Gro\337- und Kleinbuchstaben.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+#endif
+
+FF
+
+>LENGTH
+.LENGTH
+.======
+#ifdef __english
+.
+.Syntax: (length <string>)
+.
+.This function returns the length of a string.
+.It is not supported by babylon v3!
+.
+.example:       >(length "Computer")
+.               8
+.
+#else
+.
+.Syntax: (length <Zeichenkette>)
+.
+.Diese Funktion bestimmt die L\344nge einer Zeichenkette.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:      >(length "Computer")
+.               8
+#endif
+
+FF
+
+>MAKE-STRING
+.MAKE-STRING
+.===========
+#ifdef __english
+.
+.syntax: (make-string <size>
+.               [:initial-element <initial-element>])
+.
+.This function produces a string with the length
+.<size>, which is filled with space characters.
+.Optionally it can be filled with other characters!
+.
+.example:       >(make-string 3)
+.               "   "
+.               >(make-string 4 :initial-element #\x)
+.               "xxxx"
+.
+#else
+.
+.Syntax: (make-string <Gr\366\337e>
+.              [:initial-element <Anfangs-Element>])
+.
+.Diese Funktion erzeugt eine Zeichenkette mit der
+.L\344nge <size> und mit Leerzeichen gef\374llt.
+.Optional kann es auch mit andere Zeichen gef\374llt
+.werden!
+.
+.Beispiel:      >(make-string 3)
+.               "   "
+.               >(make-string 4 :initial-element #\x)
+.               "xxxx"
+.
+#endif
+
+FF
+
+>STRING
+.STRING
+.======
+#ifdef __english
+.
+.syntax: (string <argument>)
+.
+.This function produces a string with the characters
+.of the argument. Symbols, strings and characters can
+.be used as arguments.
+.
+.example:       >(string "this is a string")
+.               "this is a string"
+.               >(string `ab)
+.               "AB"
+.
+#else
+.
+.Syntax: (string <Argument>)
+.
+.Diese Funktion erzeugt eine Zeichenkette mit den
+.Zeichen des Arguments. Als Argument sind Symbole,
+.Zeichenketten und Zeichen erlaubt.
+.
+.Beispiel:      >(string "Dies ist eine Zeichenkette")
+.               "Dies ist eine Zeichenkette"
+.               >(string `ab)
+.               "AB"
+.
+#endif
+
+FF
+
+>COPY-STRING
+.COPY-STRING
+.===========
+#ifdef __english
+.
+.syntax: (copy-string <string>)
+.
+.This function copies the string. It only works in
+.Babylon-Lisp, not in Common-Lisp!
+.
+.example:       >(copy-string "string")
+.               "string"
+.
+#else
+.
+.Syntax: (copy-string <Zeichenkette>)
+.
+.Diese Funktion kopiert die Zeichenkette. Sie
+.funktioniert nur in Babylon-Lisp, nicht in
+.Common-Lisp!
+.
+.Beispiel:      >(copy-string "Zeichenkette")
+.               "Zeichenkette"
+.
+#endif
+
+FF
+
+>APPEND-STRING
+.APPEND-STRING
+.=============
+#ifdef __english
+.
+.syntax: (append-string {<string> ...})
+.
+.This function produces a string with the characters of
+.all strings together. It only works in Babylon-Lisp.
+.It can be compared with the Common-Lisp-command
+.CONCATENATE.
+.
+.example:       >(append-string "a" "b" "c")
+.               "abc"
+.
+#else
+.
+.Syntax: (append-string {<Zeichenkette> ...})
+.
+.Diese Funktion erzeugt eine Zeichenkette, die mit den
+.Zeichen der gegebenen Zeichenketten gef\374llt ist.
+.APPEND-STRING funktioniert nur in Babylon-Lisp. Es
+.entspricht der Common-Lisp Funktion CONCATENATE.
+.
+.Beispiel:      >(append-string "a" "b" "c")
+.               "abc"
+.
+#endif
+
+FF
+
+>SUBSTRING
+.SUBSTRING
+.=========
+#ifdef __english
+.
+.syntax: (substring <string> <start> [<end>])
+.
+.This function creates a string, which is part of the
+.<string>. The character of the start-position is
+.included. The character of the end-position is not
+.included. SUBSTRING does not exist in Common-Lisp.
+.In Common Lisp you can use the command SUBSEQ.
+.
+.example:       >(substring "abcd" 1 2)
+.               "b"
+.               >(substring "abcd" 2)
+.               "cd"
+.
+#else
+.
+.Syntax: (substring <Zeichenkette> <Start> [<Ende>])
+.
+.Diese Funktion erzeugt eine Zeichenkette, die aus
+.einem Teil der Zeichen von der <Zeichenkette> besteht.
+.Das Zeichen der Start-Position ist inklusiv. Das
+.Zeichen der End-Position nicht. SUBSTRING kann nicht
+.in Common-Lisp verwendet werden. In Common-Lisp gibt
+.es den \344hnlichen Befehl SUBSEQ.
+.
+.Beispiel:      >(substring "abcd" 1 2)
+.               "b"
+.               >(substring "abcd" 2)
+.               "cd"
+.
+#endif
+
+FF
+
+>STRING-TRIM
+.STRING-TRIM
+.===========
+#ifdef __english
+.
+.syntax: (string-trim <characters> <string>)
+.
+.This function produces a copy of the string, in 
+.which all characters were stripped off the 
+.beginning and end.
+.
+.example:       >(string-trim "ac" "aabbcc")
+.               "bb"
+.
+#else
+.
+.Syntax: (string-trim <Zeichen> <Zeichenkette>)
+.
+.Diese Funktion erzeugt eine Kopie der Zeichenkette, 
+.in der alle Zeichen vom Anfang und Ende her, 
+.gestrichen wurden.
+.
+.Beispiel:      >(string-trim "ac" "aabbcc")
+.               "bb"
+.
+#endif
+
+FF
+
+>STRING-LEFT-TRIM
+.STRING-LEFT-TRIM
+.================
+#ifdef __english
+.
+.syntax: (string-left-trim <characters> <string>)
+.
+.This function produces a copy of the string, in 
+.which all characters are stripped off the 
+.beginning.
+.
+.example:       >(string-left-trim "ac" "aabbcc")
+.               "bbcc"
+.
+#else
+.
+.Syntax: (string-left-trim <Zeichen> <Zeichenkette>)
+.
+.Diese Funktion erzeugt eine Kopie der Zeichenkette, 
+.in der alle Zeichen vom Anfang her gestrichen wurden.
+.
+.Beispiel:      >(string-left-trim "ac" "aabbcc")
+.               "bbcc"
+.
+#endif
+
+FF
+
+>STRING-RIGHT-TRIM
+.STRING-RIGHT-TRIM
+.=================
+#ifdef __english
+.
+.syntax: (string-right-trim <characters> <string>)
+.
+.This function produces a copy of the string, in 
+.which all characters are stripped off the end.
+.
+.example:       >(string-right-trim "ac" "aabbcc")
+.               "aabb"
+.
+#else
+.
+.Syntax: (string-right-trim <Zeichen> <Zeichenkette>)
+.
+.Diese Funktion erzeugt eine Kopie der Zeichenkette, 
+.in der alle Zeichen vom Ende her gestrichen wurden.
+.
+.Beispiel:      >(string-right-trim "ac" "aabbcc")
+.               "aabb"
+.
+#endif
+
+FF
+
+>STRING-UPCASE
+.STRING-UPCASE
+.=============
+#ifdef __english
+.
+.syntax: (string-upcase <string>
+.                [:start <start> :end <end>])
+.
+.This function returns the string with uppercase
+.characters. Optionally a start- and end-position
+.can be set.
+.
+.example:       >(string-upcase "string")
+.               "STRING"
+.
+#else
+.
+.Syntax: (string-upcase <Zeichenk.>
+.                 [:start <Start> :end <Ende>])
+.
+.Diese Funktion erzeugt eine Zeichenkette, in der alle
+.Zeichen in Gro\337buchstaben umgewandelt sind.
+.Optional kann eine Start- und End-Position angegeben
+.werden.
+.
+.Beispiel:      >(string-upcase "string")
+.               "STRING"
+.
+#endif
+
+FF
+
+>STRING-DOWNCASE
+.STRING-DOWNCASE
+.===============
+#ifdef __english
+.
+.syntax: (string-downcase <string>
+.               [:start <start> :end <end>])
+.
+.This function returns the string with lowercase 
+.characters. Optionally a start- and end-position
+.can be set.
+.
+.example:       >(string-downcase "STRING"
+.                   :start 1 :end 5)
+.               "StrinG"
+.
+#else
+.
+.Syntax: (string-downcase <Zeichenk.>
+.                  [:start <Start> :end <Ende>])
+.
+.Diese Funktion erzeugt eine Zeichenkette, in der alle
+.Zeichen in Kleinbuchstaben umgewandelt sind.
+.Optional kann eine Start- und End-Position angegeben
+.werden.
+.
+.Beispiel:      >(string-downcase "STRING"
+.                   :start 1 :end 5)
+.               "StrinG"
+.
+#endif
+
+FF
+
+>STRING-CAPITALIZE
+.STRING-CAPITALIZE
+.=================
+#ifdef __english
+.
+.syntax: (string-capitalize <string>
+.               [:start <start> :end <end>])
+.
+.This function returns the string with capitalized
+.characters (Only the first character of a word will
+.be capitalized!). Optionally a start- and end-
+.position can be set.
+.
+.example:     >(string-capitalize "this is a string")
+.             "This Is A String"
+.
+#else
+.
+.Syntax: (string-capitalize <Zeichenk.>
+.                [:start <Start> :end <Ende>])
+.
+.Diese Funktion erzeugt eine Zeichenkette, in der alle
+.Zeichen in gro\337e Anfangsbuchstaben umgewandelt sind.
+.Optional kann eine Start- und End-Position angegeben
+.werden.
+.
+.Beispiel:      >(string-capitalize
+.                    "dies ist eine zeichenkette")
+.               "Dies Ist Eine Zeichenkette"
+.
+#endif
+
+FF
+
+>DEFGLOBAL
+.DEFGLOBAL
+.=========
+.
+#ifdef __english
+.
+.syntax: (defglobal <name> <initial-value>)
+.
+.This function defines a global variable and
+.initialises it with an initial-value. It returns
+.the initial-value.
+.
+.This function only exists in Babylon Lisp, not in
+.Common Lisp. In Common Lisp, variables can be defined
+.with DEFVAR!
+.
+.example:       >(defglobal global 123)
+.               123
+.
+#else
+.
+.Syntax: (defglobal <Name> <Anfangswert>)
+.
+.Diese Funktion definiert eine globale Variable und
+.initialisiert sie mit einem Anfangswert. Der R\374ck-
+.gabewert ist der Initialwert.
+.
+.Diese Funktion existiert nur in Babylon Lisp, und
+.nicht in Common Lisp. Hier k\366nnen Variablen mit
+.DEFVAR definiert werden!
+.
+.Beispiel:      >(defglobal Global 123)
+.               123
+.
+#endif
+
+FF
+
+>DEFCONSTANT
+.DEFCONSTANT
+.===========
+.
+#ifdef __english
+.
+.syntax: (defconstant <name> <value>)
+.
+.Warning: Constants, which are produced with
+.         DEFCONSTANT can be changed in EMA-XPS 
+.         and babylon v3 in contrast to common lisp!
+.
+.This function defines a constant with a value. This
+.value can not be changed. Local variables may not
+.have the same name like this constant has. The
+.function returns the name of the constant.
+.
+.example:       >(defconstant constant 123)
+.               CONSTANT
+.               >constant
+.               123
+.
+#else
+.
+.Syntax: (defconstant <Name> <Wert>)
+.
+.Warnung: Im Gegensatz zu Common Lisp k\366nnen
+.         mit DEFCONSTANT erzeugte Konstanten
+.         bei EMA-XPS und babylon v3 ver\344ndert
+.         werden!
+.
+.Diese Funktion definiert eine Konstante mit einem
+.Wert. Dieser Wert kann nicht ver\344ndert werden.
+.Lokale Variablen d\374rfen nicht den gleichen Namen
+.wie diese Konstante besitzen. Der R\374ckgabewert ist
+.der Name der Konstanten.
+.
+.Beispiel:      >(defconstant Konstante 123)
+.               KONSTANTE
+.               >konstante
+.               123
+.
+#endif
+
+FF
+
+>LET
+.LET
+.===
+#ifdef __english
+.
+.syntax: (let ({<variable> |
+.             (<variable> <value>) ...}) {<form> ...})
+.
+.This function defines local variables, which can be
+.used in the <form>s. The start-value can be in every
+.form. If the start-value is not set, then NIL will
+.be used. LET returns the value of the last form.
+.
+.example:       >global         ; defined global var.
+.               123
+.               >constant	; defined constant
+.               123
+.               >(let (x (y 789))
+.                     (list x global constant y))
+.               (NIL 123 123 789)
+.
+#else
+.
+.Syntax: (let ({<Variable> |
+.             (<Variable> <Wert>) ...}) {<Form> ...})
+.
+.Diese Funktion definiert lokale Variablen, die in
+.den Formen benutzt werden k\366nnen. Der Anfangswert
+.darf in jeder Form sein. Falls der Anfangswert nicht
+.gegeben ist, wird NIL verwendet. LET gibt der Wert
+.der letzten Form zur\374ck.
+.
+.Beispiel:      >Global         ; def. globale Variable
+.               123
+.               >Konstante	; definierte Konstante
+.               123
+.               >(let (x (y 789))
+.                     (list x Global Konstante y))
+.               (NIL 123 123 789)
+.
+#endif
+
+FF
+
+>LET*
+.LET*
+.====
+.
+#ifdef __english
+.
+.syntax: (let* ({<variable> |
+.              (<variable> <value>) ...}) {<form> ...})
+.
+.This function defines local variables, which can be
+.used in the <form>s. The start-value can be in every
+.form. If the start-value is not set, then NIL will
+.be used. LET* returns the value of the last form.
+.The difference between LET and LET* is: LET* defines
+.all variables parallel!
+.
+.example:       >global         ; def. global-variable
+.               123
+.               >constant	; defined constant
+.               123
+.               >(let* (x (y 789))
+.                      (list x global constant y))
+.               (NIL 123 123 789)
+.
+#else
+.
+.Syntax: (let* ({<Variable> |
+.              (<Variable> <Wert>) ...}) {<Form> ...})
+.
+.Diese Funktion definiert lokale Variablen, die in
+.den Formen benutzt werden k\366nnen. Der Anfangswert
+.darf in jeder Form sein. Falls der Anfangswert nicht
+.gegeben ist, wird NIL verwendet. LET* gibt der Wert
+.der letzten Form zur\374ck. Der Unterschied zu LET
+.besteht darin, da\337 LET* alle Variablen parallel
+.verarbeitet!
+.
+.Beispiel:      >Global         ; def. globale Variable
+.               123
+.               >Konstante	; definierte Konstante
+.               123
+.               >(let* (x (y 789))
+.                      (list x Global Konstante y))
+.               (NIL 123 123 789)
+.
+#endif
+
+FF
+
+>SETF
+.SETF
+=====
+.
+#ifdef __english
+.
+.syntax: (setf {<place> <value> ...})
+.
+.This function stores the value into the place. SETF
+.specially has the function to change the value of a
+.variable. Further it can change a certain element of
+.a list or can change a certain character of a list or
+.string. If more than one place-value pair is defined,
+.then the pairs will be worked out sequentially. In
+.Babylon Lisp only one place-value pair is permitted.
+.
+.example:       >(setf numbers `(1 2 3 4 5))
+.               (1 2 3 4 5)
+.               >numbers
+.               (1 2 3 4 5)
+.
+#else
+.
+.Syntax: (setf {<Ort> <Wert> ...})
+.
+.Diese Funktion schreibt den Wert auf den Ort. SETF hat
+.insbesondere die Funktion, den Wert einer Variablen zu
+.\344ndern. Desweiteren kann sie auch ein bestimmtes Element
+.einer Liste \344ndern, oder kann ein bestimmtes Zeichen
+.einer Liste oder Zeichenkette \344ndern. Falls mehr
+.als ein Ort-Wert-Paar definiert ist, werden die Paare
+.sequentiell abgearbeitet. In Babylon Lisp ist im
+.Unterschied zu Common Lisp nur ein Ort-Wert-Paar
+.erlaubt.
+.
+.Beispiel:      >(setf Zahlen `(1 2 3 4 5))
+.               (1 2 3 4 5)
+.               >zahlen
+.               (1 2 3 4 5)
+.   
+#endif
+
+FF
+
+>PUSH
+.PUSH
+.====
+#ifdef __english
+.
+.syntax: (push <element> <place>)
+.
+.This function adds a new element to an existing list
+.(The <place> must include a list). The new element
+.will be included as the first element of the list.
+.
+.example:       >(setf list `(3 2 1))
+.               (3 2 1)
+.               >(push 4 list)
+.               (4 3 2 1)
+.               >list
+.               (4 3 2 1)
+.
+#else
+.
+.Syntax: (push <Element> <Ort>)
+.
+.Diese Funktion erg\344nzt eine bestehende Liste (Der
+.Ort mu\337 eine Liste enthalten) mit einem Element.
+.Die neue Liste enth\344lt als erstes Element das neue
+.Element und als Rest die urspr\374ngliche Liste.
+.
+.Beispiel:      >(setf list `(3 2 1))
+.               (3 2 1)
+.               >(push 4 list)
+.               (4 3 2 1)
+.               >list
+.               (4 3 2 1)
+.
+#endif
+
+FF
+
+>POP
+.POP
+.===
+#ifdef __english
+.
+.syntax: (pop <place>)
+.
+.This function removes the first element of an existing
+.list (The <place> must include a list). The removed
+.element will be returned as a number.
+.
+.example:       >(setf list `(4 3 2 1))
+.               (4 3 2 1)
+.               >(pop list)
+.               4
+.               >list
+.               (3 2 1)
+.
+#else
+.
+.Syntax: (pop <Ort>)
+.
+.Diese Funktion verk\374rzt eine bestehende Liste (Der
+.Ort mu\337 eine Liste enthalten) um ein Element. Das
+.urspr\374nglich erste Element wird als Wert geliefert.
+.
+.Beispiel:      >(setf list `(4 3 2 1))
+.               (4 3 2 1)
+.               >(pop list)
+.               4
+.               >list
+.               (3 2 1)
+.
+#endif
+
+FF
+
+>DEFUN
+.DEFUN
+.=====
+#ifdef __english
+.
+.syntax: (defun <name> ({<argument> ...})
+.         <documentation-string> ({<instruction> ...}))
+.
+.DEFUN defines a function.
+.
+.The documentation-string is only for making the
+.program more readable. It can be left away!
+.
+.example:       >(defun mittelwert (x y)
+.                       (/ (+ x y) 2))
+.               MITTELWERT
+.               >(mittelwert 2 3)
+.               5/2
+.
+#else
+.
+.Syntax: (defun <Name> ({<Argument> ...})
+.                <Beschreibung> ({<Instruktion> ...}))
+.
+.Mit DEFUN kann eine Funktion definiert werden.
+.
+.Hinweis: Die Beschreibung erh\366ht nur die Lesbarkeit
+.         des Lisp-programms. Sie darf auch weggelassen
+.         werden!
+.
+.Beispiel:      >(defun mittelwert (x y)
+.                       "berechnet den arithmetischen
+.                        Mittelwert"
+.                       (/ (+ x y) 2))
+.               MITTELWERT
+.               >(mittelwert 2 3)
+.               5/2
+.
+#endif
+
+FF
+
+>LAMBDA
+.LAMBDA
+.======
+#ifdef __english
+.
+.syntax: (lambda {<variable> ...}
+.                {<documentation-string> ...}
+.                {<instruction> ...})
+.
+.This function specifies the names for the parameters
+.of a function.
+.
+.example:       >((lambda (x y)
+.                         (/ (+ x y) 2)) 2 3)
+.               5/2
+.		
+#else
+.
+.Syntax: (lambda {<Variable> ...}
+.                {<Beschreibung> ...}
+.                {<Instruktion> ...})
+.
+.Diese Funktion spezifiziert die Namen f\374r die
+.Parameter einer Funktion.
+.
+.Beispiel:      >((lambda (x y)
+.                       "arithmetischer Mittelwert" 
+.                       (/ (+ x y) 2)) 2 3)
+.               5/2
+.
+#endif
+
+FF
+
+>#`
+.#`
+.==
+#ifdef __english
+.
+.Syntax: (function <name>)  or  #`<name>
+.
+.FUNCTION returns the instructions of a function. If
+.<name> is a lambda-expression, then a function will
+.be produced.
+.
+.example:     >(function abs)
+.             #<SYSTEM-FUNCTION ABS>
+.             >(function (lambda (x y) (/ (+ x y) 2)))
+.             #<CLOSURE :LAMBDA (X Y) (/ (+ X Y) 2)>
+.
+#else
+.
+.Syntax: (function <Name>)  oder  #`<name>
+.
+.FUNCTION liefert die Instruktionen einer Funktion.
+.Falls <Name> ein Lambda-Ausdruck ist, so wird eine
+.Funktion erzeugt.
+.
+.Beispiel:    >(function abs)
+.             #<SYSTEM-FUNCTION ABS>
+.             >(function (lambda (x y) (/ (+ x y) 2)))
+.             #<CLOSURE :LAMBDA (X Y) (/ (+ X Y) 2)>
+.
+#endif
+
+FF
+
+>FUNCTION
+.FUNCTION
+.========
+#ifdef __english
+.
+.syntax: (function <name>)  or #`<name>
+.
+.FUNCTION returns the instructions of a function. If
+.<name> is a lambda-expression, then a function will
+.be produced.
+.
+.example:     >(function abs)
+.             #<SYSTEM-FUNCTION ABS>
+.             >(function (lambda (x y) (/ (+ x y) 2)))
+.             #<CLOSURE :LAMBDA (X Y) (/ (+ X Y) 2)>
+.
+#else
+.
+.Syntax: (function <Name>)  oder #`<name>
+.
+.FUNCTION liefert die Instruktionen einer Funktion.
+.Falls <Name> ein Lambda-Ausdruck ist, so wird eine
+.Funktion erzeugt.
+.
+.Beispiel:    >(function abs)
+.             #<SYSTEM-FUNCTION ABS>
+.             >(function (lambda (x y) (/ (+ x y) 2)))
+.             #<CLOSURE :LAMBDA (X Y) (/ (+ X Y) 2)>
+.
+#endif
+
+FF
+
+>COMPLEMENT-TEST
+.COMPLEMENT-TEST
+.===============
+#ifdef __english
+.
+.syntax: (complement-test <function>)
+.
+.COMPLEMENT-TEST produces a function, which calls the
+.<function>. It returns T, when the <function> returns
+.NIL, otherwise NIL. This function only exists in
+.Babylon-Lisp!
+.
+#else
+.
+.Syntax: (complement-test <Funktion>)
+.
+.COMPLEMENT-TEST erzeugt eine Funktion, die die 
+.<Funktion> aufruft und T liefert, wenn die 
+.<Funktion> NIL liefert, sonst NIL. Sie existiert 
+.nur in Babylon-Lisp!
+.
+#endif
+
+FF
+
+>ELT
+.ELT
+.===
+#ifdef __english
+.
+.syntax: (elt <sequence> <index>)
+.
+.        ==> <element>
+.
+.This function returns an element of a list. It ob-
+.serves the fill pointer in vectors, which have fill
+.pointers. The index starts with 0!
+.This function is not supported by babylon v3!
+.
+.example:       >(setq computer `("cpu" "ram"
+.                                 "harddisk" "floppy"))
+.               ("cpu" "ram" "harddisk" "floppy")
+.               >(elt computer 2)
+.               "harddisk"
+.
+#else
+.
+.Syntax: (elt <Sequenz> <Index>)
+.
+.        ==> <Element>
+.
+.Die Funktion ELT zeigt ein Element einer Liste. ELT
+.beachtet den F\374llstandzeiger in Vektoren mit einem
+.F\374llstandzeiger. Der Index l\344uft von Null an!
+.Diese Funktion wird durch babylon v3 nicht 
+.unterst\374tzt!
+.
+.Beispiel:      >(setq computer `("cpu" "ram"
+.                              "festplatte" "floppy"))
+.               ("cpu" "ram" "festplatte" "floppy")
+.               >(elt computer 2)
+.               "festplatte"
+.
+#endif
+
+FF
+
+>LENGTH
+.LENGTH
+.======
+#ifdef __english
+.
+.syntax: (length <sequence>)
+.
+.        ==> <number>
+.
+.This function returns the length of a sequence. If
+.this sequence is a vector with a fill pointer, then
+.the active length will be returned.
+.
+.example:       >(setq computer `("cpu" "ram"
+.                                 "harddisk" "floppy"))
+.               ("cpu" "ram" "harddisk" "floppy")
+.               >(length computer)
+.               4
+.
+#else
+.
+.Syntax : (length <Sequenz>)
+.
+.         ==> <Zahl>
+.
+.Diese Funktion liefert die L\344nge einer Sequenz. Wenn
+.die Sequenz ein Vektor mit einem F\374llstandzeiger ist,
+.wird die aktive L\344nge zur\374ckgeliefert.
+.
+.Beispiel:      >(setq computer `("cpu" "ram"
+.                              "festplatte" "floppy"))
+.               ("cpu" "ram" "festplatte" "floppy")
+.               >(length computer)
+.               4
+.
+#endif
+
+FF
+
+>SUBSEQ
+.SUBSEQ
+.======
+#ifdef __english
+.
+.syntax: (subseq <sequence> <startpos.> <endpos.>)
+.
+.This function returns a subsequence of the sequence.
+.The end-position must not be set.
+.This function is not supported by babylon v3!
+.
+.example:       >(setq computer `("cpu" "ram"
+.                                 "harddisk" "floppy"))
+.               ("cpu" "ram" "harddisk" "floppy")
+.               >(subseq computer 2)
+.               ("harddisk" "floppy")
+.               >(subseq computer 2 3)
+.               ("harddisk")
+.
+#else
+.
+.Syntax: (subseq <Sequenz> <Startpos.> <Endpos.>)
+.
+.Diese Funktion liefert eine Teilsequenz der Ausgangs-
+.sequenz. Die End-Position mu\337 nicht angegeben
+.werden.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+.Beispiel:      >(setq computer `("cpu" "ram"
+.                               "festplatte" "floppy"))
+.               ("cpu" "ram" "festplatte" "floppy")
+.               >(subseq computer 2)
+.               ("festplatte" "floppy")
+.               >(subseq computer 2 3)
+.               ("festplatte")
+.
+#endif
+
+FF
+
+>REVERSE
+.REVERSE
+.=======
+#ifdef __english
+.
+.syntax: (reverse <sequence>) 
+.
+.        ==> <sequence>
+.
+.This function returns the sequence in reverse order.
+.
+.example:       >(setq computer `("cpu" "ram"
+.                                 "harddisk" "floppy"))
+.               ("cpu" "ram" "harddisk" "floppy")
+.               >(reverse computer)
+.               ("floppy" "harddisk" "ram" "cpu")
+.
+#else
+.
+.Syntax: (reverse <Sequenz>) 
+.
+.        ==> <Sequenz>
+.
+.Diese Funktion liefert die umgedrehte Sequenz.
+.
+.Beispiel:      >(setq computer `("cpu" "ram"
+.                               "festplatte" "floppy"))
+.               ("cpu" "ram" "festplatte" "floppy")
+.               >(reverse computer)
+.               ("floppy" "festplatte" "ram" "cpu")
+.
+#endif
+
+FF
+
+>REMOVE
+.REMOVE
+.======
+#ifdef __english
+.
+.syntax: (remove <element> <sequence>)
+.
+.        ==> <sequence>
+.
+.This function removes an element of a sequence and
+.returns a new sequence. Only all elements, which are
+.EQL with <element> will be removed.
+.
+.example:       >(setq computer `("cpu" "ram"
+.                                 "harddisk" "floppy"))
+.               ("cpu" "ram" "harddisk" "floppy")
+.               >(remove "ram" computer)
+.               ("cpu" "ram" "harddisk" "floppy")
+.                  ; not EQL
+.               >(setq liste `(a b c b a a))
+.               (A B C B A A)
+.               >(remove `a liste)
+.               (B C B)
+.
+#else
+.
+.Syntax: (remove <Element> <Sequenz>)
+.
+.        ==> <Sequenz>
+.
+.Diese Funktion l\366scht ein Element einer Sequenz
+.und liefert eine neue Sequenz. Nur alle Elemente, die
+.mit <Element> in der Beziehung EQL stehen, werden
+.gel\366scht.
+.
+.Beispiel:      >(setq computer `("cpu" "ram"
+.                               "festplatte" "floppy"))
+.               ("cpu" "ram" "festplatte" "floppy")
+.               >(remove "ram" computer)
+.               ("cpu" "ram" "festplatte" "floppy")
+.                    ; nicht EQL
+.               >(setq liste `(a b c b a a))
+.               (A B C B A A)
+.               >(remove `a liste)
+.               (B C B)
+.
+#endif
+
+FF
+
+>REMOVE-IF
+.REMOVE-IF
+.=========
+#ifdef __english
+.
+.syntax: (remove-if <predicate> <sequence>)
+.
+.This function removes the elements of a sequence,
+.which fulfill the predicate. It returns a new
+.sequence.
+.
+.example:    >(remove-if #`numberp `(1 2 3 4 a b c d))
+.            (A B C D)
+.
+#else
+.
+.Syntax: (remove-if <Pr\344dikat> <Sequenz>)
+.
+.Diese Funktion entfernt die Elemente einer Sequenz,
+.die das Pr\344dikat erf\374llen. Sie liefert eine neue
+.Sequenz.
+.
+.Beispiel:   >(remove-if #`numberp `(1 2 3 4 a b c d))
+.            (A B C D)
+.
+#endif
+
+FF
+
+>REMOVE-DUPLICATES
+.REMOVE-DUPLICATES
+.=================
+#ifdef __english
+.
+.syntax: (remove-duplicates <sequence>)
+.
+.        ==> <sequence>
+.
+.This function removes the duplicates of a sequence. It
+.starts at the end of the sequence.
+.
+.example:       >(setq list `(a b c b a a))
+.               (A B C B A A)
+.               >(remove-duplicates list)
+.               (C B A) ; starts at the end of the list
+.
+#else
+.
+.Syntax: (remove-duplicates <Sequenz>)
+.
+.        ==> <Sequenz>
+.
+.Diese Funktion entfernt die Duplikate einer Sequenz.
+.Sie f\344ngt am Ende der Sequenz an.
+.
+.Beispiel:      >(setq list `(a b c b a a))
+.               (A B C B A A)
+.               >(remove-duplicates list)
+.               (C B A) ; beginnt am Listenende
+.
+#endif
+
+FF
+
+>SUBSTITUTE
+.SUBSTITUTE
+.==========
+#ifdef __english
+.
+.syntax: (substitute <new elem.> <old elem.> <sequence>)
+.
+.This function substitutes an old element of a sequence
+.by a new one.
+.
+.example:       >(setq list `(a b c b a a))
+.               (A B C B A A)
+.               >(substitute `e `b list)
+.               (A E C E A A)
+.
+#else
+.
+.Syntax: (substitute <neu. Elem.> <alt. Elem.> <Sequenz>)
+.
+.Diese Funktion ersetzt ein altes Element einer Sequenz
+.durch ein neues.
+.
+.Beispiel:      >(setq list `(a b c b a a))
+.               (A B C B A A)
+.               >(substitute `e `b list)
+.               (A E C E A A)
+.
+#endif
+
+FF
+
+>SUBSTITUTE-IF
+.SUBSTITUTE-IF
+.=============
+#ifdef __english
+.
+.syntax: (substitute-if <new-item>
+.                       <predicate> <sequence>)
+.
+.This function substitutes all elements of a sequence,
+.which fulfill the predicate, by new ones. It returns
+.a new sequence.
+.
+.example:       >(substitute-if `c #`numberp `(a b 1))
+.               (A B C)
+.
+#else
+.
+.Syntax: (substitute-if <neu. Elem.>
+.                       <Pr\344dikat> <Sequenz>)
+.
+.Diese Funktion ersetzt alle Elemente einer Sequenz,
+.die das Pr\344dikat erf\374llen, durch neue. Sie
+.liefert eine neue Sequenz.
+.
+.Beispiel:      >(substitute-if `c #`numberp `(a b 1))
+.               (A B C)
+.
+#endif
+
+FF
+
+>FIND
+.FIND
+.====
+#ifdef __english
+.
+.syntax: (find <element> <sequence>)
+.
+.This function searches for a certain element in a
+.sequence.
+.This function is not supported by babylon v3!
+.
+.example:       >(setq list `(a b c b a a))
+.               (A B C B A A)
+.               >(find `a list)
+.               A
+.               >(find `d list)
+.               NIL
+.
+#else
+.
+.Syntax: (find <Element> <Sequenz>)
+.
+.Diese Funktion sucht nach einem bestimmten Element
+.in einer Sequenz.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+.Beispiel:      >(setq list `(a b c b a a))
+.               (A B C B A A)
+.               >(find `a list)
+.               A
+.               >(find `d list)
+.               NIL
+.
+#endif
+
+FF
+
+>:START
+.:START
+.======
+#ifdef __english
+.
+.syntax: :START <value>
+.
+.:START is an additional parameter for all sequence-
+.operations. The default value for :START is 0.
+.
+.example:       >(setq list `(a b c b a a))
+.               (A B C B A A)
+.               >(remove-duplicates list :START 3)
+.               (A B C B A)
+.
+#else
+.
+.Syntax: :START <Wert>
+.
+.:START ist ein zus\344tzlicher Parameter f\374r alle
+.Sequenzoperationen. Der Standardwert f\374r :START
+.ist 0.
+.
+.Beispiel:      >(setq list `(a b c b a a))
+.               (A B C B A A)
+.               >(remove-duplicates list :START 3)
+.               (A B C B A)
+.
+#endif
+
+FF
+
+>:END
+.:END
+.====
+#ifdef __english
+.
+.syntax: :END <value>
+.
+.:END is an additional parameter for all sequence-
+.operations. The default value for :END is the length
+.of the sequence.
+.
+.example:       >(setq list `(a b c b a a))
+.               (A B C B A A)
+.               >(remove-duplicates list :END 4)
+.               (A C B A A)
+.
+#else
+.
+.Syntax: :END <Wert>
+.
+.:END ist ein zus\344tzlicher Parameter f\374r alle
+.Sequenzoperationen. Der Standardwert f\374r :END ist
+.die L\344nge der Ausgangssequenz.
+.
+.Beispiel:      >(setq list `(a b c b a a))
+.               (A B C B A A)
+.               >(remove-duplicates list :END 4)
+.               (A C B A A)
+.
+#endif
+
+FF
+
+>CONCATENATE
+.CONCATENATE
+.===========
+#ifdef __english
+.
+.syntax: (concatenate <sequence> {<sequence> ...})
+.
+.This function concatenates the given sequences.
+.It is not supported by babylon v3!
+.
+.example:       >(concatenate `string "Do you already
+.                  have a" " Intel Pentium processor?")
+.               "Do you already have a Intel Pentium
+.                processor?"
+.               >(concatenate `list `(a b)
+.                             `(c d) `(e f))
+.               (A B C D E F)
+.
+#else
+.
+.Syntax: (concatenate <Sequenz> {<Sequenz> ...})
+.
+.Diese Funktion reiht mehrere Sequenzen aneinander.
+.Sie wird durch babylon v3 nicht unterst\374tzt!
+.
+.Beispiel:      >(concatenate `string "besitzt du schon
+.                   einen" " Intel Pentium Processor?")
+.               "besitzt du schon einen Intel Pentium
+.                Processor?"
+.               >(concatenate `list `(a b)
+.                             `(c d) `(e f))
+.               (A B C D E F)
+.
+#endif
+
+FF
+
+>SEARCH
+.SEARCH
+.======
+#ifdef __english
+.
+.syntax: (search <subsequence> <sequence>)
+.
+.This function returns the start position of the
+.subsequence, when the subsequence is included,
+.otherwise NIL.
+.
+.example:       >(search `(2 3) `(1 2 3 4))
+.               1
+.		
+#else
+.
+.Syntax: (search <Teilsequenz> <Sequenz>)
+.
+.Diese Funktion liefert die Startposition der
+.Teilsequenz, falls diese enthalten ist, sonst NIL.
+.
+.Beispiel:      >(search `(2 3) `(1 2 3 4))
+.               1
+.
+#endif
+
+FF
+
+>:TEST
+.:TEST
+.=====
+#ifdef __english
+.
+.syntax: :TEST <test>
+.
+.This parameter compares the elements of two sequences.
+.It returnes T, when the elements are equal, otherwise
+.NIL.
+.
+#else
+.
+.Syntax: :TEST <Test>
+.
+.Dieser Parameter vergleicht die Elemente von zwei
+.Sequenzen miteinander. Er liefert T, falls die
+.Elemente gleich sind, sonst NIL.
+.
+#endif
+
+FF
+
+>POSITION
+.POSITION
+.========
+#ifdef __english
+.
+.syntax: (position <element> <sequence>)
+.
+.This function searches in the sequence for the
+.position of a certain element. It returns the
+.position, when it was found, otherwise NIL.
+.
+.example:       >(position 2 `(1 2 3))
+.               1
+.               >(position 4 `(1 2 3))
+.               NIL
+.
+#else
+.
+.Syntax: (position <Element> <Sequenz>)
+.
+.Diese Funktion sucht in der Sequenz nach der Position
+.eines bestimmten Elementes. Sie liefert die gefundene
+.Position oder NIL.
+.
+.Beispiel:      >(position 2 `(1 2 3))
+.               1
+.               >(position 4 `(1 2 3))
+.               NIL
+.
+#endif
+
+FF
+
+>POSITION-IF
+.POSITION-IF
+.===========
+#ifdef __english
+.
+.syntax: (position-if <predicate> <sequence>)
+.
+.This function and the POSITION function work similar,
+.but this function searches in the sequence for the
+.first Element, which has the right predicate. It
+.returns the position of the element, otherwise NIL.
+.
+.example:   >(position-if #`numberp `(a b c d 1 2 3 4))
+.           4
+.
+#else
+.
+.Syntax: (position-if <Pr\344dikat> <Sequenz>)
+.
+.Diese Funktion arbeitet \344hnlich wie die POSITION-
+.Funktion, aber sie sucht nach dem ersten Element, mit
+.dem richtigen Pr\344dikat. Sie liefert die Position
+.des Elementes, sonst NIL.
+.
+.Beispiel:  >(position-if #`numberp `(a b c d 1 2 3 4))
+.           4
+.
+#endif
+
+FF
+
+>COUNT
+.COUNT
+.=====
+#ifdef __english
+.
+.syntax: (count <element> <sequence>)
+.
+.This function counts how many times an element is
+.included in a sequence. It returns an integer.
+.
+.example:       >(count 4 `(1 2 3 4 4 4 3 2 1))
+.               3
+.
+#else
+.
+.Syntax: (count <Element> <Sequenz>)
+.
+.Diese Funktion z\344hlt die H\344ufigkeit eines
+.Elementes in einer Sequenz. Sie liefert eine ganze
+.Zahl.
+.
+.Beispiel:      >(count 4 `(1 2 3 4 4 4 3 2 1))
+.               3
+.
+#endif
+
+FF
+
+>COUNT-IF
+.COUNT-IF
+.========
+#ifdef __english
+.
+.syntax: (count-if <predicate> <sequence>)
+.
+.This function counts the elements of a sequence, which
+.fulfill the predicate. It returns an integer.
+.
+.example:      >(count-if #`numberp `(1 2 3 4 a b c d))
+.              4
+.
+#else
+.
+.Syntax: (count-if <Pr\344dikat> <Sequenz>)
+.
+.Diese Funktion z\344hlt die Elemente einer Sequenz,
+.die das Pr\344dikat erf\374llen. Sie liefert eine
+.ganze Zahl.
+.
+.Beispiel:    >(count-if #`numberp `(1 2 3 4 a b c d))
+.             4
+.
+#endif
+
+FF
+
+>SORT
+.SORT
+.====
+#ifdef __english
+.
+.syntax: (sort <sequence> <predicate>)
+.
+.This function sorts the elements of a sequence.
+.<predicate> is a function, which explains how the
+.elements have to be sorted. SORT returns a sorted
+.sequence, which replaces the original.
+.
+.example:       >(sort `(5 3 8 2 1 4) #`<)
+.               (1 2 3 4 5 8)
+.
+#else
+.
+.Syntax: (sort <Sequenz> <Pr\344dikat>)
+.
+.Diese Funktion sortiert die Elemente einer Sequenz.
+.<Pr\344dikat> ist eine Funktion, die erkl\344rt wie
+.die Elemente sortiert werden m\374ssen. SORT liefert
+.eine sortierte Sequenz. Diese ersetzt das Original.
+.
+.Beispiel:      >(sort `(5 3 8 2 1 4) #`<)
+.               (1 2 3 4 5 8)
+.
+#endif
+
+FF
+
+>FILL
+.FILL
+.====
+#ifdef __english
+.
+.syntax: (fill <sequence> <element>
+.              [:start <start> :end <end>])
+.
+.This function fills the sequence with an element.
+.Optionally you can set a start- and end-position.
+.FILL returns a modificated sequence and changes
+.the original!
+.
+.example:       >(fill "abcdefg" #\z :start 1 :end 6)
+.               "azzzzzg"
+.
+#else
+.
+.Syntax: (fill <Sequenz> <Element>
+.              [:start <Anfang> :end <Ende>])
+.
+.Diese Funktion f\374llt die Sequenz mit einem Element.
+.Eine Anfangs- und eine End-Position kann optional
+.angegeben werden. FILL liefert eine modifizierte
+.Sequenz und \344ndert das Original!
+.
+.Beispiel:      >(fill "abcdefg" #\z :start 1 :end 6)
+.               "azzzzzg"
+.
+#endif
+
+FF
+
+>REPLACE-SEQUENTIAL
+.REPLACE-SEQUENTIAL
+.==================
+#ifdef __english
+.
+.syntax: (replace-sequential <seq.1> <seq.2> [<start>])
+.
+.This function modificates the first sequence. It
+.replaces the elements of the first sequence with the
+.elements of the second sequence. Optionally you can
+.set a start position. The original will be changed!
+.This function only works in Babylon-Lisp. In Common
+.Lisp, you have to look for REPLACE.
+.
+#else
+.
+.Syntax: (replace-sequential <Seq.1> <Seq.2> [<Start>])
+.
+.Diese Funktion modifiziert die erste Sequenz. Sie
+.ersetzt die Elemente der ersten Sequenz durch die
+.Elemente der zweiten. Optional kann man eine Start-
+.position benutzen. Das Original wird \374berschrieben!
+.Diese Funktion wirkt nur in Babylon-Lisp. In Common
+.Lisp mu\337 man nach REPLACE Ausschau halten.
+.
+#endif
+
+FF
+
+>MAKE-LIST
+.MAKE-LIST
+.=========
+#ifdef __english
+.
+.syntax: (make-list <n>
+.                   [:initial-element <init.elem.>])
+.
+.This function produces a list with <n> elements.
+.Optionally an initial-element can be set, otherwise
+.all elements are NIL.
+.
+.example:       >(make-list 2)
+.               (NIL NIL)
+.               >(make-list 2 :initial-element 1)
+.               (1 1)
+.
+#else
+.
+.Syntax: (make-list <n>
+.                   [:initial-element <Anfangswert>])
+.
+.Diese Funktion erzeugt eine Liste mit <n> Elementen.
+.Optional kann ein Anfangswert angegeben werden,
+.sonst sind alle Elemente NIL.
+.
+.Beispiel:      >(make-list 2)
+.               (NIL NIL)
+.               >(make-list 2 :initial-element 1)
+.               (1 1)
+.
+#endif
+
+FF
+
+>LIST
+.LIST
+.====
+#ifdef __english
+.
+.syntax: (list {<object> ...})
+.
+.This function creates a list, which exactly includes
+.the given objects.
+.
+.example:       >(list 1 2 3)
+.               (1 2 3)
+.
+#else
+.
+.Syntax: (list {<Objekt> ...})
+.
+.Diese Funktion bildet eine Liste, die genau die
+.angegebenen Objekte enth\344lt.
+.
+.Beispiel:      >(list 1 2 3)
+.               (1 2 3)
+.
+#endif
+
+FF
+
+>LIST*
+.LIST*
+.=====
+#ifdef __english
+.
+.syntax: (list* {<object> ...} <list>)
+.
+.This function adds the given objects to the list.
+.
+.example:       >(list* 1 2 `(3 4))
+.               (1 2 3 4)
+.
+#else
+.
+.Syntax: (list* {<Objekt> ...} <list>)
+.
+.Diese Funktion erweitert die Liste um die angegebenen
+.Objekte.
+.
+.Beispiel:      >(list* 1 2 `(3 4))
+.               (1 2 3 4)
+.
+#endif
+
+FF
+
+>CONS
+.CONS
+.====
+#ifdef __english
+.
+.syntax: (cons <object> <list>)
+.
+.This function produces a list, which includes the
+.object as the first element and the list as the
+.remaining elements. In Babylon-Lisp the second
+.argument can only be a list.
+.
+.example:       >(cons "string" ())
+.               ("string")
+.
+#else
+.
+.Syntax: (cons <Objekt> <Liste>)
+.
+.Diese Funktion erzeugt eine Liste, die als erstes
+.Element das Objekt und als Rest die <Liste> enth\344lt.
+.Das zweite Argument kann in Babylon-Lisp nur eine
+.Liste sein.
+.
+.Beispiel:      >(cons "Zeichenkette" ())
+.               ("Zeichenkette")
+.
+#endif
+
+FF
+
+>COPY-LIST
+.COPY-LIST
+.=========
+#ifdef __english
+.
+.syntax: (copy-list <list>)
+.
+.This function copies the top level of list structure.
+.It returns a list, which is EQUAL to <list>.
+.
+.example:       >(copy-list `(a b c))
+.               (A B C)
+.
+#else
+.
+.Syntax: (copy-list <Liste>)
+.
+.Diese Funktion kopiert die Liste auf der obersten
+.Ebene. Sie liefert eine Liste, die EQUAL zu <Liste>
+.ist.
+.
+.Beispiel:      >(copy-list `(a b c))
+.               (A B C)
+.
+#endif
+
+FF
+
+>COPY-TREE
+.COPY-TREE
+.=========
+#ifdef __english
+.
+.syntax: (copy-tree <list>)
+.
+.This function copies the list and all lists, which
+.are included in the list.
+.
+.example:       >(copy-tree `(1 2 (3 4) 5))
+.               (1 2 (3 4) 5)
+.
+#else
+.
+.Syntax: (copy-tree <Liste>)
+.
+.Diese Funktion kopiert die Liste und alle Listen, die
+.in der Liste enthalten sind.
+.
+.Beispiel:      >(copy-tree `(1 2 (3 4) 5))
+.               (1 2 (3 4) 5)
+.
+#endif
+
+FF
+
+>FIRST
+.FIRST
+.=====
+#ifdef __english
+.
+.syntax: (first <list>)
+.
+.This function returns the first element of the list.
+.
+.example:       >(first `(1 2 3 4 5 6 7 8 9 0))
+.               1
+.
+#else
+.
+.Syntax: (first <Liste>)
+.
+.Diese Funktion liefert das erste Element der Liste.
+.
+.Beispiel:      >(first `(1 2 3 4 5 6 7 8 9 0))
+.               1
+.
+#endif
+
+FF
+
+>SECOND
+.SECOND
+.======
+#ifdef __english
+.
+.syntax: (second <list>)
+.
+.This function returns the second element of the list.
+.
+.example:       >(second `(1 2 3 4 5 6 7 8 9 0))
+.               2
+.
+#else
+.
+.Syntax: (second <Liste>)
+.
+.Diese Funktion liefert das zweite Element der Liste.
+.
+.Beispiel:      >(second `(1 2 3 4 5 6 7 8 9 0))
+.               2
+.
+#endif
+
+FF
+
+>THIRD
+.THIRD
+.=====
+#ifdef __english
+.
+.syntax: (third <list>)
+.
+.This function returns the third element of the list.
+.
+.example:       >(third `(1 2 3 4 5 6 7 8 9 0))
+.               3
+.
+#else
+.
+.Syntax: (third <Liste>)
+.
+.Diese Funktion liefert das dritte Element der Liste.
+.
+.Beispiel:      >(third `(1 2 3 4 5 6 7 8 9 0))
+.               3
+.
+#endif
+
+FF
+
+>FOURTH
+.FOURTH
+.======
+#ifdef __english
+.
+.syntax: (fourth <list>)
+.
+.This function returns the fourth element of the list.
+.
+.example:       >(fourth `(1 2 3 4 5 6 7 8 9 0))
+.               4
+.
+#else
+.
+.Syntax: (fourth <Liste>)
+.
+.Diese Funktion liefert das vierte Element der Liste.
+.
+.Beispiel:      >(fourth `(1 2 3 4 5 6 7 8 9 0))
+.               4
+.
+#endif
+
+FF
+
+>FIFTH
+.FIFTH
+.=====
+#ifdef __english
+.
+.syntax: (fifth <list>)
+.
+.This function returns the fifth element of the list.
+.
+.example:       >(fifth `(1 2 3 4 5 6 7 8 9 0))
+.               5
+.
+#else
+.
+.Syntax: (fifth <Liste>)
+.
+.Diese Funktion liefert das f\374nfte Element der Liste.
+.
+.Beispiel:      >(fifth `(1 2 3 4 5 6 7 8 9 0))
+.               5
+.
+#endif
+
+FF
+
+>SIXTH
+.SIXTH
+.=====
+#ifdef __english
+.
+.syntax: (sixth <list>)
+.
+.This function returns the sixth element of the list.
+.It is not supported by babylon v3, but by EMA-XPS
+.it is!
+.
+.example:       >(sixth `(1 2 3 4 5 6 7 8 9 0))
+.               6
+.
+#else
+.
+.Syntax: (sixth <Liste>)
+.
+.Diese Funktion liefert das sechste Element der Liste.
+.Sie wird durch babylon v3 nicht unterst\374tzt, aber
+.schon durch EMA-XPS!
+.
+.Beispiel:      >(sixth `(1 2 3 4 5 6 7 8 9 0))
+.               6
+.
+#endif
+
+FF
+
+>SEVENTH
+.SEVENTH
+.=======
+#ifdef __english
+.
+.syntax: (seventh <list>)
+.
+.This function returns the seventh element of the list.
+.It is not supported by babylon v3, but by EMA-XPS
+.it is!
+.
+.example:       >(seventh `(1 2 3 4 5 6 7 8 9 0))
+.               7
+.
+#else
+.
+.Syntax: (seventh <Liste>)
+.
+.Diese Funktion liefert das siebte Element der Liste.
+.Sie wird durch babylon v3 nicht unterst\374tzt, aber
+.schon durch EMA-XPS!
+.
+.Beispiel:      >(seventh `(1 2 3 4 5 6 7 8 9 0))
+.               7
+.
+#endif
+
+FF
+
+>EIGHTH
+.EIGHTH
+.======
+#ifdef __english
+.
+.syntax: (eighth <list>)
+.
+.This function returns the eighth element of the list.
+.It is not supported by babylon v3, but by EMA-XPS
+.it is!
+.
+.example:       >(eighth `(1 2 3 4 5 6 7 8 9 0))
+.               8
+.
+#else
+.
+.Syntax: (eighth <Liste>)
+.
+.Diese Funktion liefert das achte Element der Liste.
+.Sie wird durch babylon v3 nicht unterst\374tzt, aber
+.schon durch EMA-XPS!
+.
+.Beispiel:      >(eighth `(1 2 3 4 5 6 7 8 9 0))
+.               8
+.
+#endif
+
+FF
+
+>NINTH
+.NINTH
+.=====
+#ifdef __english
+.
+.syntax: (ninth <list>)
+.
+.This function returns the ninth element of the list.
+.It is not supported by babylon v3, but by EMA-XPS
+.it is!
+.
+.example:       >(ninth `(1 2 3 4 5 6 7 8 9 0))
+.               9
+.
+#else
+.
+.Syntax: (ninth <Liste>)
+.
+.Diese Funktion liefert das neunte Element der Liste.
+.Sie wird durch babylon v3 nicht unterst\374tzt, aber
+.schon durch EMA-XPS!
+.
+.Beispiel:      >(ninth `(1 2 3 4 5 6 7 8 9 0))
+.               9
+.
+#endif
+
+FF
+
+>TENTH
+.TENTH
+.=====
+#ifdef __english
+.
+.syntax: (tenth <list>)
+.
+.This function returns the tenth element of the list.
+.It is not supported by babylon v3, but by EMA-XPS
+.it is!
+.
+.example:       >(tenth `(1 2 3 4 5 6 7 8 9 0))
+.               0
+.
+#else
+.
+.Syntax: (tenth <Liste>)
+.
+.Diese Funktion liefert das zehnte Element der Liste.
+.Sie wird durch babylon v3 nicht unterst\374tzt, aber
+.schon durch EMA-XPS!
+.
+.Beispiel:      >(tenth `(1 2 3 4 5 6 7 8 9 0))
+.               0
+.
+#endif
+
+FF
+
+>REST
+.REST
+.====
+#ifdef __english
+.
+.syntax: (rest <list>)
+.
+.This function returns the list without the first
+.element. The list will not be copied.
+.
+.example:       >(rest `(1 2 3))
+.               (2 3)
+.
+#else
+.
+.Syntax: (rest <Liste>)
+.
+.Diese Funktion liefert die Liste ohne das erste
+.Element. Die Liste wird nicht kopiert.
+.
+.Beispiel:      >(rest `(1 2 3))
+.               (2 3)
+.
+#endif
+
+FF
+
+>NTH
+.NTH
+.===
+#ifdef __english
+.
+.syntax: (nth <n> <list>)
+.
+.This function returns the n-th element of the list or
+.NIL, when the list includes less elements.
+.
+.example:       >(nth 2 `(1 2 3))
+.               3
+.               >(nth 4 `(1 2 3))
+.               NIL
+.
+#else
+.
+.Syntax: (nth <n> <Liste>)
+.
+.Diese Funktion liefert das n-te Element der Liste
+.bzw. NIL, falls die Liste weniger Elemente enth\344lt.
+.
+.Beispiel:      >(nth 2 `(1 2 3))
+.               3
+.               >(nth 4 `(1 2 3))
+.               NIL
+.
+#endif
+
+FF
+
+>NTHREST
+.NTHREST
+.=======
+#ifdef __english
+.
+.syntax: (nthrest <n> <list>) ; Babylon-Lisp function
+.        (nthcdr <n> <list>)  ; Common-Lisp function
+.
+.This function performs the cdr operation n times on
+.list, and returns the remaining list or NIL, when
+.the list is to short.
+.
+.example:       >(nthrest 2 `(1 2 3))
+.               (3)
+.
+#else
+.
+.Syntax: (nthrest <n> <Liste>) ; Babylon-Lisp Funktion
+.        (nthcdr <n> <Liste>)  ; Common-Lisp Funktion
+.
+.Diese Funktion wendet die CDR-Funktion n-mal auf die
+.Liste an und liefert die entsprechende Restliste bzw.
+.NIL, falls die Liste zu kurz ist.
+.
+.Beispiel:      >(nthrest 2 `(1 2 3))
+.               (3)
+.
+#endif
+
+FF
+
+>NTHCDR
+.NTHCDR
+.======
+#ifdef __english
+.
+.syntax: (nthcdr <n> <list>)  ; Common-Lisp function
+.        (nthrest <n> <list>) ; Babylon-Lisp function
+.
+.This function performs the cdr operation n times on
+.list, and returns the remaining list or NIL, when the
+.list is to short.
+.
+.example:       >(nthcdr 2 `(1 2 3))
+.               (3)
+.
+#else
+.
+.Syntax: (nthcdr <n> <Liste>)  ; Common-Lisp Funktion
+.        (nthrest <n> <Liste>) ; Babylon-Lisp Funktion
+.
+.Diese Funktion wendet die CDR-Funktion n-mal auf die
+.Liste an und liefert die entsprechende Restliste bzw.
+.NIL, falls die Liste zu kurz ist.
+.
+.Beispiel:      >(nthcdr 2 `(1 2 3))
+.               (3)
+.
+#endif
+
+FF
+
+>BUTLAST
+.BUTLAST
+.=======
+#ifdef __english
+.
+.syntax: (butlast <list> [<n>])
+.
+.This function makes a copy of the list, which contains
+.all elements except the last one. Optionally without
+.the last n-elements!
+.
+.example:       >(butlast `(1 2 3) 2)
+.               (1)
+.
+#else
+.
+.Syntax: (butlast <Liste> [<n>])
+.
+.Diese Funktion macht eine Kopie der Liste, die alle
+.Elemente au\337er dem letzten enth\344lt. Optional
+.ohne die letzten n-Elemente!
+.
+.Beispiel:      >(butlast `(1 2 3) 2)
+.               (1)
+.
+#endif
+
+FF
+
+>LAST-N
+.LAST-N
+.======
+#ifdef __english
+.
+.syntax: (last-n <list> <n>)
+.
+.This function returns a list, which contains the last
+.n-elements of the <list>. This function only exists
+.in Babylon-Lisp!
+.
+.example:       >(last-n `(1 2 3 4 5) 4)
+.               (2 3 4 5)
+.
+#else
+.
+.Syntax: (last-n <Liste> <n>)
+.
+.Diese Funktion liefert eine Liste, die die letzten
+.n-Elemente der <Liste> enth\344lt. LAST-N existiert
+.nur in Babylon-Lisp!
+.
+.Beispiel:      >(last-n `(1 2 3 4 5) 4)
+.               (2 3 4 5)
+.
+#endif
+
+FF
+
+>SUBLIST
+.SUBLIST
+.=======
+#ifdef __english
+.
+.syntax: (sublist <list> <start> [<end>])
+.		
+.This function produces a sublist, which contains all
+.elements of the list, which are between the start- and
+.end-position. This function does not exist in Common
+.Lisp. In Common Lisp you have to look for SUBSEQ.
+.
+.example:       >(sublist `(1 2 3 4 5) 1 3)
+.               (2 3)
+.
+#else
+.
+.Syntax: (sublist <Liste> <Start> [<Ende>])
+.
+.Diese Funktion erzeugt eine Teilliste, die alle
+.Elemente der Liste enth\344lt, die zwischen der Start-
+.und End-Position liegen. Diese Funktion existiert
+.nicht in Common Lisp. In Common Lisp kann die SUBSEQ-
+.Funktion verwendet werden.
+.
+.Beispiel:      >(sublist `(1 2 3 4 5) 1 3)
+.               (2 3)
+.
+#endif
+
+FF
+
+>TAILP
+.TAILP
+.=====
+#ifdef __english
+.
+.syntax: (tailp <sublist> <list>)
+.
+.This function checks, whether the sublist is part
+.of the list. It returns T or NIL.
+.
+.example:       >(setq list `(1 2 3))
+.               (1 2 3)
+.               >(tailp (rest list) list)
+.               T
+.               >(tailp `(1 2) list)
+.               NIL
+.
+#else
+.
+.Syntax: (tailp <Teilliste> <Liste>)
+.
+.Diese Funktion pr\374ft, ob die Teilliste ein Teil
+.der <Liste> ist. Sie liefert T oder NIL.
+.
+.Beispiel:      >(setq liste `(1 2 3))
+.               (1 2 3)
+.               >(tailp (rest liste) liste)
+.               T
+.               >(tailp `(1 2) liste)
+.               NIL
+.
+#endif
+
+FF
+
+>MEMBER
+.MEMBER
+.======
+#ifdef __english
+.
+.syntax: (member <element> <list> [:test <test>])
+.
+.This function searches in the list for a certain
+.element and returns the remaining list, which starts
+.with the <element>. If the element is not found,
+.then NIL will be returned. Optionally the function
+.:TEST can be used.
+.
+.example:       >(member 3 `(1 2 3 4 5))
+.               (3 4 5)
+.
+#else
+.
+.Syntax: (member <Element> <Liste> [:test <Test>])
+.
+.Diese Funktion sucht nach einem bestimmten Element
+.in der Liste und liefert die Restliste, die mit dem
+.<Element> anf\344ngt. Falls das Element nicht gefunden
+.wird, wird NIL geliefert. Optional kann auch die
+.Funktion :TEST benutzt werden.
+.
+.Beispiel:      >(member 3 `(1 2 3 4 5))
+.               (3 4 5)
+.
+#endif
+
+FF
+
+>MEMBER-IF
+.MEMBER-IF
+.=========
+#ifdef __english
+.
+.syntax: (member-if <predicate> <list>)
+.
+.This function and the function MEMBER work similar,
+.but MEMBER-IF searches for the first element with
+.the right predicate. <predicate> is a function
+.with an argument. MEMBER-IF returns the remaining
+.list or NIL.
+.
+.example:       >(member-if #`numberp `(a b c 1 2 3))
+.               (1 2 3)
+.
+#else
+.
+.Syntax: (member-if <Pr\344dikat> <Liste>)
+.
+.Diese Funktion arbeitet wie MEMBER, aber sie sucht
+.nach dem ersten Element mit dem richtigen Pr\344dikat.
+.<Pr\344dikat> ist eine Funktion mit einem Argument.
+.MEMBER-IF liefert die Restliste oder NIL.
+.
+.Beispiel:      >(member-if #`numberp `(a b c 1 2 3))
+.               (1 2 3)
+.
+#endif
+
+FF
+
+>APPEND
+.APPEND
+.======
+#ifdef __english
+.
+.syntax: (append {<list> ...})
+.
+.This function returns a list, which contains all
+.elements of the <list>s. The last <list> will not
+.be copied!
+.
+.example:       >(append `(1 2 3) `(4 5 6))
+.               (1 2 3 4 5 6)
+.
+#else
+.
+.Syntax: (append {<Liste> ...})
+.
+.Diese Funktion liefert eine Liste, die alle Elemente
+.der <Liste>n enth\344lt. Die letzte <Liste> wird nicht
+.kopiert!
+.
+.Beispiel:      >(append `(1 2 3) `(4 5 6))
+.               (1 2 3 4 5 6)
+.
+#endif
+
+FF
+
+>REVAPPEND
+.REVAPPEND
+.=========
+#ifdef __english
+.
+.syntax: (revappend <list1> <list2>)
+.
+.REVAPPEND and APPEND work similar. REVAPPEND returns
+.a list, which contains all elements of the lists. It
+.reverses the elements of <list1>.
+.
+.example:       >(revappend `(1 2 3) `(4 5 6))
+.               (3 2 1 4 5 6)
+.
+#else
+.
+.Syntax: (revappend <Liste1> <Liste2>)
+.
+.Diese Funktion arbeitet wie APPEND. Sie liefert eine
+.Liste, die alle Elemente der Listen enth\344lt, aber
+.REVAPPEND dreht die Elemente der <Liste1> um.
+.
+.Beispiel:      >(revappend `(1 2 3) `(4 5 6))
+.               (3 2 1 4 5 6)
+.
+#endif
+
+FF
+
+>ADJOIN
+.ADJOIN
+.======
+#ifdef __english
+.
+.syntax: (adjoin <element> <list> [:test <test>])
+.
+.This function searches in the list for the element.
+.If the element is included in the list, then adjoin
+.will return the list, otherwise a list with the
+.<element> as the first element and the <list> as
+.rest will be returned.
+.
+.example:       >(adjoin 2 `(1 2 3))
+.               (1 2 3)
+.               >(adjoin 0 `(1 2 3))
+.               (0 1 2 3)
+.
+#else
+.
+.Syntax: (adjoin <Element> <Liste> [:test <Test>])
+.
+.Diese Funktion sucht in der Liste nach dem Element.
+.Falls das Element in der Liste enthalten ist, dann
+.wird adjoin die Liste liefern, sonst wird eine Liste
+.mit dem <Element> als erstes Element und die <Liste>
+.als Rest geliefert.
+.
+.Beispiel:      >(adjoin 2 `(1 2 3))
+.               (1 2 3)
+.               >(adjoin 0 `(1 2 3))
+.               (0 1 2 3)
+.
+#endif
+
+FF
+
+>TREE-SUBSTITUTE
+.TREE-SUBSTITUTE
+.===============
+#ifdef __english
+.
+.syntax: (tree-substitute <new> <old> <tree>
+.              [:test <test>])         ;Babylon Lisp
+.        (subst <new> <old> <tree> 
+.              [:test <test>])         ;Common Lisp
+.
+.This function exchanges the old elements of the list
+.<tree> against new ones. It does not only work on the
+.list <tree>, but it works too on all lists, which are 
+.included in <tree>.
+.
+.example:       >(tree-substitute 12 1 `((21 1) 3 1))
+.               ((21 12) 3 12)
+.
+#else
+.
+.Syntax: (tree-substitute <neu> <alt> <Baum>
+.                [:test <Test>])         ;Babylon Lisp
+.        (subst <neu> <alt> <Baum>
+.                [:test <Test>])         ;Common Lisp
+.
+.Diese Funktion tauscht die alten Elemente der Liste
+.<Baum> gegen neue. Sie bearbeitet nicht nur die Liste
+.<Baum>, sondern bearbeitet auch alle Listen, die in
+.<Baum> enthalten sind.
+.
+.Beispiel:      >(tree-substitute 12 1 `((21 1) 3 1))
+.               ((21 12) 3 12)
+.
+#endif
+
+FF
+
+>SUBST
+.SUBST
+.=====
+#ifdef __english
+.
+.syntax: (subst <new> <old> <tree> 
+.             [:test <test>])         ;Common Lisp
+.        (tree-substitute <new> <old> <tree>
+.             [:test <test>])         ;Babylon Lisp
+.
+.This function exchanges the old elements of the list
+.<tree> against new ones. It does not only work on the
+.list <tree>, but it works too on all lists, which are
+.included in <tree>.
+.
+.example:       >(subst 12 1 `((21 1) 3 1))
+.               ((21 12) 3 12)
+.
+#else
+.
+.Syntax: (subst <neu> <alt> <Baum>
+.             [:test <Test>])         ;Common Lisp
+.        (tree-substitute <neu> <alt> <Baum>
+.             [:test <Test>])         ;Babylon Lisp
+.
+.Diese Funktion tauscht die alten Elemente der Liste
+.<Baum> gegen neue. Sie bearbeitet nicht nur die Liste
+.<Baum>, sondern bearbeitet auch alle Listen, die in
+.<Baum> enthalten sind.
+.
+.Beispiel:      >(subst 12 1 `((21 1) 3 1))
+.               ((21 12) 3 12)
+.
+#endif
+
+FF
+
+>TREE-SUBSTITUTE-IF
+.TREE-SUBSTITUTE-IF
+.==================
+#ifdef __english
+.
+.syntax: (tree-substitute-if <new> <predicate>
+.             <tree>)                 ; Babylon Lisp
+.        (subst-if <new> <predicate>
+.             <tree>)                 ; Common Lisp
+.
+.This function exchanges the elements, which have the
+.right predicate, against new ones. It does not only
+.work on the list <tree>, but it works too on all
+.lists, which are included in <tree>.
+.
+.example:       >(tree-substitute-if `c #`numberp
+.                                    `(a b 1 (1 b a)))
+.               (A B C (C B A))
+.
+#else
+.
+.Syntax: (tree-substitute-if <neu> <Pr\344dikat>
+.             <Baum>)                 ; Babylon Lisp
+.        (subst-if <neu> <Pr\344dikat>
+.             <Baum>)                 ; Common Lisp
+.
+.Diese Funktion tauscht die Elemente, die das richtige
+.Pr\344dikat haben, gegen neue. Sie bearbeitet nicht
+.nur die Liste <Baum>, sondern auch alle Listen, die in
+.<Baum> enthalten sind.
+.
+.Beispiel:      >(tree-substitute-if `c #`numberp
+.                                    `(a b 1 (1 b a)))
+.               (A B C (C B A))
+.
+#endif
+
+FF
+
+>SUBST-IF
+.SUBST-IF
+.========
+#ifdef __english
+.
+.syntax: (subst-if <new> <predicate>
+.             <tree>)                 ; Common Lisp
+.        (tree-substitute-if <new> <predicate>
+.             <tree>)                 ; Babylon Lisp
+.
+.This function exchanges the elements, which have the
+.right predicate, against new ones. It does not only
+.work on the list <tree>, but it works too on all
+.lists, which are included in <tree>.
+.
+.example:    >(subst-if `c #`numberp `(a b 1 (1 b a)))
+.            (A B C (C B A))
+.
+#else
+.
+.Syntax: (subst-if <neu> <Pr\344dikat>
+.             <Baum>)                 ; Common Lisp
+.        (tree-substitute-if <neu> <Pr\344dikat>
+.             <Baum>)                 ; Babylon Lisp
+.
+.Diese Funktion tauscht die Elemente, die das richtige
+.Pr\344dikat haben, gegen neue. Sie bearbeitet nicht
+.nur die Liste <Baum>, sondern auch alle Listen, die
+.in <Baum> enthalten sind.
+.
+.Beispiel:   >(subst-if `c #`numberp `(a b 1 (1 b a)))
+.            (A B C (C B A))
+.
+#endif
+
+FF
+
+>GETF
+.GETF
+.====
+#ifdef __english
+.
+.syntax: (getf <place> <indicator> [<default>])
+.
+.This function searches in the list <place> for the
+.element <indicator>. It returns the value, which
+.belongs to the element, when the indicator is found.
+.Otherwise <default> or NIL will be returned.
+.
+.example:       >(setf pl `(a 1 b 2 c 3))
+.               (A 1 B 2 C 3)
+.               >(getf pl `b)
+.               2
+.               >(getf pl `x `nothing)
+.               NOTHING
+.
+#else
+.
+.Syntax: (getf <Ort> <Indikator> [<Standard>])
+.
+.Diese Funktion sucht in der Liste <Ort> nach dem
+.Element <Indikator> und liefert den zugeh\366rigen
+.Wert, wenn der Indikator gefunden wird. Sonst wird
+.<Standard> oder NIL geliefert.
+.
+.Beispiel:      >(setf pl `(a 1 b 2 c 3))
+.               (A 1 B 2 C 3)
+.               >(getf pl `b)
+.               2
+.               >(getf pl `x `nichts)
+.               NICHTS
+.
+#endif
+
+FF
+
+>REMF
+.REMF
+.====
+#ifdef __english
+.
+.syntax: (remf <place> <indicator>)
+.
+.This function removes the element <indicator> and the
+.value, which belongs to the indicator, from the list
+.<place>. It returns T, when the indicator was found,
+.otherwise NIL.
+.
+.example:       >(setf pl `(a 1 b 2 c 3))
+.               (A 1 B 2 C 3)
+.               >(remf pl `b)
+.               T 
+.
+#else
+.
+.Syntax: (remf <Ort> <Indikator>)
+.
+.Diese Funktion entfernt das Element <Indikator> und
+.den dazugeh\366rigen Wert aus der Liste <Ort>. Sie
+.liefert T, wenn der Indikator gefunden wurde, sonst
+.NIL.
+.
+.Beispiel:      >(setf pl `(a 1 b 2 c 3))
+.               (A 1 B 2 C 3)
+.               >(remf pl `b)
+.               T
+.
+#endif
+
+FF
+
+>PCONS
+.PCONS
+.=====
+#ifdef __english
+.
+.syntax: (pcons <indicator> <value> <plist>)
+.               ;Babylon Lisp command
+.        (list* <indicator> <value> <plist>)
+.               ;Common Lisp command
+.
+.This function extends the <plist> with
+.<indicator><value>.
+.
+.example:       >(pcons `x 0 pl)
+.               (X 0 A 1 B 2 C 3)
+.
+#else
+.
+.Syntax: (pcons <Indikator> <Wert> <Liste>)
+.               ;Babylon Lisp Befehl
+.        (list* <Indikator> <Wert> <Liste>)
+.               ;Common Lisp Befehl
+.
+.Diese Funktion erweitert die Eigenschafts-<Liste>
+.mit <Indikator><Wert>.
+.
+.Beispiel:      >(pcons `x 0 pl)
+.               (X 0 A 1 B 2 C 3)
+.
+#endif
+
+FF
+
+>NULL
+.NULL
+.====
+#ifdef __english
+.
+.syntax: (null <object>)
+.
+.This function checks, whether the object is equal to
+.NIL. When yes, then NULL returns T, otherwise NIL.
+.
+.example:       >(null ())
+.               T
+.
+#else
+.
+.Syntax: (null <Objekt>)
+.
+.Diese Funktion pr\374ft, ob das Objekt gleich NIL ist.
+.Wenn ja, wird T geliefert, sonst NIL.
+.
+.Beispiel:      >(null ())
+.               T
+.
+#endif
+
+FF
+
+>IS-TYPE-OF
+.IS-TYPE-OF
+.==========
+#ifdef __english
+.
+.syntax: (is-type-of <object> <type>)
+.
+.This function checks, whether the object is type of
+.<type>. It returns T or NIL. IS-TYPE-OF only exists
+.in Babylon Lisp, not in Common Lisp (Look for TYPEP).
+.
+.example:       >(is-type-of `(1 2 3) `list)
+.               T
+.
+#else
+.
+.Syntax: (is-type-of <Objekt> <Typ>)
+.
+.Diese Funktion \374berpr\374ft, ob das Objekt vom Typ
+.<Typ> ist. Sie liefert T oder NIL. IS-TYPE-OF
+.existiert nur in Babylon Lisp, nicht in Common Lisp
+.(Schau nach TYPEP).
+.
+.Beispiel:      >(is-type-of `(1 2 3) `list)
+.               T
+.
+#endif
+
+FF
+
+>TYPEP
+.TYPEP
+.=====
+#ifdef __english
+.
+.syntax: (typep <object> <type>)
+.
+.This function checks, whether the object is type of
+.<type>. It returns T or NIL.
+.This function is not supported by babylon v3!
+.
+.example:       >(typep `(1 2 3) `list)
+.               T
+.
+#else
+.
+.Syntax: (typep <Objekt> <Typ>)
+.
+.Diese Funktion \374berpr\374ft, ob das Objekt vom Typ
+.<Typ> ist. Sie liefert T oder NIL.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+.Beispiel:      >(typep `(1 2 3) `list)
+.               T
+.
+#endif
+
+FF
+
+>THE-TYPE-OF
+.THE-TYPE-OF
+.===========
+#ifdef __english
+.
+.syntax: (the-type-of <object>) ; Babylon Lisp command
+.        (type-of <object>)     ; Common Lisp command
+.
+.This function returns the type of which the object is
+.a member.
+.
+.example:       >(the-type-of `(1 2 3))
+.               CONS
+.
+#else
+.
+.Syntax: (the-type-of <Objekt>) ; Babylon Lisp Befehl
+.        (type-of <Objekt>)     ; Common Lisp Befehl
+.
+.Diese Funktion liefert den Typ des <Objekt>es.
+.
+.Beispiel:      >(the-type-of `(1 2 3))
+.               CONS
+.
+#endif
+
+FF
+
+>TYPE-OF
+.TYPE-OF
+.=======
+#ifdef __english
+.
+.syntax: (type-of <object>)      ; Common Lisp command
+.        (the-type-of <object>)  ; Babylon Lisp command
+.
+.This function returns the type of which the object
+.is a member.
+.
+.example:       >(type-of `(1 2 3))
+.               CONS
+.
+#else
+.
+.Syntax: (type-of <Objekt>)     ; Common Lisp Befehl
+.        (the-type-of <Objekt>) ; Babylon Lisp Befehl
+.
+.Diese Funktion liefert den Typ des <Objekt>es.
+.
+.Beispiel:      >(type-of `(1 2 3))
+.               CONS
+.
+#endif
+
+FF
+
+>AND
+.AND
+.===
+#ifdef __english
+.
+.syntax: (and {<form> ...})
+.
+.This function evaluates each form, one at a time,
+.from left to right, until one form evaluates to NIL.
+.In this case NIL will be returned, otherwise the
+.value of the last form.
+.
+.example:       >(and 3 4)
+.               4
+.               >(and nil t)
+.               NIL
+.
+#else
+.
+.Syntax: (and {<Form> ...})
+.
+.Diese Funktion \374berpr\374ft die Formen der Reihe
+.nach, ob eine von ihnen den Wert nil hat. In diesem
+.Fall wird der Wert NIL geliefert, sonst der Wert der
+.letzten Form.
+.
+.Beispiel:      >(and 3 4)
+.               4
+.               >(and nil t)
+.               NIL
+.
+#endif
+
+FF
+
+>OR
+.OR
+.==
+#ifdef __english
+.
+.syntax: (or {<form> ...})
+.
+.This function evaluates each form, one at a time,
+.from left to right, until one form evaluates to
+.something other than NIL. In this case this value
+.will be returned, otherwise NIL.
+.
+.example:       >(or nil t)
+.               T
+.               >(or nil nil)
+.               NIL
+.
+#else
+.
+.Syntax: (or {<Form> ...})
+.
+.Diese Funktion \374berpr\374ft die Formen der Reihe
+.nach, ob eine von ihnen einen Wert ungleich NIL hat.
+.In diesem Fall wird dieser Wert geliefert, sonst NIL.
+.
+.Beispiel:      >(or nil t)
+.               T
+.               >(or nil nil)
+.               NIL
+.
+#endif
+
+FF
+
+>NOT
+.NOT
+.===
+#ifdef __english
+.
+.syntax: (not <object>)
+.
+.If the object has the value NIL, then T will be
+.returned, otherwise NIL.
+.
+.example:       >(not nil)
+.               T
+.               >(not 3)
+.               NIL
+.
+#else
+.
+.Syntax: (not <Objekt>)
+.
+.Falls das Objekt den Wert NIL hat, wird T
+.geliefert, sonst NIL.
+.
+.Beispiel:      >(not nil)
+.               T
+.               >(not 3)
+.               NIL
+.
+#endif
+
+FF
+
+>IS-EXACTLY
+.IS-EXACTLY
+.==========
+#ifdef __english
+.
+.syntax: (is-exactly <object1> <object2>)
+.                    ; Babylon Lisp
+.        (eql <object1> <object2>)
+.                    ; Common Lisp
+.
+.This function compares both objects. It returns T,
+.when the objects are eq, or when the objects are
+.numbers of the same type with the same value,
+.or when the objects represent the same character,
+.otherwise this function returns NIL.
+.
+.example:       >(is-exactly `A `A)
+.               T
+.               >(is-exactly 1 1)
+.               T
+.
+#else
+.
+.Syntax: (is-exactly <Objekt1> <Objekt2>)
+.                    ; Babylon Lisp
+.        (eql <Objekt1> <Objekt2>)
+.                    ; Common Lisp
+.
+.Diese Funktion vergleicht beide Objekte. Sie liefert
+.T, wenn die Objekte eq sind, oder wenn die Objekte
+.Zahlen vom gleichen Typ sind und den gleichen Wert
+.besitzen, oder wenn die Objekte das gleiche Zeichen
+.repr\344sentieren, sonst liefert diese Funktion NIL.
+.
+.Beispiel:      >(is-exactly `A `A)
+.               T
+.               >(is-exactly 1 1)
+.               T
+.
+#endif
+
+FF
+
+>EQL
+.EQL
+.===
+#ifdef __english
+.
+.syntax: (eql <object1> <object2>)
+.                    ; Common Lisp
+.        (is-exactly <object1> <object2>)
+.                    ; Babylon Lisp
+.
+.This function compares both objects. It returns T,
+.when the objects are eq, or when the objects are
+.numbers of the same type with the same value,
+.or when the objects represent the same character,
+.otherwise this function returns NIL.
+.
+.example:       >(eql 1.0 1.0)
+.               T
+.               >(eql 1 1.0)
+.               NIL
+.
+#else
+.
+.Syntax: (eql <Objekt1> <Objekt2>)
+.                ; Common Lisp
+.        (is-exactly <Objekt1> <Objekt2>)
+.                ; Babylon Lisp
+.
+.Diese Funktion vergleicht beide Objekte. Sie liefert
+.T, wenn die Objekte eq sind, oder wenn die Objekte
+.Zahlen vom gleichen Typ sind und den gleichen Wert
+.besitzen, oder wenn die Objekte das gleiche Zeichen
+.repr\344sentieren, sonst liefert diese Funktion NIL.
+.
+.Beispiel:      >(eql 1.0 1.0)
+.               T
+.               >(eql 1 1.0)
+.               NIL
+.
+#endif
+
+FF
+
+>IS-SAME
+.IS-SAME
+.=======
+.
+#ifdef __english
+.
+.syntax: (is-same <object1> <object2>) ; Babylon Lisp
+.        (equal <object1> <object2>)   ; Common Lisp
+.
+.This function compares both objects. It returns true,
+.when the objects are structurally similar. Numbers
+.(is-same works like `=`) and characters will be
+.compared like eql would do. Symbols will be compared
+.like eq would do.
+. 
+.example:       >(is-same `A `A)
+.               T
+.               >(is-same 1 1.0)
+.               T
+.
+#else
+.
+.Syntax: (is-same <Objekt1> <Objekt2>) ; Babylon Lisp
+.        (equal <Objekt1> <Objekt2>)   ; Common Lisp
+.
+.Diese Funktion vergleicht beide Objekte. Sie liefert
+.T, wenn die Objekte strukturell gleich sind. Zahlen
+.(is-same arbeitet wie `=`) und Zeichen werden
+.verglichen wie bei eql. Symbole werden verglichen
+.wie bei eq.
+.
+.Beispiel:      >(is-same `A `A)
+.               T
+.               >(is-same 1 1.0)
+.               T
+.
+#endif
+
+FF
+
+>EQUAL
+.EQUAL
+.=====
+.
+#ifdef __english
+.
+.syntax: (equal <object1> <object2>)   ; Common Lisp
+.        (is-same <object1> <object2>) ; Babylon Lisp
+.
+.This function compares both objects. It returns true,
+.when the objects are structurally similar. Numbers
+.(equal works like `=`) and characters will be compared
+.like eql would do. Symbols will be compared like eq
+.would do.
+. 
+.example:       >(equal 1 1.0)
+.               NIL
+.               >(equal #\a #\a)
+.               T
+.               >(equal #\a #\A)
+.               NIL
+.
+#else
+.
+.Syntax: (equal <Objekt1> <Objekt2>)   ; Common Lisp
+.        (is-same <Objekt1> <Objekt2>) ; Babylon Lisp
+.
+.Diese Funktion vergleicht beide Objekte. Sie liefert
+.T, wenn die Objekte strukturell gleich sind. Zahlen
+.(is-same arbeitet wie `=`) und Zeichen werden
+.verglichen wie bei eql. Symbole werden verglichen
+.wie bei eq.
+.
+.Beispiel:      >(equal 1 1.0)
+.               NIL
+.               >(equal #\a #\a)
+.               T
+.               >(equal #\a #\A)
+.               NIL
+.
+#endif
+
+FF
+
+>IS-NEARLY
+.IS-NEARLY
+.=========
+.
+#ifdef __english
+.
+.syntax: (is-nearly <object1> <object2> [<delta>])
+.                   ; Babylon Lisp
+.        (equalp <object1> <object2>)
+.                   ; Common Lisp
+.
+.Warning: <delta> is not supported by EMA-XPS!
+.
+.This function compares both objects. It returns T,
+.when the objects are almost equal. IS-NEARLY and
+.EQUALP can not be compared for numbers: EQUALP
+.works like `=`.
+.
+.example:       >(is-nearly #\a #\A)
+.               T
+.               >(is-nearly 1 1.0)
+.               T
+.               >(is-nearly 1 1.01 0.01)
+.               T
+.
+#else
+.
+.Syntax: (is-nearly <Objekt1> <Objekt2> [<delta>])
+.                   ; Babylon Lisp
+.        (equalp <Objekt1> <Objekt2>)
+.                   ; Common Lisp
+.
+.Warnung: <delta> wird vom EMA-XPS nicht unter-
+.         st\374tzt!
+.
+.Diese Funktion vergleicht beide Objekte. Sie liefert
+.T, wenn die Objekte in etwa gleich sind. F\374r Zahlen
+.k\366nnen die oben stehenden Funktionen nicht
+.verglichen werden: equalp arbeitet wie `=`.
+.
+.Beispiel:      >(is-nearly #\a #\A)
+.               T
+.               >(is-nearly 1 1.0)
+.               T
+.               >(is-nearly 1 1.01 0.01)
+.               T
+.
+#endif
+
+FF
+
+>EQUALP
+.EQUALP
+.======
+.
+#ifdef __english
+.
+.syntax: (equalp <object1> <object2>)
+.                ; Common Lisp
+.        (is-nearly <object1> <object2> [<delta>])
+.                ; Babylon Lisp
+.
+.This function compares both objects. It returns T,
+.when the objects are almost equal. EQUALP and
+.IS-NEARLY can not be compared for numbers: equalp
+.works like `=`.
+.
+.example:       >(equalp "a" "A")
+.               T
+.               >(equalp 1 1.01)
+.               NIL
+.
+#else
+.
+.Syntax: (equalp <Objekt1> <Objekt2>)
+.                ; Common Lisp
+.        (is-nearly <Objekt1> <Objekt2> [<delta>])
+.                ; Babylon Lisp
+.
+.Diese Funktion vergleicht beide Objekte. Sie liefert
+.T, wenn die Objekte in etwa gleich sind. F\374r Zahlen
+.k\366nnen die oben stehenden Funktionen nicht
+.verglichen werden: equalp arbeitet wie `=`.
+.
+.Beispiel:      >(equalp "a" "A")
+.               T
+.               >(equalp 1 1.01)
+.               NIL
+.
+#endif
+
+FF
+
+>EQ
+.EQ
+.==
+#ifdef __english
+.
+.syntax: (eq <object1> <object2>)
+.
+.This function compares both objects. It only returns T,
+.when the objects are identical, otherwise it returns
+.NIL.
+.This function is not supported by babylon v3!
+.
+.example:       >(eq `a `a)
+.               T
+.               >(eq 1 1)
+.                   ;might be true or false, depending
+.                                on the implementation.
+.
+#else
+.
+.Syntax: (eq <Objekt1> <Objekt2>)
+.
+.Diese Funktion vergleicht beide Objekte. Sie liefert
+.nur T, wenn die Objekte identisch sind, sonst liefert
+.sie NIL.
+.Diese Funktion wird durch babylon v3 nicht
+.unterst\374tzt!
+.
+.Beispiel:      >(eq `a `a)
+.               T
+.               >(eq 1 1)
+.                   ;kann T oder NIL sein, abh\344ngig
+.                               von der Implementation.
+.
+.
+#endif
+
+FF
+
+>PROGN
+.PROGN
+.=====
+#ifdef __english
+.
+.syntax: (progn {<form> *})
+.
+.This function evaluates the forms sequentially, in
+.order, from left to right. The value, which the last
+.form returns, will be returned by PROGN.
+.
+.example:       >(progn)
+.               NIL
+.               >(progn (+ 1 2) (* 1 2) (- 2 1))
+.               1
+.
+#else
+.
+.Syntax: (progn {<Form> *})
+.
+.Diese Funktion wertet die Formen sequentiell aus, in
+.der Reihenfolge von links nach rechts. Der Wert, der
+.die letzte Form liefert, wird von progn geliefert.
+.
+.Beispiel:      >(progn)
+.               NIL
+.               >(progn (+1 2) (* 1 2) (- 2 1))
+.               1
+.
+#endif
+
+FF
+
+>COND
+.COND
+.====
+#ifdef __english
+.
+.syntax: (cond {(<test> {<form> ...}) ...})
+.
+.This function evaluates the testforms sequentially,
+.until one of them has a value different to NIL. Then
+.the following forms <form> will be evaluated and the
+.value of the last form will be returned by cond. If
+.all testforms return NIL, then cond will return NIL
+.too.
+.
+.example:       >(setq a nil)
+.               NIL
+.               >(setq b nil)
+.               NIL
+.               >(setq c 3)
+.               100
+.               >(cond (a 1) (b 2) (c 3))
+.               3
+.
+#else
+.
+.syntax: (cond {(<Test> {<Form> ...}) ...})
+.
+.Diese Funktion wertet die Testformen sequentiell aus,
+.bis eine von ihnen einen Wert ungleich NIL ergibt.
+.Danach werden die ihr folgenden Formen <form> ausge-
+.wertet und der Wert der letzten Form wird von cond
+.geliefert. Falls alle Testformen NIL liefern, dann
+.wird auch cond NIL liefern.
+.
+.Beispiel:      >(setq a nil)
+.               NIL
+.               >(setq b nil)
+.               NIL
+.               >(setq c 3)
+.               100
+.               >(cond (a 1) (b 2) (c 3))
+.               3
+.
+#endif
+
+FF
+
+>IF
+.IF
+.==
+#ifdef __english
+.
+.syntax: (if <test> <then> <else>)       ; Babylon Lisp
+.        (if <test> <then> [<else>])     ; Common Lisp
+.
+.This function evaluates the testform. If the result
+.is not NIL, then the form <then> will be selected,
+.otherwise <else>. IF returns whatever evaluation of
+.the selected form returns.
+.
+.example:       >(if t 1 2)
+.               1
+.               >(if nil 1 2)
+.               2
+.
+#else
+.
+.Syntax: (if <test> <then> <else>)       ; Babylon Lisp
+.        (if <test> <then> [<else>])     ; Common Lisp
+.
+.Diese Funktion wertet die Testform aus. Wenn das
+.Resultat nicht NIL ist, dann wird die Form <then>
+.gew\344hlt, sonst <else>. IF liefert immer das, was
+.die Auswertung der selektierten Form liefert.
+.
+.Beispiel:      >(if t 1 2)
+.               1
+.               >(if nil 1 2)
+.               2
+.
+#endif
+
+FF
+
+>WHEN
+.WHEN
+.====
+#ifdef __english
+.
+.syntax: (when <test> {<form> ...})
+.
+.This function evaluates the testform. If the result
+.is NIL, then no <form> will be evaluated, and NIL will
+.be returned. Otherwise the forms <form> will be
+.evaluated sequentially, from left to right, and the
+.value of the last form will be returned.
+.
+.example:       >(when t 1)
+.               1
+.               >(when nil 1)
+.               NIL
+.
+#else
+.
+.Syntax: (when <Test> {<Form> ...})
+.
+.Diese Funktion wertet die Testform aus. Wenn das
+.Ergebnis NIL ist, dann wird keine <Form> ausgewertet,
+.und NIL wird geliefert. Sonst werden die Formen <Form>
+.sequentiell von links nach rechts ausgewertet und
+.der Wert der letzten Form wird geliefert.
+.
+.Beispiel:      >(when t 1)
+.               1
+.               >(when nil 1)
+.               NIL
+.
+#endif
+
+FF
+
+>UNLESS
+.UNLESS
+.======
+#ifdef __english
+.
+.syntax: (unless <test> {<form> ...})
+.
+.This function evaluates the testform. If the result
+.is not NIL, then the forms will not be evaluated,
+.and NIL will be returned. Otherwise the forms <form>
+.will be evaluated sequentially, from left to right,
+.and the value of the last form will be returned.
+.
+.example:       >(unless nil 1)
+.               1
+.               >(unless t 1)
+.               NIL
+.
+#else
+.
+.Syntax: (unless <Test> {<Form> ...})
+.
+.Diese Funktion wertet die Testform aus. Wenn das
+.Resultat nicht NIL ist, dann werden die Formen nicht
+.ausgewertet, und NIL wird geliefert. Sonst werden die
+.Formen <Form> sequentiell von links nach rechts aus-
+.gewertet und der Wert der letzten Form wird geliefert.
+.
+.Beispiel:      >(unless nil 1)
+.               1
+.               >(unless t 1)
+.               NIL
+.
+#endif
+
+FF
+
+>CASE
+.CASE
+.====
+#ifdef __english
+.
+.syntax: (case <keyform> {({<key> |
+.              ({<key> ...})} {<form> ...}) ...})
+.
+.case is a conditional that chooses one of its clauses
+.to execute by comparing a value to various constants,
+.which are typically keyword symbols, integers, or
+.characters (but may be any objects).
+.
+.example:       >(case 1 (3 `c)
+.                        (2 `b)
+.                        (1 `a)
+.                        (t `end))
+.               A
+.
+#else
+.
+.Syntax: (case <keyform> {({<key> | ({<key> ...})}
+.                          {<form> ...}) ...})
+.
+.CASE macht eine Fallauswahl. <keyform> wird
+.ausgewertet und es wird der Zweig aktiviert, f\374r
+.den als erstes der Wert von <keyform> und <key>
+.\374bereinstimmt. Die entsprechenden Formen <form>
+.werden der Reihe nach ausgewertet. Als typische
+.<key>s sind Symbole, Ganze Zahlen, oder Zeichen
+.erlaubt (Alle Objekte d\374rfen benutzt werden).
+.
+.Beispiel:      >(case 1 (3 `c)
+.                        (2 `b)
+.                        (1 `a)
+.                        (t `Ende))
+.               A
+.
+#endif
+
+FF
+
+>LOOP
+.LOOP
+.====
+#ifdef __english
+.
+.syntax: (loop {<form> ...})
+.
+.This function evaluates each form in turn, from left
+.to right, in a never-ending loop. LOOP never returns
+.a value. It can be left with the RETURN-function.
+.
+.example:       >(setf i 0)
+.               0
+.               >(loop (setf i (+ i 1)) (when (= i 5)
+.                      (return `end)))
+.               END
+.               >i
+.               5
+.
+#else
+.
+.Syntax: (loop {<form> ...})
+.
+.Diese Funktion f\374hrt die Formen <form> zyklisch
+.von links nach rechts aus. LOOP liefert nie einen
+.Wert. Sie kann mit Hilfe von RETURN verlassen werden.
+.
+.Beispiel:      >(setf i 0)
+.               0
+.               >(loop (setf i (+ i 1)) (when (= i 5)
+.                      (return `Ende)))
+.               ENDE
+.               >i
+.               5
+.
+#endif
+
+FF
+
+>FOR
+.FOR
+.===
+#ifdef __english
+.
+.syntax: (for ((<var> [from <number>]
+.             [downto | to <number>] [by <number>]))
+.             [(execute {<form> ...})]
+.             [(collect {<collector> ...})]
+.             [(result <result-expr>)])
+.
+.This function describes loops with increasing or
+.decreasing variables. It only exists in Babylon Lisp.
+.In Common Lisp you have to look for do, dolist,
+.dotimes, loop and the map-functions.
+.
+.example:       >(for ((i from 1 to 5 by 3))
+.		      (execute (print-form i t)))
+.               1
+.               4
+.               NIL
+.
+#else
+.
+.Syntax: (for ((<Var> [from <Zahl>]
+.             [downto | to <Zahl>] [by <Zahl>]))
+.             [(execute {<Form> ...})]
+.             [(collect {<Kollektor> ...})]
+.             [(result <Resultat-Ausdr>)])
+.
+.Diese Funktion beschreibt Zyklen mit Laufvariablen.
+.Sie existiert nur in Babylon Lisp. In Common Lisp
+.mu\337 man bei do, dolist, dotimes, loop und den
+.map-Funktionen nachschauen.
+.
+.Beispiel:      >(for ((i from 1 to 5 by 3))
+.		      (execute (print-form i t)))
+.               1
+.               4
+.               NIL
+.
+#endif
+
+FF
+
+>RETURN-RESULT
+.RETURN-RESULT
+.=============
+#ifdef __english
+.
+.syntax: (return-result)
+.
+.return-result can only be used in Babylon Lisp
+.together with the for-function. It forces FOR
+.to cancel.
+.
+#else
+.
+.Syntax: (return-result)
+.
+.Return-result kann nur in Babylon Lisp, zusammen mit
+.der FOR-Funktion, verwendet werden. Sie zwingt den
+.FOR-Zyklus zu einem Abbruch.
+.
+#endif
+
+FF
+
+>RETURN
+.RETURN
+.======
+#ifdef __english
+.
+.syntax: (return <object>)
+.
+.return is used to return from FOR or LOOP with the
+.result <object>. It can only be used within
+.these functions.
+.
+#else
+.
+.Syntax: (return <Objekt>)
+.
+.Diese Funktion wird benutzt zum Abbruch eines 
+.umschlie\337enden for- oder loop-Zyklus mit dem 
+.Ergebnis <Objekt>. Sie kann nur innerhalb dieser 
+.Zyklen verwendet werden.
+.
+#endif
+
+FF
+
+>WITH-OPEN-INPUT-FILE
+.WITH-OPEN-INPUT-FILE
+.====================
+#ifdef __english
+.
+.syntax: (with-open-input-file
+.            ; Babylon Lisp
+.                (<stream-var> <filename>)
+.                {<form> ...})
+.        (with-open-file
+.            ; Common Lisp: This function realises
+.                           in- and output!
+.                (<stream-var> <filename>
+.                [{<options> ...}])              
+.                [{<declaration> ...}]           
+.                [{<form> ...}])
+.
+.This function opens a file with the name <filename>
+.for reading. If the file can not be opened, then NIL
+.will be returned.
+.
+.examples:      >(with-open-output-file (f "test.temp")
+.                   (print-form `(1 2 3 4 5) f)
+.                      (format f "~%abc"))
+.               NIL
+.
+.               >(with-open-input-file (f "test.temp")
+.                    (list (read-form f)
+.                         (read-one-line f
+.                              `has-to-be-a-line)
+.                             (read-form f `end)
+.                             (read-one-line f `end2)))
+.               ((1 2 3 4 5) " " ABC END2)
+.
+.In this example:       A file with the name
+.                         "test.temp" is made and
+.			
+.                       (1 2 3 4 5)
+.                       abc
+.
+.                       is written into this file!
+.
+#else
+.
+.Syntax: (with-open-input-file
+.             ; Babylon Lisp
+.                (<stream-var> <Dateiname>)
+.                {<form> ...})
+.        (with-open-file
+.             ; Common Lisp: Diese Funktion
+.                            realisiert in- und output!
+.                       (<stream-var> <Dateiname>       
+.                       [{<options> ...}])              
+.                       [{<declaration> ...}]           
+.                       [{<form> ...}])
+.
+.Diese Funktion \366ffnet eine Datei mit Namen
+.<Dateiname> zum Lesen. Falls die Datei nicht er\366ffnet
+.werden kann, wird NIL geliefert.
+.
+.Beispiel:      >(with-open-output-file (f "test.temp")
+.                       (print-form `(1 2 3 4 5) f)
+.                       (format f "~%abc"))
+.               NIL
+.
+.               >(with-open-input-file (f "test.temp")
+.                       (list (read-form f)
+.                             (read-one-line f
+.                             `sollte-zeile-sein)
+.                             (read-form f `ende)
+.                             (read-one-line f
+.                             `ende2)))
+.               ((1 2 3 4 5) " " ABC ENDE2)
+.
+.In diesem Beispiel:    Eine Datei mit Namen
+.                         "test.temp" wurde angelegt
+.                            und
+.	
+.                       (1 2 3 4 5)
+.                       abc
+.
+.                       ist hineingeschrieben worden.
+.
+#endif
+
+FF
+
+>WITH-OPEN-OUTPUT-FILE
+.WITH-OPEN-OUTPUT-FILE
+.=====================
+#ifdef __english
+.
+.syntax: (with-open-output-file
+.             ; Babylon Lisp
+.                (<stream-var> <filename>
+.                [<if-exists-option>])
+.                {<form> ...})
+.        (with-open-file
+.             ; Common Lisp: This function realises
+.                            in- and output!
+.                (<stream-var> <filename>        
+.                [{<options> ...}])              
+.                [{<declaration> ...}]           
+.                [{<form> ...}])
+.
+.This function opens a file with the name <filename> to
+.for writing. If the file can not be opened, then NIL
+.will be returned.
+.
+.examples:      >(with-open-output-file (f "test.temp")
+.                       (print-form `(1 2 3 4 5) f)
+.                       (format f "~%abc"))
+.               NIL
+.
+.               >(with-open-input-file (f "test.temp")
+.                       (list (read-form f)
+.                             (read-one-line f
+.                               `has-to-be-a-line)
+.                             (read-form f `end)
+.                             (read-one-line f `end2)))
+.               ((1 2 3 4 5) " " ABC END2)
+.
+.In this example:       A file with the name
+.                          "test.temp" is made and
+.			
+.                       (1 2 3 4 5)
+.                       abc
+.
+.                       is written into this file!
+.
+#else
+.
+.Syntax: (with-open-output-file
+.             ; Babylon Lisp
+.                (<stream-var> <Dateiname>
+.                [<if-exists-option>])
+.                {<form> ...})
+.        (with-open-file
+.             ; Common Lisp: Diese Funktion realisiert
+.                            in- und output!
+.                (<stream-var> <Dateiname>       
+.                [{<options> ...}])              
+.                [{<declaration> ...}]           
+.                [{<form> ...}])
+.
+.Diese Funktion \366ffnet eine Datei mit Namen
+.<Dateiname> zum Schreiben. Falls die Datei nicht
+.er\366ffnet werden kann, wird NIL geliefert.
+.
+.Beispiel:      >(with-open-output-file (f "test.temp")
+.                       (print-form `(1 2 3 4 5) f)
+.                       (format f "~%abc"))
+.               NIL
+.
+.               >(with-open-input-file (f "test.temp")
+.                       (list (read-form f)
+.                             (read-one-line f
+.                               `sollte-zeile-sein)
+.                             (read-form f `ende)
+.                             (read-one-line f
+.                               `ende2)))
+.               ((1 2 3 4 5) " " ABC ENDE2)
+.
+.In diesem Beispiel:    Eine Datei mit Namen
+.                         "test.temp" wurde angelegt
+.                            und
+.	
+.                       (1 2 3 4 5)
+.                       abc
+.
+.                       ist hineingeschrieben worden.
+.
+#endif
+
+FF
+
+>WITH-OPEN-FILE
+.WITH-OPEN-FILE
+.==============
+#ifdef __english
+.
+.syntax: (with-open-file
+.             ; Common Lisp: This function realises
+.                            in- and output!
+.                (<stream-var> <filename>        
+.                [{<options> ...}])              
+.                [{<declaration> ...}]           
+.                [{<form> ...}])
+.        (with-open-input-file
+.             ; Babylon Lisp
+.                (<stream-var> <filename>)
+.                {<form> ...})
+.        (with-open-output-file
+.             ; Babylon Lisp
+.                (<stream-var> <filename>
+.                [<if-exists-option>])
+.                {<form> ...})
+.
+.This function opens a file with the name <filename>
+.for reading or writing. If the file can not be opened,
+.then NIL will be returned.
+.
+.examples:      >(with-open-file (f "test.temp"
+.                       :direction :output)
+.                       (print `(1 2 3 4 5) f)
+.                       (format f "~%abc"))
+.               NIL
+.
+.               >(with-open-file (f "test.temp"
+.                       :direction :input)
+.                             (list (read f)
+.                             (read-line f
+.                               `has-to-be-a-line)
+.                             (read f `end)
+.                             (read-line f `end2)))
+.               ((1 2 3 4 5) " " ABC END2)
+.
+.In this example:       A file with the name
+.                        "test.temp" is made and
+.			
+.                       (1 2 3 4 5)
+.                       abc
+.
+.                       is written into this file!
+.
+#else
+.
+.Syntax: (with-open-file
+.             ; Common Lisp: Diese Funktion realisiert
+.                            in- und output!
+.                (<stream-var> <Dateiname>       
+.                [{<options> ...}])              
+.                [{<declaration> ...}]           
+.                [{<form> ...}])
+.        (with-open-input-file
+.             ; Babylon Lisp
+.                (<stream-var> <Dateiname>)
+.                {<form> ...})
+.        (with-open-output-file
+.             ; Babylon Lisp
+.                (<stream-var> <Dateiname>
+.                [<if-exists-option>])
+.                {<form> ...})
+.
+.Diese Funktion \366ffnet eine Datei mit Namen
+.<Dateiname> zum Lesen bzw. Schreiben. Falls die Datei
+.nicht er\366ffnet werden kann, wird NIL geliefert.
+.
+.Beispiel:      >(with-open-file (f "test.temp"
+.                       :direction :output)
+.                       (print `(1 2 3 4 5) f)
+.                       (format f "~%abc"))
+.               NIL
+.
+.               >(with-open-file (f "test.temp"
+.                       :direction :input)
+.                       (list (read f)
+.                             (read-line f
+.                               `sollte-zeile-sein)
+.                             (read f `ende)
+.                             (read-line f `ende2)))
+.               ((1 2 3 4 5) " " ABC ENDE2)
+.
+.
+.In diesem Beispiel:    Eine Datei mit Namen
+.                         "test.temp" wurde angelegt
+.                            und
+.	
+.                       (1 2 3 4 5)
+.                       abc
+.
+.                       ist hineingeschrieben worden.
+.
+#endif
+
+FF
+
+>PRINT-FORM
+.PRINT-FORM
+.==========
+#ifdef __english
+.
+.syntax: (print-form <object> <output-stream>) 
+.              ; Babylon Lisp
+.        (print <object> <output-stream>)      
+.              ; Common Lisp
+.
+.This function outputs the symbolic expression 
+.<object>, which is given as argument, on the 
+.terminal. The arguments can be numbers, characters, 
+.strings, symbols and lists. Lists can only contain 
+.these data types too. The output is followed by a 
+.space and <object> will be returned.
+.
+#else
+.
+.Syntax: (print-form <Objekt> <Ausgabe-Strom>)  
+.              ; Babylon Lisp
+.        (print <Objekt> <Ausgabe-Strom>)       
+.              ; Common Lisp
+.
+.Diese Funktion gibt den als Argument angegebenen 
+.symbolischen Ausdruck <Objekt> auf dem Terminal aus. 
+.Die Argumente d\374rfen Zahlen, Zeichen, Zeichen-
+.ketten, Symbole und Listen sein. Listen d\374rfen
+.wiederum nur die genannten Datentypen enthalten. Die 
+.Funktion gibt anschlie\337end noch eine Leerstelle 
+.aus und liefert <Objekt>.
+.
+#endif
+
+FF
+
+>PRINT
+.PRINT
+.=====
+#ifdef __english
+.
+.syntax: (print <object> <output-stream>)      
+.              ; Common Lisp
+.        (print-form <object> <output-stream>) 
+.              ; Babylon Lisp
+.
+.This function outputs the symbolic expression 
+.<object>, which is given as argument, on the 
+.terminal. The arguments can be numbers, characters, 
+.strings, symbols and lists. Lists can only contain 
+.these data types too. The output is followed by a 
+.space and <object> will be returned.
+.
+#else
+.
+.Syntax: (print <Objekt> <Ausgabe-Strom>)       
+.              ; Common Lisp
+.        (print-form <Objekt> <Ausgabe-Strom>)  
+.              ; Babylon Lisp
+.
+.Diese Funktion gibt den als Argument angegebenen 
+.symbolischen Ausdruck <Objekt> auf dem Terminal aus. 
+.Die Argumente d\374rfen Zahlen, Zeichen, Zeichen-
+.ketten, Symbole und Listen sein. Listen d\374rfen
+.wiederum nur die genannten Datentypen enthalten. Die 
+.Funktion gibt anschlie\337end noch eine Leerstelle 
+.aus und liefert <Objekt>.
+.
+#endif
+
+FF
+
+>READ-FORM
+.READ-FORM
+.=========
+#ifdef __english
+.
+.syntax: (read-form <input-stream> [<eof-value>])  
+.             ; Babylon Lisp
+.        (read <input-stream> [<eof-value>])	  
+.             ; Common Lisp
+.
+.This function reads the next symbolic expression 
+.from the terminal, builds the corresponding Lisp 
+.object, and returns the object.
+.
+#else
+.
+.Syntax: (read-form <Eingabe-Strom> [<eof-Wert>])   
+.             ; Babylon Lisp
+.        (read <Eingabe-Strom> [<eof-Wert>])	   
+.             ; Common Lisp
+.
+.Diese Funktion liest den n\344chsten symbolischen 
+.Ausdruck vom Terminal, bildet das entsprechende Lisp 
+.Objekt, und liefert das Objekt.
+.
+#endif
+
+FF
+
+>READ
+.READ
+.====
+#ifdef __english
+.
+.syntax: (read <input-stream> [<eof-value>])	  
+.             ; Common Lisp
+.        (read-form <input-stream> [<eof-value>])  
+.             ; Babylon Lisp
+.
+.This function reads the next symbolic expression 
+.from the terminal, builds the corresponding Lisp 
+.object, and returns the object.
+.
+#else
+.
+.Syntax: (read <Eingabe-Strom> [<eof-Wert>])	   
+.             ; Common Lisp
+.        (read-form <Eingabe-Strom> [<eof-Wert>])   
+.             ; Babylon Lisp
+.
+.Diese Funktion liest den n\344chsten symbolischen 
+.Ausdruck vom Terminal, bildet das entsprechende Lisp 
+.Objekt, und liefert das Objekt.
+.
+#endif
+
+FF
+
+>FORMAT
+.FORMAT
+.======
+#ifdef __english
+.
+.syntax: (format <stream> <format-string> {<arg> ...})
+.
+.This function is used to produce a formatted output.
+.The format directives consist of a tilde (~), 
+.optional prefix parameters separated by commas, 
+.optional colon (:) and at-sign (@) modifiers, 
+.and a single character indicating what kind of 
+.directive this is.
+.
+.~A     Ascii. An <arg>, any Lisp object, is printed 
+.               without escape characters. The output 
+.               is not suitable for input to read.
+.~S     Symbolic-expression. This is just like ~A, 
+.               but <arg> is printed with escape 
+.               characters. The output is therefore 
+.               suitable for input to read.
+.~D     Decimal. An <arg>, which should be an integer, 
+.               is printed in decimal radix.
+.~B     Binary. This is just like ~D but prints in 
+.               binary radix instead of decimal.
+.~O     Octal. This is just like ~D but prints in 
+.               octal radix instead of decimal.
+.~X     Hexadecimal. This is just like ~D but prints 
+.               in hexadecimal radix instead of 
+.               decimal.
+.~F     Fixed-format floating-point. The next <arg> 
+.               is printed as a floating point number. 
+.               The full form is ~w,d,kF. The 
+.               parameter w is the width of the field 
+.               to be printed. d is the number of 
+.               digits to print after the decimal 
+.               point. k is a scale factor that 
+.               defaults to zero.
+.~E     Exponential floating-point. The next <arg> is 
+.               printed as a floating point number in 
+.               exponential notation. The full form is
+.               ~w,d,e,kE. e is the number of digits 
+.               to use when printing the exponent.
+.~$     Dollars floating-point. The next argument is 
+.               printed as a floating-point number in 
+.               fixed-format notation. This format is
+.               particularly convenient for printing 
+.               a value as dollars and cents. The full 
+.               form is ~d,n,w$. n is the minimum 
+.               number of digits to print before the
+.               decimal point (default value 1)
+.~%     This outputs a #\newline character, thereby 
+.               terminating the current output line 
+.               and beginning a new one.
+.~|     This outputs a page separator character, if 
+.               possible.
+.~T     Tabulate. This spaces over to a given column. 
+.               ~colnum,colincT will output sufficient 
+.               spaces to move the cursor to column
+.               `colnum`.
+.~~     This outputs a tilde.
+.~<nl>  Tilde immediately followed by a newline 
+.               ignores the newline and any following 
+.               non-newline whitespace characters.
+.
+#else
+.
+.Syntax: (format <Strom> <Format-Zeichenkette> 
+.                        {<Arg> ...})
+.
+.FORMAT wird benutzt um eine formatierte Ausgabe zu 
+.erzeugen. Die Format-Anweisungen bestehen aus einer 
+.Tilde (~), einen optionalen Doppelpunkt (:), 
+.optionalen AT-Zeichen (@) Modifikatoren und einem 
+.Einzelzeichen das ein Indikator f\374r die Anweisung 
+.ist.
+.
+.~A     Ascii. gibt ein <Arg> ohne Escape-Zeichen aus. 
+.               (in nicht wiedereinlesbarer Form)
+.~S     Symbolischer Ausdruck. gibt ein <Arg> mit 
+.               Escape-Zeichen aus. (in 
+.               wiedereinlesbarer Form)
+.~D     Dezimal. Gibt ein <Arg>, das eine ganze Zahl 
+.               sein mu\337, in Dezimalform aus.
+.~B     Bin\344r. Wie ~D, nur in Bin\344rform.
+.~O     Oktal. Wie ~D, nur in Oktalform.
+.~X     Hexadezimal. Wie ~D, nur in Hexadezimalform.
+.~F     Fest-Format-Gleitkommazahl. Gibt ein <Arg>, 
+.               das eine Gleitkommazahl sein mu\337, 
+.               im Festformat aus. Optional (~w,d,kF).
+.~E     Exponential-Gleitkommazahl. Wie ~F, nur 
+.               Ausgabe in Exponentialformat. Optional 
+.               (~w,d,e,kE).
+.~$     Dollar-Gleitkommazahl (W\344hrungsformat). 
+.               Wie ~F, nur Ausgabe in W\344hrungs-
+.               format. Optional (~d,n,w$)
+.~%     gibt einen Zeilenvorschub aus
+.~|     gibt einen Seitenvorschub aus
+.~T     Tabulierung; bewirkt Ausgabe von Leerzeichen 
+.               bis mindestens Spalte <colnum>. 
+.               Optional (~colnum,colincT).
+.~~     gibt eine Tilde (~) aus.
+.~<nl>  Das Zeichen Tilde (~) direkt vor dem 
+.               Zeilenende ignoriert den Zeilenumbruch 
+.               und alle folgenden Leerzeichen.
+.
+#endif
+
+FF
+
+>READ-ONE-LINE
+.READ-ONE-LINE
+.=============
+#ifdef __english
+.
+.syntax: (read-one-line <input-stream> [<eof-value>])  	
+.             ; Babylon Lisp
+.        (read-line <input-stream> [<eof-value>])	
+.             ; Common Lisp
+.
+.This function reads in a line of text terminated 
+.by a newline. It returns the line as a character 
+.string (without the newline character).
+.
+.example: look to WITH-OPEN-FILE
+.
+#else
+.
+.Syntax: (read-one-line <Eigabe-Strom> [<eof-Wert>])	
+.             ; Babylon Lisp
+.        (read-line <Eingabe-Strom> [<eof-Wert>])	
+.             ; Common Lisp
+.
+.Diese Funktion liest eine Zeile ein und liefert diese 
+.als Zeichenkette (ohne Zeilenendbegrenzer).
+.
+.Beispiel: schau nach WITH-OPEN-FILE
+.
+#endif
+
+FF
+
+>READ-LINE
+.READ-LINE
+.=========
+#ifdef __english
+.
+.syntax: (read-line <input-stream> [<eof-value>])	
+.             ; Common Lisp
+.        (read-one-line <input-stream> [<eof-value>])  	
+.             ; Babylon Lisp
+.
+.This function reads in a line of text terminated by 
+.a newline. It returns the line as a character 
+.string (without the newline character).
+.
+.example: look to WITH-OPEN-FILE
+.
+#else
+.
+.Syntax: (read-line <Eingabe-Strom> [<eof-Wert>])	
+.             ; Common Lisp
+.        (read-one-line <Eigabe-Strom> [<eof-Wert>])	
+.             ; Babylon Lisp
+.
+.Diese Funktion liest eine Zeile ein und liefert diese 
+.als Zeichenkette (ohne Zeilenendbegrenzer).
+.
+.Beispiel: schau nach WITH-OPEN-FILE
+.
+#endif
+
+FF
+
+>UNWIND-PROTECT
+.UNWIND-PROTECT
+.==============
+#ifdef __english
+.
+.syntax: (unwind-protect <protected-form> 
+.                        {<cleanup-form> ...})
+.
+.Sometimes it is necessary to evaluate a form and to 
+.secure that certain side effects take place later. 
+.When the program stops (in a normal or not normal 
+.way), then the cleanup-form will be executed.
+.
+.example:       >(unwind-protect
+.                       (progn (start-motor)
+.                              (drill-hole))
+.                       (stop-motor))
+.
+#else
+.
+.Syntax: (unwind-protect <Gesicherter-Form> 
+.                        {<Abschlu\337-Form> ...})
+.
+.Manchmal ist es notwendig eine Form auszuwerten und 
+.sicher zu stellen, das gewisse Nebeneffekte hinterher 
+.stattfinden. Falls das Programm beendet wird (auf 
+.normale oder nicht normale Weise), dann wird die 
+.<Abschlu\337-Form> ausgef\374hrt.
+.
+.Beispiel:      >(unwind-protect
+.                       (progn (Starte-Motor)
+.                              (Bohre-Loch))
+.                       (Stoppe-Motor))
+.
+#endif
+
+
+!
+! -----------------------------------------------------
+! no trailing FF allowed at the end of the last page !!
+!
+!!! EOF

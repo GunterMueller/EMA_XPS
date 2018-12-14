@@ -1,0 +1,1732 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!    babylon3 Knowledge-Base Constructs         !!
+!!    documentation file for the Help Utility    !!
+!!                                               !!
+!!    help-cv converts "\nFF\n" to "\n\f\n" and  !!
+!!    outputs only lines beginning with a ".".   !!
+!!    This DOT is not transfered !!              !!
+!!                                               !!
+!!    The ">" works like "." but should be the   !!
+!!    first printed line of a topic. It is used  !!
+!!    as the BROWSE-keyword!                     !!
+!!                                               !!
+!!    The well known switch is __english         !!
+!!                                               !!
+!!    ======================================     !!
+!!                                               !!
+!!    WARNING: because of a flaw in GNU cpp you  !!
+!!    only should use backquotes in spite of     !!
+!!    quotes!                                    !!
+!!                                               !! 
+!!         ae = \344            Ae = \304        !!
+!!         oe = \366            Oe = \326        !!
+!!         ue = \374            Ue = \334        !!   
+!!         sz = \337     Paragraph = \247        !!
+!!                                               !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!
+! no heading FF allowed in front of the first page !!
+! ---------------------------------------------------
+!
+
+#ifdef __english
+>KB-CONSTRUCTS
+.Knowledge-Base Constructs
+.=========================
+.
+.The following pages describe functions, that are used  
+.within babylon3 KB files to create knowledge constructs
+.at KB load time. They are implemented in EMA-XPS with  
+.only purpose to load babylon3 KBs directly without     
+.converting them into EMA-XPS KBs by a preprocesor.
+.
+.EMA-XPS stores these knowledge constructs in a different
+.way into native EMA-XPS KB files!
+#else
+>WB-KONSTRUKTE
+.Wissensbasis-Konstrukte
+.=======================
+.
+.die folgenden Seiten beschreiben Funktionen, die in   
+.babylon3 Wissensbasisdateien verwendet werden, um beim
+.Laden von Wissensbasen geeignete Wissenskonstrukte in 
+.der LISP Welt zu erzeugen. Sie sind mit dem einzigen Zweck
+.in EMA-XPS implementiert worden, um ohne Inanspruchnahme  
+.eines Pr\344prozessors babylon3 WBs direkt in EMA-XPS
+.einzuladen.
+.
+.EMA-XPS speichert diese Wissenskonstrukte in EMA-XPS WB-
+.Dateien in einem anderen Format ab!
+#endif
+  
+FF
+
+>DEFINE-FRAME
+.DEFINE-FRAME
+.============
+#ifdef __english
+.
+.syntax: (define-frame <frame-name>
+.           [:SPECIALIZES <list-of-frame-names>]
+.           [:DOCUMENTATION <documentation>]
+.           [:EXPLANATION <explanation>]
+.           <relation-specification>*)
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :documentation and
+.         :explanation are ignored.
+.
+.A frame is defined by its name. Under the keyword
+.:specializes the superframes of the recent frame have
+.to be defined. If there exist no superframes, then
+.the keyword can be left away.
+.The documentation and the explanation are optional
+.too.
+.
+.See the page on RELATION-SPECIFICATION, too!
+.
+.example: >(define-frame city
+.             :documentation "describes the city"
+.             :explanation (("describes the city")))
+.         >(define-frame capital-city
+.             :specializes (city)
+.             :documentation "describes the city"
+.             :explanation (:description
+.                (("describes the city"))))
+.
+#else
+.
+.Syntax: (define-frame <Rahmen-Name>
+.           [:SPECIALIZES <Liste-der-Rahmen-Namen>]
+.           [:DOCUMENTATION <Dokumentation>]
+.           [:EXPLANATION <Erkl\344rung>]
+.           <Relation-Specifikation>*)
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :documentation und :explanation
+.         werden ignoriert.
+.
+.Ein Rahmen wird definiert durch seinen Namen. Unter
+.dem Schl\374sselwort `:specializes` m\374ssen die Super-
+.Rahmen des aktuellen Rahmens angegeben werden.
+.Falls keine Super-Rahmen vorhanden sind, kann die
+.Angabe des Schl\374sselwortes entfallen. Die Angaben
+.einer Dokumentation und Erkl\344rung sind ebenso op-
+.tional.
+.
+.Genaueres auf der Seite RELATION-SPECIFICATION!
+.
+.Beispiel: >(define-frame Stadt
+.             :documentation "Beschreibt die Stadt"
+.             :explanation (("Beschreibt die Stadt"
+.          >(define-frame Hauptstadt
+.             :specializes (Stadt)
+.             :documentation "Beschreibt die Stadt"
+.             :explanation (:description
+.                (("Beschreibt die Stadt"))))
+.
+#endif
+
+FF
+
+>:DOCUMENTATION
+.:DOCUMENTATION
+.==============
+#ifdef __english
+.
+.syntax: <documentation> ::= <lisp-type: string>
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :documentation and
+.         :explanation are ignored.
+.
+.The DOCUMENTATION is only for own comments and
+.will not be used by the system; for this reason
+.it does not return a value.
+.
+.example: (define-frame computer
+.               :documentation "describes the
+.               options of the computer")
+.
+#else
+.
+.Syntax: <documentation> ::=
+.                <Lisp-Typ: Zeichenkette>
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :documentation und :explanation
+.         werden ignoriert.
+.
+.Die DOCUMENTATION ist nur f\374r eigene Kommentare
+.gedacht. Sie wird nicht vom System benutzt und
+.liefert deshalb keinen R\374ckgabewert.
+.
+.Beispiel: (define-frame computer
+.                :documentation "Beschreibt die
+.                Optionen des Computers")
+.
+#endif
+
+FF
+
+>:EXPLANATION
+.:EXPLANATION
+.============
+#ifdef __english
+.
+.syntax: <explanation> ::=
+.          (:description |
+.           :specific-description |
+.           :determination |
+.           :specific-determination |
+.           :effect-description)
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :documentation and
+.         :explanation are ignored.
+.
+.In the explanation field you write information,
+.which has to help the ultimate user to understand
+.the software.
+.The user has the possibility to get four
+.kinds of information types:
+.
+.1. "What is ..?"
+.2. "How do I get ...?"
+.3. "How does it work?"
+.4. "Why does it work this way?"
+.
+.The information from the explanation field will
+.be used, if the user asks for explanations
+.about the statical structure of the base of
+.knowledge or explanations about the dynamical 
+.problem-solution-process.
+.
+.Three information types exist:
+.
+.:description | :specific-description
+.contains a description of the construction.
+.This information will help to understand
+.the construction.
+.       
+.:determination | :specific-determination
+.is mainly for frame relations. It should help
+.the user to find indefinite values of a
+.frame relation.
+.          
+.:effect-description 
+.contains a description of the execution. It can
+.use the parameters of the program in order to
+.describe their effect.
+.
+#else
+.
+.Syntax: <explanation> ::=
+.          (:description |
+.           :specific-description |
+.           :determination |
+.           :specific-determination |
+.           :effect-description)
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :documentation und :explanation
+.         werden ignoriert.
+. 
+.Im Erkl\344rungseintrag geben Sie Informationen
+.f\374r den sp\344teren Endbenutzer an, die diesem
+.beim Verstehen und Einordnen der Konstrukte
+.helfen sollen.
+.
+.Der Benutzer hat die M\366glichkeit vier ver-
+.schiedene Arten von Informationstypen zu
+.erhalten:
+.
+.1. "Was ist ...?"
+.2. "Wie bestimme ich ...?"
+.3. "Wie wird irgendetwas ausgef\374hrt?"
+.4. "Warum wird etwas ausgef\374hrt?"
+.
+.Auf die Informationen im Erkl\344rungseintrag
+.wird zugegriffen, wenn der Endbenutzer
+.Erkl\344rungen bez\374glich der statischen Struktur
+.der Wissensbasis oder des dynamischen Problem-
+.l\366sungsprozesses anfordert.
+.
+.Es gibt drei verschiedene, bereits
+.vordefinierte Informationstypen:
+.
+.:description | :specific-description
+.Enth\344lt eine Beschreibung des Konstrukts. Diese
+.Informationen werden den Benutzer dabei helfen,
+.das Konstrukt zu verstehen.
+.
+.:determination | :specific-determination
+.Ist vor allem auf Framerelationen anwendbar.
+.Soll dem Endbenutzer helfen, unbestimmte Werte
+.einer Framerelation zu ermitteln. F\374r eine
+.speziellere Beschreibung wird :specific-
+.determination verwendet.
+.
+.:effect-description
+.Enth\344lt eine Ausf\374hrungsbeschreibung. Sie
+.kann auf die Parameter der konkreten Anwendung
+.zugreifen, um die jeweilige Auswirkung zu
+.beschreiben.
+.
+#endif
+
+FF
+
+>RELATION-SPECIFICATION
+.RELATION-SPECIFICATION
+.======================
+#ifdef __english
+.
+.syntax: <relation specification> ::=
+.           [:GENERAL-RELATIONS 
+.              (<frame relation>*)]
+.           [:PART-RELATIONS
+.              (<frame relation>*)]
+.
+.        <frame relation> ::=
+.           ([:DOCUMENTATION <documentation>]
+.           [:EXPLANATION <explanation>]
+.           [:VALUE-RESTRICTION
+.             {<lisp-type: symbol> |
+.             <frame-type>}]
+.           [:NUMBER-RESTRICTION (<min><max>)]
+.           [:INITIAL-VALUE {<instance-name>|
+.              <evaluates-to-set> | 
+.              <lisp-type: T}]
+.           [:INITABLE {T | NIL}]
+.           [:READ-ONLY {T | NIL}]
+.           [:IF-UNDETERMINED <lisp-type: T>]
+.           [:READ-DEPENDENTS <lisp-type: T>]
+.           [:WRITE-DEPENDENTS <lisp-type: T>])
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :documentation and
+.         :explanation are ignored.
+.
+.With the relation specification it is possible to
+.determine the given feature or the given element more
+.exactly, when making the frame definition.
+.`:documentation` and `:description` can contain
+.explanations for the user.
+.With `:value-restriction` it is possible to restrict
+.the range of the given attribute. Here can be used
+.lisp-types like string, number, list or a frame name.
+.If you use a frame name, then you can only use
+.instances of the corresponding frame with the instance
+.relation. With `:number-restriction` it is possible to
+.restrict the number of values, that can be entered at
+.the instance relation. The minimum and the maximum
+.number of values have to be defined.
+.`:initial-value` describes a default value, that
+.should be entered during the initialization, if no
+.other value has been entered during the definition
+.of the instance.
+.With `:initable` it can be determined, whether the
+.initial value can be changed during the instanciation
+.or not. If T is used, it can be overwritten. If NIL
+.is used, the default value will always be used during
+.the initialization.
+.`:read-only` avoids, that writing over the value,
+.which is given during the initialization is possible.
+.That means, that you can only get access to the value
+.in order to read it (for example with ASK).
+.`:if-undetermined` describes, which actions have to
+.be executed, when the value of the instance relation
+.is unknown. For this a list of babylon-expressions has
+.to be set up, which will be executed in sequential
+.order.
+.`:read-dependents` give the possibility 
+.to handle read-access on a value more differentiated.
+.It is possible to send a message to other instances,
+.if there exists a read-access on the value. You have
+.to give an instance to the value, that has to have a
+.read-dependent. The message will be send to this
+.instance. In order to work out the message, it is
+.neccesary to describe a behavior with the name notify-
+.read-dependent, that treats the message for instances
+.of the corresponding class.
+.`:write-dependents` function analogue to `:read-
+.dependents`, except that here we are dealing with
+.writing accesses.
+.
+.example: > (define-frame client
+.              :general-relations
+.              (holidayinterest
+.                 (:value-restriction symbol
+.              :if-undetermined (ask (match _x (start
+.              `ask-for-holiday-insterest))
+.              (tell [holidayinterest instance _x])))
+.              proposal (:value-restriction countries)
+.              destinations (:value-restriction
+.                countries
+.              :if-undetermined (ask [countries
+.                _country]
+.              (tell [destinations instance
+.                _country])))))
+.
+#else
+.
+.Syntax: <Relation-Spezifikation> ::=
+.           [:GENERAL-RELATIONS 
+.              (<Rahmen-Relation>*)]
+.           [:PART-RELATIONS
+.              (<Rahmen-Relation>*)]
+.
+.        <Rahmen-Relation> ::=
+.           ([:DOCUMENTATION <Dokumentation>]
+.           [:EXPLANATION <Erkl\344rung>]
+.           [:VALUE-RESTRICTION
+.             {<Lisp-Typ: Symbol> |
+.             <Rahmen-Typ>}]
+.           [:NUMBER-RESTRICTION (<min><max>)]
+.           [:INITIAL-VALUE {<Instanz-Name>|
+.              <auswerten-nach-Menge> | 
+.              <Lisp-Typ: T}]
+.           [:INITABLE {T | NIL}]
+.           [:READ-ONLY {T | NIL}]
+.           [:IF-UNDETERMINED <Lisp-Typ: T>]
+.           [:READ-DEPENDENTS <Lisp-Typ: T>]
+.           [:WRITE-DEPENDENTS <Lisp-Typ: T>])
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :documentation und :explanation
+.         werden ignoriert.
+.
+.Mit der Relationsspezifikation k\366nnen Sie bei der
+.Rahmendefinition das angegebene Merkmal bzw. den
+.angegebenen Bestandteil genauer bestimmen. Unter
+.`:documentation` und `:description` geben Sie den
+.Dokumentations- und Erkl\344rungseintrag an.
+.
+.Mit `:value-restriction` k\366nnen Sie den Werte-
+.bereich f\374r das angegebene Attribut einschr\344nken.
+.Sie k\366nnen hier Lisp-Typen angeben, wie string,
+.number, list oder einen Rahmennamen. Geben Sie
+.letzteres an, so k\366nnen bei der Instanz-Relation
+.nur Instanzen des entsprechenden Rahmens eingetragen
+.werden.
+.
+.Unter `:number-restriction` legen Sie die Anzahl der
+.Werte fest, die bei der Instanz-Relation einge-
+.tragen werden d\374rfen. Sie geben die minimale und
+.die maximale Anzahl von Werten an.
+.
+.`:initial-value` bezeichnet einen Standardwert, der
+.bei der Initialisierung eingetragen werden soll,
+.wenn bei der Instanzdefinition nichts anderes
+.angegeben wurde.
+.
+.Mit `:initable` legen Sie fest, ob der Initial-Wert
+.bei der Instanziierung \374berschrieben werden darf
+.oder nicht. Wenn Sie T angeben, darf er \374ber-
+.schrieben werden, bei der Angabe von NIL wird bei
+.der Initialisierung immer der Standardwert ein-
+.getragen.
+.
+.`:read-only` verhindert einen Schreibzugriff auf den
+.bei der Instanziierung gesetzten Wert, d.h. Sie
+.k\366nnen nur lesend - beispielsweise mit einem ASK -
+.auf den Wert zugreifen. Sie k\366nnen bei un-
+.bestimmten Werten diese nicht nachtr\344glich \344ndern
+.oder durch `:if-undetermined` setzen.
+.
+.Unter `:if-undetermined` k\366nnen Sie angeben, welche
+.Aktionen ausgel\366st werden sollen, falls der
+.Wert der jeweiligen Instanzrelation unbekannt ist.
+.Sie geben dazu in einer Liste die gew\374nschten
+.babylon-Ausdr\374cke an, die sequentiell nacheinander
+.ausgef\374hrt werden sollen.
+.
+.:read-dependents geben Ihnen die M\366glichkeit, Lese-
+.zugriffe auf einen Wert differenzierter zu behandeln.
+.Sie k\366nnen andere Instanzen benachrichtigen, wenn
+.auf einen Wert lesend zugegriffen wird. Bei dem Wert,
+.der eine Leseabh\344ngigkeit haben soll, m\374ssen Sie
+.lediglich die Instanz angeben, zu der die Nachricht
+.geschickt werden soll. Um die Nachricht zu verar-
+.beiten ist es notwendig, ein Behavior mit dem Namen
+.notify-read-dependent zu beschreiben, das die
+.Nachricht f\374r Instanzen der jeweiligen Klasse
+.behandelt.
+.
+.Mit `:write-dependents` verfahren Sie analog wie mit
+.`:read-dependents`, au\337er da\337 es sich hier um
+.Schreibzugriffe handelt.
+.
+.Beispiel: >(define-frame Kunde
+.             :general-relations
+.             (urlaubsinteresse (:value-restriction
+.                symbol
+.             :if-undetermined (ask (match _x (start
+.             `erfrage-urlaubs-interesse))
+.             (tell [urlaubsinteresse instance _x])))
+.             vorschlag (:value-restriction laender)
+.             ziele (:value-restriction laender
+.             :if-undetermined (ask [laender _land]
+.             (tell [ziele instance _land])))))
+.
+#endif
+
+FF
+
+>DEFINE-INSTANCE
+.DEFINE-INSTANCE
+.===============
+#ifdef __english
+.
+.syntax: (define-instance <instance-name>
+.           OF <frame-name>
+.           [:DOCUMENTATION <documentation>]
+.           [:EXPLANATION <explanation>]
+.           {<relation-name>
+.           ([:VALUE {`{`<lisp-type: T>*`}`|
+.                            <lisp-type: T>}
+.           [:READ-DEPENDENTS (<lisp-type: T>*)]|
+.           [:WRITE-DEPENDENTS (<lisp-type: T>*)]}*)
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :documentation and
+.         :explanation are ignored.
+.
+.The instance definition defines the single instances
+.of the frames.
+.
+.See the page on RELATION-SPECIFICATION, too!
+.
+.example: >(define-instance Louvre of museum)
+.             :documentation ""
+.             :explanation nil
+.                place (:read-dependents
+.                   (traffic-office-Paris))
+.                theme ())
+.
+#else
+.
+.Syntax: (define-instance <Instanz-Name>
+.           OF <Rahmen-Name>
+.           [:DOCUMENTATION <Dokumentation>]
+.           [:EXPLANATION <Erkl\344rung>]
+.           {<Relations-Name>
+.           ([:VALUE {`{`<Lisp-Typ: T>*`}`|
+.                            <Lisp-Typ: T>}
+.           [:READ-DEPENDENTS (<Lisp-Typ: T>*)]|
+.           [:WRITE-DEPENDENTS (<Lisp-Typ: T>*)]}*)
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :documentation und :explanation
+.         werden ignoriert.
+.
+.Mit der Instanzdefinition werden die einzelnen
+.Instanzen der Rahmen definiert.
+.
+.Genaueres auf der Seite RELATION-SPECIFICATION!
+.
+.Beispiel: >(define-instance Louvre of Museum
+.              :documentation ""
+.              :explanation nil
+.                 Ort (:read-dependents
+.                   (Verkehrsbuero-Paris))
+.                 Thema ())
+.
+#endif
+
+FF
+
+>AN-INSTANCE-OF
+.AN-INSTANCE-OF
+.==============
+#ifdef __english
+.
+.syntax: (an-instance-of <frame-name>
+.           ([<relation-name>
+.           ([:VALUE <lisp-type: T>*]
+.           [:READ-DEPENDENTS <lisp-type: T>]
+.           [:WRITE-DEPENDENTS <lisp-type: T>])]))
+.
+.This function produces a dynamic instance. The
+.frame-name and the definition of the relation can
+.be given as a symbol, i.e. the whole
+.list of arguments will be evaluated.
+.
+.See the page on RELATION-SPECIFICATION, too!
+.
+.example: >(an-instance-of `sportsmen
+.            `(first-name (:value "Ben")
+.               last-name (:value "Johnson")))
+.
+#else
+.
+.Syntax: (an-instance-of <Rahmen-Name>
+.           ([<Relation-Name>
+.           ([:VALUE <Lisp-Typ: T>*]
+.           [:READ-DEPENDENTS <Lisp-Typ: T>]
+.           [:WRITE-DEPENDENTS <Lisp-Typ: T>])]))
+.
+.Diese Funktion erzeugt eine dynamische Instanz.
+.Der Rahmen-Name und die Definition der Relation
+.k\366nnen als Symbol angegeben werden, d.h. die
+.gesamte Argumentliste wird evaluiert.
+.
+.Genaueres auf der Seite RELATION-SPECIFICATION!
+.
+.Beispiel: >(an-instance-of `Sportler
+.             `(Vorname (:value "Ben")
+.              Nachname (:value "Johnson")))
+.
+#endif
+
+FF
+
+>INSTANCE-OF
+.INSTANCE-OF
+.===========
+#ifdef __english
+.
+.syntax: (instance-of <frame-name>
+.           {<relation-name>
+.           ([:VALUE <lisp-type: T>]
+.           [:READ-DEPENDENT <lisp-type: T>]
+.           [:WRITE-DEPENDENT <lisp-type: T>])}*)
+.
+.Problem: local let-variables as arguments to
+.         :value must be pre-evaluated, before
+.         they loose validity!
+.
+.This function makes a dynamic instance.
+.Dynamic instances are not controlled by
+.the system. If they have to be used, 
+.they have to be linked to a variable.
+.
+.See the page on RELATION-SPECIFICATION, too!
+.
+.example: >(instance-of sportsman
+.             first-name (:value "Ben")
+.             last-name (:value "Johnson"))
+.         ==>#<anonymus>
+.
+#else
+.
+.Syntax: (instance-of <Rahmen-Name>
+.           {<Relations-Name>
+.           ([:VALUE <Lisp-Typ: T>]
+.           [:READ-DEPENDENT <Lisp-Typ: T>]
+.           [:WRITE-DEPENDENT <Lisp-Typ: T>])}*)
+.
+.Problem: lokale let-Variablen als Argument von
+.         :value m\374ssen ausgewertet werden, 
+.         bevor sie ihre G\374ltigkeit verlieren!
+.
+.Erzeugt eine dynamische Instanz. Dynamische
+.Instanzen werden vom System nicht selbst ver-
+.waltet. Wenn sie zugreifbar sein sollen, m\374ssen
+.sie an einer Variablen gebunden werden.
+.
+.Genaueres auf der Seite RELATION-SPECIFICATION!
+.
+.Beispiel: >(instance-of Sportler
+.              Vorname (:value "Ben")
+.              Nachname (:value "Johnson"))
+.          ==>#<anonymus>
+.
+#endif
+
+FF
+
+>DEFINE-BEHAVIOR
+.DEFINE-BEHAVIOR
+.===============
+#ifdef __english
+.
+.syntax: (define-behavior <behavior-name>
+.           {:PRIMARY | :BEFORE | :AFTER}
+.           <behavior-specialized-lambda-list>
+.           [:DOCUMENTATION <documentation>]
+.           [:EXPLANATION <explanation>]
+.           <behavior-body>)
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :documentation and
+.         :explanation are ignored.
+.
+.This function defines a behavior. A behavior
+.exists of a name, that describes the behavior,
+.a <qualifier>, that specifies, whether the behavior
+.is a central behavior or an additional behaviour,
+.a lambda list, with which the parameters of the
+.behavior can be set and a behavior body, which
+.defines, what the behavior has to do. The docu-
+.mentation and the explanation are optional.
+.NOTIFY-READ-DEPENDENT and NOTIFY-WRITE-DEPENDENT
+.are special behaviors, which you have to use, if
+.you want to make a read- or write-dependent.
+.
+.syntax: (define-behavior notify-read-dependent
+.           :primary
+.           ((<place-holder for receiver frametype>
+.           (<place-holder for transmitter frametype>)
+.           relation-name value)
+.           <behavior-body>)
+.
+.The <qualifier> can be :before :after or :primary.
+.:primary specifies a central behavior. :before and
+.:after are additions, which will be executed before
+.or after the central method.
+.
+.The <lambda-list> can contain the following:
+.The first parameter of the lambda-list has to be
+.(<variable-name> <frame-type>). the following
+.parameter can be (<variable-name> <frame-name>)
+.
+.It is also possible to have a remaining argument in
+.the behavior-argument-lists (define-behavior
+.<behavior-name> <qualifier> ((arg-1 <frame-name>)
+.&rest arg-list)...)
+.
+.example: >(define-behavior client-satisfied
+.            :primary ((a-client client)
+.                      (an-offer offer))
+.            (kb-confirm "Are you satisfied with
+.            the offer: ~A ?" an-offer))
+.
+#else
+.
+.Syntax: (define-behavior <Behavior-Name>
+.           {:PRIMARY | :BEFORE | :AFTER}
+.           <Behavior-spezialisierte-Lambda-Liste>
+.           [:DOCUMENTATION <Dokumentation>]
+.           [:EXPLANATION <Erkl\344rung>]
+.           <Behavior-Rumpf>)
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :documentation und :explanation
+.         werden ignoriert.
+.
+.DEFINE-BEHAVIOR definiert ein Behavior. Ein Behavior
+.besteht aus einem Namen, der das Behavior n\344her be-
+.zeichnet, einem <qualifier>, der angibt, ob es sich
+.um ein zentrales Behavior oder ein Erg\344nzungs-
+.behavior handelt, einer Lambda-Liste, mit der die
+.Parameter des Verhaltens festgelegt werden und
+.schlie\337lich dem Behavior-Rumpf, in dem angegeben
+.wird, was das Behavior tun soll. Dokumentation und
+.Erkl\344rung sind optional.
+.Au\337erdem gibt es noch die besonderen Behaviors
+.NOTIFY-READ-DEPENDENT und NOTIFY-WRITE-DEPENDENT,die
+.Sie immer erstellen m\374ssen, wenn Sie eine Lese-
+.oder Schreibeabh\344ngigkeit durchf\374hren wollen.
+.Folgende Syntax ist zu beachten:
+.
+.syntax: (define-behavior notify-read-dependent
+.           :primary
+.           ((<Platzhalter f\374r Empf\344nger Rahmen-Typ>
+.           (<Platzhalter f\374r Sender Rahmen-Typ>)
+.           Relations-Name Wert)
+.           <Behavior-Rumpf>)
+.
+.Der <qualifier> kann entweder :before, :after oder
+.:primary sein. :primary bezeichnet immer das
+.zentrale Behavior, w\344hrend :before und :after
+.Erg\344nzungen sind, die vor bzw. nach der zentralen
+.Methode ausgef\374hrt werden.
+.
+.Die <Lambda-Liste> erlaubt folgende Eintr\344ge:
+.Der erste Eintrag der spezialisierten Lambda-Liste
+.mu\337 ein Paar (<Variablenname> <Rahmen-Typ>) sein.
+.
+.Die weiteren positionalen Parameter k\366nnen durch
+.(<Variablenname> <Rahmen-Name>) beschrieben werden.
+.
+.In den Behavior-Argument-Listen kann auch ein Rest-
+.Argument angegeben werden. Dies geschieht in der
+.Form:
+.
+.(define-behavior <Behavior-Name> <qualifier>
+.      ((Arg-1 <Rahmen-Name>) &rest Arg-liste)...)
+.
+.Beispiel: >(define-behavior kunde-zufrieden
+.            :primary ((ein-kunde Kunde)
+.                      (ein-angebot Angebot))
+.            (kb-confirm "Sind Sie mit dem Angebot
+.            ~A zufrieden?" ein-angebot))
+.
+#endif
+
+FF
+
+>DEFINE-CONSTRAINT
+.DEFINE-CONSTRAINT
+.=================
+#ifdef __english
+.
+.syntax: (define-constraint <constraint-name> OF
+.            <constraint-pattern-name>
+.            [:DOCUMENTATION <constr.doc.>]
+.            [:EXPLANATION <expl-expr.>]
+.            [FOR-EACH
+.            (<bab-var> <bab-lisp-expression>)]
+.            WITH <simple-predication>+)
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :documentation and
+.         :explanation are ignored.
+.
+.With a constraint you define expressions for
+.the parameters of the constraint-pattern. In the
+.constraint-pattern is defined, how to link
+.certain values. The constraint defines
+.the concrete values for the link. You can link
+.attribut-values of one or more instances.
+.
+.FOR-EACH expects a list with a variable which is
+.followed by a lisp-expression. The lisp-expression
+.has to evaluate to a list with valid conditions.
+.For example: With the FOR-EACH declaration it is
+.possible to make a constraint for every instance
+.of a certain frame.
+.
+.WITH expects a simple predication. The predications
+.in the WITH-clauses must not be based upon each other.
+.There must exist exactly one WITH-clause for every
+.parameter of the pattern.
+.
+.example: >(define-constraint-pattern
+.             calculate-real-costs)
+.             (_real-costs _country-wishes)
+.             :documentation "calculates the
+.             costs for a visit of the countries
+.             _country-wishes."
+.             RULES
+.             (KNOWN (_country-wishes)
+.             THEN (is _real-costs (calculate-client-
+.             costs _country-wishes))))
+.         >(define-constraint calculate-costs-for-
+.             client
+.             OF calculate-real-costs
+.             FOR-EACH (a-client (instances-of
+.             `client)))
+.             WITH
+.             [complete-costs a-client _real-costs]
+.             [destinations a-client _country-wishes])
+.
+.
+#else
+.
+.Syntax: (define-constraint <Constraint-Name> OF
+.            <constraint-pattern-Name>
+.            [:DOCUMENTATION <Dokumentation>]
+.            [:EXPLANATION <Erkl\344rung>]
+.            [FOR-EACH
+.            (<bab-Var> <bab-lisp-Ausdruck>)]
+.            WITH <einfache-Pr\344dikation>+)
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :documentation und :explanation
+.         werden ignoriert.
+.
+.Mit einem Constraint definieren Sie die Aus-
+.pr\344gungen f\374r die Parameter des Constraint-
+.Pattern. Im Constraint-Pattern legen Sie fest,
+.wie bestimmte Werte verkn\374pft werden sollen.
+.Im Constraint legen Sie die konkreten Werte f\374r
+.die Verkn\374pfung fest. Sie k\366nnen dabei Attribut-
+.werte einer einzelnen wie auch mehrerer Instanzen
+.verkn\374pfen.
+.
+.FOR-EACH erwartet eine Liste mit einer Variablen
+.gefolgt von einem Lisp-Ausdruck. Der Lisp-Ausdruck
+.mu\337 zu einer Liste mit g\374ltigen Bedingungen eva-
+.luieren. Durch die FOR-EACH Deklaration kann z.B.
+.f\374r jede Instanz eines bestimmten Rahmens ein
+.Constraint erzeugt werden.
+.
+.WITH erwartet eine einfache Pr\344dikation. Die
+.Pr\344dikationen in den WITH-Klauseln d\374rfen
+.nicht aufeinander aufbauen. F\374r jeden Parameter
+.des Patterns mu\337 genau eine WITH-Klausel exis-
+.tieren.
+.
+.Beispiel: >(define-constraint-pattern
+.             berechne-reale-kosten)
+.             (_reale-Kosten _Landes-Wuensche)
+.             :documentation "Berechnet die 
+.             entstehenden Kosten f\374r den Kunden
+.             bei Besuch der L\344nder
+.             _Landes-Wuensche."
+.             RULES
+.             (KNOWN (_Landes-Wuensche)
+.             THEN (is _reale-Kosten (berechne-kosten-
+.             der-kunde _Landes-Wuensche))))
+.          >(define-constraint berechne-kosten-fuer-
+.             kunden
+.             OF berechne-reale-kosten
+.             FOR-EACH (ein-kunde (instances-of
+.             `Kunde)))
+.             WITH
+.             [entstehende-Kosten ein-Kunde
+.             _reale-Kosten]
+.             [ziele ein-Kunde _Landes-Wuensche])
+.
+#endif
+
+FF
+
+>DEFINE-CONSTRAINT-PATTERN
+.DEFINE-CONSTRAINT-PATTERN
+.=========================
+#ifdef __english
+.
+.syntax: (define-constraint-pattern <name>
+.           (<log-var>+)
+.           [:DOCUMENTATION <doc-string>]
+.           [:EXPLANATION <expl-expr.>]
+.           RULES
+.           (known (<log-var>+)
+.           and-if <complex-predication>
+.           then {:INCONSISTENT | <assign-form>+})
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :documentation and
+.         :explanation are ignored.
+.
+.The constraint-pattern forms a pattern for the
+.definition of the constraints. The defined content
+.of the constraint-pattern kann be worked out for
+.every single constraint.
+.The KNOWN-clause determines which of the logical-
+.variables have to be linked together, in order to
+.have a true rule. The if-condition is not obligatory,
+.the only conventions which are valid for it are those
+.of the BQL. In the premise-part of the rules logical
+.variables can be used in addition to the known para-
+.meters, but no unknown parameters must be used.
+.Only the first valid instance of the regulating
+.premise will be searched for.
+.If a behavior is :inconsistent, then the constraint
+.will be stopped.
+.The <assign-form> links a value to a variable, which
+.must not be declared as `known`.
+.In addition to a constraint-pattern single constraints
+.have to be defined for which this behavior has to be
+.valid.
+.
+.example: >(define-constraint-pattern
+.             calculate-real-costs)
+.             (_real-costs _country-wishes)
+.             :documentation "calculates the
+.             costs for a visit of the countries
+.             _country-wishes."
+.             RULES
+.             (KNOWN (_country-wishes)
+.             THEN (is _real-costs (calculate-client-
+.             costs _country-wishes))))
+.         >(define-constraint calculate-costs-for-
+.             client
+.             OF calculate-real-costs
+.             FOR-EACH (a-client (instances-of
+.             `client)))
+.             WITH
+.             [complete-costs a-client _real-costs]
+.             [destinations a-client _country-wishes])
+.
+#else
+.
+.syntax: (define-constraint-pattern <Name>
+.           (<log-Var>+)
+.           [:DOCUMENTATION <Dokumentation>]
+.           [:EXPLANATION <Erkl\344rung>]
+.           RULES
+.           (known (<log-Var>+)
+.           and-if <Komplexe-Pr\344dikation>
+.           then {:INCONSISTENT | <Assign-Form>+})
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :documentation und :explanation
+.         werden ignoriert.
+.
+.Das Constraint-Pattern bildet ein sogenanntes Muster
+.f\374r die Definition der Constraints. Was in einem
+.Constraint-Pattern definiert wurde, kann f\374r jedes
+.einzelne Constraint abgearbeitet werden.
+.Die KNOWN-Klausel bestimmt, welche der logischen
+.Variablen gebunden sein m\374ssen, damit die Regel
+.zutrifft. Sie ist f\374r jede Regel obligatorisch.
+.Die if-Bedingung ist nicht obligatorisch, f\374r sie
+.gelten die Konventionen der BQL. Im Pr\344missenteil
+.der Regel d\374rfen neben den als bekannt deklarierten
+.Parametern zus\344tzliche logische Variablen auf-
+.treten, aber keine Parameter, die nicht als bekannt
+.deklariert sind. Lediglich die erste g\374ltige
+.Instanziierung der Regelpr\344misse wird ermittelt.
+.Wenn ein Verhalten :inconsistent ist, wird das Con-
+.straint abgebrochen.
+.Die <assign-Form> weist der genannten Variablen einen
+.Wert zu. Diese darf jedoch nicht als bekannt dekla-
+.riert sein.
+.Zus\344tzlich zu einem Constraint-Pattern m\374ssen Sie
+.noch die einzelnen Constraints definieren, f\374r die
+.dieses Verhalten zutreffen soll.
+.
+.Beispiel: >(define-constraint-pattern
+.             berechne-reale-kosten)
+.             (_reale-Kosten _Landes-Wuensche)
+.             :documentation "Berechnet die 
+.             entstehenden Kosten f\374r den Kunden
+.             bei Besuch der L\344nder
+.             _Landes-Wuensche."
+.             RULES
+.             (KNOWN (_Landes-Wuensche)
+.             THEN (is _reale-Kosten (berechne-kosten-
+.             der-kunde _Landes-Wuensche))))
+.          >(define-constraint berechne-kosten-fuer-
+.             kunden
+.             OF berechne-reale-kosten
+.             FOR-EACH (ein-kunde (instances-of
+.             `Kunde)))
+.             WITH
+.             [entstehende-Kosten ein-Kunde
+.             _reale-Kosten]
+.             [ziele ein-Kunde _Landes-Wuensche])
+.
+#endif
+
+FF
+
+>DEFINE-RULE
+.DEFINE-RULE
+.===========
+#ifdef __english
+.
+.syntax: (define-rule <rule-name> <ruleset-task-name>
+.           [:DOCUMENTATION <documentation>]
+.           [:EXPLANATION <explanation>]
+.           [:PRIORITY <lisp-type: number>]
+.           IF <rule-premise>
+.           {THEN | THEN-ONCE} <rule-conclusion>+)
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :documentation and
+.         :explanation are ignored.
+.         The priority is ignored here! When loading
+.         a babylon3 KB, priorities influence the 
+.         placement of a given rule within a ruleset.
+.         Babylon2 rules have high priority, when
+.         they are placed at the beginning of a ruleset!
+.
+.This definition form describes the exact syntax 
+.for making a rule.
+.<rule-name> is the name of the rule, <ruleset> is
+.the name of a set of rules, related to
+.the new rule. The keywords `:documentation`,
+.`:explanation` and `:priority` are optional.
+.The keywords:
+.                 if <left-side> then <right-side>
+. or
+.                 if <left-side> then-once <right-side>
+.
+.follow the rule in the natural notation.
+.The priority is an integer. If more than one rule
+.have valid instances and the rule evaluation has to
+.be controlled by the priority, then the rule with
+.the highest priority number will be executed first.
+.
+.It is possible to use all the BQL-expressions and
+.Lisp-expressions in the rule-premise, as long as they
+.do not have side effects on the knowledge base.
+.
+.All the BQL-expressions and Lisp-expressions can be
+.used in the rule conclusion. Here you will
+.normaly change the knowledge base with
+.tell or retell.
+.
+.example: >(define-rule HOLIDAYCHOICE
+.             HOLIDAYOFFER
+.             :documentation "choose a city"
+.             :explanation (("this rule has
+.               to pick out a city"))
+.             :priority 1
+.             IF
+.             [and [holidayinterests a-client _x]
+.               [countries _country]
+.               (client-satisfied a-client _country)
+.               [cities _country _city]
+.               [offer _city _offer]
+.               (is-of-frame _offer _x)]
+.             THEN
+.             (kb-format "~%Visit ~:(~A~)
+.                  in ~: (~A~)."
+.             (name-of _offer) (name-of _city)))
+.
+#else
+.
+.syntax: (define-rule <Regel-Name>
+.                  <Regelmenge-Task-Name>
+.           [:DOCUMENTATION <Dokumentation>]
+.           [:EXPLANATION <Erkl\344rung>]
+.           [:PRIORITY <Lisp-Typ: ganze-Zahl>]
+.           IF <Regel-Pr\344misse>
+.           {THEN | THEN-ONCE} <Regel-Konklusion>+)
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :documentation und :explanation
+.         werden ignoriert.
+.         Die Priorit\344t wird hier ignoriert,
+.         Beim Laden einer babylon3 WB werden hoch-
+.         priorisierte Regeln vor niedriger priori-
+.         sierten in der Regelmenge einsortiert!
+.
+.Die oben angegebene Definitionsform beschreibt die 
+.genaue Syntax zum Erstellen einer Regel.
+.<Regel-Name> ist dabei der Regelname, <Regelmenge-
+.Task-Name> der Name der Regelmenge, der die neue
+.Regel zugeordnet werden soll und dann folgen die
+.optionalen Schl\374sselw\366rter :documentation,
+.:explanation und :priority, schlie\337lich die Regel
+.in der nat\374rlichen Notation:
+.        if <linke-Seite> then <rechte-Seite>
+.oder
+.        if <linke-Seite> then-once <rechte-Seite>
+.
+.Die Priorit\344t ist eine ganze Zahl. Wenn mehrere
+.Regeln eine g\374ltige Instanziierung haben und die
+.Regelauswertung durch die Priorit\344t gesteuert
+.werden soll, wird diejenige Regel zuerst aus-
+.gef\374hrt, die die h\366chste Priorit\344tsnummer hat.
+.
+.In der Regelpr\344misse k\366nnen Sie samtliche BQL-
+.Ausdr\374cke und Lisp-Ausdr\374cke verwenden, sofern
+.diese keine Seiteneffekte auf die Wissensbasis
+.haben.
+.
+.In der Regelkonklusion k\366nnen Sie samtliche
+.BQL-Ausdr\374cke und Lisp-Ausdr\374cke verwenden.
+.Hier werden Sie im allgemeinen mit tell oder
+.retell die Wissensbasis ver\344ndern.
+.
+.Beispiel: >(define-rule URLAUBSAUSWAHL
+.              URLAUBSANGEBOT
+.              :documentation "W\344hlt eine Stadt aus"
+.              :explanation (("Diese Regel soll
+.                 eine Stadt bestimmen"))
+.              :priority 1
+.              IF
+.              [and [urlaubsinteresse ein-kunde _x]
+.                [laender _land]
+.                (kunde-zufrieden ein-kunde _land)
+.                [staedte _land _stadt]
+.                [angebote _stadt _angebot]
+.                (is-of-frame _angebot _x)]
+.              THEN
+.              (kb-format "~%Besuchen Sie ~: (~A~)
+.                in ~: (~A~)."
+.              (name-of _angebot) (name-of _stadt)))
+.
+#endif
+
+FF
+
+>DEFINE-RULESET-TASK
+.DEFINE-RULESET-TASK
+.===================
+#ifdef __english
+.
+.syntax: (define-ruleset-task <ruleset-task-name>
+.           <task-arguments>
+.           [:DOCUMENTATION <documentation>]
+.           [:EXPLANATION <explanation>]
+.           [:SUBTASKS <list-of-subtasks>]
+.           :MODE {:SEQUENTIAL |:FORWARD |:BACKWARD}
+.           [:CONFLICT-RESOLUTION {NIL| :FIRST
+.           MATCH| :OLDEST-MATCH| :NEWEST-MATCH}]
+.           ACTIONS
+.           {<forward-action> | <sequential-action>|
+.           <backward-action> | <task-action>}*)
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :explanation and :subtasks 
+.         are ignored.
+.         :CONFLICT-RESOLUTION is not supported yet!
+.         Only mode sequential is currently 
+.         supported!
+.         The key :no-rules currently works 
+.         different! 
+.
+.Every rule, which you define has to belong to a set
+.of rules. In this set of rules is defined, in which
+.succession the rules will be applied. Three modes
+.exist: FORWARD, BACKWARD and SEQUENTIAL. If you choose
+.FORWARD then a conflict set will be made, in which
+.is defined, which search strategy (first-match,
+.newest-match, oldest-match) will be used.
+.
+.If you choose the sequential mode, then the rules
+.will be worked out in the right order. The order
+.of the rules is given by the priority of the rules
+.or by the order in which they were written down, if no
+.priorities exist.
+.
+.There are different evaluation tactics for the
+.sequential-forward-mode:
+.
+.do-one ==> {nil | :no-rules}
+.
+.The system will evaluate the first applieable rule
+.and returns to the action part of the rule set-task.
+.If there is no applieable rule available then
+.`:no-rules` will be returned, otherwise nil.
+.
+.do-all ==> {nil | :no-rules}
+.
+.All rules in the sort order will be checked and
+.evaluated. If there is no applieable rule then
+.`:no-rules` will be returned, otherwise nil.
+.
+.do-while ==> {:condition-failed | :no-rules}
+.
+.If the form <condition> is fulfilled, then the
+.rules will be checked in the sort order and the
+.first applieable rule will be evaluated. This
+.will be repeated until the <condition> is not
+.fulfilled anymore or until all rules have been
+.checked. In the first case `:condition-failed`
+.will be returned, otherwise `:no-rules`.
+.
+.do-until <condition>
+.    ==> {:condition-succeeded | :no-rules}
+.
+.The rules will be checked in the sorting order and
+.the first applieable rule will be evaluated. If
+.the lisp-form <condition> is not fulfilled yet,
+.then it will be repeated until <condition> is
+.fulfilled or until all the rules have been checked.
+.In the first case `:condition-succeeded` will be
+.returned, otherwise `:no-rules`.
+.
+.
+.<forward-action>
+.the rules will be tested in the sorting order and
+.rules with valid instances will be put in a
+.conflict set. A single rule will be choosen
+.with a conflict solution and will be evaluated
+.for all instances.
+.
+.The rules will be checked again in sorting order
+.after the evaluation of a rule. Rules, which have
+.already been evaluated, will be checked again
+.if there are new instances. The rules will then be
+.evaluated only for these again.
+.
+.A rule without a logical variable will be
+.evaluated only once at most. Rules which have
+.already been checked will only be checked again,
+.if there is a predicate in the premise part,
+.for which a tell, untell or retell was made.
+.
+.do-exhaustive ==> {nil | :no-rules}
+.
+.Warning: yet not implemented!
+.
+.The explained cycle will be repeated, until
+.the are no more rules to evaluate. If there
+.is no rule to execute, then `:no-rules` will
+.be returned, otherwise nil.
+.
+.do-while <condition> 
+.       ==> {condition-failed | :no-rules}
+.
+.A test will be made before every passage of
+.the cycle, whether the lisp-form <condition> is
+.fulfilled or not. The evaluation stops, when the 
+.<condition> is not fulfilled anymore or when
+.all rules are checked. In the first case the feedback
+.will be `:condition-failed`, otherwise `:no-rules`.
+.
+.do-until <condition> 
+.        ==> {:condition-succeded | :no-rules}
+.
+.A test will be made after every passage of
+.the cycle, whether the lisp-form <condition> is
+.fulfilled or not. The evaluation stops, when the
+.<condition> is fulfilled or when all rules have been
+.checked through. In the first case the feedback will
+.be `:condition-succeded`, otherwise `:no-rules`.
+.
+.
+.Forms of the conflict-solution:
+.
+.:first-match
+.The first applieable rule will be evaluated.
+.
+.:newest-match
+.The first applieable rule of the last cycle
+.will be evaluated.
+.
+.:oldest-match
+.The first applieable rule of the oldest cycle
+.will be evaluated.
+.
+.
+.<backward-action>
+.
+.In backward-action rule sets there only exists one 
+.rule-evaluating tactic which tries to verify
+.the continuation form.
+.
+.verify <verify_expr> [:once] {<conti-form>}+
+.
+.Warning: yet not implemented!
+.
+.A valid instanciation of <verify_expr> will be
+.searched and then the <continuation-form> 
+.will be evaluated with this instanciation. If
+.`:once` is missing, then there will be searched
+.for more instanciations.
+.VERIFY evaluates the <continuation-form> just like
+.`ask`. With this all direct readable instancia-
+.tions and all indirect instanciations will
+.be generated and the <continuation> forms will
+.be executed for every instanciation.
+.
+.example: >(define-ruleset-task HOLIDAYOFFER
+.             (a-client)
+.             :documentation 
+.                "makes a holiday offer"
+.             :explanation (:description
+.                (("makes a holiday offer")))
+.             :mode :SEQUENTIAL
+.             actions
+.               (kb-format "~%I give you
+.               some possible holiday interests")
+.               (do-one)
+.               (kb-format 
+.                 "~%This is all I know"))
+.
+#else
+.Syntax: (define-ruleset-task 
+.           <Regelmenge-Task-Name>
+.           <Task-Arguments>
+.           [:DOCUMENTATION <Dokumentation>]
+.           [:EXPLANATION <Erkl\344rung>]
+.           [:SUBTASKS <Liste-mit-Subtasks>]
+.           :MODE {:SEQUENTIAL |:FORWARD |:BACKWARD}
+.           [:CONFLICT-RESOLUTION {NIL| :FIRST
+.           MATCH| :OLDEST-MATCH| :NEWEST-MATCH}]
+.           ACTIONS
+.           {<Vorw\344rts-Aktion> | 
+.            <Sequentielle-Aktion>|
+.            <R\374ckw\344rts-Aktion> | 
+.            <Task-Aktion>}*)
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :explanation und :subtasks werden 
+.         ignoriert.
+.         :CONFLICT-RESOLUTION wird noch nicht
+.         unterst\374tzt!
+.         Nur die Sequentielle-Aktion wird
+.         momentan unterst\374tzt!
+.         Der Schl\374ssel :no-rules arbeitet
+.         momentan noch anders!
+.
+.Jede Regel, die Sie definieren, mu\337 einer 
+.Regelmenge zugeordnet werden. In der Regel-
+.menge wird vor allem die Abarbeitung der 
+.Regeln genauer bestimmt. Es gibt drei ver-
+.schiedene Modi, unter denen Sie ausw\344hlen
+.k\366nnen: vorw\344rts, r\374ckw\344rts und sequen-
+.tiell. Wenn Sie die Vorw\344rtsverkettung 
+.w\344hlen, wird eine Konfliktmenge gebildet,
+.in der Sie festlegen, welche Suchstrategie
+.(first match, newest-match, oldest-match)
+.angewendet wird.
+.
+.
+.<Sequentielle-Abarbeitung>
+.
+.Bei einer sequentiellen Abarbeitung wird
+.die Reihenfolge der Regeln auch bei mehr-
+.maligem Durchlaufen der Regelmenge strikt
+.gewahrt. Dabei k\366nnen Regeln wiederholt mit
+.der gleichen Instanziierung angewendet wer-
+.den.
+.Die Reihenfolge wird entweder durch die
+.Priorit\344t der Regeln bestimmt oder durch
+.die Aufschreibreihenfolge, wenn keine 
+.Priorit\344tsangabe vorhanden ist.
+.
+.F\374r die sequentielle Vorw\344rtsverkettung
+.werden verschiedene Auswertungstaktiken
+.angeboten:
+.
+.do-one ==> {nil | :no-rules}
+.
+.Das System wertet die erste ausf\374hrbare
+.Regel aus und kehrt zum Aktionsteil der 
+.Regelmengen-Task zur\374ck. L\344\337t sich keine
+.Regel ausf\374hren, wird `:no-rules` zur\374ck-
+.gegeben, andernfalls nil.
+.
+.do-all ==> {nil | :no-rules}
+.
+.Alle Regeln in der Sortierreihenfolge werden
+.gepr\374ft und ausgewertet. L\344\337t sich keine
+.Regel ausf\374hren, wird `:no-rules` zur\374ckge-
+.geben, andernfalls nil.
+.
+.do-while <condition> 
+.    ==> {:condition-failed | :no-rules}
+.
+.Ist die Form <condition> erf\374llt, werden
+.die Regeln in Sortierreihenfolge gepr\374ft und
+.die erste ausf\374hrbare Regel ausgewertet.
+.Anschliessend wird wie beim ersten Durchgang
+.verfahren, bis <condition> nicht mehr erf\374llt
+.ist oder alle Regeln gepr\374ft wurden. Im
+.ersten Fall wird `:condition-failed` zur\374ck-
+.gegeben, andernfalls `:no-rules`.
+.
+.do-until <condition>
+.    ==>{:condition-succeded | :no-rules}
+.
+.Die Regeln werden in Sortierreihenfolge
+.gepr\374ft und die erste ausf\374hrbare Regel
+.wird ausgewertet. Ist die Lisp-Form 
+.<condition> noch nicht erf\374llt, so wird wie
+.beim ersten Durchgang verfahren bis <con-
+.dition> erf\374llt ist oder alle Regeln ge-
+.pr\374ft wurden. Im ersten Fall wird 
+.`:condition-succeeded` zur\374ckgegeben, 
+.andernfalls `:no-rules`.
+.
+.
+.<Vorw\344rtsverkettung>
+.Die Regeln werden in der Sortierreihenfolge
+.getested und Regeln mit g\374ltigen Instanzi-
+.ierungen in eine Konfliktmenge gestellt. Aus
+.dieser Menge wird gem\344\337 festgelegter 
+.Konfliktl\366sung eine einzige Regel ausgew\344hlt
+.und f\374r alle Instanziierungen ausgewertet.
+.
+.Nach Auswertung einer Regel werden die Regeln
+.erneut nach Sortierreihenfolge getestet. Bei
+.Regeln, die schon ausgewertet wurden, wird
+.gepr\374ft, ob sich neue Instanziierungen er-
+.geben. Nur f\374r diese werden Regeln erneut
+.ausgewertet.
+.
+.Eine Regel ohne logische Variable wird 
+.h\366chstens einmal ausgewertet. Schon einmal
+.getestete Regeln werden nur dann erneut
+.getestet, wenn im Pr\344missenteil ein Pr\344dikat
+.auftritt, f\374r das ein tell, untell oder retell
+.erfolgte. 
+.
+.do-exhaustive ==> {nil | :no-rules}
+.
+.Warnung: noch nicht implementiert!
+.
+.Der eben erl\344uterte Zyklus wird solange durch-
+.laufen, bis keine Regeln mehr auswertbar sind.
+.L\344\337t sich keine Regel ausf\374hren, wird
+.`:no-rules` zur\374ckgegeben andernfalls nil.
+.
+.do-while <condition>
+.   ==> {:condition-failed | :no-rules}
+.
+.Vor jedem Durchlauf des oben erl\344uterten
+.Zyklus wird getestet, ob die Lisp-Form 
+.<condition> erf\374llt ist. Die Auswertung 
+.bricht ab, wenn <condition> nicht mehr er-
+.f\374llt ist oder alle Regeln gepr\374ft wurden.
+.Im ersten Fall wird `:condition-failed` 
+.zur\374ckgegeben andernfalls `:no-rules`.
+.
+.do-until <condition>
+.      ==> {:condition-succeded | :no-rules}
+.
+.Nach jedem Durchlauf des oben erl\344uterten
+.Zyklus wird getestet, ob die Lisp-Form 
+.<condition> erf\374llt ist. Die Auswertung
+.bricht ab, wenn <condition> eintritt oder alle
+.Regeln gepr\374ft wurden. Im ersten Fall wird
+.`:condition-succeded` zur\374ckgegeben andernfalls
+.`:no-rules`.
+.
+.
+.Formen der Konflikt-L\366sung
+.
+.:first-match
+.Die erste anwendbare Regel wird ausgewertet.
+.
+.:newest-match
+.Die erste anwendbare Regel im j\374ngsten 
+.Abarbeitungszyklus wird ausgew\344hlt.
+.
+.:oldest-match
+.Die erste anwendbare Regel im \344ltesten Ab-
+.arbeitungszyklus wird angewendet.
+.
+.
+.<R\374ckw\344rtsverkettung>
+.
+.Innerhalb von r\374ckw\344rts verketteten Regel-
+.mengen gibt es nur eine einzige Regelauswer-
+.tungstaktik, die versucht, die continuation-
+.form zu verifizieren.
+.
+.verify <verify_Ausdr> [:once] {<conti-form>}+
+.
+.Warnung: noch nicht implementiert!
+.
+.Es wird eine g\374ltige Instanziierung von 
+.<verify_Ausdr> ermittelt und anschliessend die
+.<conti-form> mit dieser Instanziierung ausge-
+.wertet. Fehlt `:once`, wird nach weiteren 
+.Instanziierungen gesucht. (Es wird nicht
+.gepr\374ft, ob eine Instanziierung bereits
+.aufgetreten ist.)
+.
+.VERIFY wertet, wie ask, die <conti-form> aus.
+.Dabei werden alle direkt ablesbaren Instanzi-
+.ierungen sowie alle ableitbaren 
+.Instanziierungen generiert und f\374r jede der
+.Instanziierungen die <continuation> Formen
+.ausgef\374hrt.
+.
+.Beispiel: >(define-ruleset-task URLAUBSANGEBOT
+.              (ein-kunde)
+.              :documentation 
+.                 "Bestimmt Urlaubsangebot"
+.              :explanation (:description
+.                 (("Erstellt 
+.                 ein Urlaubsangebot")))
+.              :mode :SEQUENTIAL
+.              actions
+.               (kb-format "~%Ich gebe Ihnen
+.                  eine Auswahl von m\366glichen
+.                  Urlaubsinteressen")
+.               (do-one)
+.               (kb-format "~%Das ist alles
+.                  was ich wei\337"))
+.
+#endif
+
+FF
+
+>DEFINE-TASK
+.DEFINE-TASK
+.===========
+#ifdef __english
+.
+.syntax: (define-task <task-name>
+.           <task-arguments>
+.           [:DOCUMENTATION <documentation>]
+.           [:EXPLANATION <explanation>]
+.           [:SUBTASKS {nil | (<task-name>*)}]
+.           ACTIONS <task-actions>)
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :explanation and :subtasks
+.         are ignored.
+.
+.With the definition of tasks can be defined,
+.how to get the knowledge from the base of
+.knowledge. A special task, which has to be
+.executed, when the consultation of the base
+.of knowledge is started, has to be given as
+.a starting task. Every task without parameters
+.can be used as a starting task. Tasks can
+.give parameters to other tasks and can activate
+.the other tasks. Tasks send back a value after
+.they have been executed. Tasks have names and they
+.always belong to a knowledge base.
+.
+.
+.ACTIONS
+.
+.Describes the action part of a task. Here you
+.can use all babylon- and lisp-expressions and
+.additional 2 special lisp-expressions:
+.
+.(start <task-name> [<task-argument>*])
+.
+.starts the task <task-name> with the neccesary
+.parameters as given arguments <task-arguments>.
+.
+.(stop-this-task <task-return-value>
+.        <task-return-code>)
+.
+.Warning: the <task-return-code> is ignored,
+.         because EMA-XPS handles task control
+.         in a different way!
+.
+.Stops the execution of the recent task. It has
+.two arguments. The first one is the value that
+.will be returned by the task. The second one
+.is setting the recent task state of the calling
+.task. This function is only for exceptional
+.cases, when the normal execution has to be
+.stopped.
+.
+.example: >(define-task initializing-cities ()
+.             :subtasks ()
+.             actions
+.             (ask [AND [city _city]
+.               [country _city _country]] (tell
+.               [cities _country _city]))
+.             (ask [AND [city _city] 
+.               [offer _city _x]]
+.             (tell [place _x _city])))
+.         >(define-task CONTROLL ()
+.             :subtasks (INITIALIZING-CITIES
+.                HOLIDAYOFFER GREETINGS)
+.             actions
+.             (start `initializing-cities)
+.             (start `greetings)
+.             (start `holidayoffer
+.                (instance-of client)))
+.
+#else
+.
+.Syntax: (define-task <Task-Name>
+.           <Task-Argumente>
+.           [:DOCUMENTATION <Dokumentation>]
+.           [:EXPLANATION <Erkl\344rung>]
+.           [:SUBTASKS {nil | (<Task-Name>*)}]
+.           ACTIONS <Task-Aktionen>)
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :explanation und :subtasks werden 
+.         ignoriert.
+.
+.Mit der Definition von Tasks k\366nnen Sie fest-
+.legen, wie auf das Wissen in Ihrer Wissensbasis
+.zugegriffen werden soll. Eine spezielle Task,
+.die ausgef\374hrt werden soll, wenn die Wissens-
+.basiskonsulation gestartet wird, mu\337 explizit
+.als Start-Task angegeben werden. Jede parameter-
+.lose Task kann als Start-Task gesetzt werden.
+.Tasks k\366nnen andere Tasks mit Parametern ver-
+.sorgen und aktivieren. Nach Ende der Abarbei-
+.tung liefern Tasks einen R\374ckgabewert. Tasks
+.sind benannt und m\374ssen immer einer Wissens-
+.basis zugeordnet werden.
+.
+.ACTIONS
+.
+.Bezeichnet den Aktionsteil einer Task. Hier
+.k\366nnen Sie alle zur Verf\374gung stehenden
+.babylon-Ausdr\374cke und Lisp-Ausdr\374cke ver-
+.wenden. Zus\344tzlich stehen noch zwei spezielle
+.Lisp-Ausdr\374cke zur Verf\374gung:
+.
+.(start <Task-Name> [<Task-Argument>*])
+.
+.startet die Task <Task-Name> mit den notwendigen
+.Parametern als \374bergebenen Argumenten <Task-
+.Argumente>.
+.
+.(stop-this-task <Task-R\374ckgabewert>
+.    <Task-R\374ckgabecode>)
+.
+.Warnung: Der <Task-R\374ckgabecode> wird ignoriert,
+.         da EMA-XPS anders mit der Task-Steuerung
+.         umgeht!
+.
+.beendet unmittelbar die Abarbeitung der aktuel-
+.len Task. Es hat zwei Argumente. Das erste ist
+.der R\374ckgabewert der Task. Das Zweite dient
+.zum Setzen des momentanen Task-Status der auf-
+.rufenden Task. Diese Funktion ist allerdings
+.nur f\374r Ausnahmef\344lle gedacht, wenn die nor-
+.male Verarbeitung abgebrochen werden mu\337.
+.
+.Beispiel: >(define-task 
+.              initialisiere-Staedte ()
+.              :subtasks ()
+.              actions
+.              (ask [AND [Stadt _stadt]
+.              [land _stadt _land]]
+.              (tell [staedte _land _stadt]))
+.              (ask [AND [Stadt _stadt]
+.              [Angebote _stadt _x]]
+.              (tell [Ort _x _stadt])))
+.          >(define-task ABLAUFSTEUERUNG ()
+.              :subtasks (INITIALISIERE-STAEDTE
+.                 URLAUBSANGEBOT BEGRUESSUNG)
+.              actions
+.              (start `initialisiere-staedte)
+.              (start `begruessung)
+.              (start `urlaubsangebot
+.                (instance-of kunde)))
+.
+#endif
+
+FF
+
+>DEFINE-KNOWLEDGE-BASE
+.DEFINE-KNOWLEDGE-BASE
+.=====================
+#ifdef __english
+.
+.syntax: (define-knowledge-base <knowledge-base-name>
+.           [:CONFIGURATION <configuration-name>]
+.           [:INTERFACE <interface-instance>]
+.           [:DOCUMENTATION <documentation>]
+.           [:EXPLANATION <explanation-expr.>])
+.
+.Warning: The explanation facility is not sup-
+.         ported, hence :documentation and
+.         :explanation are ignored.
+.
+.Defines a new knowledge base. `:configuration` and
+.`:interface` are not available in this version!
+.
+.example: >(define-knowledge-base lexicon)
+.             :documentation
+.                "Base of knowledge of a lexicon")
+.
+#else
+.
+.syntax: (define-knowledge-base <Wissensbasis-Name>
+.           [:CONFIGURATION <Konfigurations-Name>]
+.           [:INTERFACE <Interface-Instanz>]
+.           [:DOCUMENTATION <Dokumentation>]
+.           [:EXPLANATION <Erkl\344rung>])
+.
+.Warnung: Der Erkl\344rungseintrag wird durch 
+.         EMA-XPS nicht unterst\374tzt, d.h.
+.         :documentation und :explanation
+.         werden ignoriert.
+.
+.Definiert eine neue Wissensbasis. `:configuration` und
+.`:interface` sind in der vorliegenden Version noch
+.nicht verf\374gbar.
+.
+.Beispiel: >(define-knowledge-base Lexikon)
+.              :documentation
+.                 "Wissensbasis eines Lexikons")
+.
+#endif
+
+
+!
+! -----------------------------------------------------
+! no trailing FF allowed at the end of the last page !!
+!
+!!! EOF  

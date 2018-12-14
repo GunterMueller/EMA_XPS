@@ -1,0 +1,56 @@
+<html><head><title>DEFINE-FRAME</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc345.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc343.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-FRAME</strong></font></center><p>
+
+<PRE>DEFINE-FRAME
+============
+
+syntax: (define-frame &lt;frame-name&gt;
+           [:SPECIALIZES &lt;list-of-frame-names&gt;]
+           [:DOCUMENTATION &lt;documentation&gt;]
+           [:EXPLANATION &lt;explanation&gt;]
+           &lt;relation-specification&gt;*)
+
+Warning: The explanation facility is not sup-
+         ported, hence :documentation and
+         :explanation are ignored.
+
+A frame is defined by its name. Under the keyword
+:specializes the superframes of the recent frame have
+to be defined. If there exist no superframes, then
+the keyword can be left away.
+The documentation and the explanation are optional
+too.
+
+See the page on RELATION-SPECIFICATION, too!
+
+example: &gt;(define-frame city
+             :documentation &quot;describes the city&quot;
+             :explanation ((&quot;describes the city&quot;)))
+         &gt;(define-frame capital-city
+             :specializes (city)
+             :documentation &quot;describes the city&quot;
+             :explanation (:description
+                ((&quot;describes the city&quot;))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc345.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc343.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-FRAME done --!>

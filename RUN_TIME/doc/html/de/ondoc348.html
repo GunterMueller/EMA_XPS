@@ -1,0 +1,55 @@
+<html><head><title>DEFINE-INSTANCE</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc349.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc347.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-INSTANCE</strong></font></center><p>
+
+<PRE>DEFINE-INSTANCE
+===============
+
+Syntax: (define-instance &lt;Instanz-Name&gt;
+           OF &lt;Rahmen-Name&gt;
+           [:DOCUMENTATION &lt;Dokumentation&gt;]
+           [:EXPLANATION &lt;Erkl&auml;rung&gt;]
+           {&lt;Relations-Name&gt;
+           ([:VALUE {'{'&lt;Lisp-Typ: T&gt;*'}'|
+                            &lt;Lisp-Typ: T&gt;}
+           [:READ-DEPENDENTS (&lt;Lisp-Typ: T&gt;*)]|
+           [:WRITE-DEPENDENTS (&lt;Lisp-Typ: T&gt;*)]}*)
+
+Warnung: Der Erkl&auml;rungseintrag wird durch 
+         EMA-XPS nicht unterst&uuml;tzt, d.h.
+         :documentation und :explanation
+         werden ignoriert.
+
+Mit der Instanzdefinition werden die einzelnen
+Instanzen der Rahmen definiert.
+
+Genaueres auf der Seite RELATION-SPECIFICATION!
+
+Beispiel: &gt;(define-instance Louvre of Museum
+              :documentation &quot;&quot;
+              :explanation nil
+                 Ort (:read-dependents
+                   (Verkehrsbuero-Paris))
+                 Thema ())
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc349.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc347.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-INSTANCE done --!>

@@ -1,0 +1,50 @@
+<html><head><title>MAKE-BABYLON-PUSH-BUTTON</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc237.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc235.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>MAKE-BABYLON-PUSH-BUTTON</strong></font></center><p>
+
+<PRE>MAKE-BABYLON-PUSH-BUTTON
+========================
+
+syntax: (make-babylon-push-button &lt;interface&gt; 
+           &lt;wname&gt; &lt;xpos&gt; &lt;ypos&gt; &lt;width&gt; &lt;height&gt;
+           &lt;label&gt; &lt;font&gt; &lt;color&gt; 
+           &amp;optional &lt;action&gt; &amp;rest &lt;args&gt;)
+
+This function defines a push-button for the window. 
+&lt;wname&gt; is the name of the button. &lt;xpos&gt; and &lt;ypos&gt;
+are the positions from the upper left corner. &lt;width&gt;
+and &lt;height&gt; define the width and height of it.
+&lt;label&gt; is the text on the button. &lt;font&gt; and &lt;color&gt;
+are not supported  by Babylon v3. &lt;action&gt; describes
+the task that will be started when the button is
+pushed. The defined button will appear in the
+&lt;interface&gt;.
+
+example: &gt;(defun make-kb-interface (interface)
+             (add-window-elements
+             interface
+             (list (make-babylon-push-button interface
+             &quot;PSHB1&quot; 400 300 100 50  &quot;OPTIONS&quot; nil nil
+             '(start 'options-task interface)))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc237.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc235.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- MAKE-BABYLON-PUSH-BUTTON done --!>

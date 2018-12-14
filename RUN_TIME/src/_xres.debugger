@@ -1,0 +1,37 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.debugger   Hans Groschwitz     19.07.95   !!
+!!                                                   !!
+!!   Simulates a terminal-like window for working    !!
+!!   with the LISP-debugger, called a PAD.           !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Debugger*XmText.columns:         100
+Debugger*XmText.rows:            20
+#ifdef __english
+Debugger.title:                  Debugger
+Debugger.iconName:               Debugger
+Debugger*Break.labelString:      Break!
+Debugger*Erase.labelString:      Clear
+#else /* deutsch */
+Debugger.title:                  Fehlerwerkzeug
+Debugger.iconName:               Fehlerwerkzeug
+Debugger*Break.labelString:      Unterbrechen!
+Debugger*Erase.labelString:      L\366schen
+#endif /* english */
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!     Color Settings                            !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#ifdef COLOR
+
+Debugger*background:             orange
+Debugger*foreground:             black
+
+#else /* MONO */
+
+!! here non-default settings only, please!
+
+#endif /* COLOR */
+
+!!! EOF

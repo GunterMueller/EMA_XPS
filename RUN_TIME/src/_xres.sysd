@@ -1,0 +1,217 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _xres.sysd    Hans Groschwitz        06.10.94   !!
+!!                 Stephan Peters                    !!
+!!                                                   !!
+!!   C-FrontEnds of LISP functions for control of    !!
+!!   Popups for the Main-Menu of EMA-XPS             !!
+!!                                                   !!
+!!   See uid.x for details!                          !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+SystemDialogs*SysdWarning*fontList: *-helvetica-bold-r-normal--14-*-iso8859-1
+
+
+SystemDialogs*SysdInformation_popup.title: EMA-XPS Information
+#ifdef __english
+SystemDialogs*SysdWarning_popup.title: EMA-XPS Warning
+SystemDialogs*SysdPrompt_popup.title: EMA-XPS Prompt
+SystemDialogs*SysdAcceptCancel_popup.title: EMA-XPS Confirmation
+SystemDialogs.SysdAcceptCancel_popup*okLabelString:     Accept
+#else /* deutsch */
+SystemDialogs*SysdWarning_popup.title: EMA-XPS Warnung
+SystemDialogs*SysdPrompt_popup.title: EMA-XPS Eingabeaufforderung
+SystemDialogs*SysdAcceptCancel_popup.title: EMA-XPS R\374ckfrage
+SystemDialogs.SysdInformation_popup*okLabelString:      Best\344tigen
+SystemDialogs.SysdAcceptCancel_popup*okLabelString:     Best\344tigen
+SystemDialogs.SysdAcceptCancel_popup*cancelLabelString: Abbrechen
+SystemDialogs.SysdPrompt_popup*okLabelString:           Best\344tigen
+SystemDialogs.SysdPrompt_popup*cancelLabelString:       Abbrechen
+#endif /* english */
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+
+#ifdef __english
+SystemDialogs*SysdInformation*messageString:  \
+Statistics of Knowledge Base %s \n\
+ \n\
+  %s FRAMES \n\
+  %s INSTANCES \n\
+  %s RULES in \n\
+  %s RULE SETS \n\
+  %s CLAUSES \n\
+  %s PRIMITIVE CONSTRAINTS \n\
+  %s CONSTRAINT NETS \n\
+  %s RESTRICTIONS \n\
+  %s TASKS \n\
+.
+
+SystemDialogs*SysdWarning*messageString:  \
+ERROR: while creating a new KB: \n\
+ \n\
+The KB name %s should not be the name of a known KB: \n\
+%s \
+|\
+ERROR: while reading knowledge base: \n\
+ \n\
+Improper filename %s ! \
+|\
+ERROR: while reading knowledge base: \n\
+ \n\
+Improper directory %s ! \
+|\
+ERROR: while reading knowledge base: \n\
+ \n\
+Filename part missing in %s ! \
+|\
+ERROR: while reading knowledge base: \n\
+ \n\
+File %s does not exist! \
+|\
+ERROR: while making a KB: \n\
+ \n\
+The KB name %s should be a symbol! \
+|\
+ERROR: while making a KB: \n\
+ \n\
+The KB name %s should not be one of the following: \n\
+%s \
+|\
+ERROR: while writing knowledge base: \n\
+ \n\
+No current KB! \
+|\
+ERROR: while writing knowledge base: \n\
+ \n\
+Improper filename %s ! \
+|\
+ERROR: while writing knowledge base: \n\
+ \n\
+Improper directory %s ! \
+|\
+ERROR: while writing knowledge base: \n\
+ \n\
+Filename part missing in %s ! \
+|\
+ERROR: while writing knowledge base: \n\
+ \n\
+Unexpected failure while \n\
+opening file %s \n\
+to write! 
+
+SystemDialogs*SysdAcceptCancel*messageString:  \
+WARNING: while writing knowledge base: \n\n\
+         File %s already exists! \n\n\
+         If you accept, the old contents will be overwritten! \
+|\
+The KB %s already exists! \n\n\
+Press ACCEPT to continue loading, \n\
+             closing the old version \n\
+             before loading the new version. \n\n\
+Press CANCEL to abort loading. 
+
+SystemDialogs*SysdPrompt*selectionLabelString:  \
+Input the name of the new KB:
+
+#else /* deutsch */
+SystemDialogs*SysdInformation*messageString:  \
+Statistik der Wissensbasis %s \n\
+ \n\
+  %s FRAMES \n\
+  %s INSTANZEN \n\
+  %s REGELN in \n\
+  %s REGELMENGEN \n\
+  %s KLAUSELN \n\
+  %s PRIMITIVE CONSTRAINTS \n\
+  %s CONSTRAINT NETZE \n\
+  %s RESTRIKTIONEN \n\
+  %s TASKS \n\
+.
+
+SystemDialogs*SysdWarning*messageString:  \
+FEHLER: beim Erstellen einer neuen WB: \n\
+ \n\
+Der WB-Name %s sollte nicht mit dem einer bekannten WB \374bereinstimmen: \n\
+%s \
+|\
+FEHLER: Beim Laden der Wissensbasis: \n\
+ \n\
+Ung\374ltiger Dateiname %s ! \
+|\
+FEHLER: Beim Laden der Wissensbasis: \n\
+ \n\
+Ung\374ltiges Verzeichnis %s ! \
+|\
+FEHLER: Beim Laden der Wissensbasis: \n\
+ \n\
+Komponente f\374r den Dateinamen fehlt in %s ! \
+|\
+FEHLER: Beim Laden der Wissensbasis: \n\
+ \n\
+Datei %s existiert nicht! \
+|\
+FEHLER: Beim Erstellen einer WB: \n\
+ \n\
+Der WB-Name %s sollte ein Symbol sein! \
+|\
+FEHLER: Beim Erstellen einer WB: \n\
+ \n\
+Der WB-Name %s sollte anders lauten als: \n\
+%s \
+|\
+FEHLER: Beim Speichern der Wissensbasis: \n\
+ \n\
+Keine aktuelle WB! \
+|\
+FEHLER: Beim Speichern der Wissensbasis: \n\
+ \n\
+Ung\374ltiger Dateiname %s ! \
+|\
+FEHLER: Beim Speichern der Wissensbasis: \n\
+ \n\
+Ung\374ltiges Verzeichnis %s ! \
+|\
+FEHLER: Beim Speichern der Wissensbasis: \n\
+ \n\
+Komponente f\374r den Dateinamen fehlt in %s ! \
+|\
+FEHLER: Beim Speichern der Wissensbasis: \n\
+ \n\
+Unerwarteter Fehler beim \326ffnen \n\
+der Datei %s \n\
+zum Schreiben! 
+
+SystemDialogs*SysdAcceptCancel*messageString:  \
+WARNUNG: Beim  Speichern der Wissensbasis: \n\n\
+         Die Datei %s existiert bereits! \n\n\
+         Wenn Sie akzeptieren, werden die alten Inhalte \374berschrieben! \
+|\
+Die WB %s existiert bereits! \n\n\
+Wenn Sie BEST\304TIGEN, wird die alte Version geschlossen, \n\
+         bevor die neue Version geladen wird. \n\n\
+ABBRECHEN beendet das Laden vorzeitig. \
+|\
+Das Axiom %s existiert bereits.\n\n\
+Wenn Sie akzeptieren, wird der alte Inhalt \374berschrieben! 
+
+SystemDialogs*SysdPrompt*selectionLabelString:  \
+Geben Sie den Namen der neuen WB ein:
+
+#endif /* english */
+
+
+
+#ifdef COLOR
+
+SystemDialogs*SysdWarning*background: coral
+SystemDialogs*SysdWarning*foreground: black
+
+SystemDialogs*SysdAcceptCancel*background: coral
+SystemDialogs*SysdAcceptCancel*foreground: black
+
+#else /* MONO */
+
+#endif /* COLOR */
+
+
+!!! EOF

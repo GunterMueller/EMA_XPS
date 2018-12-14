@@ -1,0 +1,45 @@
+<html><head><title>INSTANCES-OF</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc289.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc287.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>INSTANCES-OF</strong></font></center><p>
+
+<PRE>INSTANCES-OF
+============
+
+syntax: (instances-of &lt;frame-specifier&gt;
+                      [:DIRECT T | NIL | Var]
+                      [:IDENTIFIER T | NIL | Var]
+                      [:KB &lt;kb&gt;])
+
+This function returns a list with static instance
+objects or instance identifiers of a frame. Dynamic
+instances cannot be found this way! If you do
+not give any details, then ':DIRECT' AND ':IDENTIFIER' 
+will be set to NIL and you will get a list with all 
+instances of the frame as objects.
+
+example: &gt;(instances-of 'city)
+         (#&lt;CAPITALCITY PARIS&gt; #&lt;CAPITALCITY LONDON&gt;
+             #&lt;CAPITALCITY NEW-YORK&gt; 
+                   #&lt;CAPITALCITY BERLIN&gt;)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc289.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc287.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- INSTANCES-OF done --!>

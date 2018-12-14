@@ -1,0 +1,1116 @@
+;;; -*- Mode: Lisp; Syntax: Common-Lisp; Base: 10; Package: UI-DEMO ; -*-
+;;;  babylon Version 3.1-beta (a S1.1.1), Copyright (C) 1991, VW-GEDAS
+
+(babylon-package "UI-DEMO" :use "BUL" "BABYLON")
+
+(define-knowledge-base UI-DEMO
+  :configuration default-configuration
+  :interface babylon-kb-interface)
+
+(defun make-kb-interface
+ (interface)
+ (add-window-elements interface
+  (list
+   (make-babylon-separator interface "trenner-v1" 560 15 800 "vertical" nil)
+   (make-babylon-graphic-button interface "logo-bild" 15 15 240 165
+    "kbs/xbm/logo" nil '(start 'copyright))
+   (make-babylon-text-label interface "logo-text-1" 260 30 285 35
+    "Antriebstechnisches" nil nil nil)
+   (make-babylon-text-label interface "logo-text-2" 260 65 285 35
+    "Expertensystem" nil nil nil)
+   (make-babylon-text-label interface "logo-text-3" 260 110 285 20
+    "des Labors fuer" nil nil nil)
+   (make-babylon-text-label interface "logo-text-4" 260 130 285 20
+    "elektrische Maschinen und Antriebe" nil nil nil)
+   (make-babylon-text-label interface "logo-text-5" 260 150 285 20
+    "Universitaet Wuppertal" nil nil nil)
+   (make-babylon-push-button interface "headline" 15 195 410 80
+    "Nicht initialisiert" nil nil '(start 'headline))
+   (make-babylon-push-button interface "hilfe" 430 195 115 80 "Hilfe" nil nil
+    '(start 'hilfe))
+   (make-babylon-separator interface "trenner-h1" 15 293 530 "horizontal" nil)
+   (make-babylon-separator interface "trenner-h1d" 15 296 530 "horizontal" nil)
+   (make-babylon-push-button interface "dekade-1" 15 300 167 35 "1. bis 10." nil
+    nil '(start 'radio-dekade 1))
+   (make-babylon-push-button interface "dekade-2" 196 300 167 35 "11. bis 20."
+    nil nil '(start 'radio-dekade 2))
+   (make-babylon-push-button interface "dekade-3" 378 300 167 35 "21. bis 30."
+    nil nil '(start 'radio-dekade 3))
+   (make-babylon-separator interface "trenner-h2" 15 340 530 "horizontal" nil)
+   (make-babylon-push-button interface "slot-1" 15 345 410 35 "Eigenschaft-1" nil
+    nil '(start 'radio-slot 1))
+   (make-babylon-push-button interface "slot-2" 15 385 410 35 "Eigenschaft-2" nil
+    nil '(start 'radio-slot 2))
+   (make-babylon-push-button interface "slot-3" 15 425 410 35 "Eigenschaft-3" nil
+    nil '(start 'radio-slot 3))
+   (make-babylon-push-button interface "slot-4" 15 465 410 35 "Eigenschaft-4" nil
+    nil '(start 'radio-slot 4))
+   (make-babylon-push-button interface "slot-5" 15 505 410 35 "Eigenschaft-5" nil
+    nil '(start 'radio-slot 5))
+   (make-babylon-push-button interface "slot-6" 15 545 410 35 "Eigenschaft-6" nil
+    nil '(start 'radio-slot 6))
+   (make-babylon-push-button interface "slot-7" 15 585 410 35 "Eigenschaft-7" nil
+    nil '(start 'radio-slot 7))
+   (make-babylon-push-button interface "slot-8" 15 625 410 35 "Eigenschaft-8" nil
+    nil '(start 'radio-slot 8))
+   (make-babylon-push-button interface "slot-9" 15 665 410 35 "Eigenschaft-9" nil
+    nil '(start 'radio-slot 9))
+   (make-babylon-push-button interface "slot-10" 15 705 410 35 "Eigenschaft-10"
+    nil nil '(start 'radio-slot 10))
+   (make-babylon-push-button interface "wert-1" 430 345 115 35 "Wert-1" nil nil
+    '(start 'radio-wert 1))
+   (make-babylon-push-button interface "wert-2" 430 385 115 35 "Wert-2" nil nil
+    '(start 'radio-wert 2))
+   (make-babylon-push-button interface "wert-3" 430 425 115 35 "Wert-3" nil nil
+    '(start 'radio-wert 3))
+   (make-babylon-push-button interface "wert-4" 430 465 115 35 "Wert-4" nil nil
+    '(start 'radio-wert 4))
+   (make-babylon-push-button interface "wert-5" 430 505 115 35 "Wert-5" nil nil
+    '(start 'radio-wert 5))
+   (make-babylon-push-button interface "wert-6" 430 545 115 35 "Wert-6" nil nil
+    '(start 'radio-wert 6))
+   (make-babylon-push-button interface "wert-7" 430 585 115 35 "Wert-7" nil nil
+    '(start 'radio-wert 7))
+   (make-babylon-push-button interface "wert-8" 430 625 115 35 "Wert-8" nil nil
+    '(start 'radio-wert 8))
+   (make-babylon-push-button interface "wert-9" 430 665 115 35 "Wert-9" nil nil
+    '(start 'radio-wert 9))
+   (make-babylon-push-button interface "wert-10" 430 705 115 35 "Wert-10" nil nil
+    '(start 'radio-wert 10))
+   (make-babylon-separator interface "trenner-h3" 15 744 530 "horizontal" nil)
+   (make-babylon-separator interface "trenner-h3d" 15 747 530 "horizontal" nil)
+   (make-babylon-push-button interface "next" 15 765 530 50
+    "In naechste Ebene wechseln" nil nil '(start 'next))
+   (make-babylon-output-field interface "hilfe-text-unten" 575 300 530 515
+    "Unteres Ausgabefenster fuer Hilfemeldungen" nil nil)
+   (make-babylon-push-button interface "less-text-unten" 1105 300 10 257 "-" nil
+    nil '(start 'hilfe-less 'unten))
+   (make-babylon-push-button interface "more-text-unten" 1105 558 10 257 "+" nil
+    nil '(start 'hilfe-more 'unten))
+   (make-babylon-output-field interface "hilfe-text-gross" 575 90 530 725
+    "Grosses Ausgabefenster fuer Hilfemeldungen" nil nil)
+   (make-babylon-push-button interface "less-text-gross" 1105 90 10 362 "-" nil
+    nil '(start 'hilfe-less 'gross))
+   (make-babylon-push-button interface "more-text-gross" 1105 453 10 362 "+" nil
+    nil '(start 'hilfe-more 'gross))
+   (make-babylon-output-field interface "hilfe-text-links" 575 90 320 200
+    "Oberes Ausgabefenster fuer Hilfemeldungen" nil nil)
+   (make-babylon-push-button interface "less-text-links" 895 90 10 100 "-" nil
+    nil '(start 'hilfe-less 'links))
+   (make-babylon-push-button interface "more-text-links" 895 190 10 100 "+" nil
+    nil '(start 'hilfe-more 'links))
+   (make-babylon-output-field interface "hilfe-text-oben" 575 90 530 200
+    "Oberes breites Ausgabefenster fuer Hilfemeldungen" nil nil)
+   (make-babylon-push-button interface "less-text-oben" 1105 90 10 100 "-" nil
+    nil '(start 'hilfe-less 'oben))
+   (make-babylon-push-button interface "more-text-oben" 1105 190 10 100 "+" nil
+    nil '(start 'hilfe-more 'oben))
+   (make-babylon-graphic-label interface "hilfe-bild-links" 575 90 330 200
+    "kbs/xbm/icon" nil nil)
+   (make-babylon-graphic-label interface "hilfe-bild-rechts" 885 90 230 200
+    "kbs/xbm/icon" nil nil)
+   (make-babylon-graphic-label interface "hilfe-bild-gross" 575 90 540 200
+    "kbs/xbm/logo" nil nil)
+   (make-babylon-push-button interface "hilfe-beenden" 575 15 540 60
+    "Hilfe beenden" nil nil '(start 'hilfe-beenden)))))
+
+(define-frame HILFE-F
+  :documentation "Dieser Frame enthaelt Hilfetexte und Bilder. Er wird vererbt"
+  :general-relations (
+    hilfe-text-gross
+     nil
+    hilfe-text-links
+     nil
+    hilfe-text-oben
+     nil
+    hilfe-text-unten
+     nil
+    hilfe-bild-gross
+     nil
+    hilfe-bild-links
+     nil
+    hilfe-bild-rechts
+     nil))
+
+(define-frame USER-INTERFACE-F
+  :specializes (hilfe-f)
+  :documentation "Dieser Frame enthaelt Variablen, die zur Steuerung der 
+grafischen Oberflaeche benoetigt werden."
+  :explanation (:description (("Seite 7-10 lesen ")))
+  :general-relations (
+    ebene
+     nil
+    nr-gross
+     nil
+    nr-links
+     nil
+    nr-oben
+     nil
+    nr-unten
+     nil
+    ht-gross
+     nil
+    ht-links
+     nil
+    ht-oben
+     nil
+    ht-unten
+     nil))
+
+(define-instance USER-INTERFACE of USER-INTERFACE-F
+  :documentation "Instanz des user-interface frames: Beinhaltet Variablen, die zur Steuerung
+der Oberflaeche noetig sind."
+  hilfe-text-gross 
+   (:value '(" "))
+  hilfe-text-links 
+   (:value '(" "))
+  hilfe-text-oben 
+   (:value '(" "))
+  hilfe-text-unten 
+   (:value '(" "))
+  hilfe-bild-gross 
+   (:value " ")
+  hilfe-bild-links 
+   (:value " ")
+  hilfe-bild-rechts 
+   (:value " ")
+  ebene 
+   (:value '-)
+  nr-gross 
+   (:value 1)
+  nr-links 
+   (:value 1)
+  nr-oben 
+   (:value 1)
+  nr-unten 
+   (:value 1)
+  ht-gross 
+   (:value '(" "))
+  ht-links 
+   (:value '(" "))
+  ht-oben 
+   (:value '(" "))
+  ht-unten 
+   (:value '(" ")))
+
+(define-frame EBENE-F
+  :specializes (hilfe-f)
+  :documentation "Dieser Frame enthaelt Variablen, die zu
+einer einzelnen Ebene der grafischen Oberflaeche gehoeren."
+  :general-relations (
+    headline
+     nil
+    frame
+     nil
+    dekade
+     nil
+    slot
+     nil
+    wert
+     nil
+    list-slots
+     nil
+    list-werte
+     nil
+    read-werte
+     nil
+    rewrite-werte
+     nil))
+
+(define-instance PROBLEM-GROBBESCHREIBUNG of EBENE-F
+  :documentation "erste Ebene der Sitzung: Beinhaltet Variablen, die zur Steuerung
+der Oberflaeche noetig sind."
+  hilfe-text-gross 
+   (:value '(" "))
+  hilfe-text-links 
+   (:value '(" "))
+  hilfe-text-oben 
+   (:value '(" "))
+  hilfe-text-unten 
+   (:value '(" "))
+  hilfe-bild-gross 
+   (:value " ")
+  hilfe-bild-links 
+   (:value " ")
+  hilfe-bild-rechts 
+   (:value " ")
+  headline 
+   (:value "Problem-Grobbeschreibung")
+  frame 
+   (:value 'antriebs-konzept-f)
+  dekade 
+   (:value 1)
+  slot 
+   (:value 0)
+  wert 
+   (:value 1)
+  list-slots 
+   (:value '(-))
+  list-werte 
+   (:value '(-))
+  read-werte 
+   (:value 'read-werte--problem-grobbeschreibung)
+  rewrite-werte 
+   (:value 'no-op))
+
+(define-frame ANTRIEBS-KONZEPT-F
+  :specializes (hilfe-f)
+  :documentation "Dieser Frame enthaelt die Werte eines Antriebskonzepts"
+  :general-relations (
+    name
+     nil
+    should-be--leistung-to-bauform
+     nil))
+
+(define-instance PUMPE-LUEFTER-ZENTRIFUGE of ANTRIEBS-KONZEPT-F
+  :documentation "Eigenschaften des Antriebskonzepts Pumpe-Luefter-Zentriefuge"
+  hilfe-text-gross 
+   (:value '(" "))
+  hilfe-text-links 
+   (:value '(" "))
+  hilfe-text-oben 
+   (:value '(" "))
+  hilfe-text-unten 
+   (:value '(" "))
+  hilfe-bild-gross 
+   (:value " ")
+  hilfe-bild-links 
+   (:value " ")
+  hilfe-bild-rechts 
+   (:value " ")
+  name 
+   (:value "Pumpe, Luefter, Zentrifuge")
+  should-be--leistung-to-bauform 
+   (:value '-))
+
+(define-task START-TASK ()
+  :documentation "Startet die Sitzung (erste Handlung, automatisch ausgefuehrt)
+Stellt ausserdem fuer alle Ebenen eine Liste von Eigenschaften zusammen.
+Diese aendern sich waehrend einer Sitzung nicht!"
+ ACTIONS
+  (start 'hilfe-unsichtbar)
+  (retell [list-slots problem-grobbeschreibung '("Extruder"
+                                                 "Fahrantrieb bis 60 km/h"
+                                                 "Fahrantrieb ab 60 km/h"
+                                                 "Foerderband" "Kalander"
+                                                 "Kesselspeisepumpe"
+                                                 "Kleinantriebe"
+                                                 "Kran, Winde, Aufzug" "Muehle"
+                                                 "Positionierantrieb"
+                                                 "Presse, Stanze"
+                                                 "Pumpe, Luefter, Zentrifuge"
+                                                 "Rollgang" "Schiffsschraube"
+                                                 "Schraegfoerderer" "Verdichter"
+                                                 "Vorschubantrieb"
+                                                 "Walzhauptantrieb"
+                                                 "Werkzeugmaschine"
+                                                 "Wickel- und Haspelantrieb"
+                                                 "Zementmuehle")]
+          _)
+  (start 'gehe-zur-ebene 'problem-grobbeschreibung)
+  (start 'copyright))
+
+(define-task NO-OP ()
+  :documentation "Dummy-Funktion, tut nichts!"
+ ACTIONS
+  nil)
+
+(define-task GEHE-ZUR-EBENE (neu)
+  :documentation "Setzt die linke Bildseite neu, wechselt zur Ebene 'neu'"
+ ACTIONS
+  (let ((interface
+         (get-interface
+          (this-kb))))
+       (when (is-type-of
+              (ask-instance-value 'ebene user-interface)
+              'ebene-f)
+             (ask [ebene user-interface _ebene]
+                  (ask [rewrite-werte _ebene _task]
+                       (start _task))))
+       (when (is-type-of
+              (object-of neu) 'ebene-f)
+             (retell [ebene user-interface
+                      (object-of neu)]
+                     _)
+             (ask [ebene user-interface _ebene]
+                  (ask [read-werte _ebene _task]
+                       (start _task))
+                  (ask [headline _ebene _headline]
+                       (set-push-button-label
+                        (get-window-element interface "headline") _headline))
+                  (ask [dekade _ebene _dekade]
+                       (start 'radio-dekade _dekade))))))
+
+(define-task READ-WERTE--PROBLEM-GROBBESCHREIBUNG ()
+  :documentation "Stellt eine Liste der zu den Eigenschaften der ersten Ebene 
+gehoerenden aktuellen Werte zusammen. MOMENTAN EIN DUMMY !!!"
+ ACTIONS
+  (retell [list-werte problem-grobbeschreibung '("-" "-" "-" "-" "-" "-" "-" "-"
+                                                 "-" "-" "-" "-" "-" "-" "-" "-"
+                                                 "-" "-" "-" "-" "-")]
+          _))
+
+(define-task COPYRIGHT ()
+  :documentation "Liefert eine Copyright-Notiz, die quittiert werden muss,
+damit die Sitzung weitergehen kann."
+ ACTIONS
+  (kb-notify
+   "
+
+	Beispiel fuer eine grafische
+	Endbenutzerschnittstelle fuer ein
+	dialogorientiertes Expertensystem
+
+	Labor fuer
+	elektrische Maschinen und Antriebe
+	Universitaet Wuppertal
+	
+	---------------------------          
+	
+	(c) 1989-1996
+
+"))
+
+(define-task NEXT ()
+  :documentation "MOMENTAN EIN DUMMY !!!"
+ ACTIONS
+  (start 'gehe-zur-ebene 'problem-grobbeschreibung))
+
+(define-task HEADLINE ()
+  :documentation "Wechselt die Ebene der Problemloesung, indem es
+aus der Liste der Instanzen von ebene-f direkte Instanzen anbietet.
+Daher MUESSEN Ebenen der Hilfe (--> Bauformen) ueber Vererbung entstehen,
+sont wuerden sie hier mit zur Auswahl kommen !!!
+=>   (hilfe-ebene-f) :specializes ebene-f"
+ ACTIONS
+  (let (akteb retval)
+       (ask [ebene user-interface _ebene]
+            (setf akteb
+             (name-of _ebene)))
+       (setf retval
+        (kb-choose-from-menu
+         (instances-of 'ebene-f
+          :direct t)
+         (format nil
+          "Sie befinden sich momentan in der Ebene
+   ~A.
+
+Waehlen Sie die Ebene der Problemloesung,
+in die Sie wechseln wollen:"
+          akteb)
+         (function name-of)))
+       (if (not
+            (null retval))
+           (start 'gehe-zur-ebene retval))))
+
+(define-task SET-TEXT (interface widget dek10-10 nummer liste)
+  :documentation "Veraendert den Text eines Slots oder Werts"
+ ACTIONS
+  (let (str
+        (list-offs
+         (+ dek10-10 nummer)))
+       (if (<= list-offs
+            (length liste))
+           (setf str
+            (nth
+             (- list-offs 1) liste))
+           (setf str " "))
+       (set-push-button-label
+        (get-window-element interface widget) str)))
+
+(define-task SHOW-SLOTS-WERTE ()
+  :documentation "Erstellt eine neue Teilansicht aus Slots und Werten"
+ ACTIONS
+  (let (dekade dek10 dek10-10 slot wert list-slots list-werte
+        (interface
+         (get-interface
+          (this-kb))))
+       (ask [ebene user-interface _ebene]
+            (ask [dekade _ebene _dekade]
+                 (setf dekade _dekade))
+            (ask [slot _ebene _slot]
+                 (setf slot _slot))
+            (ask [wert _ebene _wert]
+                 (setf wert _wert))
+            (ask [list-slots _ebene _list-slots]
+                 (setf list-slots _list-slots))
+            (ask [list-werte _ebene _list-werte]
+                 (setf list-werte _list-werte))
+            (setf dek10
+             (* 10 dekade))
+            (setf dek10-10
+             (- dek10 10)))
+       (start 'set-text interface "slot-1" dek10-10 1 list-slots)
+       (start 'set-text interface "slot-2" dek10-10 2 list-slots)
+       (start 'set-text interface "slot-3" dek10-10 3 list-slots)
+       (start 'set-text interface "slot-4" dek10-10 4 list-slots)
+       (start 'set-text interface "slot-5" dek10-10 5 list-slots)
+       (start 'set-text interface "slot-6" dek10-10 6 list-slots)
+       (start 'set-text interface "slot-7" dek10-10 7 list-slots)
+       (start 'set-text interface "slot-8" dek10-10 8 list-slots)
+       (start 'set-text interface "slot-9" dek10-10 9 list-slots)
+       (start 'set-text interface "slot-10" dek10-10 10 list-slots)
+       (start 'set-text interface "wert-1" dek10-10 1 list-werte)
+       (start 'set-text interface "wert-2" dek10-10 2 list-werte)
+       (start 'set-text interface "wert-3" dek10-10 3 list-werte)
+       (start 'set-text interface "wert-4" dek10-10 4 list-werte)
+       (start 'set-text interface "wert-5" dek10-10 5 list-werte)
+       (start 'set-text interface "wert-6" dek10-10 6 list-werte)
+       (start 'set-text interface "wert-7" dek10-10 7 list-werte)
+       (start 'set-text interface "wert-8" dek10-10 8 list-werte)
+       (start 'set-text interface "wert-9" dek10-10 9 list-werte)
+       (start 'set-text interface "wert-10" dek10-10 10 list-werte)
+       (if (and (<= slot dek10)
+                (> slot dek10-10))
+           (start 'radio-slot
+            (- slot dek10-10))
+           (start 'radio-slot 11))
+       (if (and (<= wert dek10)
+                (> wert dek10-10))
+           (start 'radio-wert
+            (- wert dek10-10))
+           (start 'radio-wert 11))))
+
+(define-task HILFE ()
+  :documentation "Hilfe-task fuer den grossen Hilfeknopf.
+Enthaelt zwei Textfelder:
+oben:  Allgemeine Hilfe zur Handhabung der grafischen Oberflaeche
+unten: Bedeutungen unter dem Einfluss der aktuellen Ebene
+MOMENTAN EIN DUMMY !!!"
+ ACTIONS
+  (let (t-gross t-links t-oben t-unten b-gross b-links b-rechts)
+       (setf t-gross '(" "))
+       (setf t-links '(" "))
+       (setf t-oben '("Allgemeine Hilfe zur Handhabung der grafischen Benutzeroberflaeche
+
+Der Benutzerbildschirm teilt sich in eine Linke Arbeitshaelfte und eine 
+rechte Hilfeseite auf. Solange eine Hilfe angewaehlt ist, kann nicht weiter-
+gearbeitet werden. Alle Aktionen des Benutzers werden durch Bewegen 
+der Maus auf das entsprechende Feld und Einfachklicken mit der linken 
+Maustaste ausgeloest.
+Die Benutzerfuehrung wird durch Veraenderung der Sensitivitaet der 
+Knoepfe und durch Pop-Up-Dialoge realisiert. Ist ein Pop-Up erschie-
+nen, muss der Dialog erst abgearbeitet sein, bevor eine andere Hand-
+lung stattfinden kann."
+                      "* Klicken auf das Logo loest einen Hinweis ueber das Programm aus.
+
+* Im schwarzen Feld unterhalb des Logos ist der Name der aktuellen 
+   Ebene der Problemloesung zu sehen. Klicken darauf, laesst einen 
+   Dialog erscheinen, mit dem eine andere Ebene ausgewaehlt werden 
+   kann. Damit ist auch ein Rueckwaertsbewegen im Sitzungsverlauf 
+   moeglich, beispielsweise, um Vorgaben nachtraeglich noch einmal
+   zu aendern. "
+                      "* Mittels des Knopfes unten links kann auch die Ebene der Problem-
+   loesung geaendert werden, allerdings immer nur in die zur Problem-
+   loesung nachfolgende.
+
+* Der Knopf oben rechts beendet die Hilfe.
+
+* In den Textfeldern der Hilfeseiten kann durch Anklicken der Roll-
+   balken am Textrand und deren Verschieben bei gedrueckter Maus-
+   taste 'geblaettert' werden."))
+       (setf t-unten '("Hier muss der String in 
+   user-interface.ebene.hilfe-text-unten 
+eingelesen werden!"
+                       "2.Seite
+..." "3. Seite
+..." "4. Seite
+..."
+                       "LETZTE Seite
+.............."))
+       (setf b-gross " ")
+       (setf b-links " ")
+       (setf b-rechts " ")
+       (start 'hilfe-sichtbar t-gross t-links t-oben t-unten b-gross b-links
+        b-rechts)))
+
+(define-task HILFE-SLOT (nummer)
+  :documentation "Hilfe-task fuer die einzelnen Slots.
+Findet ueber user-interface.ebene, ebene.dekade und ebene.slot heraus, 
+welche Texte darzustellen sind.
+MOMENTAN EIN DUMMY !!!"
+ ACTIONS
+  (if (= 1 nummer)
+      (let (t-gross t-links t-oben t-unten b-gross b-links b-rechts)
+           (setf t-gross '(" "))
+           (setf t-links '("Vorgabewerte fuer das Antriebsproblem:
+
+Leistung an der Welle	: 10 kW
+Betriebsquadranten		: 1
+Anlauf mit Moment notwendig	: nein
+Untere Drehgeschwindigkeit	: 2000 U/min
+Obere Drehgeschwindigkeit	: 3000 U/min
+Drehzahlkonstanz		: 5
+Dynamik			: 5"
+                           "2. Seite" "3. Seite"))
+           (setf t-oben '(" "))
+           (setf t-unten '("Beschreibung des Antriebsproblems Pumpe-Luefter-Zentrifuge:
+
+Alle Antriebsprobleme haben eine gemeinsame Kennlinie, die Luefter-
+kennlinie. Beim Einschalten des Motors fordert das Antriebsproblem
+ein Losbrechmoment und bei einer steigenden Drehgeschwindigkeit
+steigt das Drehmoment quadratisch an. An diesem Drehmomentverlauf
+kann man erkennen, dass jedes Antriebskonzept die Bedingungen fuer
+den Dremomentverlauf erfuellt. Nutzbar sind alle Antriebskonzepte,
+wenn die restlichen Bedingungen wie beispielsweise Leistungsklasse
+oder der Stellbereich mit den Anforderungen uebereinstimmen. Die
+benoetigte Leistung steigt kubisch mit der Drehgeschwindigkeit an.
+Axialluefter werden bei geringen Foerderdruecken und grossen Foer-
+dermengen und Radialluefter werden bei grossen Foerderdruecken
+eingesetzt. Bei Kolbenpumpen ist der Foerderstrom unabhaengig von
+der Foerderhoehe und dem Rohleitungswiderstand. Damit eignen sich
+die Kolbenpumpen fuer grosse Druecke und Foerderhoehen. Der Foer-
+derstrom haengt bei Kreiselpumpen von der Foerderhoehe und dem 
+Rohrleitungswiderstand ab und wird nur fuer kleine Foerderhoehen
+eingesetzt.
+
+Eine typische Kennlinie fuer die Abhaengigkeit zwischen der Dreh-
+zahl und dem Lastdrehmoment ist im Diagramm ueber diesem Fenster
+aufgezeigt.
+"
+                           "2. Seite" "3. Seite"))
+           (setf b-gross " ")
+           (setf b-links " ")
+           (setf b-rechts "kbs/xbm/logo")
+           (start 'hilfe-sichtbar t-gross t-links t-oben t-unten b-gross b-links
+            b-rechts))
+      (let (t-gross t-links t-oben t-unten b-gross b-links b-rechts)
+           (setf t-gross '("Das ist ein testtext im grossen Fenster
+...
+...
+...
+------------------"
+                           "2. Seite" "3. Seite"))
+           (setf t-oben '(" "))
+           (setf t-unten '(" "))
+           (setf t-links '(" "))
+           (setf b-gross " ")
+           (setf b-links " ")
+           (setf b-rechts " ")
+           (start 'hilfe-sichtbar t-gross t-links t-oben t-unten b-gross b-links
+            b-rechts))))
+
+(define-task HILFE-SICHTBAR (t-gross t-links t-oben t-unten b-gross b-links
+                             b-rechts)
+  :documentation "Schaltet die links Bildseite insensitiv. Die Elemente der rechten Bild-
+seite, die mit Werten ungleich '' '' gefuellt werden sollen, werden 
+sichtbar gemacht"
+ ACTIONS
+  (let ((interface
+         (get-interface
+          (this-kb))))
+       (set-push-button-sensitivity
+        (get-window-element interface "headline") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "hilfe") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "next") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "dekade-1") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "dekade-2") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "dekade-3") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-1") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-2") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-3") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-4") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-5") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-6") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-7") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-8") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-9") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-10") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-1") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-2") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-3") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-4") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-5") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-6") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-7") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-8") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-9") nil)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-10") nil)
+       (retell [nr-gross user-interface 1]
+               _)
+       (retell [nr-links user-interface 1]
+               _)
+       (retell [nr-oben user-interface 1]
+               _)
+       (retell [nr-unten user-interface 1]
+               _)
+       (retell [ht-gross user-interface t-gross]
+               _)
+       (retell [ht-links user-interface t-links]
+               _)
+       (retell [ht-oben user-interface t-oben]
+               _)
+       (retell [ht-unten user-interface t-unten]
+               _)
+       (start 'show-text interface "hilfe-text-gross" "more-text-gross"
+        "less-text-gross" t-gross)
+       (start 'show-text interface "hilfe-text-links" "more-text-links"
+        "less-text-links" t-links)
+       (start 'show-text interface "hilfe-text-oben" "more-text-oben"
+        "less-text-oben" t-oben)
+       (start 'show-text interface "hilfe-text-unten" "more-text-unten"
+        "less-text-unten" t-unten)
+       (start 'show-bild interface "hilfe-bild-gross" b-gross)
+       (start 'show-bild interface "hilfe-bild-links" b-links)
+       (start 'show-bild interface "hilfe-bild-rechts" b-rechts)
+       (show-eis-element
+        (get-window-element interface "hilfe-beenden"))))
+
+(define-task HILFE-MORE (feld)
+  :documentation "Zeigt im sichtbaren Textfenster feld die naechste Seite des Hilfetexts"
+ ACTIONS
+  (let ((interface
+         (get-interface
+          (this-kb))) widget txt nr neu)
+       (case feld
+             ('gross
+              (ask [ht-gross user-interface _txt]
+                   (setf txt _txt))
+              (ask [nr-gross user-interface _nr]
+                   (setf nr _nr))
+              (setf widget
+               (get-window-element interface "hilfe-text-gross")))
+             ('links
+              (ask [ht-links user-interface _txt]
+                   (setf txt _txt))
+              (ask [nr-links user-interface _nr]
+                   (setf nr _nr))
+              (setf widget
+               (get-window-element interface "hilfe-text-links")))
+             ('oben
+              (ask [ht-oben user-interface _txt]
+                   (setf txt _txt))
+              (ask [nr-oben user-interface _nr]
+                   (setf nr _nr))
+              (setf widget
+               (get-window-element interface "hilfe-text-oben")))
+             ('unten
+              (ask [ht-unten user-interface _txt]
+                   (setf txt _txt))
+              (ask [nr-unten user-interface _nr]
+                   (setf nr _nr))
+              (setf widget
+               (get-window-element interface "hilfe-text-unten"))))
+       (when (< nr
+              (length txt))
+             (setf neu
+              (+ nr 1))
+             (clear-output-field-text widget)
+             (add-output-field-text widget
+              (nth
+               (- neu 1) txt))
+             (case feld
+                   ('gross
+                    (retell [nr-gross user-interface neu]
+                            _))
+                   ('links
+                    (retell [nr-links user-interface neu]
+                            _))
+                   ('oben
+                    (retell [nr-oben user-interface neu]
+                            _))
+                   ('unten
+                    (retell [nr-unten user-interface neu]
+                            _))))))
+
+(define-task HILFE-LESS (feld)
+  :documentation "Zeigt im sichtbaren Textfenster feld die davorliegende Seite des Hilfetexts"
+ ACTIONS
+  (let ((interface
+         (get-interface
+          (this-kb))) widget txt nr neu)
+       (case feld
+             ('gross
+              (ask [ht-gross user-interface _txt]
+                   (setf txt _txt))
+              (ask [nr-gross user-interface _nr]
+                   (setf nr _nr))
+              (setf widget
+               (get-window-element interface "hilfe-text-gross")))
+             ('links
+              (ask [ht-links user-interface _txt]
+                   (setf txt _txt))
+              (ask [nr-links user-interface _nr]
+                   (setf nr _nr))
+              (setf widget
+               (get-window-element interface "hilfe-text-links")))
+             ('oben
+              (ask [ht-oben user-interface _txt]
+                   (setf txt _txt))
+              (ask [nr-oben user-interface _nr]
+                   (setf nr _nr))
+              (setf widget
+               (get-window-element interface "hilfe-text-oben")))
+             ('unten
+              (ask [ht-unten user-interface _txt]
+                   (setf txt _txt))
+              (ask [nr-unten user-interface _nr]
+                   (setf nr _nr))
+              (setf widget
+               (get-window-element interface "hilfe-text-unten"))))
+       (when (> nr 1)
+             (setf neu
+              (- nr 1))
+             (clear-output-field-text widget)
+             (add-output-field-text widget
+              (nth
+               (- neu 1) txt))
+             (case feld
+                   ('gross
+                    (retell [nr-gross user-interface neu]
+                            _))
+                   ('links
+                    (retell [nr-links user-interface neu]
+                            _))
+                   ('oben
+                    (retell [nr-oben user-interface neu]
+                            _))
+                   ('unten
+                    (retell [nr-unten user-interface neu]
+                            _))))))
+
+(define-task SHOW-TEXT (interface win pb-more pb-less text)
+  :documentation "Ueberprueft die Textliste und schreibt das ERSTE Textelement
+der Liste, falls dort nicht '' '' steht. 
+Dann wird das Widget samt More und Less PBs auch sichtbar gemacht"
+ ACTIONS
+  (let ((widget
+         (get-window-element interface win)))
+       (when (string/= " "
+              (first text))
+             (clear-output-field-text widget)
+             (add-output-field-text widget
+              (first text))
+             (show-eis-element
+              (get-window-element interface pb-more))
+             (show-eis-element
+              (get-window-element interface pb-less))
+             (show-eis-element widget))))
+
+(define-task SHOW-BILD (interface win bild)
+  :documentation "Ueberprueft den Bitmap-Path und laedt ihn, falls er sich 
+von '' '' unterscheidet. Dann wird das Widget auch sichtbar gemacht"
+ ACTIONS
+  (let ((widget
+         (get-window-element interface win)))
+       (when (string/= " " bild)
+             (set-graphic-label-picture widget bild)
+             (show-eis-element widget))))
+
+(define-task HILFE-BEENDEN ()
+  :documentation "Bei sichtbarer Hilfeseite wird durch Druecken des
+Hilfe-beenden-Knopfs die rechte Bildschirmseite unsichtbar."
+ ACTIONS
+  (start 'hilfe-unsichtbar)
+  (start 'radio-slot 0))
+
+(define-task HILFE-UNSICHTBAR ()
+  :documentation "Macht die Widgets der rechten Bildschirmseite unsichtbar
+und die Pushbuttons der linken Haelfte wieder sensitiv"
+ ACTIONS
+  (let ((interface
+         (get-interface
+          (this-kb))))
+       (hide-eis-element
+        (get-window-element interface "hilfe-text-gross"))
+       (hide-eis-element
+        (get-window-element interface "more-text-gross"))
+       (hide-eis-element
+        (get-window-element interface "less-text-gross"))
+       (hide-eis-element
+        (get-window-element interface "hilfe-text-links"))
+       (hide-eis-element
+        (get-window-element interface "more-text-links"))
+       (hide-eis-element
+        (get-window-element interface "less-text-links"))
+       (hide-eis-element
+        (get-window-element interface "hilfe-text-oben"))
+       (hide-eis-element
+        (get-window-element interface "more-text-oben"))
+       (hide-eis-element
+        (get-window-element interface "less-text-oben"))
+       (hide-eis-element
+        (get-window-element interface "hilfe-text-unten"))
+       (hide-eis-element
+        (get-window-element interface "more-text-unten"))
+       (hide-eis-element
+        (get-window-element interface "less-text-unten"))
+       (hide-eis-element
+        (get-window-element interface "hilfe-bild-gross"))
+       (hide-eis-element
+        (get-window-element interface "hilfe-bild-links"))
+       (hide-eis-element
+        (get-window-element interface "hilfe-bild-rechts"))
+       (hide-eis-element
+        (get-window-element interface "hilfe-beenden"))
+       (set-push-button-sensitivity
+        (get-window-element interface "headline") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "hilfe") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "next") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "dekade-1") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "dekade-2") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "dekade-3") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-1") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-2") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-3") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-4") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-5") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-6") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-7") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-8") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-9") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "slot-10") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-1") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-2") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-3") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-4") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-5") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-6") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-7") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-8") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-9") t)
+       (set-push-button-sensitivity
+        (get-window-element interface "wert-10") t)))
+
+(define-task RADIO-SELECT (pushbutton)
+  :documentation "Stellt einen Pushbutton selektiert dar --> [text]"
+ ACTIONS
+  (let (str
+        (win
+         (get-window-element
+          (get-interface
+           (this-kb)) pushbutton)))
+       (setf str
+        (get-push-button-label win))
+       (if (string/= "["
+            (substring str 0 1))
+           (set-push-button-label win
+            (append-string "[" str "]")))
+       str))
+
+(define-task RADIO-DESELECT (pushbutton)
+  :documentation "Stellt einen Pushbutton nicht selektiert dar --> Text"
+ ACTIONS
+  (let (str
+        (win
+         (get-window-element
+          (get-interface
+           (this-kb)) pushbutton)))
+       (setf str
+        (get-push-button-label win))
+       (if (string= "["
+            (substring str 0 1))
+           (set-push-button-label win
+            (string-trim "[]" str)))))
+
+(define-task RADIO-DEKADE (nummer)
+  :documentation "Setzt die Dekadenknoepfe neu.
+Loest aus, dass die 10 Eigenschaften und Werte neu beschrieben werden"
+ ACTIONS
+  (when (and (<= nummer 3)
+             (>= nummer 1))
+        (start 'radio-deselect "dekade-1")
+        (start 'radio-deselect "dekade-2")
+        (start 'radio-deselect "dekade-3")
+        (ask [ebene user-interface _ebene]
+             (retell [dekade _ebene nummer]
+                     _))
+        (case nummer
+              (1
+               (start 'radio-select "dekade-1"))
+              (2
+               (start 'radio-select "dekade-2"))
+              (t
+               (start 'radio-select "dekade-3")))
+        (start 'show-slots-werte)))
+
+(define-task RADIO-SLOT (nummer)
+  :documentation "Setzt die Eigenschafts-Knoepfe neu.
+1-10: Wird von Pushbuttons oder 'show-slots-werte ausgeloest,
+      wenn der angeklickte Slot in der aktuellen dekade liegt.
+0:    Wird von 'hilfe-beenden ausgeloest, um eine echte Deselektierung
+      vorzunehmen (Veraendert auch ebene.slot)
+11:   Wird von 'show-slots-werte ausgeloest, wenn der Slot in einer 
+      anderen Dekade liegt (keine Aenderung der Datenstrukturen)
+Startet die Hilfe-task 'slot-help' -- MOMENTAN EIN DUMMY !!!"
+ ACTIONS
+  (let (dekade list-slots len neu)
+       (ask [ebene user-interface _ebene]
+            (ask [dekade _ebene _dekade]
+                 (setf dekade _dekade))
+            (ask [list-slots _ebene _list-slots]
+                 (setf list-slots _list-slots)))
+       (setf len
+        (length list-slots))
+       (setf neu
+        (+ nummer
+         (* 10
+          (- dekade 1))))
+       (when (or (= nummer 0)
+                 (= nummer 11)
+                 (and (<= neu len)
+                      (> nummer 0)
+                      (<= nummer 10)))
+             (start 'radio-deselect "slot-1")
+             (start 'radio-deselect "slot-2")
+             (start 'radio-deselect "slot-3")
+             (start 'radio-deselect "slot-4")
+             (start 'radio-deselect "slot-5")
+             (start 'radio-deselect "slot-6")
+             (start 'radio-deselect "slot-7")
+             (start 'radio-deselect "slot-8")
+             (start 'radio-deselect "slot-9")
+             (start 'radio-deselect "slot-10")
+             (case nummer
+                   (1
+                    (start 'radio-select "slot-1"))
+                   (2
+                    (start 'radio-select "slot-2"))
+                   (3
+                    (start 'radio-select "slot-3"))
+                   (4
+                    (start 'radio-select "slot-4"))
+                   (5
+                    (start 'radio-select "slot-5"))
+                   (6
+                    (start 'radio-select "slot-6"))
+                   (7
+                    (start 'radio-select "slot-7"))
+                   (8
+                    (start 'radio-select "slot-8"))
+                   (9
+                    (start 'radio-select "slot-9"))
+                   (10
+                    (start 'radio-select "slot-10")))
+             (when (and (> nummer 0)
+                        (<= nummer 10))
+                   (ask [ebene user-interface _ebene]
+                        (retell [slot _ebene neu]
+                                _))
+                   (start 'hilfe-slot nummer))
+             (when (= nummer 0)
+                   (ask [ebene user-interface _ebene]
+                        (retell [slot _ebene 0]
+                                _))))))
+
+(define-task RADIO-WERT (nummer)
+  :documentation "Setzt die Werte-Knoepfe neu.
+1-10: Wird von Pushbuttons oder 'show-slots-werte ausgeloest,
+      wenn der angeklickte Wert in der aktuellen dekade liegt.
+0:    Wird von 'hilfe-beenden ausgeloest, um eine echte Deselektierung
+      vorzunehmen (Veraendert auch ebene.wert)
+11:   Wird von 'show-slots-werte ausgeloest, wenn der Wert in einer 
+      anderen Dekade liegt (keine Aenderung der Datenstrukturen)
+Startet die Werte-Aenderungs-Task 'change-wert' -- MOMENTAN EIN DUMMY !!!"
+ ACTIONS
+  (let (dekade list-werte len neu)
+       (ask [ebene user-interface _ebene]
+            (ask [dekade _ebene _dekade]
+                 (setf dekade _dekade))
+            (ask [list-werte _ebene _list-werte]
+                 (setf list-werte _list-werte)))
+       (setf len
+        (length list-werte))
+       (setf neu
+        (+ nummer
+         (* 10
+          (- dekade 1))))
+       (when (or (= nummer 0)
+                 (= nummer 11)
+                 (and (<= neu len)
+                      (> nummer 0)
+                      (<= nummer 10)))
+             (start 'radio-deselect "wert-1")
+             (start 'radio-deselect "wert-2")
+             (start 'radio-deselect "wert-3")
+             (start 'radio-deselect "wert-4")
+             (start 'radio-deselect "wert-5")
+             (start 'radio-deselect "wert-6")
+             (start 'radio-deselect "wert-7")
+             (start 'radio-deselect "wert-8")
+             (start 'radio-deselect "wert-9")
+             (start 'radio-deselect "wert-10")
+             (case nummer
+                   (1
+                    (start 'radio-select "wert-1"))
+                   (2
+                    (start 'radio-select "wert-2"))
+                   (3
+                    (start 'radio-select "wert-3"))
+                   (4
+                    (start 'radio-select "wert-4"))
+                   (5
+                    (start 'radio-select "wert-5"))
+                   (6
+                    (start 'radio-select "wert-6"))
+                   (7
+                    (start 'radio-select "wert-7"))
+                   (8
+                    (start 'radio-select "wert-8"))
+                   (9
+                    (start 'radio-select "wert-9"))
+                   (10
+                    (start 'radio-select "wert-10")))
+             (when (and (> nummer 0)
+                        (<= nummer 10))
+                   (ask [ebene user-interface _ebene]
+                        (retell [wert _ebene neu]
+                                _))
+                   (start 'no-op))
+             (when (= nummer 0)
+                   (ask [ebene user-interface _ebene]
+                        (retell [wert _ebene 0]
+                                _))))))
+
+(set-kb-starttask 'START-TASK)
+
+;;; EOF

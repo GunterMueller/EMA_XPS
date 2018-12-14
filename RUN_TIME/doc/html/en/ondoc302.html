@@ -1,0 +1,46 @@
+<html><head><title>ASK-INSTANCE-VALUES</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc303.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc301.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>ASK-INSTANCE-VALUES</strong></font></center><p>
+
+<PRE>ASK-INSTANCE-VALUES
+===================
+
+syntax: (ask-instance-values 
+                        &lt;evaluates-to relation-name&gt;
+                        &lt;evaluates-to instance-spec&gt;
+                        [:read-dependents 
+                            {T | NIL | Var}]
+                        [:if-undetermined 
+
+This function returns the value set of the instance 
+relation. If ':if-undetermined' is not set to NIL, 
+then a 'if-undetermined-action' will be started 
+before the relation value is found. If ':read-
+dependents' is not set to NIL, then the read-
+dependents will be informed after the relation value 
+is found.
+
+example: &gt;(ask-instance-values 'place louvre)
+         #&lt;set-of CITY (...)&gt;
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc303.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc301.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- ASK-INSTANCE-VALUES done --!>

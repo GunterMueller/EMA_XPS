@@ -1,0 +1,51 @@
+<html><head><title>TELL</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc341.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc339.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>TELL</strong></font></center><p>
+
+<PRE>TELL
+====
+
+Syntax: (tell &lt;einfache-Pr&auml;dikation&gt;) ::=
+        (tell [&lt;Relations-Name&gt; &lt;Instanz&gt; &lt;Wert&gt;])
+
+Der Operator TELL erm&ouml;glicht es Ihnen, den Instanzen
+f&uuml;r bestimmte Relationen neue Werte zuzuweisen und
+somit Ihre Wissensbasis zu ver&auml;ndern.
+Dem Operator TELL kann nur eine einfache zweistellige
+Pr&auml;dikation folgen, d.h. Sie k&ouml;nnen dem Merkmal
+bzw. Bestandteil einer Instanz einen Wert zuweisen
+und somit Ihre Wissensbasis ver&auml;ndern. Die auf TELL
+folgende Pr&auml;dikation mu&szlig; voll instanziiert sein, d.h.
+anstelle des Wertes darf hier keine anonyme Variable
+stehen.
+Der Operator TELL liefert T zur&uuml;ck, wenn die Opera-
+tion ausgef&uuml;hrt wurde. NIL wird zur&uuml;ckgegeben,
+wenn die Pr&auml;dikation bereits bekannt ist, dazu wer-
+den die beiden Aussagen intern mit der Gleichheits-
+funktion EQUAL getestet. Wenn sie daraufhin als
+gleich erkannt werden, wird NIL zur&uuml;ckgegeben.
+
+Beispiel: &gt;(tell [ort Buckingham-Palast Londen])
+          T
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc341.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc339.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- TELL done --!>

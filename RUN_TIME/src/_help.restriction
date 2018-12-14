@@ -1,0 +1,101 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _help.restriction Hans Groschwitz    19.07.95   !!
+!!                     Karsten Vossberg              !!
+!!                     Klaus Senf                    !!
+!!                     Frans Ceelen       18.04.96   !!
+!!                                                   !!
+!!   Functions to build the restriction-editor.      !!
+!!   Full version only.                              !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#ifdef __english
+>RESTRICTION-EDITOR
+.The Restriction-Editor
+.======================
+.
+.Restrictions can be edited and provided with the
+.restriction editor.
+.To select the respective knowledge base you have
+.to click on the field with the label "Knowledge Base".
+.The field below makes it possible to select a 
+.restriction. If a new restriction has to be provided,
+.then the new name has to be entered in the field
+.selection of the restriction selection menue.
+.
+.The Edit menu:
+.
+.- Apply this Restriction...
+.       The changed restriction will be transfered into
+.       the knowledge base. 
+.- Delete this Restriction...
+.       This restriction will be removed from the
+.       knowledge base.
+.- Undo Changes
+.       The old restriction definition is reloaded
+.       from the knowledge base.
+.- Relink this Restriction
+.       This restriction will be linked again to
+.       the related constraints and constraint nets 
+.       corresponding to the definitions, which were 
+.       made in the editor.
+.- Relink all Restrictions
+.       All restrictions, which were defined in this
+.       knowledge base will be linked to the related
+.       constraints and constraint nets.
+.
+.Restriction modifications, not yet updated in the KB,
+.are displayed by an exclamation mark in the top right
+.corner.
+.
+.Help on the syntax of babylon- and lisp-expressions 
+.can be requested by placing the text cursor into a
+.word in the text fields of the editors, followed by
+.a keypress on the [Help]-Button [F1].
+.
+#else
+>RESTRIKTIONEN-EDITOR
+.Der Restriktionen-Editor
+.========================
+.
+.Mit dem Restriktion-Editor k\366nnen Restriktionen 
+.editiert und erstellt werden.
+.Zur Auswahl der betreffenden Wissensbasis ist das Feld
+.neben dem Label "Wissensbasis" anzuklicken. 
+.Das darunterliegenden Feld erm\366glicht die Auswahl 
+.einer Restriktion. Soll eine neue Restriktion erstellt
+.werden, so ist der neue Name in das Feld Auswahl des 
+.Restriktion-Auswahlmen\374s einzutragen.  
+.
+.Das Bearbeiten-Men\374:
+.
+.- Diese Restriktion \374bernehmen...    
+.      Die ge\344nderte Restriktion wird an die Wissensba-
+.      sis \374bergeben. 
+.- Diese Restriktion l\366schen...
+.      Diese Restriktion wird aus der Wissensbasis ent-
+.      fernt.
+.- \304nderungen zur\374cknehmen... 
+.      Es wird wieder die unbearbeitete Restriktion ge-
+.      laden.
+.-Diese Restriktion erneut mit Constraints verkn\374pfen
+.      Diese Restriktion wird, entsprechend der im 
+.      Editor festgelegten Definitionen, erneut an die  
+.      zugeh\366rigen Constraints und Constraintnetze
+.      gebunden.
+.-Alle Restriktionen erneut mit Constraints verkn\374pfen
+.      Alle in dieser Wissensbasis definierten Restrik-
+.      tionen werden an die zugeh\366rigen Constraints und
+.      Constraintnetze gebunden. 
+.
+.Eine noch nicht in die Wissensbasis \374bertragene \304nde-
+.rung einer Restriktion wird durch ein Ausrufezeichen 
+.in der rechten oberen Ecke angezeigt. 
+.
+.Durch Anw\344hlen eines Wortes in den Textfeldern der
+.Editoren mit dem Textcursor und anschlie\337endes Dr\374cken
+.des [Hilfe]-Knopfes [F1] kann Hilfe zur Syntax der
+.Babylon- und LISP-Ausdr\374cke abgerufen werden.
+.
+#endif
+
+!!! EOF

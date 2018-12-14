@@ -1,0 +1,49 @@
+<html><head><title>SUBSET-OF-SET</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc326.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc324.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>SUBSET-OF-SET</strong></font></center><p>
+
+<PRE>SUBSET-OF-SET
+=============
+
+syntax: (subset-of-set &lt;set-of type-A&gt;
+                       [:EXTRACT-FN &lt;extract-fn&gt;]
+                       [:TEST test-fn]
+                       [:TYPE &lt;type-identifier&gt;])
+
+        ==&gt; &lt;set-of type-x&gt;
+
+This function produces a subset of the given set.
+
+Warning: type checking may cause an error!
+
+example: &gt;(setf *capital-cities*
+              (subset-of-set *cities*
+              :EXTRACT-FN #'(lambda (a-element)
+              (is-frame-of a-element 'capital-city))
+              :TYPE 'capital-city))
+         &lt;set-of CAPITAL-CITY (...)&gt;
+
+         &gt;(map-set *)
+         (Paris Bruessel Berlin)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc326.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc324.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- SUBSET-OF-SET done --!>

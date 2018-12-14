@@ -1,0 +1,51 @@
+<html><head><title>GET-PUSH-BUTTON-LABEL</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc247.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc245.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>GET-PUSH-BUTTON-LABEL</strong></font></center><p>
+
+<PRE>GET-PUSH-BUTTON-LABEL
+=====================
+
+syntax: (get-push-button-label &lt;babylon-push-button&gt;)
+
+This function returns the text from the push-button-
+label.
+
+example: &gt;(define-task LABEL-DEMO-TASK (interface)
+             :documentation &quot;This is a demo&quot;
+             actions
+             (setf new-text-label (kb-prompt &quot;How do
+             you want to call the push-button ~s ?~%&quot; 
+             &quot;please push&quot;))
+             (if (stringp new-text-label)
+             (set-push-button-label
+             (get-window-element
+             interface &quot;pb1&quot;) new-text-label)
+             (kb-format &quot;The input ~s was false!
+             please enter a string next time!&quot; new-
+             text-label))
+             (kb-format &quot;~10T- the push-button
+             is called ~s~%&quot;
+             (get-push-button-label
+             (get-window-element interface &quot;pb1&quot;))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc247.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc245.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- GET-PUSH-BUTTON-LABEL done --!>

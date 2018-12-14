@@ -1,0 +1,45 @@
+<html><head><title>IS-SUBSET-OF-SET</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc320.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc318.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>IS-SUBSET-OF-SET</strong></font></center><p>
+
+<PRE>IS-SUBSET-OF-SET
+================
+
+syntax: (is-subset-of-set &lt;set-of type-A&gt; 
+                          &lt;set-of type-B&gt;
+                          [:TEST test-fn])
+
+        ==&gt; &lt;set-of type-A&gt; | NIL
+
+This function checks, whether the set of type A is 
+part of the set of type B.
+
+example: &gt;(is-subset-of-set *capital-cities* 
+                            *cities*)
+         #&lt;set-of T (...)&gt;
+      
+         &gt;(is-subset-of-set *cities* 
+                            *capital-cities*)
+         NIL
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc320.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc318.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- IS-SUBSET-OF-SET done --!>

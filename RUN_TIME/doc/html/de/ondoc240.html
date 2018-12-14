@@ -1,0 +1,51 @@
+<html><head><title>MAKE-BABYLON-INPUT-FIELD</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc241.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc239.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>MAKE-BABYLON-INPUT-FIELD</strong></font></center><p>
+
+<PRE>MAKE-BABYLON-INPUT-FIELD
+========================
+
+Syntax: (make-babylon-input-field &lt;Interface&gt;
+           &lt;WName&gt; &lt;xPos&gt; &lt;yPos&gt; &lt;Breite&gt; &lt;H&ouml;he&gt;
+           &lt;Standard-Text&gt; &lt;Schriftart&gt; &lt;Farbe&gt; &lt;Aktion&gt; 
+           &amp;Rest &lt;Arg&gt;)
+
+Diese Funktion definiert ein Eingabefeld auf der 
+Oberfl&auml;che. &lt;WName&gt; ist der Name dieses Feldes. 
+&lt;xPos&gt; und &lt;yPos&gt; geben die Position der oberen linken 
+Ecke an. &lt;Breite&gt; und &lt;H&ouml;he&gt; definieren die Gr&ouml;&szlig;e 
+des Eingabe-Feldes. &lt;Standard-Text&gt; ist der Text, der 
+im Eingabefeld steht. &lt;Schriftart&gt; und &lt;Farbe&gt; werden 
+unter Babylon v3 nicht unterst&uuml;tzt. &lt;Aktion&gt; startet 
+eine Task, nachdem der Benutzer Return gedr&uuml;ckt hat. 
+Das Eingabe-Feld erscheint im Interface.
+
+Beispiel: &gt;(defun make-kb-interface (interface)
+              (add-window-elements
+              interface
+              (list
+              (make-babylon-input-field interface
+              &quot;babylon-standard-input&quot; 400 300 100 50
+              &quot;input:&quot; nil nil nil))))
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc241.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc239.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- MAKE-BABYLON-INPUT-FIELD done --!>

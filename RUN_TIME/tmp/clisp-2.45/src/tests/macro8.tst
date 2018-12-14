@@ -1,0 +1,1 @@
+../../tests/macro8.tst

@@ -1,0 +1,82 @@
+
+            The Hybrid Graphic Expertsystemshell EMA-XPS
+            ============================================
+
+              Copyright (c) 1989 - 2008 Hans Groschwitz
+                        All Rights Reserved
+
+
+Summary:
+
+  Permission is granted to use, copy, modify this program,
+  EXCEPT that the copyright notice must be reproduced on copies, and
+  credit should be given to the author where it is due.
+  I MAKE NO WARRANTY AND ACCEPT NO LIABILITY FOR THIS PROGRAM.
+
+
+In detail:
+
+  1. Permission to use, copy, modify this software and its documentation
+     for any purpose is hereby granted without fee, provided that
+     - the above copyright notice appear in all copies,
+     - both that copyright notice and this permission notice appear in
+       supporting documentation, and that
+     - you cause modified files to carry prominent notices stating that
+       you changed the files and the date of any change.
+
+  2. Please notify me if you are going to sell this software or its
+     documentation for profit.
+
+  3. I DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL
+     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT WILL
+     I BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR
+     ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+     WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+     ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
+     SOFTWARE.
+
+
+Additionally:
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2 as
+  published by the Free Software Foundation; see file GNU-GPL.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+Note:
+
+  This copyright does *not* cover the following software products,
+  EMA-XPS requires to work:
+  1) The AI Workbench Babylon version 2.3 which is told to offer
+     copyright conventions similar to those of the X Window System
+     (ftp://ftp.gmd.de/GMD/ai-research/Software/Babylon/...)
+  2) A LISP Interpreter; preferrably CLISP, which is also covered by
+     the terms of the GNU-GPL
+     (ftp://ma2s2.mathematik.uni-karlsruhe.de/pub/lisp/clisp/...) 
+  3) The OSF/Motif Widget Library, which underlies the copyright
+     and licencing modalities of the Open Software Foundation
+     (or - as soon as it works - the GNU copyrighted Lesstif library
+     ftp://pain.csrv.uidaho.edu/pub/hungry/lesstif/...)
+  and of course a C compiler like GNU's gcc, a UNIX(TM)-like operating
+  system like Linux and the X Window System.
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Email (August 1996):
+             hans@wmwap1.math.uni-wuppertal.de
+
+SnailMail:   Uni Wuppertal
+             FB 13 / EMA
+             Hans Groschwitz
+             D-42097 Wuppertal
++++ EOF +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

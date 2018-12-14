@@ -1,0 +1,51 @@
+
+          EMA-XPS v2 - A Hybrid Graphic Expert System Shell
+          =================================================
+
+     EMA-XPS is a hybrid graphic expert system shell based on the
+     ASCII-oriented  shell  Babylon  2.3  of  the German National
+     Research Center for Computer Sciences (GMD). In addition  to
+     Babylon's  AI-power  (object  oriented  data representation,
+     forward and backward chained rules - collectable into  sets,
+     horn  clauses,  and constraint networks) a graphic interface
+     based on the X11 Window  System  and  the  OSF/Motif  Widget
+     Library has been provided.
+
+     To avoid collisions of the two programming techniques (event
+     oriented  vs. procedural style), two separate programs solve
+     these  different  jobs.  The   first   one    works    event
+     oriented.  It  initializes a bidirectional pair of interpro-
+     cess communication channels using one pseudo teletype  (like
+     xterm).   In   advance   it spawns  a  LISP-world containing
+     the features of Babylon and the extensions for  interprocess
+     communication.
+
+     In addition to the AI-features of Babylon it offers a  task-
+     processor.  For  the  input of knowledge specialized editors
+     have been realized.  Additional  support  is  granted  by  a
+     tracer.  At  session time a flexible and widely configurable
+     full-screen application and popup dialogs are available. The
+     user  may choose to ask for explanations on the state of the
+     inference process. For information on how to use EMA-XPS  at
+     run-time,   an   interactive   help  facility  is  provided.
+     Meanwhile the on-line documentation of the Babylon syntax is
+     offered this way, too.
+
+     Beginning with version 2.1 of EMA-XPS knowledge  base  files
+     of the shell ``babylon 3.1-beta'' from VW-GEDAS (which is no
+     more available) can be loaded, too. Those KBs are translated
+     into EMA-XPS style KBs at load-time (see the release notes).
+
+     Additionally to the source distribution
+       http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/emaxps.tar.gz
+     currently static bound versions for Linux 1.2 (AOUT)
+       http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/LinuxAOUT.tar.gz
+     and SunOS 4.1 are available
+       http://wmwap1.math.uni-wuppertal.de/EMA-XPS/FTP/SunOS.tar.gz
+     Both are  linked with X11R6 and OSF/Motif 2.0  libraries and
+     use Bruno Haible's CLISP interpreter.
+
+     SEE THE FILE COPYRIGHT!!! See the file INSTALL for hints and
+     requirements.
+
++++ EOF +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

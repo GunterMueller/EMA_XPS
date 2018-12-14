@@ -1,0 +1,55 @@
+<html><head><title>KB-MULTIPLE-CHOOSE-FROM-MENU</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc233.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc231.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>KB-MULTIPLE-CHOOSE-FROM-MENU</strong></font></center><p>
+
+<PRE>KB-MULTIPLE-CHOOSE-FROM-MENU
+============================
+
+syntax: (kb-multiple-choose-from-menu
+              &lt;babylon-menu-item-list&gt;
+              &lt;babylon-menu-title&gt;
+              [&lt;item-extraction-function&gt;])
+
+With KB-MULTIPLE-CHOOSE-FROM-MENU you get a
+dialogue with different menu-items from which
+you can choose some. The BABYLON-MENU-ITEM-LIST
+contains the menu-items. The BABYLON-MENU-TITLE
+is written above the dialogue.
+With the ITEM-EXTRACTION-FUNCTION you can
+optionally define how to output the items.
+You can choose between yes and no.
+If you confirm, then the selected menu-items
+will be returned as a list, otherwise NILL will
+be returned.
+
+example: &gt;(kb-multiple-choose-from-menu
+             (instances-of 'city)
+             &quot;Which of these cities do you
+             want to visit&quot; #'name-of)
+        ==&gt;
+        gives an OK-dialogue, in which you
+        can choose several cities. The cities
+        that have been chosen will be returned
+        as an objectlist.
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc233.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc231.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- KB-MULTIPLE-CHOOSE-FROM-MENU done --!>

@@ -1,0 +1,64 @@
+<html><head><title>ADD-DEPENDENT</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc282.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc280.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>ADD-DEPENDENT</strong></font></center><p>
+
+<PRE>ADD-DEPENDENT
+=============
+
+Syntax: (add-dependent &lt;Relation-Specifier&gt;
+                       &lt;Sender-Specifier&gt;
+                       &lt;Empf&auml;nger-Specifier&gt;
+                       {[:READ T | NIL | var]
+                        [:WRITE  T | NIL | var]}+
+                       [:KB &lt;kb&gt;])
+
+Warnung: noch nicht implementiert!
+
+Read- und write-dependents werden dynamisch hinzu-
+gef&uuml;gt. Mit den optionalen Parametern geben Sie an, 
+ob das Dependent als lese- und/oder schreibabh&auml;ngig 
+klassifiziert wird. Wollen Sie nur eine leseabh&auml;ngige 
+Nachricht versenden, geben Sie bei ':READ' T an. Bei 
+nur schreibabh&auml;ngigen Nachrichten wird ':WRITE' auf 
+T gesetzt. Sie m&uuml;ssen jedoch beachten, da&szlig; die 
+Behaviors NOTIFY-READ-DEPENDENT bzw. NOTIFY-WRITE-
+DEPENDENT zum Ablauf notwendig sind.
+
+R&uuml;ckgabewert ist der Empf&auml;nger der Nachricht 
+- in unserem Falle EMPF&Auml;NGER-SPECIFIER - falls diese 
+noch nicht enthalten ist, andernfalls NIL.
+Geben Sie den Identifier ein, erhalten Sie den Namen 
+der Instanz zur&uuml;ck. Geben Sie das Objekt an, 
+erhalten Sie das Objekt zur&uuml;ck.
+
+Beispiel: &gt;(add-dependent 'Ort Louvre
+                          Verkehrsbuero-Paris :read T)
+          #&lt;VERKEHRSBUERO VERKEHRSBUERO-PARIS&gt;
+
+          oder
+
+          &gt;(add-dependent 'Ort 'Louvre
+                          'Verkehrsbuero-Paris :read T)
+          VERKEHRSBUERO-PARIS
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc282.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc280.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- ADD-DEPENDENT done --!>

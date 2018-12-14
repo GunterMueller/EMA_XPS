@@ -1,0 +1,1 @@
+../../tests/symbol10.tst

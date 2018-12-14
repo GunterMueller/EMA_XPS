@@ -1,0 +1,54 @@
+<html><head><title>DEFINE-INSTANCE</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc349.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc347.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-INSTANCE</strong></font></center><p>
+
+<PRE>DEFINE-INSTANCE
+===============
+
+syntax: (define-instance &lt;instance-name&gt;
+           OF &lt;frame-name&gt;
+           [:DOCUMENTATION &lt;documentation&gt;]
+           [:EXPLANATION &lt;explanation&gt;]
+           {&lt;relation-name&gt;
+           ([:VALUE {'{'&lt;lisp-type: T&gt;*'}'|
+                            &lt;lisp-type: T&gt;}
+           [:READ-DEPENDENTS (&lt;lisp-type: T&gt;*)]|
+           [:WRITE-DEPENDENTS (&lt;lisp-type: T&gt;*)]}*)
+
+Warning: The explanation facility is not sup-
+         ported, hence :documentation and
+         :explanation are ignored.
+
+The instance definition defines the single instances
+of the frames.
+
+See the page on RELATION-SPECIFICATION, too!
+
+example: &gt;(define-instance Louvre of museum)
+             :documentation &quot;&quot;
+             :explanation nil
+                place (:read-dependents
+                   (traffic-office-Paris))
+                theme ())
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc349.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc347.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-INSTANCE done --!>

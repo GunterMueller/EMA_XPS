@@ -1,0 +1,79 @@
+<html><head><title>DEFINE-CONSTRAINT</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc353.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc351.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>DEFINE-CONSTRAINT</strong></font></center><p>
+
+<PRE>DEFINE-CONSTRAINT
+=================
+
+syntax: (define-constraint &lt;constraint-name&gt; OF
+            &lt;constraint-pattern-name&gt;
+            [:DOCUMENTATION &lt;constr.doc.&gt;]
+            [:EXPLANATION &lt;expl-expr.&gt;]
+            [FOR-EACH
+            (&lt;bab-var&gt; &lt;bab-lisp-expression&gt;)]
+            WITH &lt;simple-predication&gt;+)
+
+Warning: The explanation facility is not sup-
+         ported, hence :documentation and
+         :explanation are ignored.
+
+With a constraint you define expressions for
+the parameters of the constraint-pattern. In the
+constraint-pattern is defined, how to link
+certain values. The constraint defines
+the concrete values for the link. You can link
+attribut-values of one or more instances.
+
+FOR-EACH expects a list with a variable which is
+followed by a lisp-expression. The lisp-expression
+has to evaluate to a list with valid conditions.
+For example: With the FOR-EACH declaration it is
+possible to make a constraint for every instance
+of a certain frame.
+
+WITH expects a simple predication. The predications
+in the WITH-clauses must not be based upon each other.
+There must exist exactly one WITH-clause for every
+parameter of the pattern.
+
+example: &gt;(define-constraint-pattern
+             calculate-real-costs)
+             (_real-costs _country-wishes)
+             :documentation &quot;calculates the
+             costs for a visit of the countries
+             _country-wishes.&quot;
+             RULES
+             (KNOWN (_country-wishes)
+             THEN (is _real-costs (calculate-client-
+             costs _country-wishes))))
+         &gt;(define-constraint calculate-costs-for-
+             client
+             OF calculate-real-costs
+             FOR-EACH (a-client (instances-of
+             'client)))
+             WITH
+             [complete-costs a-client _real-costs]
+             [destinations a-client _country-wishes])
+
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc353.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc351.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- DEFINE-CONSTRAINT done --!>

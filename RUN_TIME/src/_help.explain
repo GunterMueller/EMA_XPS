@@ -1,0 +1,108 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   _help.explain   Hans Groschwitz      08.12.94   !!
+!!                   Karsten Vossberg     20.07.95   !!
+!!                   Frans Ceelen         18.04.96   !!
+!!                                                   !!
+!!   Interface for graphic explanations when inspec- !!
+!!   ting the success of inferencing at runtime.     !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#ifdef __english
+>EXPLANATION-WINDOW
+.The Explanation Window
+.======================
+.
+.Warning: The babylon3 explanation facility is not
+.         emulated! In fact this is an interactive
+.         graphic front end to the Babylon2
+.         inference engine!
+.
+.To interactively start the EMA-XPS explanation
+.facility, two menus and their entries are avail-
+.able. This way public LISP functions may be acti-
+.vated, which may be programmed into the KB, too.
+.
+.- EXPLANATION
+.  -CLEAR
+.       Erases the contents of the explanation
+.       window.
+.  -INSPECT
+.       Displays a term selected from a ruleset.
+.  -HOW?
+.       Selection of a true fact and explanation on
+.       from which rules this fact has been used.
+.  -HOW-ALL?
+.       Selection of any fact and explanation on
+.       from which rules this fact has been used. 
+.  -WHY-NOT?
+.       Selection of an unprovable fact and corres-
+.       ponding explanation.
+.  -PROLOG-WHY?
+.       Shows and gives reasons for the recent state
+.       of the proof process (The evaluation of the
+.       prolog clauses).
+.
+.- VIEW
+.  - TRUE FACTS
+.       Displays all true facts.
+.  - UNPROVABLE FACTS
+.       Displays all unprovable facts.
+.  - ALL FACTS
+.       Displays all used facts.
+.  - RULE
+.       Selection and displaying of a rule from a
+.       ruleset.
+.
+#else
+>ERKL\304RUNGSFENSTER
+.Das Erkl\344rungsfenster
+.=====================   
+.
+.Hinweis: Der Erkl\344rungsmechanismus von babylon3
+.         wird nicht emuliert! Vielmehr stellt dies
+.         nur ein grafisches interaktives Frontend
+.         f\374r die Babylon2 Inferenzmaschine dar!
+.
+.Um die EMA-XPS-Erkl\344rungskomponente interaktiv zu
+.aktivieren, stehen zwei Men\374s und ihre Eintr\344ge
+.bereit. Damit lassen sich LISP-Funktionen starten,
+.die auch in die Wissensbasen einprogrammiert sein
+.k\366nnen.
+. 
+.- ERKL\304RUNG
+.  - L\326SCHEN
+.       Der Inhalt des Erkl\344rungs-Fensters wird
+.       gel\366scht.
+.  - INSPIZIERE
+.       Auswahl und Anzeige eines Terms aus einer
+.       Regelmenge.
+.  - WIE?
+.       Auswahl eines als wahr getesteten Fakts und
+.       Erkl\344rung, von welchen Regeln dieses Fakt
+.       verwendet worden ist.
+.  - WIE-ALLE?
+.       Auswahl eines beliebigen Fakts und Erkl\344rung,
+.       von welchen Regeln dieses Fakt verwendet wor-
+.       den ist.
+.  - WARUM-NICHT? 
+.       Auswahl eines unbeweisbaren Fakts und ent-
+.       sprechende Erkl\344rung.
+.  - WARUM?
+.       Zeigt und begr\374ndet den momentanen Status des
+.       Beweisprozesses (der Auswertung der Prolog-
+.       Klauseln).
+.
+.- ZEIGEN
+.  - WAHRE FAKTEN
+.       Anzeige aller als wahr gepr\374ften Fakten.
+.  - UNBEWEISBARE FAKTEN
+.       Anzeige aller unbewiesenen Fakten.
+.  - ALLE FAKTEN
+.       Anzeige aller verwendeten Fakten.
+.  - REGEL
+.       Auswahl und Anzeige einer Regel aus einer
+.       Regelmenge.
+.
+#endif
+
+!!! EOF

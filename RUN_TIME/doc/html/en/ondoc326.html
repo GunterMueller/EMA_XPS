@@ -1,0 +1,59 @@
+<html><head><title>SYMMETRIC-DIFFERENCE-OF-SETS</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc327.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc325.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>SYMMETRIC-DIFFERENCE-OF-SETS</strong></font></center><p>
+
+<PRE>SYMMETRIC-DIFFERENCE-OF-SETS
+============================
+
+syntax: (symmetric-difference-of-sets
+             &lt;evaluates-to &lt;set-of A (...)&gt;&gt;
+             &lt;evaluates-to &lt;set-of B (...)&gt;&gt;
+             [:TYPE &lt;evaluates-to type-name&gt;]
+             [:TEST &lt;lisp-type: function&gt;])
+
+        ==&gt; #&lt;set-of X (...)&gt;
+
+This function produces the symmetric difference of
+two sets.
+
+Warning: type checking may cause an error!
+
+         Speed UP:
+           (difference-of-sets
+             (union-of-sets set1 set2 
+                            :test test)
+             (intersection-of-sets
+                            set1 set2
+                            :test test)
+             :test test)
+
+
+ 
+example: &gt;(symmetric-difference-of-sets
+                   *capital-cities* *cities*)
+         #&lt;set-of CITY (...)&gt;
+ 
+         &gt;(set-to-list *)
+         (#&lt;CITY BONN&gt; #&lt;CITY DORTMUND&gt;)
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc327.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc325.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- SYMMETRIC-DIFFERENCE-OF-SETS done --!>

@@ -1,0 +1,8 @@
+CC='gcc'
+CPPFLAGS='-I/home/gunter/GM_LANGUAGES/AI_RESEARCH/EMA_XPA/RUN_TIME/tmp/include -Igllib'
+CFLAGS='-g -O2 -W -Wswitch -Wcomment -Wpointer-arith -Wimplicit -Wreturn-type -Wmissing-declarations -O -DUNICODE -DNO_READLINE -I.'
+CLFLAGS='-x none'
+LIBS='lisp.a -lncurses -ldl   -L/home/gunter/GM_LANGUAGES/AI_RESEARCH/EMA_XPA/RUN_TIME/tmp/lib -lsigsegv -lc'
+X_LIBS=''
+RANLIB='ranlib'
+FILES=' lisp.a width.o uniname.o localcharset.o'

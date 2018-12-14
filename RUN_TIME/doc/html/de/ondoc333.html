@@ -1,0 +1,63 @@
+<html><head><title>[OR</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc334.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc332.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>[OR</strong></font></center><p>
+
+<PRE>[OR
+===
+
+Syntax: [or &lt;Pr&auml;dikation&gt;*]
+
+OR sucht nacheinander, von links nach rechts, alle
+L&ouml;sungen der Pr&auml;dikationen. Falls OR mit suchen
+fertig ist, liefert es die gefundenen L&ouml;sungen und
+einen nicht-benutzbaren R&uuml;ckgabewert.
+Aussagen k&ouml;nnen die Wahrheitswerte Wahr, Falsch,
+und Unbekannt haben. Die folgende Tafel stellt dar,
+wie OR funktioniert:
+
+  -------------------------
+  |  or |  W  |  F  |  U  |
+  -------------------------
+  |  W  |  W  |  W  |  W  |
+  -------------------------
+  |  F  |  W  |  F  |  U  |
+  -------------------------
+  |  U  |  W  |  U  |  U  |
+  -------------------------
+
+Beispiel: &gt;(ask [or
+             [optionen SIEMENS-NIXDORF _optionen]
+             [optionen WANG _optionen]]
+             (kb-format &quot;~% ~A&quot; (name-of _optionen)))
+         1GB-FESTPLATTE
+         16MB-RAM
+         850MB-FESTPLATTE
+         8MB-RAM
+         NIL
+
+Der Interpreter sucht zuerst alle Bindungen f&uuml;r
+die erste Pr&auml;dikation, dann alle Bindungen f&uuml;r
+die zweite und gibt zum Schlu&szlig; alle gefundenen
+Bindungen aus!
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc334.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc332.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- [OR done --!>

@@ -1,0 +1,2178 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!    Unsupported babylon functions docu. file   !!
+!!    for the Help Utility                       !!
+!!                                               !!
+!!    help-cv converts "\nFF\n" to "\n\f\n" and  !!
+!!    outputs only lines beginning with a ".".   !!
+!!    This DOT is not transfered !!              !!
+!!                                               !!
+!!    The ">" works like "." but should be the   !!
+!!    first printed line of a topic. It is used  !!
+!!    as the BROWSE-keyword!                     !!
+!!                                               !!
+!!    The well known switch is __english         !!
+!!                                               !!
+!!    ======================================     !!
+!!                                               !!
+!!    WARNING: because of a flaw in GNU cpp you  !!
+!!    only should use backquotes in spite of     !!
+!!    quotes!                                    !!
+!!                                               !!
+!!         ae = \344            Ae = \304        !!
+!!         oe = \366            Oe = \326        !!
+!!         ue = \374            Ue = \334        !!
+!!         sz = \337     Paragraph = \247        !!
+!!                                               !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!
+! no heading FF allowed in front of the first page !!
+! ---------------------------------------------------
+!
+
+#ifdef __english   
+>UNSUPPORTED
+.Unsupported
+.===========
+.
+.EMA-XPS does not support the babylon3 explanation
+.facility and the knowledge editor programming inter-
+.face. All the same the corresponding function proto-
+.types are available as dummies. If evaluated, a hint
+.is given in the debugger. Execution of the KB is not
+.affected.
+.
+.
+.EXPLANATION FACILITY
+.--------------------
+.
+.babylon3 offers functions for creating individual
+.explanation facilities per KB. 
+.They may be separated into defining functions,
+.administrative functions, application functions,
+.and flow controlling functions.
+.
+.DEFINING FUNCTIONS
+.These functions allow creation of new types and
+.operators in the explanation facility.
+.
+.ADMINISTRATIVE FUNCTIONS
+.These functions may be splitted into inspecting,
+.modifying and adapting functions. They have
+.administrative character.
+.
+.APPLICATION FUNCTIONS
+.These are functions for displaying explanations.
+.
+.FLOW CONTROLLING FUNCTIONS
+.These functions control the flow of the process.
+.
+.
+.PROGRAMMING INTERFACE
+.---------------------
+.
+.The programming interface has to grant the practi-
+.cability of system modifications.
+.babylon3 offers interrogating functions, functions,
+.which change the structure of the knowledge base,
+.and functions for modifying the knowledge base.
+.
+
+#else
+>NICHT-UNTERST\334TZTES
+.Nicht Unterst\374tztes
+.===================
+.
+.EMA-XPS unterst\374tzt weder die babylon3 Erkl\344rungs-
+.komponente noch die Programmierschnittstelle zur
+.Erstellung von Wissenseditoren. Trotzdem sind ent-
+.sprechende Dummy-Funktionen realisiert worden. 
+.Wenn sie aufgerufen werden, schreiben sie einen Warn-
+.hinweis in das Fehlerwerkzeug. Die Ausf\374hrung der 
+.WB ist davon nicht betroffen.
+.
+.
+.ERKL\304RUNGSKOMPONENTE
+.--------------------
+.
+.babylon3 bietet Funktionen zur Erstellung einer WB-
+.individuellen Erkl\344rungskomponente.
+.Dabei wird unterschieden zwischen Definitions-
+.funktionen, Verwaltungsfunktionen, Anwendungs-
+.funktionen und Ablauffunktionen.
+.
+.DEFINITIONSFUNKTIONEN
+.Diese Funktionen erm\366glichen die Aufnahme neuer
+.Typen und Operatoren in eine Erkl\344rungskomponente.
+.
+.VERWALTUNGSFUNKTIONEN
+.Diese Funktionen sind in inspizierende, modifizierende
+.und anpassende Funktionen aufgeteilt. Sie haben ver-
+.waltenden Charakter.
+.
+.ANWENDUNGSFUNKTIONEN
+.Diese Funktionen sind darstellende Funktionen.
+.
+.ABLAUFFUNKTIONEN
+.Diese Funktionen steuern den Ablauf.
+.
+.
+.PROGRAMMIERSCHNITTSTELLE
+.------------------------
+.
+.Die Programmierschnittstelle soll die Durchf\374hrung
+.von Systemmodifikationen gew\344hrleisten.
+.babylon3 bietet Funktionen f\374r Abfragen, Funktionen,
+.die eine Wissensbasis strukturell ver\344ndern, sowie
+.Funktionen zur Pflege von Wissenbasen.
+.
+#endif
+
+FF
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   babylon3 explanation facility                 !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+>CHANGE-HEURISTIC-THRESHOLD
+.CHANGE-HEURISTIC-THRESHOLD
+.==========================
+#ifdef __english
+.
+.Syntax: (change-heuristic-threshold ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (change-heuristic-threshold ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>CHANGE-HEURISTIC-WEIGHT
+.CHANGE-HEURISTIC-WEIGHT
+.=======================
+#ifdef __english
+.
+.Syntax: (change-heuristic-weight ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the 
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (change-heuristic-weight ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>EXPLANATIONS-OF-CLASS
+.EXPLANATIONS-OF-CLASS
+.=====================
+#ifdef __english
+.
+.Syntax: (explanations-of-class ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (explanations-of-class ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>EXPLANATIONS-OF-TYPE
+.EXPLANATIONS-OF-TYPE
+.====================
+#ifdef __english
+.
+.Syntax: (explanations-of-type ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (explanations-of-type ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>EXPLANATION-OPERATOR
+.EXPLANATION-OPERATOR
+.====================
+#ifdef __english
+.
+.Syntax: (explanation-operator ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (explanation-operator ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>INSERT-EXPLANATIONS-OF-CLASS
+.INSERT-EXPLANATIONS-OF-CLASS
+.============================
+#ifdef __english
+.
+.Syntax: (insert-explanations-of-class ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (insert-explanations-of-class ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>INSERT-EXPLANATIONS-OF-TYPE
+.INSERT-EXPLANATIONS-OF-TYPE
+.===========================
+#ifdef __english
+.
+.Syntax: (insert-explanations-of-type ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (insert-explanations-of-type ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>INSERT-EXPLANATION-OPERATOR
+.INSERT-EXPLANATION-OPERATOR
+.===========================
+#ifdef __english
+.
+.Syntax: (insert-explanation-operator ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (insert-explanation-operator ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>REMOVE-EXPLANATIONS-OF-CLASS
+.REMOVE-EXPLANATIONS-OF-CLASS
+.============================
+#ifdef __english
+.
+.Syntax: (remove-explanations-of-class ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (remove-explanations-of-class ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>REMOVE-EXPLANATIONS-OF-TYPE
+.REMOVE-EXPLANATIONS-OF-TYPE
+.===========================
+#ifdef __english
+.
+.Syntax: (remove-explanations-of-type ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (remove-explanations-of-type ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>REMOVE-EXPLANATION-OPERATOR
+.REMOVE-EXPLANATION-OPERATOR
+.===========================
+#ifdef __english
+.
+.Syntax: (remove-explanation-operator ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (remove-explanation-operator ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>SORT-OPERATORS-OF-TYPE
+.SORT-OPERATORS-OF-TYPE
+.======================
+#ifdef __english
+.
+.Syntax: (sort-operators-of-type ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (sort-operators-of-type ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>DEFINE-HEURISTIC-OP
+.DEFINE-HEURISTIC-OP
+.===================
+#ifdef __english
+.
+.Syntax: (define-heuristic-op ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (define-heuristic-op ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>DEFINE-HEURISTIC-TYPE
+.DEFINE-HEURISTIC-TYPE
+.=====================
+#ifdef __english
+.
+.Syntax: (define-heuristic-type ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (define-heuristic-type ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>DEFINE-PLAN-OP
+.DEFINE-PLAN-OP
+.==============
+#ifdef __english
+.
+.Syntax: (define-plan-op ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (define-plan-op ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>DEFINE-PLAN-TYPE
+.DEFINE-PLAN-TYPE
+.================
+#ifdef __english
+.
+.Syntax: (define-plan-type ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (define-plan-type ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>DEFINE-QUESTION-OP
+.DEFINE-QUESTION-OP
+.==================
+#ifdef __english
+.
+.Syntax: (define-question-op ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (define-question-op ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>DEFINE-QUESTION-TYPE
+.DEFINE-QUESTION-TYPE
+.====================
+#ifdef __english
+.
+.Syntax: (define-question-type ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (define-question-type ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>DISPLAY-EXPLANATION
+.DISPLAY-EXPLANATION
+.===================
+#ifdef __english
+.
+.Syntax: (display-explanation ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (display-explanation ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>DISPLAY-QUESTIONS
+.DISPLAY-QUESTIONS
+.=================
+#ifdef __english
+.
+.Syntax: (display-questions ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (display-questions ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>DO-INFORM
+.DO-INFORM
+.=========
+#ifdef __english
+.
+.Syntax: (do-inform ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (do-inform ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>ENTITY
+.ENTITY
+.======
+#ifdef __english
+.
+.Syntax: entity
+.
+.This symbol is part of the babylon 3 explanation
+.facility.
+.
+.The Symbols 'entity and 'result are bound locally
+.within the babylon-3 explanation facility. Hence
+.they need not be emulated outside!
+.(see the symbol SELF in Babylon2 behaviors)
+.
+#else
+.
+.Syntax: entity
+.
+.Dieses Symbol ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Die Symbole 'entity und 'result sind lokal in der
+.babylon-3 Erkl\344rungskomponente gebunden. Deswegen
+.brauchen sie au\337erhalb nicht emuliert werden!
+.(Siehe Symbol SELF in Babylon2 Behaviors)
+.
+#endif
+
+FF
+
+>EXPLANATIONS
+.EXPLANATIONS
+.============
+#ifdef __english
+.
+.Syntax: (explanations ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (explanations ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>EXPLANATION-ASK
+.EXPLANATION-ASK
+.===============
+#ifdef __english
+.
+.Syntax: (explanation-ask ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (explanation-ask ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>GENERATE-EXPLANATION
+.GENERATE-EXPLANATION
+.====================
+#ifdef __english
+.
+.Syntax: (generate-explanation ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (generate-explanation ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>GENERATE-QUESTIONS
+.GENERATE-QUESTIONS
+.==================
+#ifdef __english
+.
+.Syntax: (generate-questions ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (generate-questions ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>INSERT-FILE-ENTRY
+.INSERT-FILE-ENTRY
+.=================
+#ifdef __english
+.
+.Syntax: (insert-file-entry ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (insert-file-entry ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>IS-EXPLAINABLE
+.IS-EXPLAINABLE
+.==============
+#ifdef __english
+.
+.Syntax: (is-explainable ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (is-explainable ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>IS-IDENTIFIER-OF
+.IS-IDENTIFIER-OF
+.================
+#ifdef __english
+.
+.Syntax: (is-identifier-of ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (is-identifier-of ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>ONLY-EXPLAINABLES
+.ONLY-EXPLAINABLES
+.=================
+#ifdef __english
+.
+.Syntax: (only-explainables ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (only-explainables ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>PERFORM-EXPLANATION
+.PERFORM-EXPLANATION
+.===================
+#ifdef __english
+.
+.Syntax: (perform-explanation ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (perform-explanation ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>PERFORM-QUESTIONS
+.PERFORM-QUESTIONS
+.=================
+#ifdef __english
+.
+.Syntax: (perform-questions ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (perform-questions ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>RESULT
+.RESULT
+.======
+#ifdef __english
+.
+.Syntax: result
+.
+.This symbol is part of the babylon 3 explanation
+.facility.
+.
+.The Symbols 'entity and 'result are bound locally
+.within the babylon-3 explanation facility. Hence
+.they need not be emulated outside!
+.(see the symbol SELF in Babylon2 behaviors)
+.
+#else
+.
+.Syntax: result
+.
+.Dieses Symbol ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Die Symbole 'entity und 'result sind lokal in der
+.babylon-3 Erkl\344rungskomponente gebunden. Deswegen
+.brauchen sie au\337erhalb nicht emuliert werden!
+.(Siehe Symbol SELF in Babylon2 Behaviors)
+.
+#endif
+
+FF
+
+>RETRIEVE-FILE-ENTRY
+.RETRIEVE-FILE-ENTRY
+.===================
+#ifdef __english
+.
+.Syntax: (retrieve-file-entry ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (retrieve-file-entry ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>TEMPLATE-LEVELS
+.TEMPLATE-LEVELS
+.===============
+#ifdef __english
+.
+.Syntax: (template-levels ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (template-levels ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>TEMPLATE-OF-LEVEL
+.TEMPLATE-OF-LEVEL
+.=================
+#ifdef __english
+.
+.Syntax: (template-of-level ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (template-of-level ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>CURRENT-STEP
+.CURRENT-STEP
+.============
+#ifdef __english
+.
+.Syntax: (current-step ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (current-step ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>IS-STEP
+.IS-STEP
+.=======
+#ifdef __english
+.
+.Syntax: (is-step ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (is-step ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>STEP-CHILD
+.STEP-CHILD
+.==========
+#ifdef __english
+.
+.Syntax: (step-child ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (step-child ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>STEP-CHILDREN
+.STEP-CHILDREN
+.=============
+#ifdef __english
+.
+.Syntax: (step-children ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (step-children ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>STEP-OBJECT
+.STEP-OBJECT
+.===========
+#ifdef __english
+.
+.Syntax: (step-object ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (step-object ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>STEP-PARENT
+.STEP-PARENT
+.===========
+#ifdef __english
+.
+.Syntax: (step-parent ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (step-parent ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>STEP-PARENTS
+.STEP-PARENTS
+.============
+#ifdef __english
+.
+.Syntax: (step-parents ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (step-parents ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>STEP-RESULT
+.STEP-RESULT
+.===========
+#ifdef __english
+.
+.Syntax: (step-result ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (step-result ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>STEP-SELF
+.STEP-SELF
+.=========
+#ifdef __english
+.
+.Syntax: (step-self ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (step-self ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>STEP-SIBLING
+.STEP-SIBLING
+.============
+#ifdef __english
+.
+.Syntax: (step-sibling ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (step-sibling ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>STEP-TYPEP
+.STEP-TYPEP
+.==========
+#ifdef __english
+.
+.Syntax: (step-typep ...)
+.
+.This function is part of the babylon 3 explanation
+.facility.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (step-typep ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Erkl\344rungskomponente.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!   babylon3 programming interface                !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+>CHANGE-RULESET-OF
+.CHANGE-RULESET-OF
+.=================
+#ifdef __english
+.
+.Syntax: (change-ruleset-of ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (change-ruleset-of ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>CHANGE-FRAME-OF
+.CHANGE-FRAME-OF
+.===============
+#ifdef __english
+.
+.Syntax: (change-frame-of ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (change-frame-of ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>CHANGE-CONSTRAINT-PATTERN-OF
+.CHANGE-CONSTRAINT-PATTERN-OF
+.============================
+#ifdef __english
+.
+.Syntax: (change-constraint-pattern-of ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (change-constraint-pattern-of ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>CREATE
+.CREATE
+.======
+#ifdef __english
+.
+.Syntax: (create ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.It has different syntaxs for frames, behaviors,
+.constraints, constraint patterns, included lisp
+.files, instances, rules, rule sets and tasks.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (create ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Sie hat veschiedene Syntaxen f\374r Rahmen, Behaviors,
+.Constraints, Constraint-Muster, eingebundene lisp-
+.Dateien, Instanzen, Regeln, Regelmengen und Tasks.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>CREATE-A
+.CREATE-A
+.========
+#ifdef __english
+.
+.Syntax: (create-a ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.It has different syntaxs for frames, behaviors,
+.constraints, constraint patterns, included lisp
+.files, instances, rules, rule sets and tasks.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (create-a ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Sie hat veschiedene Syntaxen f\374r Rahmen, Behaviors,
+.Constraints, Constraint-Muster, eingebundene lisp-
+.Dateien, Instanzen, Regeln, Regelmengen und Tasks.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>DEFINING-FORM
+.DEFINING-FORM
+.=============
+#ifdef __english
+.
+.Syntax: (defining-form ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (defining-form ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>ERASE
+.ERASE
+.=====
+#ifdef __english
+.
+.Syntax: (erase ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (erase ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>EVALUATE
+.EVALUATE
+.========
+#ifdef __english
+.
+.Syntax: (evaluate ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (evaluate ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>EVALUATE-KB-ELEMENTS
+.EVALUATE-KB-ELEMENTS
+.====================
+#ifdef __english
+.
+.Syntax: (evaluate-kb-elements ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (evaluate-kb-elements ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>EVALUATE-MODIFIED-KB-ELEMENTS
+.EVALUATE-MODIFIED-KB-ELEMENTS
+.=============================
+#ifdef __english
+.
+.Syntax: (evaluate-modified-kb-elements ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (evaluate-modified-kb-elements ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>MODIFIEDP
+.MODIFIEDP
+.=========
+#ifdef __english
+.
+.Syntax: (modifiedp ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (modifiedp ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>MODIFIED-KB-ELEMENTS-P
+.MODIFIED-KB-ELEMENTS-P
+.======================
+#ifdef __english
+.
+.Syntax: (modified-kb-elements-p ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (modified-kb-elements-p ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>KB-ELEMENTS
+.KB-ELEMENTS
+.===========
+#ifdef __english
+.
+.Syntax: (kb-elements ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (kb-elements ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>THE-KB-ELEMENTS
+.THE-KB-ELEMENTS
+.===============
+#ifdef __english
+.
+.Syntax: (the-kb-elements ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (the-kb-elements ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>KB-ELEMENTS-OF-TYPE
+.KB-ELEMENTS-OF-TYPE
+.===================
+#ifdef __english
+.
+.Syntax: (kb-elements-of-type ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (kb-elements-of-type ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>THE-KB-ELEMENTS-OF-TYPE
+.THE-KB-ELEMENTS-OF-TYPE
+.=======================
+#ifdef __english
+.
+.Syntax: (the-kb-elements-of-type ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (the-kb-elements-of-type ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>RENAME
+.RENAME
+.======
+#ifdef __english
+.
+.Syntax: (rename ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (rename ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+FF
+
+>MOVE
+.MOVE
+.====
+#ifdef __english
+.
+.Syntax: (move ...)
+.
+.This function is part of the babylon 3 programming
+.interface.
+.
+.Warning: It is not supported by EMA-XPS v2.1 at the
+.         moment! This function call only creates a
+.         warning hint in the debugger. Execution
+.         of the KB is not affected.
+.
+#else
+.
+.Syntax: (move ...)
+.
+.Diese Funktion ist Bestandteil der babylon 3 
+.Programmierschnittstelle.
+.
+.Warnung: Sie wird derzeit von EMA-XPS v2.1 nicht
+.         unterst\374tzt! Der Aufruf bewirkt nur einen
+.         Warnhinweis im Fehlerwerkzeug, die Abarbei-
+.         tung wird ansonsten unver\344ndert fortgef\374hrt.
+.
+#endif
+
+
+!
+! -----------------------------------------------------
+! no trailing FF allowed at the end of the last page !!
+!
+!!! EOF
+

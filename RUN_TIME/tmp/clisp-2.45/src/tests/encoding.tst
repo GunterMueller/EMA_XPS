@@ -1,0 +1,1 @@
+../../tests/encoding.tst

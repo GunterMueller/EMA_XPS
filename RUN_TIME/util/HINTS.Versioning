@@ -1,0 +1,35 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+> find . -type f -exec fgrep -nHi Copyright {} \;
+
+./src/cl/main.cl:791:    ~%;;    Copyright (c) 1989-2008 Hans Groschwitz~
+./src/_help:53:.Copyright \251 1989-2008.
+./doc/html/startseite.html:41:Copyright (c) 1989 - 2008 Hans Groschwitz
+./doc/html/index.html:41:Copyright (c) 1989 - 2008 Hans Groschwitz
+./COPYRIGHT:5:              Copyright (c) 1989 - 2008 Hans Groschwitz
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+> find . -type f -exec fgrep -nH 2.1.4 {} \;
+
+
+./NOTES:29:Version 2.1.4      09/96
+
+./src/make-ema-xps.cl:12:(defconstant *emaxps-version* "EMA-XPS v2.1.4")
+
+./src/_xres:83:MainMenu.title: EMA-XPS v2.1.4
+./src/_xres:210:*** EMA-XPS v2.1.4 ***
+./src/_xres:216:*** EMA-XPS v2.1.4 ***
+
+./src/_help:47:.Version 2.1.4
+./src/_help:78:.Version 2.1.4
+
+./doc/html/startseite.html:34:*** EMA-XPS v2.1.4 ***
+
+./doc/html/index.html:34:*** EMA-XPS v2.1.4 ***
+
+./doc/man/ema-xps.1:3:EMA-XPS v2.1.4 \- A Hybrid Graphic Expert System Shell
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

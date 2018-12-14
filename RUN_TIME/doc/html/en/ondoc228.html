@@ -1,0 +1,41 @@
+<html><head><title>KB-CONFIRM</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc229.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc227.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>KB-CONFIRM</strong></font></center><p>
+
+<PRE>KB-CONFIRM
+==========
+
+syntax: (kb-confirm &lt;babylon-format-string&gt;
+                    {&lt;babylon-format-arg&gt; ...})
+
+This function produces a confirmation-dialogue in an
+own window. You can choose between yes and no.
+If you confirm then T will be returned, otherwise NIL.
+
+example: &gt;(ask [city _x]
+               (kb-confirm &quot;Would you like to
+               visit ~A ?&quot;
+               (name-of _x)))
+         Would you like to visit New-York ?
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc229.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc227.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- KB-CONFIRM done --!>

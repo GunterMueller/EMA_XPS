@@ -1,0 +1,47 @@
+<html><head><title>RETELL</title></head>
+<!-- This file has been created automatically by online2html -->
+<BODY background="glyph.gif" VLINK="#A52A2A" LINK="#FF0000">
+<font size="4">
+
+<A HREF="ondoc342.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc340.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+<br clear=all>
+<hr>
+
+<p><center><font size="6"><strong>RETELL</strong></font></center><p>
+
+<PRE>RETELL
+======
+
+Syntax: (retell &lt;simple-predication&gt; old-value)
+           ::= (retell [&lt;relation-name&gt; &lt;instance&gt;
+               &lt;new-value&gt;] old-value)
+
+With RETELL it is possible to change the values of
+instances. The old instance value can be replaced
+by a new value. If the old value is unknown, it can
+be replaced by the anonymus variable _.
+RETELL returns T, if the knowledge base has been
+changed, otherwise NIL.
+
+Example: &gt;(retell [options Siemens-Nixdorf
+             1,6GB-harddisk] 1GB-harddisk)
+         T
+
+In this case the 1GB-harddisk of the Siemens-
+Nixdorf-computer will be replaced by a
+1,6GB-harddisk!
+
+</PRE>
+
+<hr>
+
+<A HREF="ondoc342.html"><IMG SRC="nextpage.gif" align=right></A>
+<A HREF="ondoc340.html"><IMG SRC="prevpage.gif" align=right></A>
+<A HREF="ref.html"><IMG SRC="GoToTop.gif" align=left></A>
+<center><i>EMA-XPS Online</i></center>
+</font></body></html>
+
+<!-- RETELL done --!>

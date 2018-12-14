@@ -1,0 +1,91 @@
+LOGFILE: testing PORTING
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+1) Building CLISP
+2) Building Babylon 2.3 inference engine = Lisp Image
+3) Building EMA-XPS
+4) Running ui-demo
+
+
+
+wrds2.urz.uni-wuppertal.de
+==========================
+
+date
+Tue Aug  6 15:10:10 MET DST 1996
+
+uname -a
+OSF1 wrds2.urz.uni-wuppertal.de V3.2 148 alpha
+
+gcc: not present
+cc: preprocessor failed reading # directives of CLISP
+cc: failed setting up gcc-2.6.3:
+./xgcc -B./  -DIN_GCC   -g -I./include    -DNO_MEM -DNO_LONG_DOUBLE_IO -O0
+-I. -c ./enquire.c
+mips-tfile, /tmp/ccaaAoma.s:0 index 4294967295 is out of bounds for lstrs,
+max is 0, mips-tfile.c line# 4642
+*** Exit 1
+
+####### testing aborted :(
+
+
+
+wrcs1.urz.uni-wuppertal.de
+==========================
+
+date
+Wed Aug  7 14:31:28 MDT 1996
+
+uname -a
+IRIX wrcs1 5.3 11091811 IP19 mips    # Challenge
+
+gcc -v
+Reading specs from /usr/local/lib/gcc-lib/mips-sgi-irix5.3/2.7.0/specs
+gcc version 2.7.0
+
+clisp-1996-05-30
+succeeded, after some inpredictable failures (system load?)
+
+SourceDistrib:
+Modifications in util/cc_X11, util/ld_X11
+usleep not present! working around with nanosleep
+rm -R fails ...
+Placing of comments in Makefiles!
+looking for PTYs works different (see xterm's main.c)
+xgrf3/grf3[s]ipc.c shmat returns void* vs. char* ErrorStop replaced by a
+   warning, commenting the extern declarations (ugly)
+
+######## testing succeeded!
+
+
+
+wehf47.elektro.uni-wuppertal.de
+===============================
+
+date
+Wed Sep 11 21:28:36 METDST 1996
+
+uname -a
+HP-UX wehf47 B.10.01 A 9000/715 ...
+PA-RISC-CPU, 33 MHz
+X11R5, Motif1.2
+
+gcc -v
+Reading specs from
+/sw/hp700_ux90/gcc-2.7.2/lib/gcc-lib/hppa1.1-hp-hpux9.05/2.7.2/specs
+gcc version 2.7.2
+
+clisp-1996-05-30
+succeeded, although the configure script broke in testing avcalls
+and removing X11 support:  ./configure --without-x
+$(MODULES) is empty, so one block has to be commented out in makefile!
+
+SourceDistrib:
+no usleep, used nanosleep instead
+cpp failed processing help/xres files, moved to 'cc_X11 -E'
+
+######## testing succeeded!
+
+
+
+.
